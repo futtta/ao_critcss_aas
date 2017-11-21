@@ -27,13 +27,13 @@ $ao_css_defer = get_option('autoptimize_css_defer');
 $ao_ccss_key  = get_option('autoptimize_ccss_key');
 
 // Add hidden submenu and register allowed settings
-add_action('admin_menu','ao_ccss_settings_init');
 function ao_ccss_settings_init() {
   $hook = add_submenu_page(null, 'AO critcss', 'AO critcss', 'manage_options', 'ao_ccss_settings', 'ao_ccss_settings');
   register_setting('ao_css_options_group',  'autoptimize_css_defer_inline');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_key');
   register_setting('ao_ccss_queue_group',   'autoptimize_ccss_queue');
 }
+add_action('admin_menu','ao_ccss_settings_init');
 
 // Add admin styles and scripts
 function ao_ccss_admin_assets($hook) {
@@ -54,10 +54,10 @@ function ao_ccss_admin_assets($hook) {
 add_action('admin_enqueue_scripts', 'ao_ccss_admin_assets');
 
 // Hook up settings tab
-add_filter('autoptimize_filter_settingsscreen_tabs','ao_ccss_add_tab');
 function ao_ccss_add_tab($in) {
   $in = array_merge($in, array('ao_ccss_settings' => __('⚡ CriticalCSS', 'ao_ccss')));
   return $in;
 }
+add_filter('autoptimize_filter_settingsscreen_tabs','ao_ccss_add_tab');
 
 ?>
