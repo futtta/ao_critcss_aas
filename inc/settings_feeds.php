@@ -54,7 +54,7 @@
 // Fetch Futta news feeds
 function getFutttaFeeds($url) {
   if (apply_filters('autoptimize_settingsscreen_remotehttp', true)) {
-    $rss      = fetch_feed( $url );
+    $rss      = fetch_feed($url);
     $maxitems = 0;
 
     if ( ! is_wp_error( $rss ) ) {
