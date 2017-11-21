@@ -32,13 +32,13 @@
       </h2>
       <div id="futtta_feed">
         <div id="autoptimizefeed">
-          <?php getFutttaFeeds("http://feeds.feedburner.com/futtta_autoptimize"); ?>
+          <?php getFutttaFeeds('http://feeds.feedburner.com/futtta_autoptimize'); ?>
         </div>
         <div id="wordpressfeed">
-          <?php getFutttaFeeds("http://feeds.feedburner.com/futtta_wordpress"); ?>
+          <?php getFutttaFeeds('http://feeds.feedburner.com/futtta_wordpress'); ?>
         </div>
         <div id="webtechfeed">
-          <?php getFutttaFeeds("http://feeds.feedburner.com/futtta_webtech"); ?>
+          <?php getFutttaFeeds('http://feeds.feedburner.com/futtta_webtech'); ?>
         </div>
       </div>
   </div>
