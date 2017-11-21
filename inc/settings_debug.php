@@ -1,35 +1,71 @@
+<?php
+
+// Attach wpdb() object
+global $wpdb;
+
+// Query AO's options
+$ao_options = $wpdb->get_results('
+  SELECT option_name  AS name,
+         option_value AS value
+  FROM ' . $wpdb->options . '
+  WHERE option_name LIKE "autoptimize_%%"
+  ORDER BY name
+', ARRAY_A);
+
+// Query AO's transients
+$ao_trans = $wpdb->get_results('
+  SELECT option_name  AS name,
+         option_value AS value
+  FROM ' . $wpdb->options . '
+  WHERE option_name LIKE "_transient_autoptimize_%%"
+     OR option_name LIKE "_transient_timeout_autoptimize_%%"
+', ARRAY_A);
+
+// Render debug panel if there's something to show
+if ($ao_options || $ao_trans) {
+?>
 <!-- BEGIN: Settings Debug -->
 <ul>
   <li class="itemDetail">
-    <h2 class="itemTitle"><?php _e('Debug Stuff <small>(This is going to disappear when dev is done!)</small>', 'autoptimize'); ?></h2>
-    <h4>Current Settings:</h4>
-    <table class="form-table">
+    <h2 class="itemTitle"><?php _e('Autoptimize Debug Stuff <small>(This is going to disappear when dev is done!)</small>', 'autoptimize'); ?></h2>
+
+    <?php
+    // Render options
+    if ($ao_options) { ?>
+    <h4><?php _e('Options', 'autoptimize'); ?>:</h4>
+    <table class="form-table debug">
+      <?php foreach($ao_options as $option) { ?>
       <tr valign="top">
         <th scope="row">
-          autoptimize_ccss_key:
+          <?php echo $option['name']; ?>
         </th>
         <td>
-          <?php echo (empty($ao_ccss_key) ? 'no key' : $ao_ccss_key); ?>
+          <?php echo $option['value']; ?>
         </td>
       </tr>
+      <?php } ?>
     </table>
     <hr />
-    <h4>Transients:</h4>
-    <table class="form-table">
+    <?php }
+
+    // Render transients
+    if ($ao_trans) { ?>
+     <h4><?php _e('Transients', 'autoptimize'); ?>:</h4>
+    <table class="form-table debug">
+      <?php foreach($ao_trans as $trans) { ?>
       <tr valign="top">
         <th scope="row">
-          <?php echo 'autoptimize_ccss_licstat_' . md5($ao_ccss_key) . ':'; ?>
+          <?php echo $trans['name']; ?>
         </th>
         <td>
-          <?php echo (empty(get_transient('autoptimize_ccss_licstat_' . md5($ao_ccss_key))) ? 'not licensed' : get_transient('autoptimize_ccss_licstat_' . md5($ao_ccss_key))); ?>
+          <?php echo $trans['value']; ?>
         </td>
       </tr>
+      <?php } ?>
     </table>
-    <hr />
-    <h4>Array Content: autoptimize_ccss_queue</h4>
-    <pre>
-      <?php print_r(get_option('autoptimize_ccss_queue')); ?>
-    </pre>
+    <?php } ?>
+
   </li>
-</li>
+</ul>
 <!-- END: Settings Debug -->
+<?php } ?>

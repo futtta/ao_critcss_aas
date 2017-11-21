@@ -41,6 +41,10 @@
 .itemTitle {
   margin-top: 0;
 }
+.form-table.debug th,
+.form-table.debug td {
+  padding: 5px 10px;
+}
 input[type=url]:invalid {color: red; border-color:red;} .form-table th{font-weight:100;}
 #autoptimize_main .cb_label {display: block; padding-left: 25px; text-indent: -25px;}
 
