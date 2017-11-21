@@ -9,7 +9,7 @@
           autoptimize_ccss_key:
         </th>
         <td>
-          <?php echo (empty($ao_ccss_key) ? 'empty' : $ao_ccss_key); ?>
+          <?php echo (empty($ao_ccss_key) ? 'no key' : $ao_ccss_key); ?>
         </td>
       </tr>
     </table>
@@ -18,10 +18,10 @@
     <table class="form-table">
       <tr valign="top">
         <th scope="row">
-          <?php echo 'ao_ccss_lic_status_' . md5($ao_ccss_key) . ':'; ?>
+          <?php echo 'autoptimize_ccss_licstat_' . md5($ao_ccss_key) . ':'; ?>
         </th>
         <td>
-          <?php echo (empty(get_transient('ao_ccss_lic_status_' . md5($ao_ccss_key))) ? 'empty' : get_transient('ao_ccss_lic_status_' . md5($ao_ccss_key))); ?>
+          <?php echo (empty(get_transient('autoptimize_ccss_licstat_' . md5($ao_ccss_key))) ? 'not licensed' : get_transient('autoptimize_ccss_licstat_' . md5($ao_ccss_key))); ?>
         </td>
       </tr>
     </table>

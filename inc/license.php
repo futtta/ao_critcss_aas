@@ -2,7 +2,7 @@
 
 // Check CriticalCSS license
 function ccss_license_check($plugin='ao_critcsscom', $version='0.9', $licenseKey) {
-  $licenseStatus = get_transient('ao_ccss_lic_status_' . md5($licenseKey));
+  $licenseStatus = get_transient('autoptimize_ccss_licstat_' . md5($licenseKey));
 
   if ($licenseKey && $licenseStatus && $licenseStatus['state'] === 'valid') {
     return true;
@@ -49,7 +49,7 @@ function get_license_status($licenseKey, $plugin, $version) {
 
   if ($checkStatus) {
     if ($licenseStatus['state'] === 'valid') {
-      set_transient('ao_ccss_lic_status_' . md5($licenseKey), $licenseStatus, DAY_IN_SECONDS);
+      set_transient('autoptimize_ccss_licstat_' . md5($licenseKey), $licenseStatus, DAY_IN_SECONDS);
     }
     return $licenseStatus;
   } else {
