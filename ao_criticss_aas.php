@@ -35,14 +35,23 @@ function ao_ccss_settings_init() {
   register_setting('ao_ccss_queue_group',   'autoptimize_ccss_queue');
 }
 
-// Add admin styles
-function ao_ccss_admin_style($hook) {
+// Add admin styles and scripts
+function ao_ccss_admin_assets($hook) {
   if($hook != 'settings_page_ao_ccss_settings') {
     return;
   }
-  wp_enqueue_style('ao_ccss_admin_css', plugins_url('css/admin.css', __FILE__));
+
+  // Stylesheets
+  wp_enqueue_style('unslider',          plugins_url('css/unslider.css',      __FILE__));
+  wp_enqueue_style('unslider-dots',     plugins_url('css/unslider-dots.css', __FILE__));
+  wp_enqueue_style('ao_ccss_admin_css', plugins_url('css/admin.css',        __FILE__));
+
+  // Scripts
+  wp_enqueue_script('jqcookie',              plugins_url('js/jquery.cookie.min.js', __FILE__), array('jquery'),null,true);
+  wp_enqueue_script('unslider',              plugins_url('js/unslider-min.js',      __FILE__), array('jquery'),null,true);
+  wp_enqueue_script('ao_ccss_admin_scripts', plugins_url('js/admin.js',             __FILE__), array('jquery'),null,true);
 }
-add_action('admin_enqueue_scripts', 'ao_ccss_admin_style');
+add_action('admin_enqueue_scripts', 'ao_ccss_admin_assets');
 
 // Hook up settings tab
 add_filter('autoptimize_filter_settingsscreen_tabs','ao_ccss_add_tab');
