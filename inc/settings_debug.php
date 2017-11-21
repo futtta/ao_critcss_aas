@@ -1,7 +1,7 @@
 <!-- BEGIN: Settings Debug -->
 <ul>
   <li class="itemDetail">
-    <h2 class="itemTitle"><?php _e('Debug Stuff <small>(This is going to disappear when dev is done!)</small>', 'ao_ccss'); ?></h2>
+    <h2 class="itemTitle"><?php _e('Debug Stuff <small>(This is going to disappear when dev is done!)</small>', 'autoptimize'); ?></h2>
     <h4>Current Settings:</h4>
     <table class="form-table">
       <tr valign="top">
