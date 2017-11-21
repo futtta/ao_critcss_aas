@@ -10,7 +10,7 @@
         if (!is_wp_error($banner_resp)) {
           if (wp_remote_retrieve_response_code($banner_resp)=="200") {
               $AO_banner = wp_kses_post(wp_remote_retrieve_body($banner_resp));
-              set_transient('autoptimize_banner',$AO_banner,DAY_IN_SECONDS);
+              set_transient('autoptimize_banner', $AO_banner, DAY_IN_SECONDS);
           }
         }
       }
@@ -42,7 +42,11 @@
         </div>
       </div>
   </div>
-  <div style="float:right;margin:50px 15px;"><a href="http://blog.futtta.be/2013/10/21/do-not-donate-to-me/" target="_blank"><img width="100px" height="85px" src="<?php echo plugins_url().'/'.plugin_basename(dirname(__FILE__)).'/../img/do_not_donate_smallest.png'; ?>" title="<?php _e('Do not donate for this plugin!', 'autoptimize'); ?>"></a></div>
+  <div style="float:right;margin:50px 15px;">
+    <a href="http://blog.futtta.be/2013/10/21/do-not-donate-to-me/" target="_blank">
+      <img width="100px" height="85px" src="<?php echo plugins_url() . '/' . plugin_basename(dirname(__FILE__)) . '/../img/do_not_donate_smallest.png'; ?>" title="<?php _e('Do not donate for this plugin!', 'autoptimize'); ?>">
+    </a>
+  </div>
 </div>
 <!-- END: Settings Futta Feeds -->
 
@@ -54,19 +58,19 @@ function getFutttaFeeds($url) {
     $maxitems = 0;
 
     if ( ! is_wp_error( $rss ) ) {
-      $maxitems  = $rss->get_item_quantity( 7 ); 
-      $rss_items = $rss->get_items( 0, $maxitems );
+      $maxitems  = $rss->get_item_quantity(7); 
+      $rss_items = $rss->get_items(0, $maxitems);
     }
     ?>
     <ul>
       <?php if ( $maxitems == 0 ) : ?>
           <li><?php _e('No items', 'autoptimize'); ?></li>
       <?php else : ?>
-        <?php foreach ( $rss_items as $item ) : ?>
+        <?php foreach ($rss_items as $item) : ?>
           <li>
-            <a href="<?php echo esc_url( $item->get_permalink() ); ?>"
-              title="<?php printf( __('Posted %s', 'autoptimize'), $item->get_date('j F Y | g:i a') ); ?>">
-              <?php echo esc_html( $item->get_title() ); ?>
+            <a href="<?php echo esc_url($item->get_permalink()); ?>"
+              title="<?php printf(__('Posted %s', 'autoptimize'), $item->get_date('j F Y | g:i a')); ?>">
+              <?php echo esc_html($item->get_title()); ?>
             </a>
           </li>
         <?php endforeach; ?>
