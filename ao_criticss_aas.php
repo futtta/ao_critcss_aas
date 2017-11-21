@@ -9,10 +9,10 @@ Author URI: http://optimizingmatters.com/
 Text Domain: ao_ccss
 */
 
-// Includes
-include('inc/settings.php');
-include('inc/license.php');
-//include('inc/cron.php');
+// Required libs
+require_once('inc/settings.php');
+require_once('inc/license.php');
+//require_once('inc/cron.php');
 
 // Set a constant with the directory to store critical CSS in
 if (is_multisite()) {
@@ -42,14 +42,14 @@ function ao_ccss_admin_assets($hook) {
   }
 
   // Stylesheets
-  wp_enqueue_style('unslider',          plugins_url('css/unslider.css',      __FILE__));
-  wp_enqueue_style('unslider-dots',     plugins_url('css/unslider-dots.css', __FILE__));
-  wp_enqueue_style('ao_ccss_admin_css', plugins_url('css/admin.css',        __FILE__));
+  wp_enqueue_style('unslider',          plugins_url('css/ext/unslider.css',      __FILE__));
+  wp_enqueue_style('unslider-dots',     plugins_url('css/ext/unslider-dots.css', __FILE__));
+  wp_enqueue_style('ao_ccss_admin_css', plugins_url('css/admin_styles.css',        __FILE__));
 
   // Scripts
-  wp_enqueue_script('jqcookie',              plugins_url('js/jquery.cookie.min.js', __FILE__), array('jquery'),null,true);
-  wp_enqueue_script('unslider',              plugins_url('js/unslider-min.js',      __FILE__), array('jquery'),null,true);
-  wp_enqueue_script('ao_ccss_admin_scripts', plugins_url('js/admin.js',             __FILE__), array('jquery'),null,true);
+  wp_enqueue_script('jqcookie',              plugins_url('js/ext/jquery.cookie.min.js', __FILE__), array('jquery'),null,true);
+  wp_enqueue_script('unslider',              plugins_url('js/ext/unslider-min.js',      __FILE__), array('jquery'),null,true);
+  wp_enqueue_script('ao_ccss_admin_scripts', plugins_url('js/admin_feeds.js',             __FILE__), array('jquery'),null,true);
 }
 add_action('admin_enqueue_scripts', 'ao_ccss_admin_assets');
 

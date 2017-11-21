@@ -1,8 +1,8 @@
-var feed = new Array;
-feed[1]="autoptimizefeed";
-feed[2]="wordpressfeed";
-feed[3]="webtechfeed";
-cookiename="autoptimize_feed";
+var feed   = new Array;
+feed[1]    = "autoptimizefeed";
+feed[2]    = "wordpressfeed";
+feed[3]    = "webtechfeed";
+cookiename = "autoptimize_feed";
 
 jQuery(document).ready(function() {
   check_ini_state();
