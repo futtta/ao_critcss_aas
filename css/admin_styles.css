@@ -49,6 +49,13 @@
   color: #999;
   padding: 0 10px 15px;
 }
+.form-table.rules th {
+  width: 100px;
+}
+.form-table.rules th,
+.form-table.rules td {
+  padding: 5px 10px;
+}
 .form-table.debug th,
 .form-table.debug td {
   padding: 5px 10px;

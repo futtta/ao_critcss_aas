@@ -7,7 +7,7 @@ function ccss_render_license($key) { ?>
       <table class="form-table">
         <tr valign="top">
           <th scope="row">
-            <?php _e('License Key', 'ao_css'); ?>
+            <?php _e('License Key', 'autoptimize'); ?>
           </th>
           <td>
             <textarea id="autoptimize_ccss_key" name="autoptimize_ccss_key" rows='3' style="width:100%;" placeholder="<?php _e('Please enter your CriticalCSS license key here...', 'autoptimize'); ?>"><?php echo trim($key); ?></textarea>

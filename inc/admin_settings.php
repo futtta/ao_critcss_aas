@@ -51,7 +51,10 @@ function ao_ccss_settings() {
         <?php settings_fields('ao_ccss_options_group');
 
         // Render license section
-        ccss_render_license($ao_ccss_key) ?>
+        ccss_render_license($ao_ccss_key);
+
+        // Render license section
+        ccss_render_rules($ao_ccss_key); ?>
 
         <!-- TODO: here goes more and more settings... -->
 
