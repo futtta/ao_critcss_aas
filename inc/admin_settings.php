@@ -39,9 +39,9 @@ function ao_ccss_settings() {
         ?><div class="notice-error notice"><p><?php
         _e("Oops! Please <strong>activate the \"Inline and Defer CSS?\" option</strong> on Autoptimize's main settings page.", 'autoptimize');
         ?></p></div><?php
-      } else if (version_compare(get_option("autoptimize_version"),"2.2.0")===-1) {
+      } else if (version_compare(get_option("autoptimize_version"), "2.2.0") === -1) {
         ?><div class="notice-error notice"><p><?php
-        _e('Oops! It looks you need to upgrade to Autoptimize 2.2.0 or higher to use this power-up.', 'autoptimize');
+        _e('Oops! It looks you need to upgrade to Autoptimize 2.2.0 or higher to use this CriticCSS Power-Up.', 'autoptimize');
         ?></p></div><?php
       }
 

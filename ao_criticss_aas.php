@@ -17,9 +17,9 @@ require_once('inc/admin_license.php');
 // Set a constant with the directory to store critical CSS in
 if (is_multisite()) {
   $blog_id = get_current_blog_id();
-  define('AO_CCSS_DIR', WP_CONTENT_DIR . '/ao_ccss/' . $blog_id . '/');
+  define('AO_CCSS_DIR', WP_CONTENT_DIR . '/cache/ao_ccss/' . $blog_id . '/');
 } else {
-  define('AO_CCSS_DIR', WP_CONTENT_DIR . '/ao_ccss/');
+  define('AO_CCSS_DIR', WP_CONTENT_DIR . '/cache/ao_ccss/');
 }
 
 // Get settings
@@ -29,7 +29,6 @@ $ao_ccss_key  = get_option('autoptimize_ccss_key');
 // Add hidden submenu and register allowed settings
 function ao_ccss_settings_init() {
   $hook = add_submenu_page(null, 'AO critcss', 'AO critcss', 'manage_options', 'ao_ccss_settings', 'ao_ccss_settings');
-  register_setting('ao_css_options_group',  'autoptimize_css_defer_inline');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_key');
   register_setting('ao_ccss_queue_group',   'autoptimize_ccss_queue');
 }
