@@ -18,9 +18,6 @@ function ao_ccss_settings() {
       // Print AO settings tabs
       echo autoptimizeConfig::ao_admin_tabs();
 
-      // Check CriticalCSS license
-      $licstat = ccss_license_check('ao_critcsscom', '0.9', $ao_ccss_key);
-
       // Make sure dir to write ao_ccss exists and is writable
       if (!is_dir(AO_CCSS_DIR)) {
         $mkdirresp = @mkdir(AO_CCSS_DIR, 0775, true);
@@ -47,19 +44,32 @@ function ao_ccss_settings() {
         _e('Oops! It looks you need to upgrade to Autoptimize 2.2.0 or higher to use this power-up.', 'autoptimize');
         ?></p></div><?php
       }
-      ?>
 
-      <!-- TODO: here goes more and more settings... -->
+      // Settings Form
+      ?>
+      <form method="post" action="options.php">
+        <?php settings_fields('ao_ccss_options_group');
+
+        // Render license section
+        ccss_render_license($ao_ccss_key) ?>
+
+        <!-- TODO: here goes more and more settings... -->
+
+        <p class="submit">
+          <input type="submit" class="button-primary" value="<?php _e('Save Changes', 'autoptimize') ?>" />
+        </p>
+
+      </form>
 
       <?php
       // Include debug panel
-      include('settings_debug.php');
-      ?>
-  </div>
+      include('admin_settings_debug.php'); ?>
+    </div><!-- /#autoptimize_main -->
+  </div><!-- /#wrap -->
 
   <?php
   // Include Futta feeds sidebar
-  include('settings_feeds.php');
+  include('admin_settings_feeds.php');
 }
 
 ?>

@@ -36,10 +36,18 @@
   border: 1px solid #ccc;
   padding: 15px;
   margin: 15px 10px 10px 0;
-  word-break: break-all;
+  word-break: break-word;
 }
 .itemTitle {
   margin-top: 0;
+}
+.form-table td {
+  padding: 15px 10px 5px;
+}
+.form-table td.notes {
+  font-size: 12px !important;
+  color: #999;
+  padding: 0 10px 15px;
 }
 .form-table.debug th,
 .form-table.debug td {

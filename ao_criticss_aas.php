@@ -10,8 +10,8 @@ Text Domain: autoptimize
 */
 
 // Required libs
-require_once('inc/settings.php');
-require_once('inc/license.php');
+require_once('inc/admin_settings.php');
+require_once('inc/admin_license.php');
 //require_once('inc/cron.php');
 
 // Set a constant with the directory to store critical CSS in
