@@ -4,6 +4,13 @@
  * What was intended with these settings?
  * Are these the 4.2 item from the spec (aka path-based exclusions)?
  * Even so, what are 'inpath', 'type' and their 'dummies'?
+ *
+ * FRANK'S ANSWER:
+ * this is the wordpress setting that holds "the rules", where "inpath" is
+ * for URL (path) based rules (and as such the UI should allow for users to
+ * list pages that require specific CCSS) and "type" is for page type
+ * (conditional tags) rules. dummy is just to have a default empty ruleset to
+ * enforce (avoiding ugly errors of my code not getting a nice little array)
  */
 // get critical CSS settings from WP options (+ fallback to always have placeholder) and json_decode to have a nice array
 $ao_ccss_settings_raw = get_option('autoptimize_ccss_settings', '{"inpath":{"dummy":"dummy"},"type":{"dummy":"dummy"}}');
@@ -171,12 +178,12 @@ if ($ao_css_defer_on) {
   add_filter('autoptimize_filter_css_critcss_minify', '__return_false');
   add_filter('autoptimize_filter_css_defer_inline', 'ao_ccss_frontend', 10,1);
 
-  /* BEGIN NOTE - ASK FRANK 02: whats the purpose imagined for the following code? */
-  // following filter NOK; it gets only triggered for new AO CSS files created!
-  // add_filter('autoptimize_filter_cache_getname','ao_ccss_enqueue',10,1);
-  /* END NOTE */
-
-  /* BEGIN NOTE - ASK FRANK 03: This filter is unconditional. Should it be kept? See 06 bellow... */
+  /* BEGIN NOTE - ASK FRANK 03: This filter is unconditional. Should it be kept? See 06 bellow...
+   *
+   * FRANK'S ANSWER:
+   * this one is hardcore functionality; it's where we hook into AO to get
+   * all individual CSS parts to md5 them and add to the queue
+   */
   // Add the filter to enqueue jobs for CriticalCSS cron
   add_filter('autoptimize_css_individual_style', 'ao_ccss_enqueue',10,2);
   /* END NOTE */
@@ -189,7 +196,12 @@ function ao_ccss_frontend($inlined) {
   global $ao_ccss_types;
   global $ao_ccss_settings;
 
-  /* BEGIN NOTE - ASK FRANK 04: Is this still needed? */
+  /* BEGIN NOTE - ASK FRANK 04: Is this still needed?
+   *
+   * FRANK'S ANSWER:
+   * yes, this is hardcore functionality of the plugin; it looks at the
+   * rules for "inpath" ones and injects CCSS in the page if applicable
+   */
   // Check for a valid CriticalCSS based on path to return its contents
   if (!empty($ao_ccss_settings['inpath'])) {
     foreach ($ao_ccss_settings['inpath'] as $inpath => $ccss_file) {
@@ -202,7 +214,12 @@ function ao_ccss_frontend($inlined) {
   }
   /* END NOTE */
 
-  /* BEGIN NOTE - ASK FRANK 05: See first question... */
+  /* BEGIN NOTE - ASK FRANK 05: See first question...
+   *
+   * FRANK'S ANSWER:
+   * also hardcore functionality of the plugin; it looks at the rules for
+   * "type" ones and injects CCSS in the page if applicable
+   */
   // Check for a valid CriticalCSS based on conditional tags to return its contents
   if (!empty($ao_ccss_settings['type'])) {
     foreach ($ao_ccss_settings['type'] as $type => $ccss_file) {
@@ -222,36 +239,6 @@ function ao_ccss_frontend($inlined) {
     }
   }
   /* END NOTE */
-
-  /* BEGIN NOTE - ASK FRANK 06:
-   * Why is this commented out?
-   * Should this replace the unconditional filter above on 03?
-  // No CriticalCSS file found, so add URI to the queue if user is not logged in
-  if (!is_user_logged_in()) {
-    $ao_ccss_queue = json_decode(get_option('autoptimize_ccss_queue',''), true);
-    if (!in_array($_SERVER['REQUEST_URI'], $ao_ccss_queue)) {
-      foreach ($ao_ccss_types as $type) {
-        if (strpos($type,'custom_post_')===0) {
-          if ( get_post_type( get_the_ID() ) === substr($type,12) ) {
-            break;
-          }
-        } elseif (strpos($type,'template_')===0) {
-          if (is_page_template(substr($type,9))) {
-            break;
-          }
-        } elseif (function_exists($type) && call_user_func($type)) {
-          break;
-        } else {
-          $type='';
-        }
-      }
-      if ( !empty($type) ) {
-        $ao_ccss_queue[$_SERVER['REQUEST_URI']] = $type;
-        update_option('autoptimize_ccss_queue', json_encode($ao_ccss_queue));
-      }
-    }
-  }
-  END NOTE */
 
   // Finally, inline the CriticalCSS or, in case it's missing, the entire CSS for the page
   if (!empty($inlined)) {
