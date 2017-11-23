@@ -1,6 +1,6 @@
 <?php
 
-function ccss_render_license($key) { ?>
+function ao_ccss_render_license($key) { ?>
   <ul>
     <li class="itemDetail">
       <h2 class="itemTitle"><?php _e('License', 'autoptimize'); ?></h2>

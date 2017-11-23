@@ -56,10 +56,6 @@
 .form-table.rules td {
   padding: 5px 10px;
 }
-.form-table.debug th,
-.form-table.debug td {
-  padding: 5px 10px;
-}
 input[type=url]:invalid {color: red; border-color:red;} .form-table th{font-weight:100;}
 #autoptimize_main .cb_label {display: block; padding-left: 25px; text-indent: -25px;}
 
@@ -110,6 +106,22 @@ input[type=url]:invalid {color: red; border-color:red;} .form-table th{font-weig
 .unslider-arrow.next::before {
   content: "\f345";
 }
+
+/* debug block */
+#debug {
+  clear: both;
+}
+#debug .debug th,
+#debug .debug td {
+  padding: 5px 10px;
+}
+#debug pre {
+  font-size: 12px;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+}
+
 /* responsive stuff: hide admin-feed on smaller screens */
 @media (min-width: 961px) {
   #autoptimize_main {float:left;width:69%;}

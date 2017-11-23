@@ -27,7 +27,7 @@ if ($ao_options || $ao_trans) {
 <!-- BEGIN: Settings Debug -->
 <ul>
   <li class="itemDetail">
-    <h2 class="itemTitle"><?php _e('Autoptimize Debug Stuff <small>(This is going to disappear when dev is done!)</small>', 'autoptimize'); ?></h2>
+    <h2 class="itemTitle"><?php _e('Autoptimize Debug Stuff <small>(to be removed after development is done!)</small>', 'autoptimize'); ?></h2>
 
     <?php
     // Render options
@@ -40,7 +40,15 @@ if ($ao_options || $ao_trans) {
           <?php echo $option['name']; ?>
         </th>
         <td>
-          <?php echo $option['value']; ?>
+          <?php
+          if ($option['name'] == 'autoptimize_ccss_queue') {
+            $queue = print_r(json_decode($option['value']), true);
+            echo '<pre>' . $queue . '</pre>';
+          } elseif ($option['name'] == 'autoptimize_ccss_exclude') {
+            echo '<pre>' . $option['value'] . '</pre>';
+          } else {
+            echo $option['value'];
+          } ?>
         </td>
       </tr>
       <?php } ?>

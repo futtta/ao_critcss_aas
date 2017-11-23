@@ -9,10 +9,24 @@ Author URI: http://optimizingmatters.com/
 Text Domain: autoptimize
 */
 
+
+/**
+ * TODO:
+ *
+ * must: add logic to check AO CSS hash
+ * must: add "exceptions" based on path to override conditional-tag based things
+ * should: add UI to enter license key
+ * should: add UI to add extra CSS (unconditionally)
+ * should: "clear aocritcss cache"-option 
+ * should: remove querystring when filling queue
+ * could: clear cache if theme update/ switch and plugin installation (or not as we check AO CSS hash?)
+ */
+
 // Required libs
 require_once('inc/admin_settings.php');
 require_once('inc/admin_settings_license.php');
-require_once('inc/admin_settings_rules.php');
+require_once('inc/admin_settings_exclude.php');
+require_once('inc/core.php');
 //require_once('inc/cron.php');
 
 // Set a constant with the directory to store critical CSS in
@@ -24,14 +38,17 @@ if (is_multisite()) {
 }
 
 // Get settings
-$ao_css_defer = get_option('autoptimize_css_defer');
-$ao_ccss_key  = get_option('autoptimize_ccss_key');
+$ao_css_defer    = get_option('autoptimize_css_defer');
+$ao_ccss_key     = get_option('autoptimize_ccss_key');
+$ao_ccss_exclude = get_option('autoptimize_ccss_exclude');
 
 // Add hidden submenu and register allowed settings
 function ao_ccss_settings_init() {
   $hook = add_submenu_page(null, 'AO critcss', 'AO critcss', 'manage_options', 'ao_ccss_settings', 'ao_ccss_settings');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_key');
-  register_setting('ao_ccss_queue_group',   'autoptimize_ccss_queue');
+  register_setting('ao_ccss_options_group', 'autoptimize_ccss_exclude');
+  register_setting('ao_ccss_options_group', 'autoptimize_ccss_settings');
+  register_setting('ao_ccss_options_group', 'autoptimize_ccss_queue');
 }
 add_action('admin_menu','ao_ccss_settings_init');
 

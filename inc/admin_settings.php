@@ -6,6 +6,7 @@ function ao_ccss_settings() {
   // Attach globals
   global $ao_css_defer;
   global $ao_ccss_key;
+  global $ao_ccss_exclude;
 
   ?>
   <div class="wrap">
@@ -37,24 +38,26 @@ function ao_ccss_settings() {
         exit;
       } else if (!$ao_css_defer) {
         ?><div class="notice-error notice"><p><?php
-        _e("Oops! Please <strong>activate the \"Inline and Defer CSS?\" option</strong> on Autoptimize's main settings page.", 'autoptimize');
+        _e("Oops! Please <strong>activate the \"Inline and Defer CSS\" option</strong> on Autoptimize's main settings page to use this power-up.", 'autoptimize');
+        return;
         ?></p></div><?php
       } else if (version_compare(get_option("autoptimize_version"), "2.2.0") === -1) {
         ?><div class="notice-error notice"><p><?php
         _e('Oops! It looks you need to upgrade to Autoptimize 2.2.0 or higher to use this CriticCSS Power-Up.', 'autoptimize');
+        return;
         ?></p></div><?php
       }
 
       // Settings Form
       ?>
-      <form method="post" action="options.php">
+      <form id="settings" method="post" action="options.php">
         <?php settings_fields('ao_ccss_options_group');
 
         // Render license section
-        ccss_render_license($ao_ccss_key);
+        ao_ccss_render_license($ao_ccss_key);
 
-        // Render license section
-        ccss_render_rules($ao_ccss_key); ?>
+        // Render rules section
+        ao_ccss_render_exclude($ao_ccss_exclude); ?>
 
         <!-- TODO: here goes more and more settings... -->
 
@@ -63,16 +66,20 @@ function ao_ccss_settings() {
         </p>
 
       </form>
-
-      <?php
-      // Include debug panel
-      include('admin_settings_debug.php'); ?>
     </div><!-- /#autoptimize_main -->
   </div><!-- /#wrap -->
 
   <?php
   // Include Futta feeds sidebar
-  include('admin_settings_feeds.php');
+  include('admin_settings_feeds.php'); ?>
+
+  <!-- NOTE: to be removed after development is done -->
+  <div id="debug">
+    <?php
+    // Include debug panel
+    include('admin_settings_debug.php'); ?>
+  </div><!-- /#debug -->
+<?php
 }
 
 ?>
