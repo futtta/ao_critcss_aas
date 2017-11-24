@@ -31,15 +31,38 @@
 }
 
 /* form */
+.itemTitle {
+  margin: 0;
+  float: left;
+}
+.handletbl {
+  float: right;
+  position: relative;
+  top: -8px;
+  width: 36px;
+  height: 36px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: 0 0;
+  cursor: pointer;
+  outline: none;
+}
+.toggle-indicator {
+  color: #72777c;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-decoration: none!important;
+  outline: none;
+}
 .itemDetail {
   background: #fff;
   border: 1px solid #ccc;
   padding: 15px;
   margin: 15px 10px 10px 0;
+  min-height: 15px;
   word-break: break-word;
-}
-.itemTitle {
-  margin-top: 0;
 }
 .form-table td {
   padding: 15px 10px 5px;

@@ -40,6 +40,7 @@ function ao_ccss_validate_key($key) {
 
       // Set validated key status
       $status     = 'validated';
+      $status_msg = __('Validated');
       $color      = '#46b450'; // Green
       $message    = __('Thank you! Your <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> API key is valid.', 'autoptimize');
       $key_status = TRUE;
@@ -55,26 +56,29 @@ function ao_ccss_validate_key($key) {
       ");
 
       // Set invalid key status
-      $status  = 'invalid';
-      $color   = '#dc3232'; // Red
-      $message = __('Your API key is invalid, please check again in <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a>.', 'autoptimize');
+      $status     = 'invalid';
+      $status_msg = __('Invalid');
+      $color      = '#dc3232'; // Red
+      $message    = __('Your API key is invalid, please check again in <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a>.', 'autoptimize');
 
     // Other response codes
     } else {
 
       // Set remote error status
-      $status  = 'error';
-      $color   = '#dc3232'; // Red
-      $message = __('Something went wrong while validating your <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> API key. Please try again later.', 'autoptimize');
+      $status     = 'error';
+      $status_msg = __('Error');
+      $color      = '#dc3232'; // Red
+      $message    = __('Something went wrong while validating your <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> API key. Please try again later.', 'autoptimize');
     }
 
   // Key is still valid
   } elseif ($key_status && $key) {
 
     // Set valid key status
-    $status  = 'valid';
-    $color   = NULL;
-    $message = NULL;
+    $status     = 'valid';
+    $status_msg = __('Valid');
+    $color      = '#46b450'; // Green
+    $message    = NULL;
 
   // No key nor status
   } else {
@@ -87,13 +91,14 @@ function ao_ccss_validate_key($key) {
     ");
 
     // Set no key status
-    $status  = 'nokey';
-    $color   = '#ffb900'; // Yellow
-    $message = __('Please, enter a valid <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> API key to start.', 'autoptimize');
+    $status     = 'nokey';
+    $status_msg = __('Validated');
+    $color      = '#ffb900'; // Yellow
+    $message    = __('Please, enter a valid <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> API key to start.', 'autoptimize');
   }
 
   // Render license panel
-  ao_ccss_render_license($key, $status, $message, $color);
+  ao_ccss_render_license($key, $status, $status_msg, $message, $color);
 
   // Return key status
   if ($key_status) {
@@ -104,32 +109,45 @@ function ao_ccss_validate_key($key) {
 }
 
 // Render license panel
-function ao_ccss_render_license($key, $status, $message, $color) { ?>
+function ao_ccss_render_license($key, $status, $status_msg, $message, $color) { ?>
   <ul>
     <li class="itemDetail">
-      <h2 class="itemTitle"><?php _e('License', 'autoptimize'); ?></h2>
+      <h2 class="itemTitle"><?php _e('API Key', 'autoptimize'); ?>: <span style="color:<?php echo $color; ?>;"><?php echo $status_msg; ?></span></h2>
+      <button type="button" class="handletbl">
+        <?php if ($status !== 'valid') { ?>
+        <span class="toggle-indicator dashicons dashicons-arrow-up"></span>
+        <?php } else { ?>
+        <span class="toggle-indicator dashicons dashicons-arrow-up dashicons-arrow-down"></span>
+        <?php } ?>
+      </button>
       <?php if ($status !== 'valid') { ?>
-      <div style="padding:2px 10px;border-left:solid;border-left-width:5px;border-left-color:<?php echo $color; ?>;background-color:white;">
-        <p><?php echo $message; ?></p>
-      </div>
+      <div class="collapsible">
+      <?php } else { ?>
+      <div class="collapsible hidden">
       <?php } ?>
-      <table class="form-table">
-        <tr valign="top">
-          <th scope="row">
-            <?php _e('License Key', 'autoptimize'); ?>
-          </th>
-          <td>
-            <textarea id="autoptimize_ccss_key" name="autoptimize_ccss_key" rows='3' style="width:100%;" placeholder="<?php _e('Please enter your criticalcss.com API key here...', 'autoptimize'); ?>"><?php echo trim($key); ?></textarea>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">
-          </th>
-          <td class="notes">
-            <?php _e('Enter your <a href="https://criticalcss.com/account/api-keys" target="_blank">criticalcss.com</a> API key above. The license is validated every 24h.<br />To obtain your license key, go to <a href="https://criticalcss.com/account/api-keys" target="_blank">criticalcss.com</a> > Account > API Keys.<br /><strong>Requests to generate CriticalCSS via the API are priced at £5 per domain per month.</strong>', 'autoptimize'); ?>
-          </td>
-        </tr>
-      </table>
+        <?php if ($status !== 'valid') { ?>
+        <div style="clear:both;padding:2px 10px;border-left:solid;border-left-width:5px;border-left-color:<?php echo $color; ?>;background-color:white;">
+          <p><?php echo $message; ?></p>
+        </div>
+        <?php } ?>
+        <table id="key" class="form-table">
+          <tr valign="top">
+            <th scope="row">
+              <?php _e('Your API Key', 'autoptimize'); ?>
+            </th>
+            <td>
+              <textarea id="autoptimize_ccss_key" name="autoptimize_ccss_key" rows='3' style="width:100%;" placeholder="<?php _e('Please enter your criticalcss.com API key here...', 'autoptimize'); ?>"><?php echo trim($key); ?></textarea>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+            </th>
+            <td class="notes">
+              <?php _e('Enter your <a href="https://criticalcss.com/account/api-keys" target="_blank">criticalcss.com</a> API key above. The license is validated every 24h.<br />To obtain your license key, go to <a href="https://criticalcss.com/account/api-keys" target="_blank">criticalcss.com</a> > Account > API Keys.<br /><strong>Requests to generate CriticalCSS via the API are priced at £5 per domain per month.</strong>', 'autoptimize'); ?>
+            </td>
+          </tr>
+        </table>
+      </div>
     </li>
   </ul>
   <?php

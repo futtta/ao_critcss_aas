@@ -63,9 +63,10 @@ function ao_ccss_admin_assets($hook) {
   wp_enqueue_style('ao_ccss_admin_css', plugins_url('css/admin_styles.css',        __FILE__));
 
   // Scripts to add
-  wp_enqueue_script('jqcookie',              plugins_url('js/ext/jquery.cookie.min.js', __FILE__), array('jquery'),null,true);
-  wp_enqueue_script('unslider',              plugins_url('js/ext/unslider-min.js',      __FILE__), array('jquery'),null,true);
-  wp_enqueue_script('ao_ccss_admin_scripts', plugins_url('js/admin_feeds.js',             __FILE__), array('jquery'),null,true);
+  wp_enqueue_script('jqcookie',              plugins_url('js/ext/jquery.cookie.min.js',  __FILE__), array('jquery'), null, true);
+  wp_enqueue_script('unslider',              plugins_url('js/ext/unslider-min.js',       __FILE__), array('jquery'), null, true);
+  wp_enqueue_script('ao_ccss_admin_license', plugins_url('js/admin_settings_license.js', __FILE__), array('jquery'), null, true);
+  wp_enqueue_script('ao_ccss_admin_feeds',   plugins_url('js/admin_settings_feeds.js',   __FILE__), array('jquery'), null, true);
 }
 add_action('admin_enqueue_scripts', 'ao_ccss_admin_assets');
 
