@@ -23,10 +23,10 @@ Text Domain: autoptimize
  */
 
 // Required libs
+require_once('inc/core.php');
 require_once('inc/admin_settings.php');
 require_once('inc/admin_settings_license.php');
-require_once('inc/admin_settings_exclude.php');
-require_once('inc/core.php');
+require_once('inc/admin_settings_rules.php');
 //require_once('inc/cron.php');
 
 // Set a constant with the directory to store critical CSS in
@@ -37,17 +37,16 @@ if (is_multisite()) {
   define('AO_CCSS_DIR', WP_CONTENT_DIR . '/cache/ao_ccss/');
 }
 
-// Get settings
-$ao_css_defer    = get_option('autoptimize_css_defer');
-$ao_ccss_key     = get_option('autoptimize_ccss_key');
-$ao_ccss_exclude = get_option('autoptimize_ccss_exclude');
+// Get options
+$ao_css_defer  = get_option('autoptimize_css_defer');
+$ao_ccss_key   = get_option('autoptimize_ccss_key');
+$ao_ccss_rules = get_option('autoptimize_ccss_rules');
 
 // Add hidden submenu and register allowed settings
 function ao_ccss_settings_init() {
   $hook = add_submenu_page(null, 'AO critcss', 'AO critcss', 'manage_options', 'ao_ccss_settings', 'ao_ccss_settings');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_key');
-  register_setting('ao_ccss_options_group', 'autoptimize_ccss_exclude');
-  register_setting('ao_ccss_options_group', 'autoptimize_ccss_settings');
+  register_setting('ao_ccss_options_group', 'autoptimize_ccss_rules');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_queue');
 }
 add_action('admin_menu','ao_ccss_settings_init');
@@ -72,7 +71,7 @@ add_action('admin_enqueue_scripts', 'ao_ccss_admin_assets');
 
 // Hook up settings tab
 function ao_ccss_add_tab($in) {
-  $in = array_merge($in, array('ao_ccss_settings' => __('⚡ CriticalCSS', 'autoptimize')));
+  $in = array_merge($in, array('ao_ccss_settings' => '⚡ ' . __('CriticalCSS', 'autoptimize')));
   return $in;
 }
 add_filter('autoptimize_filter_settingsscreen_tabs', 'ao_ccss_add_tab');

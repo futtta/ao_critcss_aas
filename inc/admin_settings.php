@@ -6,7 +6,7 @@ function ao_ccss_settings() {
   // Attach globals
   global $ao_css_defer;
   global $ao_ccss_key;
-  global $ao_ccss_exclude;
+  global $ao_ccss_rules;
 
   ?>
   <div class="wrap">
@@ -57,7 +57,7 @@ function ao_ccss_settings() {
         ao_ccss_render_license($ao_ccss_key);
 
         // Render rules section
-        ao_ccss_render_exclude($ao_ccss_exclude); ?>
+        ao_ccss_render_rules($ao_ccss_rules); ?>
 
         <!-- TODO: here goes more and more settings... -->
 
