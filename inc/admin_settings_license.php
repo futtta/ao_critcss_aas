@@ -7,10 +7,10 @@ function ao_ccss_validate_key($key) {
   global $wpdb;
 
   // Get key status
-  $key_status = get_transient('autoptimize_ccss_key_status_' . md5($ao_ccss_key));
+  $key_status = get_transient('autoptimize_ccss_key_status_' . md5($key));
 
   // No key validation stored, let's validate it
-  if ($key_status === FALSE && $key) {
+  if (!$key_status && $key) {
 
     // Prepare the request
     $url  = "https://criticalcss.com/api/premium/generate";
@@ -69,7 +69,7 @@ function ao_ccss_validate_key($key) {
     }
 
   // Key is still valid
-  } elseif ($key_status === TRUE && $key) {
+  } elseif ($key_status && $key) {
 
     // Set valid key status
     $status  = 'valid';
@@ -96,10 +96,10 @@ function ao_ccss_validate_key($key) {
   ao_ccss_render_license($key, $status, $message, $color);
 
   // Return key status
-  if ($key_status === FALSE) {
-    return FALSE;
-  } else {
+  if ($key_status) {
     return TRUE;
+  } else {
+    return FALSE;
   }
 }
 

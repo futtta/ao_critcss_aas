@@ -38,9 +38,9 @@ if (is_multisite()) {
 }
 
 // Get options
-$ao_css_defer       = get_option('autoptimize_css_defer');
-$ao_ccss_key        = get_option('autoptimize_ccss_key');
-$ao_ccss_rules      = get_option('autoptimize_ccss_rules');
+$ao_css_defer  = get_option('autoptimize_css_defer');
+$ao_ccss_key   = get_option('autoptimize_ccss_key');
+$ao_ccss_rules = get_option('autoptimize_ccss_rules');
 
 // Add hidden submenu and register allowed settings
 function ao_ccss_settings_init() {
