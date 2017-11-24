@@ -1,13 +1,16 @@
 <?php
 
 // Validate critical.css API key
-function ao_ccss_validate_key($key, $key_status) {
+function ao_ccss_validate_key($key) {
 
   // Attach wpdb
   global $wpdb;
 
+  // Get key status
+  $key_status = get_transient('autoptimize_ccss_key_status_' . md5($ao_ccss_key));
+
   // No key validation stored, let's validate it
-  if (!$key_status && $key) {
+  if ($key_status === FALSE && $key) {
 
     // Prepare the request
     $url  = "https://criticalcss.com/api/premium/generate";
@@ -33,23 +36,28 @@ function ao_ccss_validate_key($key, $key_status) {
     if ($code == 200) {
 
       // Cache key status for 1 day
-      set_transient("autoptimize_ccss_key_status_" . md5($key), 1, DAY_IN_SECONDS);
+      set_transient("autoptimize_ccss_key_status_" . md5($key), TRUE, DAY_IN_SECONDS);
 
       // Set validated key status
-      $status  = 'validated';
-      $color   = '#46b450'; // Green
-      $message = __('Nice! Your criticalcss.com API key is valid.', 'autoptimize');
+      $status     = 'validated';
+      $color      = '#46b450'; // Green
+      $message    = __('Thank you! Your <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> API key is valid.', 'autoptimize');
+      $key_status = TRUE;
 
     // Response code is unauthorized (401)
     } elseif ($code == 401) {
 
-      // Delete cached status for the key
-      delete_transient("autoptimize_ccss_key_status_" . md5($key), 1, DAY_IN_SECONDS);
+      // Delete cached status for all keys
+      $wpdb->query("
+        DELETE FROM $wpdb->options
+        WHERE option_name LIKE ('_transient_autoptimize_ccss_key_status_%')
+           OR option_name LIKE ('_transient_timeout_autoptimize_ccss_key_status_%')
+      ");
 
       // Set invalid key status
       $status  = 'invalid';
       $color   = '#dc3232'; // Red
-      $message = __('Your API key is invalid, please check again in criticalcss.com.', 'autoptimize');
+      $message = __('Your API key is invalid, please check again in <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a>.', 'autoptimize');
 
     // Other response codes
     } else {
@@ -57,11 +65,11 @@ function ao_ccss_validate_key($key, $key_status) {
       // Set remote error status
       $status  = 'error';
       $color   = '#dc3232'; // Red
-      $message = __('Something went wrong validating your criticalcss.com. API key. Please try again later.', 'autoptimize');
+      $message = __('Something went wrong while validating your <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> API key. Please try again later.', 'autoptimize');
     }
 
   // Key is still valid
-  } elseif ($key_status && $key) {
+  } elseif ($key_status === TRUE && $key) {
 
     // Set valid key status
     $status  = 'valid';
@@ -81,11 +89,18 @@ function ao_ccss_validate_key($key, $key_status) {
     // Set no key status
     $status  = 'nokey';
     $color   = '#ffb900'; // Yellow
-    $message = __('You need to enter a valid criticalcss.com API key to use this Power-Up.', 'autoptimize');
+    $message = __('Please, enter a valid <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> API key to start.', 'autoptimize');
   }
 
   // Render license panel
   ao_ccss_render_license($key, $status, $message, $color);
+
+  // Return key status
+  if ($key_status === FALSE) {
+    return FALSE;
+  } else {
+    return TRUE;
+  }
 }
 
 // Render license panel
@@ -104,7 +119,7 @@ function ao_ccss_render_license($key, $status, $message, $color) { ?>
             <?php _e('License Key', 'autoptimize'); ?>
           </th>
           <td>
-            <textarea id="autoptimize_ccss_key" name="autoptimize_ccss_key" rows='3' style="width:100%;" placeholder="<?php _e('Please enter your CriticalCSS license key here...', 'autoptimize'); ?>"><?php echo trim($key); ?></textarea>
+            <textarea id="autoptimize_ccss_key" name="autoptimize_ccss_key" rows='3' style="width:100%;" placeholder="<?php _e('Please enter your criticalcss.com API key here...', 'autoptimize'); ?>"><?php echo trim($key); ?></textarea>
           </td>
         </tr>
         <tr>
