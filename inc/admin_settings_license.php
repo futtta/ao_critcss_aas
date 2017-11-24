@@ -65,8 +65,8 @@ function ao_ccss_validate_key($key, $key_status) {
 
     // Set valid key status
     $status  = 'valid';
-    $color   = '#00a0d2'; // Blue
-    $message = __('Nice! Your criticalcss.com API key is still valid.', 'autoptimize');
+    $color   = NULL;
+    $message = NULL;
 
   // No key nor status
   } else {
