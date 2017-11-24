@@ -77,7 +77,7 @@ function ao_ccss_validate_key($key) {
     // Set valid key status
     $status     = 'valid';
     $status_msg = __('Valid');
-    $color      = '#46b450'; // Green
+    $color      = '#00a0d2'; // Blue
     $message    = NULL;
 
   // No key nor status
@@ -120,10 +120,10 @@ function ao_ccss_render_license($key, $status, $status_msg, $message, $color) { 
         <span class="toggle-indicator dashicons dashicons-arrow-up dashicons-arrow-down"></span>
         <?php } ?>
       </button>
-      <?php if ($status !== 'valid') { ?>
-      <div class="collapsible">
-      <?php } else { ?>
+      <?php if ($status === 'valid' || $status === 'validated') { ?>
       <div class="collapsible hidden">
+      <?php } else { ?>
+      <div class="collapsible">
       <?php } ?>
         <?php if ($status !== 'valid') { ?>
         <div style="clear:both;padding:2px 10px;border-left:solid;border-left-width:5px;border-left-color:<?php echo $color; ?>;background-color:white;">
