@@ -6,6 +6,7 @@ function ao_ccss_settings() {
   // Attach globals
   global $ao_css_defer;
   global $ao_ccss_key;
+  global $ao_ccss_key_status;
   global $ao_ccss_rules;
 
   ?>
@@ -54,12 +55,16 @@ function ao_ccss_settings() {
         <?php settings_fields('ao_ccss_options_group');
 
         // Render license section
-        ao_ccss_validate_key($ao_ccss_key);
+        ao_ccss_validate_key($ao_ccss_key, $ao_ccss_key_status);
 
-        // Render rules section
-        ao_ccss_render_rules($ao_ccss_rules); ?>
+        // If license key is valid, render other settings panels
+        if ($ao_ccss_key_status) {
 
-        <!-- TODO: here goes more and more settings... -->
+          // Render rules section
+          ao_ccss_render_rules($ao_ccss_rules);
+
+          echo '<!-- TODO: here goes more and more settings... -->';
+        } ?>
 
         <p class="submit">
           <input type="submit" class="button-primary" value="<?php _e('Save Changes', 'autoptimize') ?>" />

@@ -1,16 +1,13 @@
 <?php
 
 // Validate critical.css API key
-function ao_ccss_validate_key($key) {
+function ao_ccss_validate_key($key, $key_status) {
 
   // Attach wpdb
   global $wpdb;
 
-  // Get cached key status
-  $cached_status = get_transient("autoptimize_ccss_key_status_" . md5($key));
-
   // No key validation stored, let's validate it
-  if (!$cached_status && $key) {
+  if (!$key_status && $key) {
 
     // Prepare the request
     $url  = "https://criticalcss.com/api/premium/generate";
@@ -40,7 +37,7 @@ function ao_ccss_validate_key($key) {
 
       // Set validated key status
       $status  = 'validated';
-      $class   = 'notice notice-success is-dismissible';
+      $color   = '#46b450'; // Green
       $message = __('Nice! Your criticalcss.com API key is valid.', 'autoptimize');
 
     // Response code is unauthorized (401)
@@ -51,7 +48,7 @@ function ao_ccss_validate_key($key) {
 
       // Set invalid key status
       $status  = 'invalid';
-      $class   = 'notice notice-error';
+      $color   = '#dc3232'; // Red
       $message = __('Your API key is invalid, please check again in criticalcss.com.', 'autoptimize');
 
     // Other response codes
@@ -59,16 +56,16 @@ function ao_ccss_validate_key($key) {
 
       // Set remote error status
       $status  = 'error';
-      $class   = 'notice notice-error';
+      $color   = '#dc3232'; // Red
       $message = __('Something went wrong validating your criticalcss.com. API key. Please try again later.', 'autoptimize');
     }
 
   // Key is still valid
-  } elseif ($cached_status && $key) {
+  } elseif ($key_status && $key) {
 
     // Set valid key status
     $status  = 'valid';
-    $class   = 'notice notice-info is-dismissible';
+    $color   = '#00a0d2'; // Blue
     $message = __('Nice! Your criticalcss.com API key is still valid.', 'autoptimize');
 
   // No key nor status
@@ -83,21 +80,21 @@ function ao_ccss_validate_key($key) {
 
     // Set no key status
     $status  = 'nokey';
-    $class   = 'notice notice-warning';
+    $color   = '#ffb900'; // Yellow
     $message = __('You need to enter a valid criticalcss.com API key to use this Power-Up.', 'autoptimize');
   }
 
   // Render license panel
-  ao_ccss_render_license($key, $status, $message, $class);
+  ao_ccss_render_license($key, $status, $message, $color);
 }
 
 // Render license panel
-function ao_ccss_render_license($key, $status, $message, $class) { ?>
+function ao_ccss_render_license($key, $status, $message, $color) { ?>
   <ul>
     <li class="itemDetail">
       <h2 class="itemTitle"><?php _e('License', 'autoptimize'); ?></h2>
       <?php if ($status !== 'valid') { ?>
-      <div class="<?php echo $class; ?>">
+      <div style="padding:2px 10px;border-left:solid;border-left-width:5px;border-left-color:<?php echo $color; ?>;background-color:white;">
         <p><?php echo $message; ?></p>
       </div>
       <?php } ?>
