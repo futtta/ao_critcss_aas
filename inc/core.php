@@ -53,24 +53,30 @@ function ao_ccss_extend_types() {
   // Attach the conditional tags array
   global $ao_ccss_types;
 
-  // WooCommerce tags
-  if (!class_exists('WooCommerce')) {
-    $ao_ccss_types = array_merge($ao_ccss_types, array(
-      'is_account_page',
-      'is_cart',
-      'is_checkout',
-      'is_product',
-      'is_product_category',
-      'is_product_tag',
-      'is_shop',
-      'is_wc_endpoint_url',
-      'is_woocommerce'
-    ));
+  // Custom Post Types
+  $cpts = get_post_types(
+    array(
+      'public'   => true,
+      '_builtin' => false
+    ),
+    'names',
+    'and'
+  );
+  foreach ($cpts as $cpt) {
+    $ao_ccss_types[] = "custom_post_" . $cpt;
+  }
+
+  // Templates
+  $templates = wp_get_theme()->get_page_templates();
+  foreach ($templates as $tplfile => $tplname) {
+    $ao_ccss_types[] = 'template_' . $tplfile;
   }
 
   // bbPress tags
+  // NOTE: switch logic for release
   if (!function_exists('is_bbpress')) {
     $ao_ccss_types = array_merge($ao_ccss_types, array(
+      'bbp_is_bbpress',
       'bbp_is_favorites',
       'bbp_is_forum_archive',
       'bbp_is_replies_created',
@@ -93,17 +99,18 @@ function ao_ccss_extend_types() {
       'bbp_is_topic_tag_edit',
       'bbp_is_topics_created',
       'bbp_is_user_home',
-      'bbp_is_user_home_edit',
-      'is_bbpress'
+      'bbp_is_user_home_edit'
     ));
   }
 
   // BuddyPress tags
+  // NOTE: switch logic for release
   if (!function_exists('is_buddypress')) {
     $ao_ccss_types=array_merge($ao_ccss_types, array(
       'bp_is_activation_page',
       'bp_is_activity',
       'bp_is_blogs',
+      'bp_is_buddypress',
       'bp_is_change_avatar',
       'bp_is_create_blog',
       'bp_is_friend_requests',
@@ -133,12 +140,12 @@ function ao_ccss_extend_types() {
       'bp_is_settings_component',
       'bp_is_user',
       'bp_is_user_profile',
-      'bp_is_wire',
-      'is_buddypress'
+      'bp_is_wire'
     ));
   }
 
   // Easy Digital Downloads (EDD) tags
+  // NOTE: switch logic for release
   if (!function_exists('edd_is_checkout')) {
     $ao_ccss_types=array_merge($ao_ccss_types, array(
       'edd_is_checkout',
@@ -148,23 +155,20 @@ function ao_ccss_extend_types() {
     ));
   }
 
-  // Custom Post Types
-  $cpts = get_post_types(
-    array(
-      'public'   => true,
-      '_builtin' => false
-    ),
-    'names',
-    'and'
-  );
-  foreach ($cpts as $cpt) {
-    $ao_ccss_types[] = "custom_post_" . $cpt;
-  }
-
-  // Templates
-  $templates = wp_get_theme()->get_page_templates();
-  foreach ($templates as $tplfile => $tplname) {
-    $ao_ccss_types[] = 'template_' . $tplfile;
+  // WooCommerce tags
+  // NOTE: switch logic for release
+  if (!class_exists('WooCommerce')) {
+    $ao_ccss_types = array_merge($ao_ccss_types, array(
+      'woo_is_account_page',
+      'woo_is_cart',
+      'woo_is_checkout',
+      'woo_is_product',
+      'woo_is_product_category',
+      'woo_is_product_tag',
+      'woo_is_shop',
+      'woo_is_wc_endpoint_url',
+      'woo_is_woocommerce'
+    ));
   }
 
   // Sort values

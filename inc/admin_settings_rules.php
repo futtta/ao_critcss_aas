@@ -41,32 +41,56 @@ function ao_ccss_render_rules() {
             <td>
               <select id="critcss_addedit_pagetype" style="width:100%;">
                 <option value="" disabled selected><?php _e('Select from the list below...', 'autoptimize'); ?></option>
-                <optgroup label="<?php _e('Conditional Tags', 'autoptimize'); ?>"><?php
+                <optgroup label="<?php _e('Standard Conditional Tags', 'autoptimize'); ?>"><?php
+
+                  // Render grouped simple conditional tags
                   foreach ($ao_ccss_types as $ctag) {
                     $optgrp = substr($ctag, 0, 3);
                     if (substr($ctag, 0, 3) === "is_") {
-                      echo '<option value="' . $ctag . '">' . str_replace(array('template_','custom_post_'), '', $ctag) . '</option>';
+                      echo '<option value="' . $ctag . '">' . $ctag . '</option>';
                     }
                     $prevgrp = substr($ctag, 0, 3);
                   }
+
+                  // Render grouped custom post types, templates and specific conditional tags
                   foreach ($ao_ccss_types as $type) {
                     $optgrp = substr($type, 0, 3);
-                    if ($optgrp !== $prevgrp && $optgrp !== "is_") { ?>
+
+                    // Option groups labels
+                    if ($optgrp !== $prevgrp && $optgrp !== 'is_') { ?>
                       </optgroup><?php
                       if (substr($type, 0, 12) === 'custom_post_') { ?>
                         <optgroup label="<?php _e('Custom Post Types', 'autoptimize'); ?>"><?php
-                      } elseif (substr($type, 0, 9) === "template_") { ?>
+                      } elseif (substr($type, 0, 9) === 'template_') { ?>
                         <optgroup label="<?php _e('Page Templates', 'autoptimize'); ?>"><?php
-                      } elseif (substr($type, 0, 4) === "bbp_") { ?>
-                        <optgroup label="<?php _e('BBPress', 'autoptimize'); ?>"><?php
-                      } elseif (substr($type, 0, 3) === "bp_") { ?>
-                        <optgroup label="<?php _e('BuddyPress', 'autoptimize'); ?>"><?php
-                      } elseif (substr($type, 0, 4) === "edd_") { ?>
-                        <optgroup label="<?php _e('Easy Digital Downloads', 'autoptimize'); ?>"><?php
+                      } elseif (substr($type, 0, 4) === 'bbp_') { ?>
+                        <optgroup label="<?php _e('BBPress Conditional Tags', 'autoptimize'); ?>"><?php
+                      } elseif (substr($type, 0, 3) === 'bp_') { ?>
+                        <optgroup label="<?php _e('BuddyPress Conditional Tags', 'autoptimize'); ?>"><?php
+                      } elseif (substr($type, 0, 4) === 'edd_') { ?>
+                        <optgroup label="<?php _e('Easy Digital Downloads Conditional Tags', 'autoptimize'); ?>"><?php
+                      } elseif (substr($type, 0, 4) === 'woo_') { ?>
+                        <optgroup label="<?php _e('WooCommerce Conditional Tags', 'autoptimize'); ?>"><?php
                       }
                     }
-                    if ($optgrp !== "is_") {
-                      echo '<option value="' . $type . '">' . str_replace(array('template_', 'custom_post_'), '', $type) . '</option>';
+
+                    // Options
+                    if ($optgrp !== 'is_') {
+
+                      // Remove prefix from custom post types, templates and some specific conditional tags
+                      if (substr($type, 0, 12) === 'custom_post_') {
+                        $type = str_replace('custom_post_', '', $type);
+                      } elseif (substr($type, 0, 9) === 'template_') {
+                        $type = str_replace('template_', '', $type);
+                      } elseif ($type == 'bbp_is_bbpress') {
+                        $type = str_replace('bbp_', '', $type);
+                      } elseif ($type == 'bp_is_buddypress') {
+                        $type = str_replace('bp_', '', $type);
+                      } elseif (substr($type, 0, 4) === 'woo_') {
+                        $type = str_replace('woo_', '', $type);
+                      }
+
+                      echo '<option value="' . $type . '">' . $type . '</option>';
                       $prevgrp = $optgrp;
                     }
                   }
