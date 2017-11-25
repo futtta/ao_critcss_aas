@@ -22,8 +22,8 @@ function ao_ccss_render_rules() {
             </th>
             <td>
               <select id="critcss_addedit_type" style="width:100%;">
-                <option value="inpath"><?php _e('Path', 'autoptimize'); ?></option>
-                <option value="type"><?php _e('Conditional Tag', 'autoptimize'); ?></option>
+                <option value="paths"><?php _e('Path', 'autoptimize'); ?></option>
+                <option value="types"><?php _e('Conditional Tag', 'autoptimize'); ?></option>
               </select>
             </td>
           </tr>

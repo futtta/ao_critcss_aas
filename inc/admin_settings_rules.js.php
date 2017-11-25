@@ -3,7 +3,11 @@ document.getElementById("autoptimize_css_defer_inline").style.display = 'none';
 
 jQuery( document ).ready(function() {
   critCssArray=JSON.parse(document.getElementById("critCssOrigin").value);
-  console.log(critCssArray);
+  // Initalize rules object if empty
+  if (jQuery.isEmptyObject(critCssArray)) {
+    critCssArray['paths'] = {};
+    critCssArray['types'] = {};
+  }
   drawTable(critCssArray);
   jQuery("#addCritCssButton").click(function(){addEditRow();});
   jQuery("#editDefaultButton").click(function(){editDefaultCritCss();});
@@ -12,12 +16,14 @@ jQuery( document ).ready(function() {
 function drawTable(critCssArray) {
   jQuery("#rules-list").empty();
   jQuery.each(critCssArray,function(k,v) {
-    if (k=="inpath") {
+    if (k=="paths") {
       kstring="<?php _e("Path Based (URL)", "autoptimize") ?>";
-    } else if (k=="type") {
+    } else {
       kstring="<?php _e("Conditional Tags, Custom Post Types and Page Templates", "autoptimize") ?>";
     }
-    jQuery("#rules-list").append("<tr><td colspan='4'><h4>" + kstring + "</h4></td></tr>");
+    if (!(jQuery.isEmptyObject(v))) {
+      jQuery("#rules-list").append("<tr><td colspan='4'><h4>" + kstring + "</h4></td></tr>");
+    }
     nodeNumber=0;
     jQuery.each(v,function(i,nv){
       nodeNumber++;
@@ -77,12 +83,6 @@ function removeRow(idToRemove) {
   });
 }
 
-function updateAfterChange() {
-  document.getElementById("critCssOrigin").value=JSON.stringify(critCssArray);
-  drawTable(critCssArray);
-  jQuery("#unSavedWarning").show();
-}
-
 function addEditRow(idToEdit) {
   resetForm();
   if (idToEdit) {
@@ -100,7 +100,7 @@ function addEditRow(idToEdit) {
     jQuery("#critcss_addedit_css").attr("placeholder", "Loading CSS ...");
     jQuery("#critcss_addedit_type").attr("disabled",true);
 
-    if (crit_type==="inpath") {
+    if (crit_type==="paths") {
       jQuery("#critcss_addedit_path").val(crit_key);
       jQuery("#critcss_addedit_path_wrapper").show();
       jQuery("#critcss_addedit_pagetype_wrapper").hide();
@@ -129,8 +129,8 @@ function addEditRow(idToEdit) {
   } else {
     dialogTitle="<?php _e('Add Critical CSS Rule', 'autotimize') ?>";
 
-    // default: inpath, hide content type field
-    jQuery("#critcss_addedit_type").val("inpath");
+    // default: paths, hide content type field
+    jQuery("#critcss_addedit_type").val("paths");
     jQuery("#critcss_addedit_pagetype_wrapper").hide();
 
     // event handler on type to switch display
@@ -221,6 +221,12 @@ function saveEditCritCss(){
   });
 
   jQuery("#addEditCritCss").dialog( "close" );
+}
+
+function updateAfterChange() {
+  document.getElementById("critCssOrigin").value=JSON.stringify(critCssArray);
+  drawTable(critCssArray);
+  jQuery("#unSavedWarning").show();
 }
 
 function displayNotice(textIn) {

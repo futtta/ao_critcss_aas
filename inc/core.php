@@ -1,29 +1,29 @@
 <?php
 
-/* BEGIN NOTE - ASK FRANK 01:
- * What was intended with these settings?
- * Are these the 4.2 item from the spec (aka path-based exclusions)?
- * Even so, what are 'inpath', 'type' and their 'dummies'?
- *
- * FRANK'S ANSWER:
- * this is the wordpress setting that holds "the rules", where "inpath" is
- * for URL (path) based rules (and as such the UI should allow for users to
- * list pages that require specific CCSS) and "type" is for page type
- * (conditional tags) rules. dummy is just to have a default empty ruleset to
- * enforce (avoiding ugly errors of my code not getting a nice little array)
- */
-// get critical CSS settings from WP options (+ fallback to always have placeholder) and json_decode to have a nice array
-if (empty($ao_ccss_rules_raw)) {
-  $ao_ccss_rules_raw = '{"inpath":{"dummy":"dummy"},"type":{"dummy":"dummy"}}';
-}
-$ao_ccss_rules = json_decode($ao_ccss_rules_raw, true);
+// Check if CriticalCSS is desired
 
-// order 'inpath' by string length, longest path is most specific and will be treated first
-if (!empty($ao_ccss_rules['inpath'])) {
-  $keys = array_map('strlen', array_keys($ao_ccss_rules['inpath']));
-  array_multisort($keys, SORT_DESC, $ao_ccss_rules['inpath']);
+if ($ao_css_defer) {
+
+  // Set AO behavior: disable minification to avoid double minifying and caching
+  add_filter('autoptimize_filter_css_critcss_minify', '__return_false');
+  add_filter('autoptimize_filter_css_defer_inline', 'ao_ccss_frontend', 10,1);
+
+  /* BEGIN NOTE - ASK FRANK 03: This filter is unconditional. Should it be kept? See 06 bellow...
+   *
+   * FRANK'S ANSWER:
+   * this one is hardcore functionality; it's where we hook into AO to get
+   * all individual CSS parts to md5 them and add to the queue
+   */
+  // Add the filter to enqueue jobs for CriticalCSS cron
+  add_filter('autoptimize_css_individual_style', 'ao_ccss_enqueue',10,2);
+  /* END NOTE */
 }
-/* END NOTE */
+
+// Order paths by length, as longest ones have greater priority in the rules
+if (!empty($ao_ccss_rules['paths'])) {
+  $keys = array_map('strlen', array_keys($ao_ccss_rules['paths']));
+  array_multisort($keys, SORT_DESC, $ao_ccss_rules['paths']);
+}
 
 // Add an array with default WordPress's conditional tags
 // NOTE: these tags are sorted
@@ -174,25 +174,6 @@ function ao_ccss_extend_types() {
   sort($ao_ccss_types);
 }
 
-// Check if CriticalCSS is desired
-$ao_css_defer_on = get_option('autoptimize_css_defer', false);
-if ($ao_css_defer_on) {
-
-  // Set AO behavior: disable minification to avoid double minifying and caching
-  add_filter('autoptimize_filter_css_critcss_minify', '__return_false');
-  add_filter('autoptimize_filter_css_defer_inline', 'ao_ccss_frontend', 10,1);
-
-  /* BEGIN NOTE - ASK FRANK 03: This filter is unconditional. Should it be kept? See 06 bellow...
-   *
-   * FRANK'S ANSWER:
-   * this one is hardcore functionality; it's where we hook into AO to get
-   * all individual CSS parts to md5 them and add to the queue
-   */
-  // Add the filter to enqueue jobs for CriticalCSS cron
-  add_filter('autoptimize_css_individual_style', 'ao_ccss_enqueue',10,2);
-  /* END NOTE */
-}
-
 // Apply CriticalCSS to frontend pages
 function ao_ccss_frontend($inlined) {
 
@@ -204,12 +185,12 @@ function ao_ccss_frontend($inlined) {
    *
    * FRANK'S ANSWER:
    * yes, this is hardcore functionality of the plugin; it looks at the
-   * rules for "inpath" ones and injects CCSS in the page if applicable
+   * rules for "paths" ones and injects CCSS in the page if applicable
    */
   // Check for a valid CriticalCSS based on path to return its contents
-  if (!empty($ao_ccss_rules['inpath'])) {
-    foreach ($ao_ccss_rules['inpath'] as $inpath => $ccss_file) {
-      if ((strpos($_SERVER['REQUEST_URI'], str_replace(site_url(), '', $inpath)) !== false) && ($inpath !== 'dummy')) {
+  if (!empty($ao_ccss_rules['paths'])) {
+    foreach ($ao_ccss_rules['paths'] as $paths => $ccss_file) {
+      if ((strpos($_SERVER['REQUEST_URI'], str_replace(site_url(), '', $paths)) !== false) && ($paths !== 'dummy')) {
         if (file_exists(AO_CCSS_DIR . $ccss_file)) {
           return apply_filters('ao_ccss_filter', file_get_contents(AO_CCSS_DIR . $ccss_file));
         }
@@ -225,8 +206,8 @@ function ao_ccss_frontend($inlined) {
    * "type" ones and injects CCSS in the page if applicable
    */
   // Check for a valid CriticalCSS based on conditional tags to return its contents
-  if (!empty($ao_ccss_rules['type'])) {
-    foreach ($ao_ccss_rules['type'] as $type => $ccss_file) {
+  if (!empty($ao_ccss_rules['types'])) {
+    foreach ($ao_ccss_rules['types'] as $type => $ccss_file) {
       if (in_array($type, $ao_ccss_types) && file_exists(AO_CCSS_DIR . $ccss_file)) {
         if (strpos($type, 'custom_post_') === 0) {
           if (get_post_type(get_the_ID()) === substr($type, 12)) {
@@ -259,11 +240,22 @@ function ao_ccss_enqueue($in) {
   // As AO could be set to provide different CSS'es for logged in users,
   // just enqueue jobs for NOT logged in users to avoid useless jobs
   if (!is_user_logged_in()) {
+
+    error_log("CSS Input: \n" . $in);
+
+    // Get request path and load an existing queue
+    $req_path      = $_SERVER['REQUEST_URI'];
     $ao_ccss_queue = json_decode(get_option('autoptimize_ccss_queue', ''), true);
-    $ao_ccss_queue[$_SERVER['REQUEST_URI']]['hashes'][md5($in)] = md5($in);
-    if (!array_key_exists('type', $ao_ccss_queue[$_SERVER['REQUEST_URI']]) || empty($ao_ccss_queue[$_SERVER['REQUEST_URI']]['type'])) {
-      $ao_ccss_queue[$_SERVER['REQUEST_URI']]['type'] = ao_ccss_get_type();
+
+    // Define job proporties: type, job id, status and CSS files hashes
+    if (!array_key_exists('type', $ao_ccss_queue[$req_path]) || empty($ao_ccss_queue[$req_path]['type'])) {
+      $ao_ccss_queue[$req_path]['type'] = ao_ccss_get_type();
     }
+    $ao_ccss_queue[$req_path]['jobid']            = 'NULL';
+    $ao_ccss_queue[$req_path]['status']           = 'NEW';
+    $ao_ccss_queue[$req_path]['hashes'][md5($in)] = md5($in);
+
+    // Save the updated queue
     update_option('autoptimize_ccss_queue', json_encode($ao_ccss_queue));
   }
   return $in;
@@ -300,145 +292,8 @@ function ao_ccss_get_type() {
   return false;
 }
 
-// Ajax handler to obtain a critical CSS file from the filesystem
-function critcss_fetch_callback() {
-
-  // Check referer
-  check_ajax_referer('fetch_critcss_nonce', 'critcss_fetch_nonce');
-
-  // Check user permissios and file
-  if ((current_user_can('manage_options')) && (critcss_check_filename($_POST['critcssfile']))) {
-
-    // Set file path and obtain its content
-    $critcssfile = AO_CCSS_DIR . strip_tags($_POST['critcssfile']);
-    if (file_exists($critcssfile)) {
-      $content = file_get_contents($critcssfile);
-    }
-  }
-
-  // Prepare response
-  if (!$content) {
-    $response['code']   = '500';
-    $response['string'] = 'Error reading file ' . $critcssfile;
-  } else {
-    $response['code']   = '200';
-    $response['string'] = $content;
-  }
-
-  // Dispatch respose
-  echo json_encode($response);
-
-  // Close ajax request
-  wp_die();
-}
-add_action('wp_ajax_fetch_critcss', 'critcss_fetch_callback');
-
-// Ajax handler to write a critical CSS to the filesystem
-function critcss_save_callback() {
-
-  // Check referer
-  check_ajax_referer('save_critcss_nonce', 'critcss_save_nonce');
-
-  // Check user permissios and file
-  if ((current_user_can('manage_options')) && (critcss_check_filename($_POST['critcssfile']))) {
-
-    // Set file path, content and write its content
-    $critcssfile     = AO_CCSS_DIR . strip_tags($_POST['critcssfile']);
-    $critcsscontents = stripslashes($_POST['critcsscontents']);
-    if (critcss_check_csscontents($critcsscontents)) {
-      $status = file_put_contents($critcssfile, $critcsscontents, LOCK_EX);
-    } else {
-      $error = true;
-    }
-  } else {
-    $error = true;
-  }
-
-  // Prepare response
-  if (!$status || $error) {
-    $response['code']   ='500';
-    $response['string'] = 'Error saving file ' . $critcssfile;
-  } else {
-    $response['code']   = '200';
-    $response['string'] = 'File ' . $critcssfile . ' saved';
-  }
-
-  // Dispatch respose
-  echo json_encode($response);
-
-  // Close ajax request
-  wp_die();
-}
-add_action('wp_ajax_save_critcss', 'critcss_save_callback');
-
-// Ajax handler to delete a critical CSS from the filesystem
-function critcss_rm_callback() {
-
-  // Check referer
-  check_ajax_referer('rm_critcss_nonce', 'critcss_rm_nonce');
-
-  // Check user permissios and file
-  if ((current_user_can('manage_options')) && (critcss_check_filename($_POST['critcssfile']))) {
-
-    // Set file path and delete it
-    $critcssfile = AO_CCSS_DIR . strip_tags($_POST['critcssfile']);
-    if (file_exists($critcssfile)) {
-      $status = unlink($critcssfile);
-    }
-  }
-
-  // Prepare response
-  if (!$status) {
-    $response['code']   = '500';
-    $response['string'] = 'Error removing file ' . $critcssfile;
-  } else {
-    $response['code']   = '200';
-    $response['string'] = 'File ' . $critcssfile . ' removed';
-  }
-
-  // Dispatch respose
-  echo json_encode($response);
-
-  // Close ajax request
-  wp_die();
-}
-add_action('wp_ajax_rm_critcss', 'critcss_rm_callback');
-
-// Try to avoid directory traversal when reading/writing/deleting critical CSS files
-function critcss_check_filename($filename) {
-  if (strpos($filename,"ccss_") !== 0) { return false; }
-  else if (substr($filename,-4,4)!==".css") { return false; }
-  // Use WordPress core's sanitize_file_name to see if anything fishy is going on
-  else if (sanitize_file_name($filename) !== $filename) { return false; }
-  else { return true; }
-}
-
-// Perform basic exploit avoidance and CSS validation
-function critcss_check_csscontents($cssin) {
-
-  // Try to avoid code injection
-  $blacklist=array("#!","function(","<script","<?php");
-  foreach ($blacklist as $blacklisted) {
-    if (strpos($cssin,$blacklisted)!==false) {
-      return false;
-    }
-  }
-
-  // Check for most basics CSS structures
-  $pinklist=array("{","}",":");
-  foreach ($pinklist as $needed) {
-    if (strpos($cssin,$needed)===false) {
-      return false;
-    }
-  }
-  return true;
-}
-
-/*
-* is_blog_page does not exist in wordpress core
-* cfr. https://codex.wordpress.org/Conditional_Tags#The_Blog_Page
-* this fixes that
-*/
+// Add is_blog_page conditional tag as per
+// https://codex.wordpress.org/Conditional_Tags#The_Blog_Page
 if (!function_exists("is_blog_page")) {
   function is_blog_page() {
     if (!is_front_page() && is_home()) {
@@ -448,5 +303,6 @@ if (!function_exists("is_blog_page")) {
     }
   }
 }
+add_action('template_redirect', 'is_blog_page');
 
 ?>

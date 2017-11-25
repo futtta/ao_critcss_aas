@@ -3,7 +3,7 @@
 Plugin Name: Autoptimize Power-Up: CriticalCSS
 Plugin URI: http://optimizingmatters/autoptimize/criticalcss/
 Description: Let Autoptimize and CriticalCSS unleash your site performance and make it appear better than anyone in search results.
-Author: Optimizing Matters
+Author: Deny Dias on behalf of Optimizing Matters
 Version: 0.dev
 Author URI: http://optimizingmatters.com/
 Text Domain: autoptimize
@@ -17,18 +17,21 @@ Text Domain: autoptimize
  * must: add "exceptions" based on path to override conditional-tag based things
  * should: add UI to enter license key
  * should: add UI to add extra CSS (unconditionally)
- * should: "clear aocritcss cache"-option 
+ * should: "clear aocritcss cache"-option
  * should: remove querystring when filling queue
  * could: clear cache if theme update/ switch and plugin installation (or not as we check AO CSS hash?)
  */
 
 // Get options
-$ao_css_defer      = get_option('autoptimize_css_defer');
-$ao_ccss_key       = get_option('autoptimize_ccss_key');
-$ao_ccss_rules_raw = get_option('autoptimize_ccss_rules');
+$ao_css_defer        = get_option('autoptimize_css_defer', false);
+$ao_css_defer_inline = get_option('autoptimize_css_defer_inline');
+$ao_ccss_key         = get_option('autoptimize_ccss_key');
+$ao_ccss_rules_raw   = get_option('autoptimize_ccss_rules');
+$ao_ccss_rules       = json_decode($ao_ccss_rules_raw, true);
 
 // Required libs
 require_once('inc/core.php');
+require_once('inc/core_ajax.php');
 require_once('inc/admin_settings.php');
 require_once('inc/admin_settings_license.php');
 require_once('inc/admin_settings_rules.php');
