@@ -6,7 +6,6 @@ function ao_ccss_settings() {
   // Attach globals
   global $ao_css_defer;
   global $ao_ccss_key;
-  global $ao_ccss_rules;
 
   ?>
   <div class="wrap">
@@ -60,7 +59,7 @@ function ao_ccss_settings() {
         if ($key_status === TRUE) {
 
           // Render rules section
-          ao_ccss_render_rules($ao_ccss_rules);
+          ao_ccss_render_rules();
 
           echo '<!-- TODO: here goes more and more settings... -->';
         } ?>
@@ -83,7 +82,11 @@ function ao_ccss_settings() {
     // Include debug panel
     include('admin_settings_debug.php'); ?>
   </div><!-- /#debug -->
+
 <?php
+  echo '<script>';
+  include('admin_settings_rules.js.php');
+  echo '</script>';
 }
 
 ?>

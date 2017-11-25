@@ -41,9 +41,9 @@ if ($ao_options || $ao_trans) {
         </th>
         <td>
           <?php
-          if ($option['name'] == 'autoptimize_ccss_queue') {
-            $queue = print_r(json_decode($option['value']), true);
-            echo '<pre>' . $queue . '</pre>';
+          if ($option['name'] == 'autoptimize_ccss_queue' || $option['name'] == 'autoptimize_ccss_rules') {
+            $value = print_r(json_decode($option['value']), true);
+            echo '<pre>' . $value . '</pre>';
           } elseif ($option['name'] == 'autoptimize_ccss_rules') {
             echo '<pre>' . $option['value'] . '</pre>';
           } else {

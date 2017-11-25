@@ -78,6 +78,36 @@
   color: #999;
   padding: 0 10px;
 }
+.form-table.rules {
+  margin-top: 0;
+}
+.form-table.rules th {
+  width: 175px;
+}
+.rules-list {
+  width: 100%;
+  margin-bottom: 10px;
+}
+#rules-list {
+  margin-bottom: 20px;
+}
+#rules-list h4 {
+  margin: 20px 0 0;
+}
+#rules-list .rule td {
+  margin: 0;
+  padding: 0 0 5px;
+  border-bottom: 1px solid #ccc;
+}
+#rules-list .btn-edit,
+#rules-list .btn-delete {
+  text-align: right;
+  width: 8%;
+}
+p.rules-btn {
+  margin: 20px 0 0;
+  padding: 0;
+}
 input[type=url]:invalid {color: red; border-color:red;} .form-table th{font-weight:100;}
 #autoptimize_main .cb_label {display: block; padding-left: 25px; text-indent: -25px;}
 
