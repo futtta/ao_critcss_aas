@@ -72,7 +72,7 @@ function ao_ccss_extend_types() {
   }
 
   // bbPress tags
-  // NOTE: switch logic for release
+  // FIXME: switch logic for release
   if (!function_exists('is_bbpress')) {
     $ao_ccss_types = array_merge($ao_ccss_types, array(
       'bbp_is_bbpress',
@@ -103,7 +103,7 @@ function ao_ccss_extend_types() {
   }
 
   // BuddyPress tags
-  // NOTE: switch logic for release
+  // FIXME: switch logic for release
   if (!function_exists('is_buddypress')) {
     $ao_ccss_types=array_merge($ao_ccss_types, array(
       'bp_is_activation_page',
@@ -144,7 +144,7 @@ function ao_ccss_extend_types() {
   }
 
   // Easy Digital Downloads (EDD) tags
-  // NOTE: switch logic for release
+  // FIXME: switch logic for release
   if (!function_exists('edd_is_checkout')) {
     $ao_ccss_types=array_merge($ao_ccss_types, array(
       'edd_is_checkout',
@@ -155,7 +155,7 @@ function ao_ccss_extend_types() {
   }
 
   // WooCommerce tags
-  // NOTE: switch logic for release
+  // FIXME: switch logic for release
   if (!class_exists('WooCommerce')) {
     $ao_ccss_types = array_merge($ao_ccss_types, array(
       'woo_is_account_page',
