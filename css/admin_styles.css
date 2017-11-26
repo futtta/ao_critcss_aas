@@ -169,10 +169,12 @@ input[type=url]:invalid {color: red; border-color:red;} .form-table th{font-weig
   font-size: 13px;
 }
 #debug pre {
+  margin: 0 0 1em;
   font-size: 12px;
   -moz-tab-size: 4;
   -o-tab-size: 4;
   tab-size: 4;
+  white-space: pre-wrap;
 }
 
 /* responsive stuff: hide admin-feed on smaller screens */

@@ -43,9 +43,11 @@ if ($ao_options || $ao_trans) {
           <?php
           if ($option['name'] == 'autoptimize_ccss_queue' || $option['name'] == 'autoptimize_ccss_rules') {
             $value = print_r(json_decode($option['value']), true);
-            echo '<pre>' . $value . '</pre>';
-          } elseif ($option['name'] == 'autoptimize_ccss_rules') {
-            echo '<pre>' . $option['value'] . '</pre>';
+            if ($value) {
+              echo "Raw JSON:\n<pre>" . $option['value'] . "</pre>\n\nObject:\n<pre>" . $value . '</pre>';
+            } else {
+              echo "Empty";
+            }
           } else {
             echo $option['value'];
           } ?>
