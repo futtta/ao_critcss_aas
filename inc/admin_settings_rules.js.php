@@ -17,9 +17,9 @@ function drawTable(critCssArray) {
   jQuery("#rules-list").empty();
   jQuery.each(critCssArray,function(k,v) {
     if (k=="paths") {
-      kstring="<?php _e("Path Based (URL)", "autoptimize") ?>";
+      kstring="<?php _e("Path Based Rules", "autoptimize") ?>";
     } else {
-      kstring="<?php _e("Conditional Tags, Custom Post Types and Page Templates", "autoptimize") ?>";
+      kstring="<?php _e("Conditional Tags, Custom Post Types and Page Templates Rules", "autoptimize") ?>";
     }
     if (!(jQuery.isEmptyObject(v))) {
       jQuery("#rules-list").append("<tr><td colspan='4'><h4>" + kstring + "</h4></td></tr>");
