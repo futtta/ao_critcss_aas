@@ -298,7 +298,7 @@ function ao_ccss_enqueue($in) {
           $ao_ccss_queue[$req_path]['jqstat'] = NULL;
           $ao_ccss_queue[$req_path]['jrstat'] = NULL;
           $ao_ccss_queue[$req_path]['jctime'] = microtime(TRUE);
-          $ao_ccss_queue[$req_path]['jctime'] = microtime(TRUE);
+          $ao_ccss_queue[$req_path]['jmtime'] = microtime(TRUE);
           $ao_ccss_queue[$req_path]['jftime'] = NULL;
 
           // Set update flag
