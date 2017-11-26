@@ -251,7 +251,7 @@ function ao_ccss_enqueue($in) {
     // First, check if the job does not exist already
     if (!array_key_exists($req_path, $ao_ccss_queue)) {
 
-      // Define proporties for a NEW job
+      // Define properties for a NEW job
       $ao_ccss_queue[$req_path]['type']   = ao_ccss_get_type();
       $ao_ccss_queue[$req_path]['hashes'] = array(md5($in));
       $ao_ccss_queue[$req_path]['file']   = NULL;
@@ -290,7 +290,7 @@ function ao_ccss_enqueue($in) {
         // We need to make sure the that at least one CSS has changed to update the job
         if (!in_array($hash, $ao_ccss_queue[$req_path]['hashes'])) {
 
-          // Reset proporties for a DONE job with any of the hashes different
+          // Reset properties for a DONE job with any of the hashes different
           $ao_ccss_queue[$req_path]['type']   = ao_ccss_get_type();
           $ao_ccss_queue[$req_path]['hashes'] = array(md5($in));
           $ao_ccss_queue[$req_path]['file']   = NULL;
