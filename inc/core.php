@@ -15,7 +15,7 @@ if ($ao_css_defer) {
    * all individual CSS parts to md5 them and add to the queue
    */
   // Add the filter to enqueue jobs for CriticalCSS cron
-  add_filter('autoptimize_css_individual_style', 'ao_ccss_enqueue',10,2);
+  add_filter('autoptimize_action_css_hash', 'ao_ccss_enqueue',10,2);
   /* END NOTE */
 }
 
@@ -235,25 +235,32 @@ function ao_ccss_frontend($inlined) {
 }
 
 // Enqueue jobs for asynchronous processing
-function ao_ccss_enqueue($in) {
+function ao_ccss_enqueue($hash) {
 
   // As AO could be set to provide different CSS'es for logged in users,
   // just enqueue jobs for NOT logged in users to avoid useless jobs
   if (!is_user_logged_in()) {
 
-    error_log("CSS Input: \n" . $in);
+    error_log("CSS MD5 checksum: " . $hash);
 
-    // Set flag, get request path and load an existing queue
-    $upd_queue      = FALSE;
+    // Set flag, get request path and load
+    $upd_queue     = FALSE;
     $req_path      = $_SERVER['REQUEST_URI'];
-    $ao_ccss_queue = json_decode(get_option('autoptimize_ccss_queue', ''), true);
+
+    // Setup the queue
+    if (empty($ao_ccss_queue)) {
+      $ao_ccss_queue = array();
+    } else {
+      $ao_ccss_queue = json_decode(get_option('autoptimize_ccss_queue', ''), true);
+    }
 
     // First, check if the job does not exist already
     if (!array_key_exists($req_path, $ao_ccss_queue)) {
 
       // Define properties for a NEW job
       $ao_ccss_queue[$req_path]['type']   = ao_ccss_get_type();
-      $ao_ccss_queue[$req_path]['hashes'] = array(md5($in));
+      $ao_ccss_queue[$req_path]['hashes'] = array($hash);
+      $ao_ccss_queue[$req_path]['hash']   = NULL;
       $ao_ccss_queue[$req_path]['file']   = NULL;
       $ao_ccss_queue[$req_path]['jid']    = NULL;
       $ao_ccss_queue[$req_path]['jqstat'] = NULL;
@@ -271,9 +278,6 @@ function ao_ccss_enqueue($in) {
       // The job is NEW, most likely this is extra CSS file for the same page that needs a hash
       if (empty($ao_ccss_queue[$req_path]['jqstat'])) {
 
-        // Hash CSS
-        $hash = md5($in);
-
         // Add hash if it's not already in the job
         if (!in_array($hash, $ao_ccss_queue[$req_path]['hashes'])) {
 
@@ -284,15 +288,13 @@ function ao_ccss_enqueue($in) {
       // The jobs is DONE, most likely its CSS files have changed and need to be requeued
       } elseif ($ao_ccss_queue[$req_path]['jqstat'] == 'JOB_DONE') {
 
-        // Hash CSS
-        $hash = md5($in);
-
         // We need to make sure the that at least one CSS has changed to update the job
         if (!in_array($hash, $ao_ccss_queue[$req_path]['hashes'])) {
 
           // Reset properties for a DONE job with any of the hashes different
           $ao_ccss_queue[$req_path]['type']   = ao_ccss_get_type();
-          $ao_ccss_queue[$req_path]['hashes'] = array(md5($in));
+          $ao_ccss_queue[$req_path]['hashes'] = array($hash);
+          $ao_ccss_queue[$req_path]['hash']   = NULL;
           $ao_ccss_queue[$req_path]['file']   = NULL;
           $ao_ccss_queue[$req_path]['jid']    = NULL;
           $ao_ccss_queue[$req_path]['jqstat'] = NULL;
