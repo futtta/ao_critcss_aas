@@ -49,7 +49,7 @@ function ao_ccss_frontend($inlined) {
   // NOTE: implements section 4, id 1.1 of the specs (for paths)
   if (!empty($ao_ccss_rules['paths'])) {
     foreach ($ao_ccss_rules['paths'] as $paths => $ccss_file) {
-      if ((strpos($_SERVER['REQUEST_URI'], str_replace(site_url(), '', $paths)) !== false) && ($paths !== 'dummy')) {
+      if ((strpos($_SERVER['REQUEST_URI'], str_replace(site_url(), '', $paths)) !== FALSE) && ($paths !== 'dummy')) {
         if (file_exists(AO_CCSS_DIR . $ccss_file)) {
           return apply_filters('ao_ccss_filter', file_get_contents(AO_CCSS_DIR . $ccss_file));
         }
@@ -95,6 +95,7 @@ function ao_ccss_enqueue($hash) {
   // just enqueue jobs for NOT logged in users to avoid useless jobs
   if (!is_user_logged_in()) {
 
+    // FIXME: remove this log message for release
     error_log("CSS MD5 checksum: " . $hash);
 
     // Set flag, get request path and load
@@ -105,7 +106,7 @@ function ao_ccss_enqueue($hash) {
     if (empty($ao_ccss_queue)) {
       $ao_ccss_queue = array();
     } else {
-      $ao_ccss_queue = json_decode(get_option('autoptimize_ccss_queue', ''), true);
+      $ao_ccss_queue = json_decode(get_option('autoptimize_ccss_queue', ''), TRUE);
     }
 
     // First, check if the job does not exist already
@@ -202,7 +203,7 @@ function ao_ccss_get_type() {
   }
 
   // If no valid type was found, just return false
-  return false;
+  return FALSE;
 }
 
 // Extend contidional tags
@@ -215,8 +216,8 @@ function ao_ccss_extend_types() {
   // Custom Post Types
   $cpts = get_post_types(
     array(
-      'public'   => true,
-      '_builtin' => false
+      'public'   => TRUE,
+      '_builtin' => FALSE
     ),
     'names',
     'and'
@@ -339,9 +340,9 @@ function ao_ccss_extend_types() {
 if (!function_exists("is_blog_page")) {
   function is_blog_page() {
     if (!is_front_page() && is_home()) {
-      return true;
+      return TRUE;
     } else {
-      return false;
+      return FALSE;
     }
   }
 }

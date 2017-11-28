@@ -10,11 +10,11 @@ Text Domain: autoptimize
 */
 
 // Get options
-$ao_css_defer        = get_option('autoptimize_css_defer', false);
+$ao_css_defer        = get_option('autoptimize_css_defer', FALSE);
 $ao_css_defer_inline = get_option('autoptimize_css_defer_inline');
 $ao_ccss_key         = get_option('autoptimize_ccss_key');
 $ao_ccss_rules_raw   = get_option('autoptimize_ccss_rules');
-$ao_ccss_rules       = json_decode($ao_ccss_rules_raw, true);
+$ao_ccss_rules       = json_decode($ao_ccss_rules_raw, TRUE);
 
 // Required libs
 require_once('inc/core.php');
@@ -34,7 +34,7 @@ if (is_multisite()) {
 
 // Add hidden submenu and register allowed settings
 function ao_ccss_settings_init() {
-  $hook = add_submenu_page(null, 'Autoptimize CriticalCSS Power-Up', 'Autoptimize CriticalCSS Power-Up', 'manage_options', 'ao_ccss_settings', 'ao_ccss_settings');
+  $hook = add_submenu_page(NULL, 'Autoptimize CriticalCSS Power-Up', 'Autoptimize CriticalCSS Power-Up', 'manage_options', 'ao_ccss_settings', 'ao_ccss_settings');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_key');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_rules');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_queue');
@@ -56,11 +56,11 @@ function ao_ccss_admin_assets($hook) {
 
   // Scripts to add
   wp_enqueue_script('jquery-ui-dialog',      array( 'jquery' ));
-  wp_enqueue_script('jqcookie',              plugins_url('lib/js/jquery.cookie.min.js',  __FILE__), array('jquery'), null, true);
-  wp_enqueue_script('unslider',              plugins_url('lib/js/unslider-min.js',       __FILE__), array('jquery'), null, true);
-  wp_enqueue_script('md5',                   plugins_url('lib/js/md5.min.js',            __FILE__), null, null, true);
-  wp_enqueue_script('ao_ccss_admin_license', plugins_url('js/admin_settings_license.js', __FILE__), array('jquery'), null, true);
-  wp_enqueue_script('ao_ccss_admin_feeds',   plugins_url('js/admin_settings_feeds.js',   __FILE__), array('jquery'), null, true);
+  wp_enqueue_script('jqcookie',              plugins_url('lib/js/jquery.cookie.min.js',  __FILE__), array('jquery'), NULL, TRUE);
+  wp_enqueue_script('unslider',              plugins_url('lib/js/unslider-min.js',       __FILE__), array('jquery'), NULL, TRUE);
+  wp_enqueue_script('md5',                   plugins_url('lib/js/md5.min.js',            __FILE__), NULL, NULL, TRUE);
+  wp_enqueue_script('ao_ccss_admin_license', plugins_url('js/admin_settings_license.js', __FILE__), array('jquery'), NULL, TRUE);
+  wp_enqueue_script('ao_ccss_admin_feeds',   plugins_url('js/admin_settings_feeds.js',   __FILE__), array('jquery'), NULL, TRUE);
 }
 add_action('admin_enqueue_scripts', 'ao_ccss_admin_assets');
 
