@@ -1,5 +1,7 @@
 <?php
 
+// NOTE: implements section 4, id 4 of the specs
+
 // Settings tab content
 function ao_ccss_settings() {
 

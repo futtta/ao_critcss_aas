@@ -1,5 +1,7 @@
 <?php
 
+// NOTE: implements section 4, id 4.2 and 4.3 of the specs
+
 // Render the exclusions panel
 function ao_ccss_render_rules() {
 

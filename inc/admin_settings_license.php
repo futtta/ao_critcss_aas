@@ -1,5 +1,7 @@
 <?php
 
+// NOTE: implements section 4, id 4.1 of the specs
+
 // Validate critical.css API key
 function ao_ccss_validate_key($key) {
 

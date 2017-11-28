@@ -1,5 +1,7 @@
 <?php
 
+// NOTE: implements OUT OF SCOPE DEBUG item of the specs
+
 // Attach wpdb() object
 global $wpdb;
 

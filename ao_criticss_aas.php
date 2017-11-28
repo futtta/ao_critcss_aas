@@ -9,19 +9,6 @@ Author URI: http://optimizingmatters.com/
 Text Domain: autoptimize
 */
 
-
-/**
- * TODO:
- *
- * must: add logic to check AO CSS hash
- * must: add "exceptions" based on path to override conditional-tag based things
- * should: add UI to enter license key
- * should: add UI to add extra CSS (unconditionally)
- * should: "clear aocritcss cache"-option
- * should: remove querystring when filling queue
- * could: clear cache if theme update/ switch and plugin installation (or not as we check AO CSS hash?)
- */
-
 // Get options
 $ao_css_defer        = get_option('autoptimize_css_defer', false);
 $ao_css_defer_inline = get_option('autoptimize_css_defer_inline');
@@ -63,15 +50,15 @@ function ao_ccss_admin_assets($hook) {
 
   // Stylesheets to add
   wp_enqueue_style('wp-jquery-ui-dialog');
-  wp_enqueue_style('unslider',          plugins_url('css/ext/unslider.css',      __FILE__));
-  wp_enqueue_style('unslider-dots',     plugins_url('css/ext/unslider-dots.css', __FILE__));
+  wp_enqueue_style('unslider',          plugins_url('lib/css/unslider.css',      __FILE__));
+  wp_enqueue_style('unslider-dots',     plugins_url('lib/css/unslider-dots.css', __FILE__));
   wp_enqueue_style('ao_ccss_admin_css', plugins_url('css/admin_styles.css',        __FILE__));
 
   // Scripts to add
   wp_enqueue_script('jquery-ui-dialog',      array( 'jquery' ));
-  wp_enqueue_script('jqcookie',              plugins_url('js/ext/jquery.cookie.min.js',  __FILE__), array('jquery'), null, true);
-  wp_enqueue_script('unslider',              plugins_url('js/ext/unslider-min.js',       __FILE__), array('jquery'), null, true);
-  wp_enqueue_script('md5',                   plugins_url('js/ext/md5.min.js',            __FILE__), null, null, true);
+  wp_enqueue_script('jqcookie',              plugins_url('lib/js/jquery.cookie.min.js',  __FILE__), array('jquery'), null, true);
+  wp_enqueue_script('unslider',              plugins_url('lib/js/unslider-min.js',       __FILE__), array('jquery'), null, true);
+  wp_enqueue_script('md5',                   plugins_url('lib/js/md5.min.js',            __FILE__), null, null, true);
   wp_enqueue_script('ao_ccss_admin_license', plugins_url('js/admin_settings_license.js', __FILE__), array('jquery'), null, true);
   wp_enqueue_script('ao_ccss_admin_feeds',   plugins_url('js/admin_settings_feeds.js',   __FILE__), array('jquery'), null, true);
 }
