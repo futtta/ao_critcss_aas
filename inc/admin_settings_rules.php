@@ -6,8 +6,8 @@
 function ao_ccss_render_rules() {
 
   // Attach required arrays
-  global $ao_ccss_types;
   global $ao_ccss_rules;
+  global $ao_ccss_types;
 
 ?>
   <ul>
@@ -134,7 +134,7 @@ function ao_ccss_render_rules() {
       </div>
       <textarea id="autoptimize_css_defer_inline" name="autoptimize_css_defer_inline" rows="19" cols="10" style="width:100%;" placeholder="<?php _e('Paste your default critical CSS here and hit submit to save.', 'autoptimize'); ?>"><?php echo get_option('autoptimize_css_defer_inline',''); ?></textarea>
       <table class="rules-list" cellspacing="0"><tbody id="rules-list"></tbody></table>
-      <input type="text" id="critCssOrigin" name="autoptimize_ccss_rules" style="width:100%;" value='<?php echo (json_encode((object)$ao_ccss_rules)); ?>'>
+      <input type="text" id="critCssOrigin" name="autoptimize_ccss_rules" style="width:100%;" value='<?php echo (json_encode((object)$ao_ccss_rules, JSON_FORCE_OBJECT)); ?>'>
       <p class="submit rules-btn">
         <span id="addCritCssButton" class="button-secondary"><?php _e('Add New Rule', 'autoptimize') ?></span>
         <span id="editDefaultButton" class="button-secondary"><?php _e('Edit Default Critical CSS', 'autoptimize'); ?></span>

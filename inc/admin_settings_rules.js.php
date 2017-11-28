@@ -3,11 +3,6 @@ document.getElementById("autoptimize_css_defer_inline").style.display = 'none';
 
 jQuery( document ).ready(function() {
   critCssArray=JSON.parse(document.getElementById("critCssOrigin").value);
-  // Initalize rules object if empty
-  if (jQuery.isEmptyObject(critCssArray)) {
-    critCssArray['paths'] = {};
-    critCssArray['types'] = {};
-  }
   drawTable(critCssArray);
   jQuery("#addCritCssButton").click(function(){addEditRow();});
   jQuery("#editDefaultButton").click(function(){editDefaultCritCss();});
@@ -28,11 +23,9 @@ function drawTable(critCssArray) {
     jQuery.each(v,function(i,nv){
       nodeNumber++;
       nodeId=k + "_" + nodeNumber;
-      if (i!="dummy") {
-        jQuery("#rules-list").append("<tr class='rule'><td class='target'>" + i + "</td><td class='file'>" + nv + "</td><td class='btn-edit'><span class=\"button-secondary\" id=\"" + nodeId + "_edit\"><?php _e("Edit", "autoptimize"); ?></span></td><td class='btn-delete'><span class=\"button-secondary\" id=\"" + nodeId + "_remove\"><?php _e("Remove", "autoptimize"); ?></span></td></tr>");
-        jQuery("#" + nodeId + "_edit").click(function(){addEditRow(this.id);});
-        jQuery("#" + nodeId + "_remove").click(function(){confirmRemove(this.id);});
-      }
+      jQuery("#rules-list").append("<tr class='rule'><td class='target'>" + i + "</td><td class='file'>" + nv + "</td><td class='btn-edit'><span class=\"button-secondary\" id=\"" + nodeId + "_edit\"><?php _e("Edit", "autoptimize"); ?></span></td><td class='btn-delete'><span class=\"button-secondary\" id=\"" + nodeId + "_remove\"><?php _e("Remove", "autoptimize"); ?></span></td></tr>");
+      jQuery("#" + nodeId + "_edit").click(function(){addEditRow(this.id);});
+      jQuery("#" + nodeId + "_remove").click(function(){confirmRemove(this.id);});
     })
   });
 }
@@ -97,7 +90,7 @@ function addEditRow(idToEdit) {
     jQuery("#critcss_addedit_id").val(idToEdit);
     jQuery("#critcss_addedit_type").val(crit_type);
     jQuery("#critcss_addedit_file").val(crit_file);
-    jQuery("#critcss_addedit_css").attr("placeholder", "Loading CSS ...");
+    jQuery("#critcss_addedit_css").attr("placeholder", "<?php _e('Loading critical CSS...', 'autoptimize') ?>");
     jQuery("#critcss_addedit_type").attr("disabled",true);
 
     if (crit_type==="paths") {
@@ -135,7 +128,7 @@ function addEditRow(idToEdit) {
 
     // event handler on type to switch display
     jQuery("#critcss_addedit_type").on('change', function (e) {
-      if(this.value==="type") {
+      if(this.value==="types") {
         jQuery("#critcss_addedit_pagetype_wrapper").show();
         jQuery("#critcss_addedit_path_wrapper").hide();
       } else {
@@ -193,7 +186,7 @@ function saveEditCritCss(){
     // will also remove the file, but that will get rewritten anyway
     removeRow(critcssid);
   }
-    if (critcsstype==="type") {
+    if (critcsstype==="types") {
     critcsssecond=jQuery("#critcss_addedit_pagetype").val();
   } else {
     critcsssecond=jQuery("#critcss_addedit_path").val();

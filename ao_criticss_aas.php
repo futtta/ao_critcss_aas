@@ -13,8 +13,15 @@ Text Domain: autoptimize
 $ao_css_defer        = get_option('autoptimize_css_defer', FALSE);
 $ao_css_defer_inline = get_option('autoptimize_css_defer_inline');
 $ao_ccss_key         = get_option('autoptimize_ccss_key');
-$ao_ccss_rules_raw   = get_option('autoptimize_ccss_rules');
-$ao_ccss_rules       = json_decode($ao_ccss_rules_raw, TRUE);
+$ao_ccss_rules_raw   = get_option('autoptimize_ccss_rules', FALSE);
+
+// Setup the rules array
+if (empty($ao_ccss_rules_raw)) {
+  $ao_ccss_rules['paths'] = [];
+  $ao_ccss_rules['types'] = [];
+} else {
+  $ao_ccss_rules = json_decode($ao_ccss_rules_raw, TRUE);
+}
 
 // Required libs
 require_once('inc/core.php');
