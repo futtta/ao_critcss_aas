@@ -14,7 +14,7 @@ function ao_ccss_render_rules() {
     <li class="itemDetail">
       <h2 class="itemTitle"><?php _e('Exception Rules', 'autoptimize'); ?></h2>
       <div id="unSavedWarning" class="hidden updated settings-error notice notice-warning is-dismissible">
-        <p><?php _e("You have unsaved changes, don't forget to save!", 'autoptimize'); ?></p>
+        <p><?php _e("<strong>Rules changed. DON'T forget to save the changes!</strong>", 'autoptimize'); ?></p>
       </div>
       <div id="addEditCritCss" class="hidden">
         <table class="form-table rules">

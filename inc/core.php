@@ -95,12 +95,6 @@ function ao_ccss_enqueue($hash) {
   // just enqueue jobs for NOT logged in users to avoid useless jobs
   if (!is_user_logged_in()) {
 
-    // FIXME: remove this log message for release
-    error_log("CSS MD5 checksum: " . $hash);
-
-    // Attach rules
-    global $ao_ccss_rules;
-
     // Load the queue, get request path and page type, and initialize the queue update flag
     $ao_ccss_queue_raw = get_option('autoptimize_ccss_queue', FALSE);
     $req_path          = $_SERVER['REQUEST_URI'];
