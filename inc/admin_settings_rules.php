@@ -12,7 +12,7 @@ function ao_ccss_render_rules() {
 ?>
   <ul>
     <li class="itemDetail">
-      <h2 class="itemTitle"><?php _e('Exception Rules', 'autoptimize'); ?></h2>
+      <h2 class="itemTitle"><?php _e('Rules', 'autoptimize'); ?></h2>
       <div id="unSavedWarning" class="hidden updated settings-error notice notice-warning is-dismissible">
         <p><?php _e("<strong>Rules changed. DON'T forget to save the changes!</strong>", 'autoptimize'); ?></p>
       </div>
@@ -123,18 +123,27 @@ function ao_ccss_render_rules() {
       <div id="default_critcss_wrapper" class="hidden">
         <textarea id="dummyDefault" rows="19" cols="10" style="width:100%;" placeholder="<?php _e('Paste your default critical CSS here and hit submit to save.', 'autoptimize'); ?>"></textarea>
       </div>
-      <div style="margin:10px 0 0;padding:2px 10px;border-left:solid;border-left-width:5px;border-left-color:#00a0d2;background-color:white;">
-        <p><strong><?php _e('Using <strong>Autoptimize CriticalCSS Power-Up</strong> rules:', 'autoptimize');?></strong></p>
-        <ol>
-          <li><?php _e('When you enter a valid criticalcss.com API key, it starts to operate <strong>automatically</strong>.', 'autoptimize');?></li>
-          <li><?php _e('Sometimes, an automatically generated critical CSS does not provides the better result.', 'autoptimize');?></li>
-          <li><?php _e('In this case, add or edit rules bellow so you can manually set a critical CSS to override the automatic one.', 'autoptimize');?></li>
-          <li><?php _e('You can add individual rules for paths (URLs), conditional tags, custom post types and templates.', 'autoptimize');?></li>
+      <div class="instructions">
+        <div class="title-wrap">
+          <h4 class="title"><?php _e('How To Use Autoptimize CriticalCSS Power-Up', 'autoptimize');?></h4>
+          <p class="subtitle"><?php _e('Click the side arrow to toggle instructions', 'autoptimize');?></p>
+        </div>
+        <button type="button" class="handletbl">
+          <span class="toggle-indicator dashicons dashicons-arrow-up dashicons-arrow-down"></span>
+        </button>
+        <ol style="display: none;">
+          <li><?php _e('When have a valid criticalcss.com API key, it starts to operate <strong>automatically</strong>.', 'autoptimize');?></li>
+          <li><?php _e('Upon a request in any of the frontend pages, it will <strong>asynchronously</strong> fetch and update the critical CSS from <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> for conditional tags you have on your site (e.g. is_page, is_single, is_archive etc.)', 'autoptimize');?></li>
+          <li><?php _e('These requests also creates an <span class="badge auto">AUTO</span> rule for you. The critical CSS files from <span class="badge auto">AUTO</span> rules are updated automatically when a CSS file in your theme or frontend plugins changes.', 'autoptimize');?></li>
+          <li><?php _e('If you want to make any fine tunning in the critical CSS file of an <span class="badge auto">AUTO</span> rule, click on "Edit" button of that rule, change what you need, submit and save it. The rule you\'ve just edited becomes a <span class="badge manual">MANUAL</span> rule then.', 'autoptimize');?></li>
+          <li><?php _e('You can also create <span class="badge manual">MANUAL</span> rules for specific page paths (URL). Longer, more specific paths have higher priority over shorter ones, which in turn have higher priority over <span class="badge auto">AUTO</span> rules.', 'autoptimize');?></li>
+          <li><?php _e('Critical CSS files from <span class="badge manual">MANUAL</span> rules are <strong>NEVER</strong> updated automatically.', 'autoptimize');?></li>
+          <li><?php _e('At any time you can delete an <span class="badge auto">AUTO</span> or <span class="badge manual">MANUAL</span> rule by cliking on "Remove" button of the desired rule and saving your changes.', 'autoptimize');?></li>
         </ol>
       </div>
       <textarea id="autoptimize_css_defer_inline" name="autoptimize_css_defer_inline" rows="19" cols="10" style="width:100%;" placeholder="<?php _e('Paste your default critical CSS here and hit submit to save.', 'autoptimize'); ?>"><?php echo get_option('autoptimize_css_defer_inline',''); ?></textarea>
       <table class="rules-list" cellspacing="0"><tbody id="rules-list"></tbody></table>
-      <input type="text" id="critCssOrigin" name="autoptimize_ccss_rules" style="width:100%;" value='<?php echo (json_encode((object)$ao_ccss_rules, JSON_FORCE_OBJECT)); ?>'>
+      <input type="text" id="critCssOrigin" name="autoptimize_ccss_rules" style="width:100%;" value='<?php echo (json_encode($ao_ccss_rules, JSON_FORCE_OBJECT)); ?>'>
       <p class="submit rules-btn">
         <span id="addCritCssButton" class="button-secondary"><?php _e('Add New Rule', 'autoptimize') ?></span>
         <span id="editDefaultButton" class="button-secondary"><?php _e('Edit Default Critical CSS', 'autoptimize'); ?></span>

@@ -1,8 +1,9 @@
 document.getElementById("critCssOrigin").style.display = 'none';
 document.getElementById("autoptimize_css_defer_inline").style.display = 'none';
 
-jQuery( document ).ready(function() {
+jQuery(document).ready(function() {
   critCssArray=JSON.parse(document.getElementById("critCssOrigin").value);
+  console.log(critCssArray);
   drawTable(critCssArray);
   jQuery("#addCritCssButton").click(function(){addEditRow();});
   jQuery("#editDefaultButton").click(function(){editDefaultCritCss();});
@@ -17,13 +18,24 @@ function drawTable(critCssArray) {
       kstring="<?php _e("Conditional Tags, Custom Post Types and Page Templates Rules", "autoptimize") ?>";
     }
     if (!(jQuery.isEmptyObject(v))) {
-      jQuery("#rules-list").append("<tr><td colspan='4'><h4>" + kstring + "</h4></td></tr>");
+      jQuery("#rules-list").append("<tr><td colspan='5'><h4>" + kstring + "</h4></td></tr>");
     }
+    jQuery("#rules-list").append("<tr><th><?php _e('Rule Type', 'autoptimize') ?></th><th><?php _e('Target', 'autoptimize') ?></th><th><?php _e('Critical CSS File', 'autoptimize') ?></th><th colspan='2'><?php _e('Actions', 'autoptimize') ?></th></tr>");
     nodeNumber=0;
     jQuery.each(v,function(i,nv){
       nodeNumber++;
       nodeId=k + "_" + nodeNumber;
-      jQuery("#rules-list").append("<tr class='rule'><td class='target'>" + i + "</td><td class='file'>" + nv + "</td><td class='btn-edit'><span class=\"button-secondary\" id=\"" + nodeId + "_edit\"><?php _e("Edit", "autoptimize"); ?></span></td><td class='btn-delete'><span class=\"button-secondary\" id=\"" + nodeId + "_remove\"><?php _e("Remove", "autoptimize"); ?></span></td></tr>");
+      hash=nv.hash;
+      file=nv.file;
+      console.log(nodeId, nodeNumber, i, hash, file);
+      if (nv.hash === 0) {
+        type='<?php _e("MANUAL", "autoptimize") ?>';
+        typeClass = 'manual';
+      } else {
+        type='<?php _e("AUTO", "autoptimize") ?>';
+        typeClass = 'auto';
+      }
+      jQuery("#rules-list").append("<tr class='rule'><td class='type'><span class='badge " + typeClass + "'>" + type + "</span></td><td class='target'>" + i + "</td><td class='file'>" + nv.file + "</td><td class='btn edit'><span class=\"button-secondary\" id=\"" + nodeId + "_edit\"><?php _e("Edit", "autoptimize"); ?></span></td><td class='btn delete'><span class=\"button-secondary\" id=\"" + nodeId + "_remove\"><?php _e("Remove", "autoptimize"); ?></span></td></tr>");
       jQuery("#" + nodeId + "_edit").click(function(){addEditRow(this.id);});
       jQuery("#" + nodeId + "_remove").click(function(){confirmRemove(this.id);});
     })
@@ -85,7 +97,7 @@ function addEditRow(idToEdit) {
     crit_type=splits[0];
     crit_item=splits[1];
     crit_key=Object.keys(critCssArray[crit_type])[crit_item-1];
-    crit_file=critCssArray[crit_type][crit_key];
+    crit_file=critCssArray[crit_type][crit_key].file;
 
     jQuery("#critcss_addedit_id").val(idToEdit);
     jQuery("#critcss_addedit_type").val(crit_type);
@@ -196,7 +208,12 @@ function saveEditCritCss(){
     critcssfile="ccss_" + md5(critcsscontents+critcsssecond) + ".css";
   }
 
-  critCssArray[critcsstype][critcsssecond]=critcssfile;
+  // Compose the rule object
+  critCssArray[critcsstype][critcsssecond]={};
+  critCssArray[critcsstype][critcsssecond].hash=0;
+  critCssArray[critcsstype][critcsssecond].file=critcssfile;
+  console.log(critCssArray);
+
   updateAfterChange();
 
   var data = {

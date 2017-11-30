@@ -98,7 +98,7 @@ function ao_ccss_enqueue($hash) {
     // Load the queue, get request path and page type, and initialize the queue update flag
     $ao_ccss_queue_raw = get_option('autoptimize_ccss_queue', FALSE);
     $req_path          = $_SERVER['REQUEST_URI'];
-    $type              = ao_ccss_get_type();
+    $req_type          = ao_ccss_get_type();
     $upq               = FALSE;
 
     // Setup the queue array
@@ -108,11 +108,11 @@ function ao_ccss_enqueue($hash) {
       $ao_ccss_queue = json_decode($ao_ccss_queue_raw, TRUE);
     }
 
-    // This is a new job
+    // This is a NEW job
     if (!array_key_exists($req_path, $ao_ccss_queue)) {
 
       // Define properties for a NEW job
-      $ao_ccss_queue[$req_path]['type']   = $type;
+      $ao_ccss_queue[$req_path]['type']   = $req_type;
       $ao_ccss_queue[$req_path]['hashes'] = array($hash);
       $ao_ccss_queue[$req_path]['hash']   = NULL;
       $ao_ccss_queue[$req_path]['file']   = NULL;
@@ -130,7 +130,7 @@ function ao_ccss_enqueue($hash) {
     } else {
 
       // The job is still NEW, most likely this is extra CSS file for the same page that needs a hash
-      if (empty($ao_ccss_queue[$req_path]['jqstat'])) {
+      if ($ao_ccss_queue[$req_path]['jqstat'] == 'NEW') {
 
         // Add hash if it's not already in the job
         if (!in_array($hash, $ao_ccss_queue[$req_path]['hashes'])) {
@@ -149,7 +149,7 @@ function ao_ccss_enqueue($hash) {
         if (!in_array($hash, $ao_ccss_queue[$req_path]['hashes'])) {
 
           // Reset properties for a DONE job with any of the hashes different
-          $ao_ccss_queue[$req_path]['type']   = $type;
+          $ao_ccss_queue[$req_path]['type']   = $req_type;
           $ao_ccss_queue[$req_path]['hashes'] = array($hash);
           $ao_ccss_queue[$req_path]['hash']   = NULL;
           $ao_ccss_queue[$req_path]['file']   = NULL;

@@ -84,6 +84,36 @@
 .form-table.rules th {
   width: 175px;
 }
+.instructions {
+  margin: 10px 0 0;
+  padding: 2px 10px;
+  min-height: 45px;
+  border-left: solid;
+  border-left-width: 5px;
+  border-left-color: #00a0d2;
+  background-color: white;
+}
+.instructions .title-wrap {
+  float: left;
+  margin: 5px 0 15px;
+}
+.instructions .title {
+  margin: 0;
+}
+.instructions .subtitle {
+  margin: 0;
+  padding: 0;
+  font-weight: 100;
+  font-style: italic;
+  color: #72777c;
+}
+.instructions .handletbl {
+  top: -4px;
+  left: 10px;
+}
+.instructions ol {
+  clear: both;
+}
 .rules-list {
   width: 100%;
   margin-bottom: 10px;
@@ -92,17 +122,33 @@
   margin-bottom: 20px;
 }
 #rules-list h4 {
-  margin: 20px 0 0;
+  margin: 20px 0 10px;
+  font-size: 1.2em;
 }
 #rules-list .rule td {
   margin: 0;
-  padding: 0 0 5px;
+  padding: 5px 0;
   border-bottom: 1px solid #ccc;
 }
-#rules-list .btn-edit,
-#rules-list .btn-delete {
-  text-align: right;
-  width: 8%;
+#rules-list .type,
+#rules-list .btn {
+  width: 70px;
+}
+.badge {
+  padding: 0 5px;
+  color: #fff;
+  background-color: #00a0d2;
+  border-radius: 5px;
+  font-size: .8em;
+  font-weight: bold;
+  text-align: center;
+}
+.badge.manual {
+  background-color: #46b450;
+}
+#rules-list .btn span {
+  width: 67px;
+  text-align: center;
 }
 p.rules-btn {
   margin: 20px 0 0;
