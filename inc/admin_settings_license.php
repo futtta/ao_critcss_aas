@@ -115,7 +115,7 @@ function ao_ccss_render_license($key, $status, $status_msg, $message, $color) { 
   <ul>
     <li class="itemDetail">
       <h2 class="itemTitle fleft"><?php _e('API Key', 'autoptimize'); ?>: <span style="color:<?php echo $color; ?>;"><?php echo $status_msg; ?></span></h2>
-      <button type="button" class="handletbl">
+      <button type="button" class="toggle-btn">
         <?php if ($status !== 'valid') { ?>
         <span class="toggle-indicator dashicons dashicons-arrow-up"></span>
         <?php } else { ?>

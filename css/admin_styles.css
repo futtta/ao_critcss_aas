@@ -37,7 +37,7 @@
 .itemTitle.fleft {
   float: left;
 }
-.handletbl {
+.toggle-btn {
   float: right;
   position: relative;
   top: -10px;
@@ -93,7 +93,7 @@
   font-style: italic;
   color: #72777c;
 }
-.howto .handletbl {
+.howto .toggle-btn {
   top: -4px;
   left: 10px;
 }

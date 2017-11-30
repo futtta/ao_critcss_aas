@@ -128,7 +128,7 @@ function ao_ccss_render_rules() {
           <h4 class="title"><?php _e('How To Use Autoptimize CriticalCSS Power-Up', 'autoptimize');?></h4>
           <p class="subtitle"><?php _e('Click the side arrow to toggle instructions', 'autoptimize');?></p>
         </div>
-        <button type="button" class="handletbl">
+        <button type="button" class="toggle-btn">
           <span class="toggle-indicator dashicons dashicons-arrow-up dashicons-arrow-down"></span>
         </button>
         <div class="howto-wrap hidden">

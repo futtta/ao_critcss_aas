@@ -67,7 +67,7 @@ function ao_ccss_admin_assets($hook) {
   wp_enqueue_script('jqcookie',              plugins_url('lib/js/jquery.cookie.min.js',  __FILE__), array('jquery'), NULL, TRUE);
   wp_enqueue_script('unslider',              plugins_url('lib/js/unslider-min.js',       __FILE__), array('jquery'), NULL, TRUE);
   wp_enqueue_script('md5',                   plugins_url('lib/js/md5.min.js',            __FILE__), NULL, NULL, TRUE);
-  wp_enqueue_script('ao_ccss_admin_license', plugins_url('js/admin_settings_license.js', __FILE__), array('jquery'), NULL, TRUE);
+  wp_enqueue_script('ao_ccss_admin_license', plugins_url('js/admin_settings.js',         __FILE__), array('jquery'), NULL, TRUE);
   wp_enqueue_script('ao_ccss_admin_feeds',   plugins_url('js/admin_settings_feeds.js',   __FILE__), array('jquery'), NULL, TRUE);
 }
 add_action('admin_enqueue_scripts', 'ao_ccss_admin_assets');
