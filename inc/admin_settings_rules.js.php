@@ -3,7 +3,6 @@ document.getElementById("autoptimize_css_defer_inline").style.display = 'none';
 
 jQuery(document).ready(function() {
   critCssArray=JSON.parse(document.getElementById("critCssOrigin").value);
-  console.log(critCssArray);
   drawTable(critCssArray);
   jQuery("#addCritCssButton").click(function(){addEditRow();});
   jQuery("#editDefaultButton").click(function(){editDefaultCritCss();});
@@ -27,7 +26,6 @@ function drawTable(critCssArray) {
       nodeId=k + "_" + nodeNumber;
       hash=nv.hash;
       file=nv.file;
-      console.log(nodeId, nodeNumber, i, hash, file);
       if (nv.hash === 0) {
         type='<?php _e("MANUAL", "autoptimize") ?>';
         typeClass = 'manual';
@@ -212,7 +210,6 @@ function saveEditCritCss(){
   critCssArray[critcsstype][critcsssecond]={};
   critCssArray[critcsstype][critcsssecond].hash=0;
   critCssArray[critcsstype][critcsssecond].file=critcssfile;
-  console.log(critCssArray);
 
   updateAfterChange();
 

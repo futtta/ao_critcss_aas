@@ -87,36 +87,23 @@ function ao_ccss_frontend($inlined) {
   }
 }
 
-// Return the conditional tag for the page
-function ao_ccss_get_type() {
-
-  // Attach the conditional tags array
-  global $ao_ccss_types;
-
-  // Iterates over the array to match a type
-  foreach ($ao_ccss_types as $type) {
-
-    // Match custom post types
-    if (strpos($type,'custom_post_') === 0) {
-      if (get_post_type(get_the_ID()) === substr($type, 12)) {
-        return $type;
-      }
-
-    // Match templates
-    } elseif (strpos($type, 'template_') === 0) {
-      if (is_page_template(substr($type, 9))) {
-        return $type;
-      }
-
-    // Match all the other coditional tags
-    } elseif (function_exists($type) && call_user_func($type)) {
-      return $type;
-    }
-  }
-
-  // If no valid type was found, just return false
-  return FALSE;
-}
+                    // Option groups labels
+                    if ($optgrp !== $prevgrp && $optgrp !== 'is_') { ?>
+                      </optgroup><?php
+                      if (substr($type, 0, 12) === 'custom_post_') { ?>
+                        <optgroup label="<?php _e('Custom Post Types', 'autoptimize'); ?>"><?php
+                      } elseif (substr($type, 0, 9) === 'template_') { ?>
+                        <optgroup label="<?php _e('Page Templates', 'autoptimize'); ?>"><?php
+                      } elseif (substr($type, 0, 4) === 'bbp_') { ?>
+                        <optgroup label="<?php _e('BBPress Conditional Tags', 'autoptimize'); ?>"><?php
+                      } elseif (substr($type, 0, 3) === 'bp_') { ?>
+                        <optgroup label="<?php _e('BuddyPress Conditional Tags', 'autoptimize'); ?>"><?php
+                      } elseif (substr($type, 0, 4) === 'edd_') { ?>
+                        <optgroup label="<?php _e('Easy Digital Downloads Conditional Tags', 'autoptimize'); ?>"><?php
+                      } elseif (substr($type, 0, 4) === 'woo_') { ?>
+                        <optgroup label="<?php _e('WooCommerce Conditional Tags', 'autoptimize'); ?>"><?php
+                      }
+                    }
 
 // Extend contidional tags
 // NOTE: all tags are sorted
