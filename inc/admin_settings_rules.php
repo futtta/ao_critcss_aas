@@ -123,7 +123,7 @@ function ao_ccss_render_rules() {
       <div id="default_critcss_wrapper" class="hidden">
         <textarea id="dummyDefault" rows="19" cols="10" style="width:100%;" placeholder="<?php _e('Paste your default critical CSS here and hit submit to save.', 'autoptimize'); ?>"></textarea>
       </div>
-      <div class="instructions">
+      <div class="howto">
         <div class="title-wrap">
           <h4 class="title"><?php _e('How To Use Autoptimize CriticalCSS Power-Up', 'autoptimize');?></h4>
           <p class="subtitle"><?php _e('Click the side arrow to toggle instructions', 'autoptimize');?></p>
@@ -131,15 +131,17 @@ function ao_ccss_render_rules() {
         <button type="button" class="handletbl">
           <span class="toggle-indicator dashicons dashicons-arrow-up dashicons-arrow-down"></span>
         </button>
-        <ol style="display: none;">
-          <li><?php _e('When a valid <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> API key is in place, Autoptimize CriticalCSS Power-Up starts to operate <strong>automatically</strong>.', 'autoptimize');?></li>
-          <li><?php _e('Upon a request in any of the frontend pages, it will <strong>asynchronously</strong> fetch and update the critical CSS from <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> for conditional tags you have on your site (e.g. is_page, is_single, is_archive etc.)', 'autoptimize');?></li>
-          <li><?php _e('These requests also creates an <span class="badge auto">AUTO</span> rule for you. The critical CSS files from <span class="badge auto">AUTO</span> rules are updated automatically when a CSS file in your theme or frontend plugins changes.', 'autoptimize');?></li>
-          <li><?php _e('If you want to make any fine tunning in the critical CSS file of an <span class="badge auto">AUTO</span> rule, click on "Edit" button of that rule, change what you need, submit and save it. The rule you\'ve just edited becomes a <span class="badge manual">MANUAL</span> rule then.', 'autoptimize');?></li>
-          <li><?php _e('You can also create <span class="badge manual">MANUAL</span> rules for specific page paths (URL). Longer, more specific paths have higher priority over shorter ones, which in turn have higher priority over <span class="badge auto">AUTO</span> rules.', 'autoptimize');?></li>
-          <li><?php _e('Critical CSS files from <span class="badge manual">MANUAL</span> rules are <strong>NEVER</strong> updated automatically.', 'autoptimize');?></li>
-          <li><?php _e('At any time you can delete an <span class="badge auto">AUTO</span> or <span class="badge manual">MANUAL</span> rule by cliking on "Remove" button of the desired rule and saving your changes.', 'autoptimize');?></li>
-        </ol>
+        <div class="howto-wrap hidden">
+          <p><?php _e("<em>TL;DR:</em> critical CSS files from <span class='badge auto'>AUTO</span> <strong>rules are updated automatically</strong> while from <span class='badge manual'>MANUAL</span> <strong>rule are not.</strong>", 'autoptimize');?></p>
+          <ol>
+            <li><?php _e('When a valid <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> API key is in place, Autoptimize CriticalCSS Power-Up starts to operate <strong>automatically</strong>.', 'autoptimize');?></li>
+            <li><?php _e('Upon a request to any of the frontend pages made by a <strong>not logged in user</strong>, it will <strong>asynchronously</strong> fetch and update the critical CSS from <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> for conditional tags you have on your site (e.g. is_page, is_single, is_archive etc.)', 'autoptimize');?></li>
+            <li><?php _e('These requests also creates an <span class="badge auto">AUTO</span> rule for you. The critical CSS files from <span class="badge auto">AUTO</span> <strong>rules are updated automatically</strong> when a CSS file in your theme or frontend plugins changes.', 'autoptimize');?></li>
+            <li><?php _e('If you want to make any fine tunning in the critical CSS file of an <span class="badge auto">AUTO</span> rule, click on "Edit" button of that rule, change what you need, submit and save it. The rule you\'ve just edited becomes a <span class="badge manual">MANUAL</span> rule then.', 'autoptimize');?></li>
+            <li><?php _e('You can create <span class="badge manual">MANUAL</span> rules for specific page paths (URL). Longer, more specific paths have higher priority over shorter ones, which in turn have higher priority over <span class="badge auto">AUTO</span> rules. Also, critical CSS files from <span class="badge manual">MANUAL</span> <strong>rules are NEVER updated automatically.</strong>', 'autoptimize');?></li>
+            <li><?php _e('At any time you can delete an <span class="badge auto">AUTO</span> or <span class="badge manual">MANUAL</span> rule by cliking on "Remove" button of the desired rule and saving your changes.', 'autoptimize');?></li>
+          </ol>
+        </div>
       </div>
       <textarea id="autoptimize_css_defer_inline" name="autoptimize_css_defer_inline" rows="19" cols="10" style="width:100%;" placeholder="<?php _e('Paste your default critical CSS here and hit submit to save.', 'autoptimize'); ?>"><?php echo get_option('autoptimize_css_defer_inline',''); ?></textarea>
       <table class="rules-list" cellspacing="0"><tbody id="rules-list"></tbody></table>

@@ -26,6 +26,7 @@ if (empty($ao_ccss_rules_raw)) {
 // Required libs
 require_once('inc/core.php');
 require_once('inc/core_ajax.php');
+require_once('inc/core_enqueue.php');
 require_once('inc/admin_settings.php');
 require_once('inc/admin_settings_license.php');
 require_once('inc/admin_settings_rules.php');

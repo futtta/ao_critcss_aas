@@ -66,6 +66,41 @@
   min-height: 15px;
   word-break: break-word;
 }
+.collapsible {
+  clear: both;
+}
+.howto {
+  margin: 10px 0 0;
+  padding: 2px 10px;
+  min-height: 45px;
+  font-style: normal;
+  border-left: solid;
+  border-left-width: 5px;
+  border-left-color: #00a0d2;
+  background-color: white;
+}
+.howto .title-wrap {
+  float: left;
+  margin: 5px 0 15px;
+}
+.howto .title {
+  margin: 0;
+}
+.howto .subtitle {
+  margin: 0;
+  padding: 0;
+  font-weight: 100;
+  font-style: italic;
+  color: #72777c;
+}
+.howto .handletbl {
+  top: -4px;
+  left: 10px;
+}
+.howto-wrap {
+  clear: both;
+  width: 100%;
+}
 .form-table {
   margin-top: 20px;
 }
@@ -83,36 +118,6 @@
 }
 .form-table.rules th {
   width: 175px;
-}
-.instructions {
-  margin: 10px 0 0;
-  padding: 2px 10px;
-  min-height: 45px;
-  border-left: solid;
-  border-left-width: 5px;
-  border-left-color: #00a0d2;
-  background-color: white;
-}
-.instructions .title-wrap {
-  float: left;
-  margin: 5px 0 15px;
-}
-.instructions .title {
-  margin: 0;
-}
-.instructions .subtitle {
-  margin: 0;
-  padding: 0;
-  font-weight: 100;
-  font-style: italic;
-  color: #72777c;
-}
-.instructions .handletbl {
-  top: -4px;
-  left: 10px;
-}
-.instructions ol {
-  clear: both;
 }
 .rules-list {
   width: 100%;
