@@ -132,7 +132,7 @@ function ao_ccss_render_rules() {
           <span class="toggle-indicator dashicons dashicons-arrow-up dashicons-arrow-down"></span>
         </button>
         <ol style="display: none;">
-          <li><?php _e('When have a valid criticalcss.com API key, it starts to operate <strong>automatically</strong>.', 'autoptimize');?></li>
+          <li><?php _e('When a valid <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> API key is in place, Autoptimize CriticalCSS Power-Up starts to operate <strong>automatically</strong>.', 'autoptimize');?></li>
           <li><?php _e('Upon a request in any of the frontend pages, it will <strong>asynchronously</strong> fetch and update the critical CSS from <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> for conditional tags you have on your site (e.g. is_page, is_single, is_archive etc.)', 'autoptimize');?></li>
           <li><?php _e('These requests also creates an <span class="badge auto">AUTO</span> rule for you. The critical CSS files from <span class="badge auto">AUTO</span> rules are updated automatically when a CSS file in your theme or frontend plugins changes.', 'autoptimize');?></li>
           <li><?php _e('If you want to make any fine tunning in the critical CSS file of an <span class="badge auto">AUTO</span> rule, click on "Edit" button of that rule, change what you need, submit and save it. The rule you\'ve just edited becomes a <span class="badge manual">MANUAL</span> rule then.', 'autoptimize');?></li>
