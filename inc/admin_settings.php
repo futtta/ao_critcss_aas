@@ -8,6 +8,7 @@ function ao_ccss_settings() {
   // Attach globals
   global $ao_css_defer;
   global $ao_ccss_key;
+  global $ao_ccss_debug;
 
   ?>
   <div class="wrap">
@@ -63,6 +64,8 @@ function ao_ccss_settings() {
           // Render rules section
           ao_ccss_render_rules();
 
+          // Render advanced section
+          ao_ccss_render_adv();
           echo '<!-- TODO: here goes more and more settings... -->';
         } ?>
 
@@ -76,16 +79,17 @@ function ao_ccss_settings() {
 
   <?php
   // Include Futta feeds sidebar
-  include('admin_settings_feeds.php'); ?>
+  include('admin_settings_feeds.php');
 
-  <!-- NOTE: to be removed after development is done -->
-  <div id="debug">
-    <?php
-    // Include debug panel
-    include('admin_settings_debug.php'); ?>
-  </div><!-- /#debug -->
+  // Include debug panel if debug mode is enable
+  if ($ao_ccss_debug) { ?>
+    <div id="debug">
+      <?php
+      // Include debug panel
+      include('admin_settings_debug.php'); ?>
+    </div><!-- /#debug -->
+  <?php }
 
-<?php
   echo '<script>';
   include('admin_settings_rules.js.php');
   echo '</script>';

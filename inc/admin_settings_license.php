@@ -133,19 +133,15 @@ function ao_ccss_render_license($key, $status, $status_msg, $message, $color) { 
         </div>
         <?php } ?>
         <table id="key" class="form-table">
-          <tr valign="top">
+          <tr>
             <th scope="row">
               <?php _e('Your API Key', 'autoptimize'); ?>
             </th>
             <td>
               <textarea id="autoptimize_ccss_key" name="autoptimize_ccss_key" rows='3' style="width:100%;" placeholder="<?php _e('Please enter your criticalcss.com API key here...', 'autoptimize'); ?>"><?php echo trim($key); ?></textarea>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-            </th>
-            <td class="notes">
-              <?php _e('Enter your <a href="https://criticalcss.com/account/api-keys" target="_blank">criticalcss.com</a> API key above. The license is validated every 24h.<br />To obtain your license key, go to <a href="https://criticalcss.com/account/api-keys" target="_blank">criticalcss.com</a> > Account > API Keys.<br /><strong>Requests to generate CriticalCSS via the API are priced at £5 per domain per month.</strong>', 'autoptimize'); ?>
+              <p class="notes">
+                <?php _e('Enter your <a href="https://criticalcss.com/account/api-keys" target="_blank">criticalcss.com</a> API key above. The license is validated every 24h.<br />To obtain your license key, go to <a href="https://criticalcss.com/account/api-keys" target="_blank">criticalcss.com</a> > Account > API Keys.<br /><strong>Requests to generate CriticalCSS via the API are priced at £5 per domain per month.</strong>', 'autoptimize'); ?>
+              </p>
             </td>
           </tr>
         </table>

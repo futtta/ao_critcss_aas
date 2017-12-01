@@ -104,14 +104,12 @@
 .form-table {
   margin-top: 20px;
 }
-.form-table th,
-.form-table td {
-  padding: 0 10px 5px;
+.form-table tr {
+  vertical-align: top;
 }
-.form-table td.notes {
+.form-table p.notes {
   font-size: 12px !important;
-  color: #999;
-  padding: 0 10px;
+  color: #666;
 }
 .form-table.rules {
   margin-top: 0;

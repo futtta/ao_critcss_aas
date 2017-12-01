@@ -1,8 +1,7 @@
 <?php
 
+// Render the rules panel
 // NOTE: implements section 4, id 4.2 and 4.3 of the specs
-
-// Render the exclusions panel
 function ao_ccss_render_rules() {
 
   // Attach required arrays
@@ -18,7 +17,7 @@ function ao_ccss_render_rules() {
       </div>
       <div id="addEditCritCss" class="hidden">
         <table class="form-table rules">
-          <tr valign="top" id="critcss_addedit_type_wrapper">
+          <tr id="critcss_addedit_type_wrapper">
             <th scope="row">
               <?php _e('Rule Type', 'autoptimize'); ?>
             </th>
@@ -29,7 +28,7 @@ function ao_ccss_render_rules() {
               </select>
             </td>
           </tr>
-          <tr valign="top" id="critcss_addedit_path_wrapper">
+          <tr id="critcss_addedit_path_wrapper">
             <th scope="row">
               <?php _e('String in Path', 'autoptimize'); ?>
             </th>
@@ -37,7 +36,7 @@ function ao_ccss_render_rules() {
               <input type="text" id="critcss_addedit_path" placeholder="<?php _e("Enter a part of the URL that identifies the page(s) you're targetting.", 'autoptimize'); ?>" style="width:100%;">
             </td>
           </tr>
-          <tr valign="top" id="critcss_addedit_pagetype_wrapper">
+          <tr id="critcss_addedit_pagetype_wrapper">
             <th scope="row">
               <?php _e('Conditional Tag, Custom Post Type or Page Template', 'autoptimize'); ?>
             </th>
@@ -102,7 +101,7 @@ function ao_ccss_render_rules() {
               </select>
             </td>
           </tr>
-          <tr valign="top">
+          <tr>
             <th scope="row">
               <?php _e('Custom Critical CSS', 'autoptimize') ?>
             </th>

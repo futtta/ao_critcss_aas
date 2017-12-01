@@ -1,6 +1,6 @@
 <?php
 
-// NOTE: implements OUT OF SCOPE DEBUG item of the specs
+// NOTE: implements OUT OF SCOPE DEBUG PANEL item of the specs
 
 // Attach wpdb() object
 global $wpdb;
@@ -29,7 +29,7 @@ if ($ao_options || $ao_trans) {
 <!-- BEGIN: Settings Debug -->
 <ul>
   <li class="itemDetail">
-    <h2 class="itemTitle"><?php _e('Autoptimize Debug Stuff <small>(to be removed after development is done!)</small>', 'autoptimize'); ?></h2>
+    <h2 class="itemTitle"><?php _e('Debug Information', 'autoptimize'); ?></h2>
 
     <?php
     // Render options
@@ -37,7 +37,7 @@ if ($ao_options || $ao_trans) {
     <h4><?php _e('Options', 'autoptimize'); ?>:</h4>
     <table class="form-table debug">
       <?php foreach($ao_options as $option) { ?>
-      <tr valign="top">
+      <tr>
         <th scope="row">
           <?php echo $option['name']; ?>
         </th>
@@ -65,7 +65,7 @@ if ($ao_options || $ao_trans) {
      <h4><?php _e('Transients', 'autoptimize'); ?>:</h4>
     <table class="form-table debug">
       <?php foreach($ao_trans as $trans) { ?>
-      <tr valign="top">
+      <tr>
         <th scope="row">
           <?php echo $trans['name']; ?>
         </th>

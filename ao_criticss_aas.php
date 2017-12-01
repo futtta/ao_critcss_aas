@@ -14,6 +14,9 @@ $ao_css_defer        = get_option('autoptimize_css_defer', FALSE);
 $ao_css_defer_inline = get_option('autoptimize_css_defer_inline');
 $ao_ccss_key         = get_option('autoptimize_ccss_key');
 $ao_ccss_rules_raw   = get_option('autoptimize_ccss_rules', FALSE);
+$ao_ccss_viewport    = get_option('autoptimize_ccss_viewport', FALSE);
+$ao_ccss_debug       = get_option('autoptimize_ccss_debug', FALSE);
+
 
 // Setup the rules array
 if (empty($ao_ccss_rules_raw)) {
@@ -30,6 +33,7 @@ require_once('inc/core_enqueue.php');
 require_once('inc/admin_settings.php');
 require_once('inc/admin_settings_license.php');
 require_once('inc/admin_settings_rules.php');
+require_once('inc/admin_settings_adv.php');
 //require_once('inc/cron.php');
 
 // Set a constant with the directory to store critical CSS in
@@ -46,6 +50,8 @@ function ao_ccss_settings_init() {
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_key');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_rules');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_queue');
+  register_setting('ao_ccss_options_group', 'autoptimize_ccss_viewport');
+  register_setting('ao_ccss_options_group', 'autoptimize_ccss_debug');
   register_setting('ao_ccss_options_group', 'autoptimize_css_defer_inline');
 }
 add_action('admin_menu','ao_ccss_settings_init');
