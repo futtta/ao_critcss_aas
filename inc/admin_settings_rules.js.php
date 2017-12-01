@@ -1,6 +1,7 @@
 <?php
 if ($ao_ccss_debug) echo "console.log('Autoptimize CriticalCSS Power-Up is in DEBUG MODE!');\n"
 ?>
+
 document.getElementById("critCssOrigin").style.display = 'none';
 document.getElementById("autoptimize_css_defer_inline").style.display = 'none';
 

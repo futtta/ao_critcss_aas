@@ -120,24 +120,28 @@
 .form-table.rules th {
   width: 175px;
 }
-.rules-list {
+.rules-list,
+.queue {
   width: 100%;
   margin-bottom: 10px;
 }
-#rules-list {
+#rules-list,
+#queue {
   margin-bottom: 20px;
 }
 #rules-list h4 {
   margin: 20px 0 10px;
   font-size: 1.2em;
 }
-#rules-list .rule td {
+#rules-list .rule td,
+#queue .job td {
   margin: 0;
   padding: 5px 0;
   border-bottom: 1px solid #ccc;
 }
 #rules-list .type,
-#rules-list .btn {
+#rules-list .btn,
+.queue .btn {
   width: 70px;
 }
 .badge {
@@ -159,6 +163,10 @@
 p.rules-btn {
   margin: 20px 0 0;
   padding: 0;
+}
+.queue {
+  font-size: 12px;
+  margin-top: 20px;
 }
 input[type=url]:invalid {color: red; border-color:red;} .form-table th{font-weight:100;}
 #autoptimize_main .cb_label {display: block; padding-left: 25px; text-indent: -25px;}

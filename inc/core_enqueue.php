@@ -8,11 +8,12 @@ function ao_ccss_enqueue($hash) {
   // just enqueue jobs for NOT logged in users to avoid useless jobs
   if (!is_user_logged_in()) {
 
-    // Attach rules object and debug
+    // Attach required arrays
     global $ao_ccss_rules;
+    global $ao_ccss_queue_raw;
+    global $ao_ccss_queue;
 
-    // Load the queue, get request path and page type, and initialize the queue update flag
-    $ao_ccss_queue_raw = get_option('autoptimize_ccss_queue', FALSE);
+    // Get request path and page type, and initialize the queue update flag
     $req_path          = $_SERVER['REQUEST_URI'];
     $req_type          = ao_ccss_get_type();
     $job_qualify       = FALSE;
@@ -79,13 +80,6 @@ function ao_ccss_enqueue($hash) {
     // Submit job
     // NOTE: implements 'Job Submission/Update Stage' in the 'Job Submission Flow' of the specs
     if ($job_qualify) {
-
-      // Setup the queue array
-      if (empty($ao_ccss_queue_raw)) {
-        $ao_ccss_queue = [];
-      } else {
-        $ao_ccss_queue = json_decode($ao_ccss_queue_raw, TRUE);
-      }
 
       // This is a NEW job
       if (!array_key_exists($req_path, $ao_ccss_queue)) {

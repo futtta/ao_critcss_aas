@@ -26,7 +26,11 @@ function ao_ccss_render_queue() {
           </ol>
         </div>
       </div>
-      <table class="job-list" cellspacing="0"><tbody id="job-list"></tbody></table>
+      <table class="queue" cellspacing="0">
+        <tr><th>Path</th><th>Type</th><th>Status</th><th>Creation Date</th><th>Finish Date</th><th>Actions</th></tr>
+        <tbody id="queue"></tbody>
+      </table>
+      <input type="text" id="ao-ccss-queue" name="autoptimize_ccss_queue" style="width:100%;" value='<?php echo (json_encode($ao_ccss_queue)); ?>'>
     </li>
   </ul>
   <?php

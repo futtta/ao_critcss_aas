@@ -14,6 +14,7 @@ $ao_css_defer        = get_option('autoptimize_css_defer', FALSE);
 $ao_css_defer_inline = get_option('autoptimize_css_defer_inline');
 $ao_ccss_key         = get_option('autoptimize_ccss_key');
 $ao_ccss_rules_raw   = get_option('autoptimize_ccss_rules', FALSE);
+$ao_ccss_queue_raw   = get_option('autoptimize_ccss_queue', FALSE);
 $ao_ccss_viewport    = get_option('autoptimize_ccss_viewport', FALSE);
 $ao_ccss_debug       = get_option('autoptimize_ccss_debug', FALSE);
 
@@ -24,6 +25,13 @@ if (empty($ao_ccss_rules_raw)) {
   $ao_ccss_rules['types'] = [];
 } else {
   $ao_ccss_rules = json_decode($ao_ccss_rules_raw, TRUE);
+}
+
+// Setup the queue array
+if (empty($ao_ccss_queue_raw)) {
+  $ao_ccss_queue = [];
+} else {
+  $ao_ccss_queue = json_decode($ao_ccss_queue_raw, TRUE);
 }
 
 // Required libs

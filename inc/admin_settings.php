@@ -96,6 +96,7 @@ function ao_ccss_settings() {
 
   echo '<script>';
   include('admin_settings_rules.js.php');
+  include('admin_settings_queue.js.php');
   echo '</script>';
 }
 
