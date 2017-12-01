@@ -133,15 +133,13 @@
   margin: 20px 0 10px;
   font-size: 1.2em;
 }
-#rules-list .rule td,
-#queue .job td {
+#rules-list .rule td {
   margin: 0;
   padding: 5px 0;
   border-bottom: 1px solid #ccc;
 }
 #rules-list .type,
-#rules-list .btn,
-.queue .btn {
+#rules-list .btn {
   width: 70px;
 }
 .badge {
@@ -165,8 +163,63 @@ p.rules-btn {
   padding: 0;
 }
 .queue {
-  font-size: 12px;
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
   margin-top: 20px;
+  font-size: 12px;
+}
+.queue th,
+.queue td {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.queue .job td {
+  margin: 0;
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+}
+.queue .status,
+.queue .job td.status {
+  width: 35px;
+  padding-right: 5px;
+}
+.queue td.status {
+  text-align: center;
+}
+.queue .badge {
+  cursor: pointer;
+}
+.badge.new {
+  background-color: #666;
+}
+.badge.pending {
+  background-color: #00a0d2;
+}
+.badge.done {
+  background-color: #46b450;
+}
+.badge.review {
+  background-color: #ffb900;
+}
+.badge.error {
+  background-color: #dc3232;
+}
+.badge.unknown {
+  color: #666;
+  background-color: #ccc;
+}
+.queue .btn {
+  width: 110px;
+}
+.queue td.btn {
+  text-align: center;
+}
+.queue .button-secondary {
+  line-height: 21px;
+  height: 23px;
+  padding: 0 5px;
+  font-size: 12px;
 }
 input[type=url]:invalid {color: red; border-color:red;} .form-table th{font-weight:100;}
 #autoptimize_main .cb_label {display: block; padding-left: 25px; text-indent: -25px;}

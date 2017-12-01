@@ -70,7 +70,13 @@ function ao_ccss_enqueue($hash) {
     // But if job does not qualify and rule properties are set, job qualifies as there is no rule for it yet
     } elseif (!$job_qualify && empty($rule_properties)) {
       $job_qualify = TRUE;
-      ao_ccss_log('Job submission QUALIFIED by MISSING rule for page type <' . $req_type . '> on path <' . $req_path . '>');
+
+      // Fill rule target with page type if empty
+      if (empty($rule_target)) {
+        $rule_target = $req_type;
+      }
+
+      ao_ccss_log('Job submission QUALIFIED by MISSING rule for page type <' . $req_type . '> on path <' . $req_path . '>, new rule <' . $rule_target . '>');
 
     // Or just log a job qualified by a matching rule
     } else {
@@ -85,16 +91,17 @@ function ao_ccss_enqueue($hash) {
       if (!array_key_exists($req_path, $ao_ccss_queue)) {
 
         // Define properties for a NEW job
-        $ao_ccss_queue[$req_path]['type']   = $req_type;
-        $ao_ccss_queue[$req_path]['hashes'] = array($hash);
-        $ao_ccss_queue[$req_path]['hash']   = NULL;
-        $ao_ccss_queue[$req_path]['file']   = NULL;
-        $ao_ccss_queue[$req_path]['jid']    = NULL;
-        $ao_ccss_queue[$req_path]['jqstat'] = 'NEW';
-        $ao_ccss_queue[$req_path]['jrstat'] = NULL;
-        $ao_ccss_queue[$req_path]['jctime'] = microtime(TRUE);
-        $ao_ccss_queue[$req_path]['jmtime'] = microtime(TRUE);
-        $ao_ccss_queue[$req_path]['jftime'] = NULL;
+        $ao_ccss_queue[$req_path]['rtarget'] = $rule_target;
+        $ao_ccss_queue[$req_path]['ptype']   = $req_type;
+        $ao_ccss_queue[$req_path]['hashes']  = array($hash);
+        $ao_ccss_queue[$req_path]['hash']    = NULL;
+        $ao_ccss_queue[$req_path]['file']    = NULL;
+        $ao_ccss_queue[$req_path]['jid']     = NULL;
+        $ao_ccss_queue[$req_path]['jqstat']  = 'NEW';
+        $ao_ccss_queue[$req_path]['jrstat']  = NULL;
+        $ao_ccss_queue[$req_path]['jvstat']  = NULL;
+        $ao_ccss_queue[$req_path]['jctime']  = microtime(TRUE);
+        $ao_ccss_queue[$req_path]['jftime']  = NULL;
 
         // Set update flag
         $queue_update = TRUE;
@@ -122,16 +129,17 @@ function ao_ccss_enqueue($hash) {
           if (!in_array($hash, $ao_ccss_queue[$req_path]['hashes'])) {
 
             // Reset properties for a DONE job with any of the hashes different
-            $ao_ccss_queue[$req_path]['type']   = $req_type;
-            $ao_ccss_queue[$req_path]['hashes'] = array($hash);
-            $ao_ccss_queue[$req_path]['hash']   = NULL;
-            $ao_ccss_queue[$req_path]['file']   = NULL;
-            $ao_ccss_queue[$req_path]['jid']    = NULL;
-            $ao_ccss_queue[$req_path]['jqstat'] = 'NEW';
-            $ao_ccss_queue[$req_path]['jrstat'] = NULL;
-            $ao_ccss_queue[$req_path]['jctime'] = microtime(TRUE);
-            $ao_ccss_queue[$req_path]['jmtime'] = microtime(TRUE);
-            $ao_ccss_queue[$req_path]['jftime'] = NULL;
+            $ao_ccss_queue[$req_path]['rtarget'] = $rule_target;
+            $ao_ccss_queue[$req_path]['ptype']   = $req_type;
+            $ao_ccss_queue[$req_path]['hashes']  = array($hash);
+            $ao_ccss_queue[$req_path]['hash']    = NULL;
+            $ao_ccss_queue[$req_path]['file']    = NULL;
+            $ao_ccss_queue[$req_path]['jid']     = NULL;
+            $ao_ccss_queue[$req_path]['jqstat']  = 'NEW';
+            $ao_ccss_queue[$req_path]['jrstat']  = NULL;
+            $ao_ccss_queue[$req_path]['jvstat']  = NULL;
+            $ao_ccss_queue[$req_path]['jctime']  = microtime(TRUE);
+            $ao_ccss_queue[$req_path]['jftime']  = NULL;
 
             // Set update flag
             $queue_update = TRUE;
