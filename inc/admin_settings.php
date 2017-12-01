@@ -61,11 +61,15 @@ function ao_ccss_settings() {
         // If key status is valid, render other settings panels
         if ($key_status === TRUE) {
 
+          // Render advanced section
+          ao_ccss_render_adv();
+
           // Render rules section
           ao_ccss_render_rules();
 
-          // Render advanced section
-          ao_ccss_render_adv();
+          // Render rules section
+          ao_ccss_render_queue();
+
           echo '<!-- TODO: here goes more and more settings... -->';
         } ?>
 

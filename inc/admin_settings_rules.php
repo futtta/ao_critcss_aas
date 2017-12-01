@@ -15,6 +15,7 @@ function ao_ccss_render_rules() {
       <div id="unSavedWarning" class="hidden updated settings-error notice notice-warning is-dismissible">
         <p><?php _e("<strong>Rules changed. DON'T forget to save the changes!</strong>", 'autoptimize'); ?></p>
       </div>
+      <!-- BEGIN Rule add/edit dialog -->
       <div id="addEditCritCss" class="hidden">
         <table class="form-table rules">
           <tr id="critcss_addedit_type_wrapper">
@@ -116,15 +117,14 @@ function ao_ccss_render_rules() {
       <div id="confirm-rm" title="<?php _e('Delete Rule', 'autoptimize') ?>" class="hidden">
         <p><?php _e('This Critical CSS rule will be deleted immediately and cannot be recovered.<br /><br /><strong>Are you sure?</strong>', 'autoptimize'); ?></p>
       </div>
-
-
-
+      <!-- END Rule add/edit dialog -->
+      <!-- BEGIN Rules panel -->
       <div id="default_critcss_wrapper" class="hidden">
         <textarea id="dummyDefault" rows="19" cols="10" style="width:100%;" placeholder="<?php _e('Paste your default critical CSS here and hit submit to save.', 'autoptimize'); ?>"></textarea>
       </div>
       <div class="howto">
         <div class="title-wrap">
-          <h4 class="title"><?php _e('How To Use Autoptimize CriticalCSS Power-Up', 'autoptimize');?></h4>
+          <h4 class="title"><?php _e('How To Use Autoptimize CriticalCSS Power-Up Rules', 'autoptimize');?></h4>
           <p class="subtitle"><?php _e('Click the side arrow to toggle instructions', 'autoptimize');?></p>
         </div>
         <button type="button" class="toggle-btn">
@@ -149,8 +149,7 @@ function ao_ccss_render_rules() {
         <span id="addCritCssButton" class="button-secondary"><?php _e('Add New Rule', 'autoptimize') ?></span>
         <span id="editDefaultButton" class="button-secondary"><?php _e('Edit Default Critical CSS', 'autoptimize'); ?></span>
       </p>
-
-
+      <!-- END Rules panel -->
     </li>
   </ul>
   <?php

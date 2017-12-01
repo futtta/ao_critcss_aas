@@ -107,8 +107,11 @@
 .form-table tr {
   vertical-align: top;
 }
-.form-table p.notes {
+.form-table p.notes,
+.form-table p code {
   font-size: 12px !important;
+}
+.form-table p.notes {
   color: #666;
 }
 .form-table.rules {

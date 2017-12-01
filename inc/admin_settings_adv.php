@@ -39,7 +39,7 @@ function ao_ccss_render_adv() {
             <td>
               <input type="checkbox" id="autoptimize_ccss_debug" name="autoptimize_ccss_debug" value="1" <?php checked(1 == $ao_ccss_debug); ?>>
               <p class="notes">
-                <?php _e('<strong>CAUTION! DO NOT use debug mode on production/live environments.</strong><br />Check the box above to enable Autoptimize CriticalCSS Power-Up debug mode. This will provide a dedicated debug panel in this screen and debug information to /wp-ontent/cache/debug.log file and to the browser console.', 'autoptimize'); ?>
+                <?php _e('<strong>CAUTION! DO NOT use debug mode on production/live environments.</strong><br />Check the box above to enable Autoptimize CriticalCSS Power-Up debug mode. It provides debug facilities in this screen, to <code>/wp-ontent/cache/debug.log</code> file and to the browser console.', 'autoptimize'); ?>
               </p>
             </td>
           </tr>
