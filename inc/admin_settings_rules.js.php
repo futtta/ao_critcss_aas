@@ -1,8 +1,12 @@
+<?php
+if ($ao_ccss_debug) echo "console.log('Autoptimize CriticalCSS Power-Up is in DEBUG MODE!');\n"
+?>
 document.getElementById("critCssOrigin").style.display = 'none';
 document.getElementById("autoptimize_css_defer_inline").style.display = 'none';
 
 jQuery(document).ready(function() {
   critCssArray=JSON.parse(document.getElementById("critCssOrigin").value);
+  <?php if ($ao_ccss_debug) echo "console.log('Rules Object:', critCssArray);\n" ?>
   drawTable(critCssArray);
   jQuery("#addCritCssButton").click(function(){addEditRow();});
   jQuery("#editDefaultButton").click(function(){editDefaultCritCss();});
@@ -63,7 +67,7 @@ function removeRow(idToRemove) {
   crit_type=splits[0];
   crit_item=splits[1];
   crit_key=Object.keys(critCssArray[crit_type])[crit_item-1];
-  crit_file=critCssArray[crit_type][crit_key];
+  crit_file=critCssArray[crit_type][crit_key].file;
   delete critCssArray[crit_type][crit_key];
 
   var data = {
@@ -196,20 +200,22 @@ function saveEditCritCss(){
     // will also remove the file, but that will get rewritten anyway
     removeRow(critcssid);
   }
-    if (critcsstype==="types") {
-    critcsssecond=jQuery("#critcss_addedit_pagetype").val();
+  if (critcsstype==="types") {
+    critcsstarget=jQuery("#critcss_addedit_pagetype").val();
   } else {
-    critcsssecond=jQuery("#critcss_addedit_path").val();
+    critcsstarget=jQuery("#critcss_addedit_path").val();
   }
 
   if (!critcssfile) {
-    critcssfile="ccss_" + md5(critcsscontents+critcsssecond) + ".css";
+    critcssfile="ccss_" + md5(critcsscontents+critcsstarget) + ".css";
   }
 
   // Compose the rule object
-  critCssArray[critcsstype][critcsssecond]={};
-  critCssArray[critcsstype][critcsssecond].hash=0;
-  critCssArray[critcsstype][critcsssecond].file=critcssfile;
+  critCssArray[critcsstype][critcsstarget]={};
+  critCssArray[critcsstype][critcsstarget].hash=0;
+  critCssArray[critcsstype][critcsstarget].file=critcssfile;
+
+  <?php if ($ao_ccss_debug) echo "console.log('[RULE PROPERTIES] Type:', critcsstype, ', Target:', critcsstarget, ', Hash:', 0, ', File:',  critcssfile);" ?>
 
   updateAfterChange();
 

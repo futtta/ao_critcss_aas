@@ -248,4 +248,41 @@ if (!function_exists("is_blog_page")) {
 }
 add_action('template_redirect', 'is_blog_page');
 
+// Get viewport size
+function ao_ccss_viewport() {
+
+  // Attach viewport option
+  global $ao_ccss_viewport;
+
+  // Prepare viewport array
+  $viewport = array();
+
+  // Viewport Width
+  if (!empty($ao_ccss_viewport['w'])) {
+    $viewport['w'] = $ao_ccss_viewport['w'];
+  } else {
+    $viewport['w'] = '';
+  }
+
+  // Viewport Height
+  if (!empty($ao_ccss_viewport['h'])) {
+    $viewport['h'] = $ao_ccss_viewport['h'];
+  } else {
+    $viewport['h'] = '';
+  }
+
+  return $viewport;
+}
+
+// Commom logging facility
+function ao_ccss_log($msg) {
+
+  // Attach debug option
+  global $ao_ccss_debug;
+
+  // If debug is enabled, write message to dedicated log file
+  if ($ao_ccss_debug)
+    error_log('[' . date('c') . '] ' . $msg . "\n", 3,  AO_CCSS_DIR . 'debug.log');
+}
+
 ?>

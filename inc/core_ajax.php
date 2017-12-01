@@ -106,11 +106,17 @@ add_action('wp_ajax_rm_critcss', 'critcss_rm_callback');
 
 // Try to avoid directory traversal when reading/writing/deleting critical CSS files
 function critcss_check_filename($filename) {
-  if (strpos($filename,"ccss_") !== 0) { return false; }
-  else if (substr($filename,-4,4)!==".css") { return false; }
+  if (strpos($filename, "ccss_") !== 0) {
+    return false;
+  } else if (substr($filename,-4,4)!==".css") {
+    return false;
+
   // Use WordPress core's sanitize_file_name to see if anything fishy is going on
-  else if (sanitize_file_name($filename) !== $filename) { return false; }
-  else { return true; }
+  } else if (sanitize_file_name($filename) !== $filename) {
+    return false;
+  } else {
+    return true;
+  }
 }
 
 // Perform basic exploit avoidance and CSS validation

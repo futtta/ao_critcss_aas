@@ -8,7 +8,7 @@ function ao_ccss_enqueue($hash) {
   // just enqueue jobs for NOT logged in users to avoid useless jobs
   if (!is_user_logged_in()) {
 
-    // Attach rules object
+    // Attach rules object and debug
     global $ao_ccss_rules;
 
     // Load the queue, get request path and page type, and initialize the queue update flag
@@ -16,6 +16,7 @@ function ao_ccss_enqueue($hash) {
     $req_path          = $_SERVER['REQUEST_URI'];
     $req_type          = ao_ccss_get_type();
     $job_qualify       = FALSE;
+    $rule_target       = FALSE;
     $rule_properties   = FALSE;
     $queue_update      = FALSE;
 
@@ -23,12 +24,16 @@ function ao_ccss_enqueue($hash) {
     // NOTE: implements 'Rule Matching Stage' in the 'Job Submission Flow' of the specs
     foreach ($ao_ccss_rules['paths'] as $path => $properties) {
 
+      ao_ccss_log('Qualifying path <' . $req_path . '> for job submission by path rule <' . $path . '>');
+
       // Path match
       if (preg_match('#' . $req_path . '#', $path)) {
 
         // There's a path match in the rule, so job QUALIFIES
         $job_qualify     = TRUE;
+        $rule_target     = $path;
         $rule_properties = $properties;
+        ao_ccss_log('Path <' . $req_path . '> QUALIFIED for job submission by path rule <' . $path . '>');
 
         // Stop processing other path rules
         break;
@@ -39,12 +44,16 @@ function ao_ccss_enqueue($hash) {
     if (!$job_qualify) {
       foreach ($ao_ccss_rules['types'] as $type => $properties) {
 
+        ao_ccss_log('Qualifying page type <' . $req_type . '> on <' . $req_path . '> for job submission by type rule <' . $type . '>');
+
         // Type match
         if ($req_type == $type) {
 
           // There's a type match in the rule, so job QUALIFIES
           $job_qualify     = TRUE;
+          $rule_target     = $type;
           $rule_properties = $properties;
+          ao_ccss_log('Page type <' . $req_type . '> on <' . $req_path . '> QUALIFIED for job submission by type rule <' . $type . '>');
 
           // Stop processing other type rules
           break;
@@ -55,11 +64,15 @@ function ao_ccss_enqueue($hash) {
     // If rule is MANUAL, job does not qualify despite what previous evaluations says
     if (is_array($rule_properties) && $rule_properties['hash'] == FALSE) {
       $job_qualify = FALSE;
+      ao_ccss_log('Job submission DISQUALIFIED by MANUAL rule <' . $rule_target . '> with hash <' . $rule_properties['hash'] . '>');
     }
+
 
     // Submit job
     // NOTE: implements 'Job Submission/Update Stage' in the 'Job Submission Flow' of the specs
     if ($job_qualify) {
+
+      ao_ccss_log('Job submission QUALIFIED by AUTO rule <' . $rule_target . '> with hash <' . $rule_properties['hash'] . '>');
 
       // Setup the queue array
       if (empty($ao_ccss_queue_raw)) {
