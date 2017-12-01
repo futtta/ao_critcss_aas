@@ -27,7 +27,7 @@ function ao_ccss_enqueue($hash) {
       ao_ccss_log('Qualifying path <' . $req_path . '> for job submission by path rule <' . $path . '>');
 
       // Path match
-      if ($req_path == $path) {
+      if (preg_match('|' . $path . '|', $req_path)) {
 
         // There's a path match in the rule, so job QUALIFIES with a path rule match
         $job_qualify     = TRUE;
