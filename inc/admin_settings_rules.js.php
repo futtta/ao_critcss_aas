@@ -1,5 +1,6 @@
 <?php
-if ($ao_ccss_debug) echo "console.log('Autoptimize CriticalCSS Power-Up is in DEBUG MODE!');\n"
+if ($ao_ccss_debug) echo "console.log('[WARN] Autoptimize CriticalCSS Power-Up is in DEBUG MODE!');\n";
+if ($ao_ccss_debug) echo "console.log('[WARN] DO NOT use debug mode on production/live environments!');\n";
 ?>
 
 document.getElementById("critCssOrigin").style.display = 'none';
