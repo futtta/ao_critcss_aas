@@ -75,7 +75,12 @@ if ($ao_options || $ao_trans) {
       </tr>
       <?php } ?>
     </table>
-    <?php } ?>
+    <hr />
+    <?php }
+
+    // Render scheduled events ?>
+    <h4><?php _e('WP-Cron Scheduled Events', 'autoptimize'); ?>:</h4>
+    <pre><?php print_r(_get_cron_array()); ?>
 
   </li>
 </ul>
