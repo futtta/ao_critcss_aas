@@ -90,18 +90,8 @@ function ao_ccss_enqueue($hash) {
       // This is a NEW job
       if (!array_key_exists($req_path, $ao_ccss_queue)) {
 
-        // Define properties for a NEW job
-        $ao_ccss_queue[$req_path]['rtarget'] = $rule_target;
-        $ao_ccss_queue[$req_path]['ptype']   = $req_type;
-        $ao_ccss_queue[$req_path]['hashes']  = array($hash);
-        $ao_ccss_queue[$req_path]['hash']    = NULL;
-        $ao_ccss_queue[$req_path]['file']    = NULL;
-        $ao_ccss_queue[$req_path]['jid']     = NULL;
-        $ao_ccss_queue[$req_path]['jqstat']  = 'NEW';
-        $ao_ccss_queue[$req_path]['jrstat']  = NULL;
-        $ao_ccss_queue[$req_path]['jvstat']  = NULL;
-        $ao_ccss_queue[$req_path]['jctime']  = microtime(TRUE);
-        $ao_ccss_queue[$req_path]['jftime']  = NULL;
+        // Merge job into the queue
+        $ao_ccss_queue[$req_path] = ao_ccss_create_job($req_path, $rule_target, $req_type, $hash);
 
         // Set update flag
         $queue_update = TRUE;
@@ -128,18 +118,8 @@ function ao_ccss_enqueue($hash) {
           // We need to make sure the that at least one CSS has changed to update the job
           if (!in_array($hash, $ao_ccss_queue[$req_path]['hashes'])) {
 
-            // Reset properties for a DONE job with any of the hashes different
-            $ao_ccss_queue[$req_path]['rtarget'] = $rule_target;
-            $ao_ccss_queue[$req_path]['ptype']   = $req_type;
-            $ao_ccss_queue[$req_path]['hashes']  = array($hash);
-            $ao_ccss_queue[$req_path]['hash']    = NULL;
-            $ao_ccss_queue[$req_path]['file']    = NULL;
-            $ao_ccss_queue[$req_path]['jid']     = NULL;
-            $ao_ccss_queue[$req_path]['jqstat']  = 'NEW';
-            $ao_ccss_queue[$req_path]['jrstat']  = NULL;
-            $ao_ccss_queue[$req_path]['jvstat']  = NULL;
-            $ao_ccss_queue[$req_path]['jctime']  = microtime(TRUE);
-            $ao_ccss_queue[$req_path]['jftime']  = NULL;
+            // Reset old job by merging it again into the queue
+            $ao_ccss_queue[$req_path] = ao_ccss_create_job($req_path, $rule_target, $req_type, $hash);
 
             // Set update flag
             $queue_update = TRUE;
@@ -218,6 +198,38 @@ function ao_ccss_get_type() {
 
   // Return the page type
   return $page_type;
+}
+
+// Create a new job entry
+function ao_ccss_create_job($entry, $target, $type, $hash) {
+
+    $entry            = array();
+    $entry['ljid']    = ao_ccss_job_id();
+    $entry['rtarget'] = $target;
+    $entry['ptype']   = $type;
+    $entry['hashes']  = array($hash);
+    $entry['hash']    = NULL;
+    $entry['file']    = NULL;
+    $entry['jid']     = NULL;
+    $entry['jqstat']  = 'NEW';
+    $entry['jrstat']  = NULL;
+    $entry['jvstat']  = NULL;
+    $entry['jctime']  = microtime(TRUE);
+    $entry['jftime']  = NULL;
+
+    return $entry;
+}
+
+// Generate random strings for the local job ID
+// Based on https://stackoverflow.com/a/4356295
+function ao_ccss_job_id($length = 6) {
+  $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+  $charactersLength = strlen($characters);
+  $randomString = 'j-';
+  for ($i = 0; $i < $length; $i++) {
+    $randomString .= $characters[rand(0, $charactersLength - 1)];
+  }
+  return $randomString;
 }
 
 ?>

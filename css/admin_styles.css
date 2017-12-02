@@ -120,10 +120,15 @@
 .form-table.rules th {
   width: 175px;
 }
-.rules-list,
-.queue {
+.rules-list {
   width: 100%;
   margin-bottom: 10px;
+}
+.rules-list tr.header th {
+  background-color: #f1f1f1;
+}
+.rules-list tbody .rule:nth-child(even) td {
+  background-color: #f9f9f9;
 }
 #rules-list,
 #queue {
@@ -163,11 +168,8 @@ p.rules-btn {
   padding: 0;
 }
 .queue {
-  width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
-  margin-top: 20px;
-  font-size: 12px;
 }
 .queue th,
 .queue td {
@@ -175,19 +177,17 @@ p.rules-btn {
   white-space: nowrap;
 }
 .queue .job td {
-  margin: 0;
-  padding: 5px;
   border-bottom: 1px solid #ccc;
 }
 .queue .status,
 .queue .job td.status {
-  width: 35px;
-  padding-right: 5px;
+  width: 45px;
 }
 .queue td.status {
   text-align: center;
 }
 .queue .badge {
+  border-radius: 3px;
   cursor: pointer;
 }
 .badge.new {
@@ -216,10 +216,10 @@ p.rules-btn {
   text-align: center;
 }
 .queue .button-secondary {
-  line-height: 21px;
-  height: 23px;
+  line-height: 17px;
+  height: 19px;
   padding: 0 5px;
-  font-size: 12px;
+  font-size: 8pt;
 }
 input[type=url]:invalid {color: red; border-color:red;} .form-table th{font-weight:100;}
 #autoptimize_main .cb_label {display: block; padding-left: 25px; text-indent: -25px;}

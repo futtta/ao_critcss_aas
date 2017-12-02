@@ -131,7 +131,7 @@ function ao_ccss_render_rules() {
           <span class="toggle-indicator dashicons dashicons-arrow-up dashicons-arrow-down"></span>
         </button>
         <div class="howto-wrap hidden">
-          <p><?php _e("TL;DR: critical CSS files from <span class='badge auto'>AUTO</span> <strong>rules are updated automatically</strong> while from <span class='badge manual'>MANUAL</span> <strong>rules are not.</strong>", 'autoptimize');?></p>
+          <p><?php _e("TL;DR:<br />Critical CSS files from <span class='badge auto'>AUTO</span> <strong>rules are updated automatically</strong> while from <span class='badge manual'>MANUAL</span> <strong>rules are not.</strong>", 'autoptimize');?></p>
           <ol>
             <li><?php _e('When a valid <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> API key is in place, Autoptimize CriticalCSS Power-Up starts to operate <strong>automatically</strong>.', 'autoptimize');?></li>
             <li><?php _e('Upon a request to any of the frontend pages made by a <strong>not logged in user</strong>, it will <strong>asynchronously</strong> fetch and update the critical CSS from <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> for conditional tags you have on your site (e.g. is_page, is_single, is_archive etc.)', 'autoptimize');?></li>
