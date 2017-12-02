@@ -87,24 +87,6 @@ function ao_ccss_frontend($inlined) {
   }
 }
 
-                    // Option groups labels
-                    if ($optgrp !== $prevgrp && $optgrp !== 'is_') { ?>
-                      </optgroup><?php
-                      if (substr($type, 0, 12) === 'custom_post_') { ?>
-                        <optgroup label="<?php _e('Custom Post Types', 'autoptimize'); ?>"><?php
-                      } elseif (substr($type, 0, 9) === 'template_') { ?>
-                        <optgroup label="<?php _e('Page Templates', 'autoptimize'); ?>"><?php
-                      } elseif (substr($type, 0, 4) === 'bbp_') { ?>
-                        <optgroup label="<?php _e('BBPress Conditional Tags', 'autoptimize'); ?>"><?php
-                      } elseif (substr($type, 0, 3) === 'bp_') { ?>
-                        <optgroup label="<?php _e('BuddyPress Conditional Tags', 'autoptimize'); ?>"><?php
-                      } elseif (substr($type, 0, 4) === 'edd_') { ?>
-                        <optgroup label="<?php _e('Easy Digital Downloads Conditional Tags', 'autoptimize'); ?>"><?php
-                      } elseif (substr($type, 0, 4) === 'woo_') { ?>
-                        <optgroup label="<?php _e('WooCommerce Conditional Tags', 'autoptimize'); ?>"><?php
-                      }
-                    }
-
 // Extend contidional tags
 // NOTE: all tags are sorted
 function ao_ccss_extend_types() {
