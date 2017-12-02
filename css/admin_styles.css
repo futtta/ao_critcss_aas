@@ -209,17 +209,24 @@ p.rules-btn {
   color: #666;
   background-color: #ccc;
 }
-.queue .btn {
-  width: 110px;
-}
 .queue td.btn {
   text-align: center;
+}
+.queue .btn {
+  width: 110px;
 }
 .queue .button-secondary {
   line-height: 17px;
   height: 19px;
   padding: 0 5px;
   font-size: 8pt;
+}
+.queue .button-secondary a {
+  color: #555;
+  text-decoration: none;
+}
+.queue .button-secondary a:hover {
+  color: #23282d;
 }
 input[type=url]:invalid {color: red; border-color:red;} .form-table th{font-weight:100;}
 #autoptimize_main .cb_label {display: block; padding-left: 25px; text-indent: -25px;}

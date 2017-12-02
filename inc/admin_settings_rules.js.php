@@ -24,7 +24,7 @@ function drawTable(critCssArray) {
     if (!(jQuery.isEmptyObject(v))) {
       jQuery("#rules-list").append("<tr><td colspan='5'><h4>" + kstring + "</h4></td></tr>");
     }
-    jQuery("#rules-list").append("<tr class='header'><th><?php _e('Rule Type', 'autoptimize') ?></th><th><?php _e('Target', 'autoptimize') ?></th><th><?php _e('Critical CSS File', 'autoptimize') ?></th><th colspan='2'><?php _e('Actions', 'autoptimize') ?></th></tr>");
+    jQuery("#rules-list").append("<tr class='header'><th><?php _e('Type', 'autoptimize') ?></th><th><?php _e('Target', 'autoptimize') ?></th><th><?php _e('Critical CSS File', 'autoptimize') ?></th><th colspan='2'><?php _e('Actions', 'autoptimize') ?></th></tr>");
     nodeNumber=0;
     jQuery.each(v,function(i,nv){
       nodeNumber++;
