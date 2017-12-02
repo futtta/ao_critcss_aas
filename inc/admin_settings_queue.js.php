@@ -13,6 +13,7 @@ jQuery(document).ready(function() {
 
   // Let it be sortable
   jQuery("#queue-tbl").tablesorter({
+    sortList: [[0,0]],
     headers: {6: {sorter: false}}
   });
 
@@ -32,44 +33,44 @@ function drawQueueTable(aoCssQueue) {
     ctime  = EpochToDate(keys.jctime);
 
     // Prepare job statuses
-    // Status: NEW
+    // Status: NEW (N, sort priority 6)
     if (keys.jqstat === 'NEW') {
-      status      = 'N';
+      status      = '<span class="hidden">6</span>N';
       statusClass = 'new';
       title       = '<?php _e("NEW", "autoptimize"); ?>';
       buttons     = '<?php _e("None", "autoptimize"); ?>';
 
-    // Status: PENDING
+    // Status: PENDING (P, sort priority 5)
     } else if (keys.jqstat === 'JOB_QUEUED' || keys.jqstat === 'JOB_ONGOING') {
-      status      = 'P';
+      status      = '<span class="hidden">5</span>P';
       statusClass = 'pending';
       title       = '<?php _e("PENDING", "autoptimize"); ?>';
       buttons     = '<?php _e("None", "autoptimize"); ?>';
 
-    // Status: DONE
+    // Status: DONE (D, sort priority 4)
     } else if (keys.jqstat === 'JOB_DONE' && keys.jrstat === 'GOOD' && keys.jvstat === 'GOOD') {
-      status      = 'D';
+      status      = '<span class="hidden">4</span>D';
       statusClass = 'done';
       title       = '<?php _e("DONE", "autoptimize"); ?>';
       buttons     = '<span class="button-secondary" id="' + ljid + '_remove"><?php _e("Remove", "autoptimize"); ?></span>';
 
-    // Status: REVIEW
+    // Status: REVIEW (R, sort priority 2)
     } else if (keys.jqstat === 'JOB_DONE' && keys.jrstat === 'GOOD' && keys.jvstat === 'WARN') {
-      status      = 'R';
+      status      = '<span class="hidden">2</span>R';
       statusClass = 'review';
       title       = '<?php _e("REVIEW", "autoptimize"); ?>';
       buttons     = '<span class="button-secondary" id="' + ljid + '_approve"><?php _e("Approve", "autoptimize"); ?></span>&nbsp;<span class="button-secondary" id="' + ljid + '_reject"><?php _e("Reject", "autoptimize"); ?></span>';
 
-    // Status: ERROR
+    // Status: ERROR (E, sort priority 1)
     } else if (keys.jqstat === 'JOB_FAILED' || (keys.jqstat === 'JOB_DONE' && keys.jrstat === 'GOOD' && keys.jvstat === 'BAD')) {
-      status      = 'E';
+      status      = '<span class="hidden">1</span>E';
       statusClass = 'error';
       title       = "<?php _e('ERROR', 'autoptimize'); ?>\n<?php _e('Info from criticalcss.com:', 'autoptimize'); ?>\n<?php _e('- Job ID: ', 'autoptimize'); ?>" + keys.jid + "\n<?php _e('- Status: ', 'autoptimize'); ?>" + keys.jqstat + "\n<?php _e('- Result: ', 'autoptimize'); ?>" + keys.jrstat + "\n<?php _e('- Validation: ', 'autoptimize'); ?>" + keys.jvstat;
       buttons     = '<span class="button-secondary" id="' + ljid + '_retry"><?php _e("Retry", "autoptimize"); ?></span>&nbsp;<span class="button-secondary" id="' + ljid + '_help"><a hef="https://criticalcss.com/faq/" target="_blank"><?php _e("Help", "autoptimize"); ?></a></span>';
 
-    // Status: UNKNOWN
+    // Status: UNKNOWN (U, sort priority 3)
     } else {
-      status      = 'U';
+      status      = '<span class="hidden">3</span>U';
       statusClass = 'unknown';
       title       = "<?php _e('UNKNOWN', 'autoptimize'); ?>\n<?php _e('Info from criticalcss.com:', 'autoptimize'); ?>\n<?php _e('- Job ID: ', 'autoptimize'); ?>" + keys.jid + "\n<?php _e('- Status: ', 'autoptimize'); ?>" + keys.jqstat + "\n<?php _e('- Result: ', 'autoptimize'); ?>" + keys.jrstat + "\n<?php _e('- Validation: ', 'autoptimize'); ?>" + keys.jvstat;
       buttons     = '<span class="button-secondary" id="' + ljid + '_help"><a hef="https://criticalcss.com/faq/" target="_blank"><?php _e("Help", "autoptimize"); ?></a></span>';
