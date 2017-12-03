@@ -15,7 +15,7 @@ function ao_ccss_validate_key($key) {
   if (!$key_status && $key) {
 
     // Prepare the request
-    $url  = "https://criticalcss.com/api/premium/generate";
+    $url  = AO_CCSS_API . 'generate';
     $args = array(
       'headers' => array(
         'Content-type'  => 'application/json; charset=utf-8',

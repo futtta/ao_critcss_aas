@@ -45,13 +45,16 @@ require_once('inc/admin_settings_queue.php');
 require_once('inc/admin_settings_adv.php');
 require_once('inc/cron.php');
 
-// Set a constant with the directory to store critical CSS in
+// Define a constant with the directory to store critical CSS in
 if (is_multisite()) {
   $blog_id = get_current_blog_id();
   define('AO_CCSS_DIR', WP_CONTENT_DIR . '/cache/ao_ccss/' . $blog_id . '/');
 } else {
   define('AO_CCSS_DIR', WP_CONTENT_DIR . '/cache/ao_ccss/');
 }
+
+// Define a constant for criticalcss.com API root
+define('AO_CCSS_API', WP_CONTENT_DIR . 'https://criticalcss.com/api/premium/');
 
 // Add hidden submenu and register allowed settings
 function ao_ccss_settings_init() {
