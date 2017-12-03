@@ -27,10 +27,11 @@ function drawQueueTable(aoCssQueue) {
   jQuery.each(aoCssQueue, function(path, keys) {
 
     // Prepare commom job values
-    ljid    = keys.ljid;
-    target = keys.rtarget;
-    type   = keys.ptype;
-    ctime  = EpochToDate(keys.jctime);
+    ljid      = keys.ljid;
+    targetArr = keys.rtarget.split('|');
+    target    = targetArr[1];
+    type      = keys.ptype;
+    ctime     = EpochToDate(keys.jctime);
 
     // Prepare job statuses
     // Status: NEW (N, sort priority 6)

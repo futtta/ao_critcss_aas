@@ -25,16 +25,17 @@ function ao_ccss_enqueue($hash) {
     // NOTE: implements 'Rule Matching Stage' in the 'Job Submission Flow' of the specs
     foreach ($ao_ccss_rules['paths'] as $path => $properties) {
 
-      ao_ccss_log('Qualifying path <' . $req_path . '> for job submission by path rule <' . $path . '>');
+      // Prepare rule target and log
+      $rule_target = 'paths|' . $path;
+      ao_ccss_log('Qualifying path <' . $req_path . '> for job submission by rule <' . $rule_target . '>', 3);
 
       // Path match
       if (preg_match('|' . $path . '|', $req_path)) {
 
         // There's a path match in the rule, so job QUALIFIES with a path rule match
         $job_qualify     = TRUE;
-        $rule_target     = $path;
         $rule_properties = $properties;
-        ao_ccss_log('Path <' . $req_path . '> QUALIFIED for job submission by path rule <' . $path . '>');
+        ao_ccss_log('Path <' . $req_path . '> QUALIFIED for job submission by rule <' . $rule_target . '>', 3);
 
         // Stop processing other path rules
         break;
@@ -45,16 +46,17 @@ function ao_ccss_enqueue($hash) {
     if (!$job_qualify) {
       foreach ($ao_ccss_rules['types'] as $type => $properties) {
 
-        ao_ccss_log('Qualifying page type <' . $req_type . '> on path <' . $req_path . '> for job submission by type rule <' . $type . '>');
+        // Prepare rule target and log
+        $rule_target = 'types|' . $type;
+        ao_ccss_log('Qualifying page type <' . $req_type . '> on path <' . $req_path . '> for job submission by rule <' . $rule_target . '>', 3);
 
         // Type match
         if ($req_type == $type) {
 
           // There's a type match in the rule, so job QUALIFIES with a type rule match
           $job_qualify     = TRUE;
-          $rule_target     = $type;
           $rule_properties = $properties;
-          ao_ccss_log('Page type <' . $req_type . '> on path <' . $req_path . '> QUALIFIED for job submission by type rule <' . $type . '>');
+          ao_ccss_log('Page type <' . $req_type . '> on path <' . $req_path . '> QUALIFIED for job submission by rule <' . $rule_target . '>', 3);
 
           // Stop processing other type rules
           break;
@@ -65,7 +67,7 @@ function ao_ccss_enqueue($hash) {
     // If job qualifies but rule hash is false (MANUAL rule), job does not qualify despite what previous evaluations says
     if ($job_qualify && $rule_properties['hash'] == FALSE) {
       $job_qualify = FALSE;
-      ao_ccss_log('Job submission DISQUALIFIED by MANUAL rule <' . $rule_target . '> with hash <' . $rule_properties['hash'] . '>');
+      ao_ccss_log('Job submission DISQUALIFIED by MANUAL rule <' . $rule_target . '> with hash <' . $rule_properties['hash'] . '>', 3);
 
     // But if job does not qualify and rule properties are set, job qualifies as there is no rule for it yet
     } elseif (!$job_qualify && empty($rule_properties)) {
@@ -76,11 +78,11 @@ function ao_ccss_enqueue($hash) {
         $rule_target = $req_type;
       }
 
-      ao_ccss_log('Job submission QUALIFIED by MISSING rule for page type <' . $req_type . '> on path <' . $req_path . '>, new rule <' . $rule_target . '>');
+      ao_ccss_log('Job submission QUALIFIED by MISSING rule for page type <' . $req_type . '> on path <' . $req_path . '>, new rule <' . $rule_target . '>', 3);
 
     // Or just log a job qualified by a matching rule
     } else {
-      ao_ccss_log('Job submission QUALIFIED by AUTO rule <' . $rule_target . '> with hash <' . $rule_properties['hash'] . '>');
+      ao_ccss_log('Job submission QUALIFIED by AUTO rule <' . $rule_target . '> with hash <' . $rule_properties['hash'] . '>', 3);
     }
 
     // Submit job
@@ -91,7 +93,7 @@ function ao_ccss_enqueue($hash) {
       if (!array_key_exists($req_path, $ao_ccss_queue)) {
 
         // Merge job into the queue
-        $ao_ccss_queue[$req_path] = ao_ccss_create_job($req_path, $rule_target, $req_type, $hash);
+        $ao_ccss_queue[$req_path] = ao_ccss_create_job($rule_target, $req_path, $req_type, $hash);
 
         // Set update flag
         $queue_update = TRUE;
@@ -108,6 +110,9 @@ function ao_ccss_enqueue($hash) {
             // Push new hash to its array and update flag
             $queue_update = array_push($ao_ccss_queue[$req_path]['hashes'], $hash);
 
+            // Log job update
+            ao_ccss_log('Hashes UPDATED on a new job, local job id <' . $ao_ccss_queue[$req_path][$ljid] . '>, target rule: <' . $ao_ccss_queue[$req_path][$rtarget] . '>, new hash: ' . $hash, 3);
+
             // Return from here as the hash array is already updated
             return TRUE;
           }
@@ -119,7 +124,7 @@ function ao_ccss_enqueue($hash) {
           if (!in_array($hash, $ao_ccss_queue[$req_path]['hashes'])) {
 
             // Reset old job by merging it again into the queue
-            $ao_ccss_queue[$req_path] = ao_ccss_create_job($req_path, $rule_target, $req_type, $hash);
+            $ao_ccss_queue[$req_path] = ao_ccss_create_job($rule_target, $req_path, $req_type, $hash);
 
             // Set update flag
             $queue_update = TRUE;
@@ -201,23 +206,26 @@ function ao_ccss_get_type() {
 }
 
 // Create a new job entry
-function ao_ccss_create_job($entry, $target, $type, $hash) {
+function ao_ccss_create_job($target, $path, $type, $hash) {
 
-    $entry            = array();
-    $entry['ljid']    = ao_ccss_job_id();
-    $entry['rtarget'] = $target;
-    $entry['ptype']   = $type;
-    $entry['hashes']  = array($hash);
-    $entry['hash']    = NULL;
-    $entry['file']    = NULL;
-    $entry['jid']     = NULL;
-    $entry['jqstat']  = 'NEW';
-    $entry['jrstat']  = NULL;
-    $entry['jvstat']  = NULL;
-    $entry['jctime']  = microtime(TRUE);
-    $entry['jftime']  = NULL;
+    $path            = array();
+    $path['ljid']    = ao_ccss_job_id();
+    $path['rtarget'] = $target;
+    $path['ptype']   = $type;
+    $path['hashes']  = array($hash);
+    $path['hash']    = NULL;
+    $path['file']    = NULL;
+    $path['jid']     = NULL;
+    $path['jqstat']  = 'NEW';
+    $path['jrstat']  = NULL;
+    $path['jvstat']  = NULL;
+    $path['jctime']  = microtime(TRUE);
+    $path['jftime']  = NULL;
 
-    return $entry;
+    // Log job creation
+    ao_ccss_log('New job CREATED, local job id <' . $path['ljid'] . '>, target rule <' . $target . '>', 3);
+
+    return $path;
 }
 
 // Generate random strings for the local job ID

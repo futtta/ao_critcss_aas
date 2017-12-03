@@ -257,14 +257,45 @@ function ao_ccss_viewport() {
 }
 
 // Commom logging facility
-function ao_ccss_log($msg) {
+function ao_ccss_log($msg, $lvl) {
 
   // Attach debug option
   global $ao_ccss_debug;
 
-  // If debug is enabled, write message to dedicated log file
-  if ($ao_ccss_debug)
-    error_log('[' . date('c') . '] ' . $msg . "\n", 3,  AO_CCSS_DIR . 'debug.log');
+  // Prepare log levels, where accepted $lvl are:
+  // 1: II (for info)
+  // 2: EE (for error)
+  // 3: DD (for debug)
+  // Default: UU (for unkown)
+  $level = FALSE;
+  switch ($lvl) {
+    case 1:
+      $level = 'II';
+      break;
+    case 2:
+      $level = 'EE';
+      break;
+    case 3:
+      // Debug allowed only if enabled
+      if ($ao_ccss_debug)
+        $level = 'DD';
+      break;
+    default:
+      $level = 'UU';
+  }
+
+  // Prepare and write a log message if there's a valid level
+  if ($level) {
+
+    // Set log file
+    $logfile = AO_CCSS_DIR . 'messages.log';
+
+    // Prepare message
+    $message = date('c') . ' - [' . $level . '] ' . $msg . "\n";
+
+    //Write message to log file
+    error_log($message, 3,  $logfile);
+  }
 }
 
 ?>

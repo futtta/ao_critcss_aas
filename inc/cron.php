@@ -29,5 +29,5 @@ add_action('ao_ccss_queue', 'ao_ccss_queue_control');
 
 // The queue execution backend
 function ao_ccss_queue_control() {
-  ao_ccss_log("I'm the queue bot and I have nothing to do... yet. ;)");
+  //ao_ccss_log("I'm the queue bot and I have nothing to do... yet. ;)", 3);
 }
