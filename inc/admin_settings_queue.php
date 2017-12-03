@@ -36,7 +36,7 @@ function ao_ccss_render_queue() {
       </div>
       <table id="queue-tbl" class="queue tablesorter" cellspacing="0">
         <thead>
-          <tr><th class="status"><?php _e('Status', 'autoptimize');?></th><th><?php _e('Target Rule', 'autoptimize');?></th><th><?php _e('Path', 'autoptimize');?></th><th><?php _e('Type', 'autoptimize');?></th><th><?php _e('Creation Date', 'autoptimize');?></th><th><?php _e('Finish Date', 'autoptimize');?></th><th class="btn"><?php _e('Actions', 'autoptimize');?></th></tr>
+          <tr><th class="status"><?php _e('Status', 'autoptimize');?></th><th><?php _e('Target Rule', 'autoptimize');?></th><th><?php _e('Page Path', 'autoptimize');?></th><th><?php _e('Page Type', 'autoptimize');?></th><th><?php _e('Creation Date', 'autoptimize');?></th><th><?php _e('Finish Date', 'autoptimize');?></th><th class="btn"><?php _e('Actions', 'autoptimize');?></th></tr>
         </thead>
         <tbody id="queue"></tbody>
       </table>

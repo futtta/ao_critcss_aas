@@ -10,7 +10,7 @@ table.tablesorter thead tr th,
 table.tablesorter tfoot tr th {
   background-color: #f1f1f1;
   font-size: 8pt;
-  padding: 4px;
+  padding: 2px;
 }
 table.tablesorter thead tr .header {
   background-image: url(bg.gif);

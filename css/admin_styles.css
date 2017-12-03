@@ -138,14 +138,21 @@
   margin: 20px 0 10px;
   font-size: 1.2em;
 }
+#rules-list .header th,
+#rules-list .rule td {
+  padding: 4px;
+}
 #rules-list .rule td {
   margin: 0;
-  padding: 5px 0;
   border-bottom: 1px solid #ccc;
 }
 #rules-list .type,
 #rules-list .btn {
+  width: 55px;
+}
+#rules-list .rule td.btn {
   width: 70px;
+  padding: 4px 0 4px 2px;
 }
 .badge {
   padding: 0 5px;
