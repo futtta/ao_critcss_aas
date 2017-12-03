@@ -1,5 +1,7 @@
 <?php
 
+// NOTE: implements section 3 of the specs
+
 /*
  * cronned queue-processing
  * 
@@ -12,3 +14,20 @@
  * only run if critcss is active (and deactivate cron if no AO or no "inline & defer"
  */
 
+// Add a 5 seconds interval to WP-Cron
+function ao_ccss_interval($schedules) {
+   $schedules['5sec'] = array(
+      'interval' => 5,
+      'display' => __('Every 5 Seconds (FOR DEVELOPMENT ONLY)')
+   );
+   return $schedules;
+}
+add_filter('cron_schedules', 'ao_ccss_interval');
+
+// Add queue to a registered event
+add_action('ao_ccss_queue', 'ao_ccss_queue_control');
+
+// The queue execution backend
+function ao_ccss_queue_control() {
+  ao_ccss_log("I'm the queue bot and I have nothing to do... yet. ;)");
+}

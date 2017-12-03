@@ -43,7 +43,7 @@ require_once('inc/admin_settings_license.php');
 require_once('inc/admin_settings_rules.php');
 require_once('inc/admin_settings_queue.php');
 require_once('inc/admin_settings_adv.php');
-//require_once('inc/cron.php');
+require_once('inc/cron.php');
 
 // Set a constant with the directory to store critical CSS in
 if (is_multisite()) {
@@ -95,5 +95,19 @@ function ao_ccss_add_tab($in) {
   return $in;
 }
 add_filter('autoptimize_filter_settingsscreen_tabs', 'ao_ccss_add_tab');
+
+// Perform plugin activation tasks
+function ao_ccss_activation() {
+  if (!wp_next_scheduled('ao_ccss_queue')) {
+    wp_schedule_event(time(), '5sec', 'ao_ccss_queue');
+  }
+}
+register_activation_hook(__FILE__, 'ao_ccss_activation');
+
+// Perform plugin deactivation tasks
+function ao_ccss_deactivation() {
+  wp_clear_scheduled_hook('ao_ccss_queue');
+}
+register_deactivation_hook(__FILE__, 'ao_ccss_deactivation');
 
 ?>
