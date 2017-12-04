@@ -1,6 +1,6 @@
 <?php
 
-// NOTE: implements section 3 of the specs
+// NOTE: implements section 4 of the specs
 
 /*
  * cronned queue-processing
@@ -40,7 +40,7 @@ function ao_ccss_queue_control() {
     $queue_update = FALSE;
 
     // Process NEW jobs
-    // NOTE: implements section 3, id 3.1 of the specs
+    // NOTE: implements section 4, id 3.1 of the specs
     if ($jprops['jqstat'] == 'NEW') {
 
       // Log the new job
@@ -145,7 +145,7 @@ function ao_ccss_queue_control() {
       }
 
       // Persist update job to the queue
-      // NOTE: implements section 3, id 3.2.1 of the specs
+      // NOTE: implements section 4, id 3.2.1 of the specs
       if ($queue_update) {
         $ao_ccss_queue[$path] = $jprops;
         $ao_ccss_queue_raw = json_encode($ao_ccss_queue);
@@ -157,7 +157,7 @@ function ao_ccss_queue_control() {
       }
 
     // Process QUEUED and ONGOING jobs
-    // NOTE: implements section 3, id 3.2 of the specs
+    // NOTE: implements section 4, id 3.2 of the specs
     } elseif ($jprops['jqstat'] == 'JOB_QUEUED' || $jprops['jqstat'] == 'JOB_ONGOING') {
 
       // Log and dispatch generate request to criticalcss.com
