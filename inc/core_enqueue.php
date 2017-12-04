@@ -17,25 +17,25 @@ function ao_ccss_enqueue($hash) {
     $req_path          = $_SERVER['REQUEST_URI'];
     $req_type          = ao_ccss_get_type();
     $job_qualify       = FALSE;
-    $rule_target       = FALSE;
+    $target_rule       = FALSE;
     $rule_properties   = FALSE;
     $queue_update      = FALSE;
 
     // Match for paths in rules
     // NOTE: implements 'Rule Matching Stage' in the 'Job Submission Flow' of the specs
-    foreach ($ao_ccss_rules['paths'] as $path => $properties) {
+    foreach ($ao_ccss_rules['paths'] as $path => $props) {
 
       // Prepare rule target and log
-      $rule_target = 'paths|' . $path;
-      ao_ccss_log('Qualifying path <' . $req_path . '> for job submission by rule <' . $rule_target . '>', 3);
+      $target_rule = 'paths|' . $path;
+      ao_ccss_log('Qualifying path <' . $req_path . '> for job submission by rule <' . $target_rule . '>', 3);
 
       // Path match
       if (preg_match('|' . $path . '|', $req_path)) {
 
         // There's a path match in the rule, so job QUALIFIES with a path rule match
         $job_qualify     = TRUE;
-        $rule_properties = $properties;
-        ao_ccss_log('Path <' . $req_path . '> QUALIFIED for job submission by rule <' . $rule_target . '>', 3);
+        $rule_properties = $props;
+        ao_ccss_log('Path <' . $req_path . '> QUALIFIED for job submission by rule <' . $target_rule . '>', 3);
 
         // Stop processing other path rules
         break;
@@ -44,19 +44,19 @@ function ao_ccss_enqueue($hash) {
 
     // Match for types in rules if no path rule matches
     if (!$job_qualify) {
-      foreach ($ao_ccss_rules['types'] as $type => $properties) {
+      foreach ($ao_ccss_rules['types'] as $type => $props) {
 
         // Prepare rule target and log
-        $rule_target = 'types|' . $type;
-        ao_ccss_log('Qualifying page type <' . $req_type . '> on path <' . $req_path . '> for job submission by rule <' . $rule_target . '>', 3);
+        $target_rule = 'types|' . $type;
+        ao_ccss_log('Qualifying page type <' . $req_type . '> on path <' . $req_path . '> for job submission by rule <' . $target_rule . '>', 3);
 
         // Type match
         if ($req_type == $type) {
 
           // There's a type match in the rule, so job QUALIFIES with a type rule match
           $job_qualify     = TRUE;
-          $rule_properties = $properties;
-          ao_ccss_log('Page type <' . $req_type . '> on path <' . $req_path . '> QUALIFIED for job submission by rule <' . $rule_target . '>', 3);
+          $rule_properties = $props;
+          ao_ccss_log('Page type <' . $req_type . '> on path <' . $req_path . '> QUALIFIED for job submission by rule <' . $target_rule . '>', 3);
 
           // Stop processing other type rules
           break;
@@ -67,22 +67,21 @@ function ao_ccss_enqueue($hash) {
     // If job qualifies but rule hash is false (MANUAL rule), job does not qualify despite what previous evaluations says
     if ($job_qualify && $rule_properties['hash'] == FALSE) {
       $job_qualify = FALSE;
-      ao_ccss_log('Job submission DISQUALIFIED by MANUAL rule <' . $rule_target . '> with hash <' . $rule_properties['hash'] . '>', 3);
+      ao_ccss_log('Job submission DISQUALIFIED by MANUAL rule <' . $target_rule . '> with hash <' . $rule_properties['hash'] . '>', 3);
 
     // But if job does not qualify and rule properties are set, job qualifies as there is no rule for it yet
     } elseif (!$job_qualify && empty($rule_properties)) {
       $job_qualify = TRUE;
 
-      // Fill rule target with page type if empty
-      if (empty($rule_target)) {
-        $rule_target = $req_type;
+      // Fill target rule with page type if empty
+      if (empty($target_rule)) {
+        $target_rule = $req_type;
       }
-
-      ao_ccss_log('Job submission QUALIFIED by MISSING rule for page type <' . $req_type . '> on path <' . $req_path . '>, new rule <' . $rule_target . '>', 3);
+      ao_ccss_log('Job submission QUALIFIED by MISSING rule for page type <' . $req_type . '> on path <' . $req_path . '>, new rule <' . $target_rule . '>', 3);
 
     // Or just log a job qualified by a matching rule
     } else {
-      ao_ccss_log('Job submission QUALIFIED by AUTO rule <' . $rule_target . '> with hash <' . $rule_properties['hash'] . '>', 3);
+      ao_ccss_log('Job submission QUALIFIED by AUTO rule <' . $target_rule . '> with hash <' . $rule_properties['hash'] . '>', 3);
     }
 
     // Submit job
@@ -93,7 +92,7 @@ function ao_ccss_enqueue($hash) {
       if (!array_key_exists($req_path, $ao_ccss_queue)) {
 
         // Merge job into the queue
-        $ao_ccss_queue[$req_path] = ao_ccss_create_job($rule_target, $req_path, $req_type, $hash);
+        $ao_ccss_queue[$req_path] = ao_ccss_create_job($target_rule, $req_path, $req_type, $hash);
 
         // Set update flag
         $queue_update = TRUE;
@@ -124,7 +123,7 @@ function ao_ccss_enqueue($hash) {
           if (!in_array($hash, $ao_ccss_queue[$req_path]['hashes'])) {
 
             // Reset old job by merging it again into the queue
-            $ao_ccss_queue[$req_path] = ao_ccss_create_job($rule_target, $req_path, $req_type, $hash);
+            $ao_ccss_queue[$req_path] = ao_ccss_create_job($target_rule, $req_path, $req_type, $hash);
 
             // Set update flag
             $queue_update = TRUE;
