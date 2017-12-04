@@ -19,7 +19,7 @@ STATS+="### Lines of Code"$'\n'$'\n'
 STATS+="**Language**|**Files**|**Blank Lines**|**Comments**|**Functional Code**"$'\n'
 STATS+=$(cloc --list-file=FILELIST.txt --force-lang=PHP,module --force-lang=PHP,theme --force-lang="Bourne Shell",conf \
           --force-lang="Bourne Shell",types --lang-no-ext="Bourne Shell" --md | tail -n +6 | \
-          sed "s/^\(SUM:\)|\([0-9]*\)|\([0-9]*\.[0-9]*\)|\([0-9]*\.[0-9]*\)|\([0-9]*\)/**TOTAIS:**|**\2**|**\3**|**\4**|**\5**/g")
+          sed "s/^\(SUM:\)|\([0-9]*\)|\([0-9]*\)|\([0-9]*\)|\([0-9]*\)/**SUM:**|**\2**|**\3**|**\4**|**\5**/g")
 STATS+=$'\n'$'\n'"### Media and Other"$'\n'$'\n'
 STATS+="**Type**|**Files**|**Size (B)**"$'\n'
 
