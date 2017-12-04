@@ -6,7 +6,7 @@ Let Autoptimize and CriticalCSS unleash your site performance and make it appear
 
 ## Contents
 
-- [ngrok and criticalcss.com Playing Together]()
+- [ngrok and criticalcss.com Playing Together](#ngrok-and-criticalcsscom-playing-together)
 - [Project Stats](#project-stats)
 
 ## ngrok and criticalcss.com Playing Together
