@@ -99,7 +99,7 @@ inc/core_enqueue.php:10:  // NOTE: out of scope check for criticalcss.com UA
 
 #### Notes
 
-1. Run the command bellow to generate or update FILELIST.txt.
+1. Run the command bellow to generate or update [FILELIST.txt](https://github.com/futtta/ao_critcss_aas/blob/master/FILELIST.txt).
 
     ```
     find . -type f ! -path "./.git/*" ! -path "./FILELIST.txt" ! -path "./README.md" ! -path "./lib/*" > FILELIST.txt
