@@ -79,7 +79,7 @@ function drawQueueTable(aoCssQueue) {
 
     // Prepare job finish time
     if (keys.jftime === null) {
-      ftime = '<?php _e("Not finished yet...", "autoptimize"); ?>';
+      ftime = '<?php _e("N/A", "autoptimize"); ?>';
     } else {
       ftime = EpochToDate(keys.jftime);
     }

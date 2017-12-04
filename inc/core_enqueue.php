@@ -134,13 +134,13 @@ function ao_ccss_enqueue($hash) {
         }
       }
 
-      // Save the job to the queue and return
+      // Persist the job to the queue and return
       if ($queue_update) {
         $ao_ccss_queue_raw = json_encode($ao_ccss_queue);
         update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw);
         return TRUE;
 
-      // Or just return false if no job whas added
+      // Or just return false if no job was added
       } else {
         ao_ccss_log('A job for path <' . $req_path . '> already exist with NEW or PEDING status, skipping job creation', 3);
         return FALSE;
