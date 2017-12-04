@@ -1,6 +1,8 @@
 # ao_critcss_aas
 Autoptimize power-up to integrate with criticalcss.com
 
+## Project Stats
+
 *Stats updated at: 2017/12/04*
 
 **Project size:** 156 KB
