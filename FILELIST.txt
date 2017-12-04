@@ -1,3 +1,4 @@
+./tunnel.sh
 ./js/admin_settings_feeds.js
 ./js/admin_settings.js
 ./inc/core_ajax.php

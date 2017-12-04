@@ -48,7 +48,7 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 *Stats updated at: 2017/12/04*
 
-**Project size:** 156 KB
+**Project size:** 160 KB
 
 ### Lines of Code
 
@@ -57,9 +57,9 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 PHP|14|311|318|1510
 CSS|2|6|8|348
 JavaScript|2|12|1|111
-Bourne Shell|1|13|0|42
+Bourne Shell|2|15|0|49
 --------|--------|--------|--------|--------
-**SUM:**|**19**|**342**|**327**|**2011**
+**SUM:**|**20**|**344**|**327**|**2018**
 
 ### Media and Other
 
