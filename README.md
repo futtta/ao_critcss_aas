@@ -1,5 +1,43 @@
-# ao_critcss_aas
-Autoptimize power-up to integrate with criticalcss.com
+# Autoptimize CriticalCSS Power-Up
+
+Let Autoptimize and CriticalCSS unleash your site performance and make it appear better than anyone else in search results.
+
+**THIS IS A DEVELOPMENT REPOSITORY - NO RELEASE CODE HERE!**
+
+## ngrok Tunnel
+
+Local development of this plugin is possible with the help of [ngrok](https://ngrok.com/). This is required because <criticalcss.com> needs to reach the environment to extract HTML and CSS content to make its thing happen. ngrok exposes your *localhost* in a safe manner using a tunnel.
+
+The steps to configure ngrok and criticalcss.com to work together are bellow.
+
+1. Subscribe to a [**paid* ngrok plan](https://ngrok.com/pricing). Basic (US$ 5/mo billed annually) is enough. If you want to get billed monthly, then Pro (US$ 10/mo billed monthly) is what you looking for.
+
+2. Login to your ngrok account and setup a **Reserved** domain. This will ensure that you local development environment won't change it's URL between sessions, something that's not supported by criticalcss.com.
+
+3. Once your reserved ngrok tunnel is ready to use, go to **Auth* section and copy your **Your Tunnel Authtoken**.
+
+4. Create the file `~/.ngrok2/ngrok.yml` with the following content (see [ngrok's configuration file document](https://ngrok.com/docs#config) for more specific setup):
+
+    ```
+    authtoken: <your_tunnel_authtoken>
+    tunnels:
+      aodev:
+        proto: http
+        addr: 8000
+        subdomain: <reserved_domain_without_.ngrok.io_part>
+    ```
+
+5. Go to the plugin development base path and run:
+
+```
+./tunnel.sh
+```
+
+6. Subscribe to the [**paid** criticalcss.com plan](https://criticalcss.com/#pricing). There is only one for £2/mo, but keep in mind that API usage required by this plugin costs another £5/mo. **IMPORTANT:** DO NOT mark any of the WordPress options in the signup form. None of them are required.
+
+7. Login to your criticalcss.com account and request to *Generate Critical CSS* using your ngrok's reserved domain in FQDN form (e.g. `myaodev.ngrok.io`).
+
+If everything went fine, you'll see criticalcss.com requesting your WordPress's home page in the webserver logs. If not, please check [ngrok](https://ngrok.com/docs) and [criticalcss.com](https://criticalcss.com/faq) documentation for troubleshooting.
 
 ## Project Stats
 
@@ -57,5 +95,5 @@ inc/core_enqueue.php:10:  // NOTE: out of scope check for criticalcss.com UA
 **Note:** FILELIST.txt generated with the command bellow.
 
 ```
-find . -type f ! -path "./FILELIST.txt" ! -path "./README.md" ! -path "./.git/*" ! -path "./lib/*" > FILELIST.txt
+find . -type f ! -path "./.git/*" ! -path "./FILELIST.txt" ! -path "./README.md" ! -path "./lib/*" > FILELIST.txt
 ```
