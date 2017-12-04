@@ -4,13 +4,18 @@ Let Autoptimize and CriticalCSS unleash your site performance and make it appear
 
 **THIS IS A DEVELOPMENT REPOSITORY - NO RELEASE CODE HERE!**
 
-## ngrok Tunnel
+## Contents
+
+- [ngrok and criticalcss.com Playing Together]()
+- [Project Stats](#project-stats)
+
+## ngrok and criticalcss.com Playing Together
 
 Local development of this plugin is possible with the help of [ngrok](https://ngrok.com/). This is required because <criticalcss.com> needs to reach the environment to extract HTML and CSS content to make its thing happen. ngrok exposes your *localhost* in a safe manner using a tunnel.
 
-The steps to configure ngrok and criticalcss.com to work together are bellow.
+The steps to configure ngrok and criticalcss.com to play together are bellow.
 
-1. Subscribe to a [**paid* ngrok plan](https://ngrok.com/pricing). Basic (US$ 5/mo billed annually) is enough. If you want to get billed monthly, then Pro (US$ 10/mo billed monthly) is what you looking for.
+1. Subscribe to a [**paid** ngrok plan](https://ngrok.com/pricing). Basic (US$ 5/mo billed annually) is enough. If you want to get billed monthly, then Pro (US$ 10/mo billed monthly) is what you looking for.
 
 2. Login to your ngrok account and setup a **Reserved** domain. This will ensure that you local development environment won't change it's URL between sessions, something that's not supported by criticalcss.com.
 
