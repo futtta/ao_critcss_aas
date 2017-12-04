@@ -97,8 +97,14 @@ inc/admin_settings_feeds.php:1:<?php // NOTE: out of scope feeds panel ?>
 inc/core_enqueue.php:10:  // NOTE: out of scope check for criticalcss.com UA
 ```
 
-**Note:** FILELIST.txt generated with the command bellow.
+**Note 1:** run the command bellow to generate or update FILELIST.txt.
 
 ```
 find . -type f ! -path "./.git/*" ! -path "./FILELIST.txt" ! -path "./README.md" ! -path "./lib/*" > FILELIST.txt
+```
+
+**Note 2:** to update the stats above, run the command bellow once you have FILELIST.txt in place.
+
+```
+./stats.sh
 ```
