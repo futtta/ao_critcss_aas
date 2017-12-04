@@ -1,4 +1,4 @@
-<?php // NOTE: out of scope FEEDS ?>
+<?php // NOTE: out of scope feeds panel ?>
 <!-- BEGIN: Settings Futta Feeds -->
 <div id="autoptimize_admin_feed" class="hidden">
   <div class="autoptimize_banner hidden">
