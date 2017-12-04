@@ -1,6 +1,6 @@
 <?php
 
-// NOTE: implements OUT OF SCOPE ADVANCED PANEL item of the specs
+// NOTE: out of scope advanced panel
 
 // Render the advanced panel
 function ao_ccss_render_adv() {

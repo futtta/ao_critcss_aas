@@ -1,6 +1,6 @@
 <?php
 
-// NOTE: implements OUT OF SCOPE DEBUG PANEL item of the specs
+// NOTE: out of scope debug panel
 
 // Attach wpdb() object
 global $wpdb;

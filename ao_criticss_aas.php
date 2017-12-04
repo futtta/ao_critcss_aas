@@ -53,8 +53,9 @@ if (is_multisite()) {
   define('AO_CCSS_DIR', WP_CONTENT_DIR . '/cache/ao_ccss/');
 }
 
-// Define a constant for criticalcss.com API root
-define('AO_CCSS_API', WP_CONTENT_DIR . 'https://criticalcss.com/api/premium/');
+// Define constants for criticalcss.com base path and API endpoints
+define('AO_CCSS_URL', 'https://criticalcss.com');
+define('AO_CCSS_API', AO_CCSS_URL . '/api/premium/');
 
 // Add hidden submenu and register allowed settings
 function ao_ccss_settings_init() {

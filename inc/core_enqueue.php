@@ -4,9 +4,16 @@
 // NOTE: implements section 4, id 2 of the specs
 function ao_ccss_enqueue($hash) {
 
-  // As AO could be set to provide different CSS'es for logged in users,
-  // just enqueue jobs for NOT logged in users to avoid useless jobs
-  if (!is_user_logged_in()) {
+  // Queue is available to anyone...
+  $enqueue = TRUE;
+  // ...but it does not belong to logged in users or criticalcss.com requests
+  // NOTE: out of scope check for criticalcss.com UA
+  if (ao_ccss_ua() || is_user_logged_in()) {
+    $enqueue = FALSE;
+  }
+
+  // Continue if queue is available
+  if ($enqueue) {
 
     // Attach required arrays
     global $ao_ccss_rules;
@@ -116,18 +123,14 @@ function ao_ccss_enqueue($hash) {
             return TRUE;
           }
 
-        // The jobs is DONE, most likely its CSS files have changed and need to be requeued
-        } elseif ($ao_ccss_queue[$req_path]['jqstat'] == 'JOB_DONE') {
+        // Allow requeuing jobs that are not NEW, JOB_QUEUED or JOB_ONGOING
+        } elseif ($ao_ccss_queue[$req_path]['jqstat'] != 'NEW' || $ao_ccss_queue[$req_path]['jqstat'] != 'JOB_QUEUED' || $ao_ccss_queue[$req_path]['jqstat'] != 'JOB_ONGOING') {
 
-          // We need to make sure the that at least one CSS has changed to update the job
-          if (!in_array($hash, $ao_ccss_queue[$req_path]['hashes'])) {
+          // Reset old job by merging it again into the queue
+          $ao_ccss_queue[$req_path] = ao_ccss_create_job($target_rule, $req_path, $req_type, $hash);
 
-            // Reset old job by merging it again into the queue
-            $ao_ccss_queue[$req_path] = ao_ccss_create_job($target_rule, $req_path, $req_type, $hash);
-
-            // Set update flag
-            $queue_update = TRUE;
-          }
+          // Set update flag
+          $queue_update = TRUE;
         }
       }
 
@@ -139,9 +142,14 @@ function ao_ccss_enqueue($hash) {
 
       // Or just return false if no job whas added
       } else {
+        ao_ccss_log('A job for path <' . $req_path . '> already exist with NEW or PEDING status, skipping job creation', 3);
         return FALSE;
       }
     }
+
+  // Log unavailable queue
+  } else {
+    ao_ccss_log('Queue unavailable for logged in users or criticalcss.com itself', 3);
   }
 }
 
@@ -239,4 +247,22 @@ function ao_ccss_job_id($length = 6) {
   return $randomString;
 }
 
+// Check for criticalcss.com user agent
+function ao_ccss_ua() {
+
+  // Get UA
+  $agent='';
+  if (isset($_SERVER['HTTP_USER_AGENT'])) {
+    $agent = $_SERVER['HTTP_USER_AGENT'];
+  }
+
+  // Check for UA and return TRUE when criticalcss.com is the detected UA, false when not
+  $rtn = strpos($agent, AO_CCSS_URL);
+  if ($rtn === 0) {
+    $rtn = TRUE;
+  } else {
+    $rtn = FALSE;
+  }
+  return ($rtn);
+}
 ?>
