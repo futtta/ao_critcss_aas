@@ -54,7 +54,7 @@ inc/admin_settings_feeds.php:1:<?php // NOTE: out of scope feeds panel ?>
 inc/core_enqueue.php:10:  // NOTE: out of scope check for criticalcss.com UA
 ```
 
-*FILELIST.txt generated with the command bellow:*
+**Note:** FILELIST.txt generated with the command bellow.
 
 ```
 find . -type f ! -path "./FILELIST.txt" ! -path "./README.md" ! -path "./.git/*" ! -path "./lib/*" > FILELIST.txt
