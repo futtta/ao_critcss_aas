@@ -42,7 +42,7 @@ The steps to configure ngrok and criticalcss.com to play together are bellow.
 
 7. Login to your criticalcss.com account and request to *Generate Critical CSS* using your ngrok's reserved domain in FQDN form (e.g. `myaodev.ngrok.io`).
 
-If everything went fine, you'll see criticalcss.com requesting your WordPress's home page in the webserver logs. If not, please check [ngrok](https://ngrok.com/docs) and [criticalcss.com](https://criticalcss.com/faq) documentation for troubleshooting.
+If everything went fine, you'll see criticalcss.com requesting your WordPress's home page in the webserver logs. At this point you're ready to code. If there was any problems, please check [ngrok](https://ngrok.com/docs) and [criticalcss.com](https://criticalcss.com/faq) documentation for troubleshooting.
 
 ## Project Stats
 
@@ -97,14 +97,16 @@ inc/admin_settings_feeds.php:1:<?php // NOTE: out of scope feeds panel ?>
 inc/core_enqueue.php:10:  // NOTE: out of scope check for criticalcss.com UA
 ```
 
-**Note 1:** run the command bellow to generate or update FILELIST.txt.
+#### Notes
 
-```
-find . -type f ! -path "./.git/*" ! -path "./FILELIST.txt" ! -path "./README.md" ! -path "./lib/*" > FILELIST.txt
-```
+1. Run the command bellow to generate or update FILELIST.txt.
 
-**Note 2:** to update the stats above, run the command bellow once you have FILELIST.txt in place.
+    ```
+    find . -type f ! -path "./.git/*" ! -path "./FILELIST.txt" ! -path "./README.md" ! -path "./lib/*" > FILELIST.txt
+    ```
 
-```
-./stats.sh
-```
+2. To update the stats above, run the command bellow once you have FILELIST.txt in place. Then copy and paste its output overriding the content of the stats above.
+
+    ```
+    ./stats.sh
+    ```
