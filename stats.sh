@@ -38,14 +38,14 @@ STATS+="PNG|$PNG_FILES|$PNG_SIZE"$'\n'
 STATS+="--------|--------|--------"$'\n'
 STATS+="**SUM:**|**$FILE_SUM**|**$SIZE_SUM**"
 
-SPEC_ITEMS=$(grep -nr "NOTE: implements section" --exclude=\*.sh | sort)
+SPEC_ITEMS=$(grep -nr "NOTE: implements section" --exclude=\*.sh | sort -h)
 
 STATS+=$'\n'$'\n'"### Spec Items"$'\n'$'\n'
 STATS+='```'$'\n'
 STATS+="$SPEC_ITEMS"$'\n'
 STATS+='```'
 
-OUTSCOPE_ITEMS=$(grep -n -r "NOTE: out of scope" --exclude=\*.sh | sort)
+OUTSCOPE_ITEMS=$(grep -n -r "NOTE: out of scope" --exclude=\*.sh | sort -h)
 
 STATS+=$'\n'$'\n'"### Out of Scope Items"$'\n'$'\n'
 STATS+='```'$'\n'
