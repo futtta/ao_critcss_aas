@@ -256,6 +256,29 @@ function ao_ccss_viewport() {
   return $viewport;
 }
 
+// Perform basic exploit avoidance and CSS validation
+function ao_ccss_check_contents($ccss) {
+
+  // Try to avoid code injection
+  $blacklist = array("#!", "function(", "<script", "<?php");
+  foreach ($blacklist as $blacklisted) {
+    if (strpos($ccss, $blacklisted) !== FALSE) {
+      return FALSE;
+    }
+  }
+
+  // Check for most basics CSS structures
+  $pinklist = array("{", "}", ":");
+  foreach ($pinklist as $needed) {
+    if (strpos($ccss, $needed) === FALSE) {
+      return FALSE;
+    }
+  }
+
+  // Return true if file critical CSS is sane
+  return TRUE;
+}
+
 // Commom logging facility
 function ao_ccss_log($msg, $lvl) {
 

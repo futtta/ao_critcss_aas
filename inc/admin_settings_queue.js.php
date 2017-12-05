@@ -56,14 +56,14 @@ function drawQueueTable(aoCssQueue) {
       buttons     = '<span class="button-secondary" id="' + ljid + '_remove"><?php _e("Remove", "autoptimize"); ?></span>';
 
     // Status: REVIEW (R, sort priority 2)
-    } else if (keys.jqstat === 'JOB_DONE' && keys.jrstat === 'GOOD' && keys.jvstat === 'WARN') {
+    } else if (keys.jqstat === 'JOB_DONE' && keys.jrstat === 'GOOD' && (keys.jvstat === 'WARN' || keys.jvstat === 'BAD')) {
       status      = '<span class="hidden">2</span>R';
       statusClass = 'review';
       title       = '<?php _e("REVIEW", "autoptimize"); ?>';
       buttons     = '<span class="button-secondary" id="' + ljid + '_approve"><?php _e("Approve", "autoptimize"); ?></span>&nbsp;<span class="button-secondary" id="' + ljid + '_reject"><?php _e("Reject", "autoptimize"); ?></span>';
 
     // Status: ERROR (E, sort priority 1)
-    } else if (keys.jqstat === 'JOB_FAILED' || (keys.jqstat === 'JOB_DONE' && keys.jrstat === 'GOOD' && keys.jvstat === 'BAD')) {
+    } else if ((keys.jqstat === 'JOB_FAILED' || keys.jqstat === 'JOB_DONE') && (keys.jrstat !== 'GOOD' || (keys.jvstat !== 'GOOD' || keys.jvstat !== 'WARN' || keys.jvstat !== 'BAD'))) {
       status      = '<span class="hidden">1</span>E';
       statusClass = 'error';
       title       = "<?php _e('ERROR', 'autoptimize'); ?>\n<?php _e('Info from criticalcss.com:', 'autoptimize'); ?>\n<?php _e('- Job ID: ', 'autoptimize'); ?>" + keys.jid + "\n<?php _e('- Status: ', 'autoptimize'); ?>" + keys.jqstat + "\n<?php _e('- Result: ', 'autoptimize'); ?>" + keys.jrstat + "\n<?php _e('- Validation: ', 'autoptimize'); ?>" + keys.jvstat;

@@ -45,7 +45,7 @@ function critcss_save_callback() {
     // Set file path, content and write its content
     $critcssfile     = AO_CCSS_DIR . strip_tags($_POST['critcssfile']);
     $critcsscontents = stripslashes($_POST['critcsscontents']);
-    if (critcss_check_csscontents($critcsscontents)) {
+    if (ao_ccss_check_contents($critcsscontents)) {
       $status = file_put_contents($critcssfile, $critcsscontents, LOCK_EX);
     } else {
       $error = true;
@@ -117,27 +117,6 @@ function critcss_check_filename($filename) {
   } else {
     return true;
   }
-}
-
-// Perform basic exploit avoidance and CSS validation
-function critcss_check_csscontents($cssin) {
-
-  // Try to avoid code injection
-  $blacklist=array("#!","function(","<script","<?php");
-  foreach ($blacklist as $blacklisted) {
-    if (strpos($cssin,$blacklisted)!==false) {
-      return false;
-    }
-  }
-
-  // Check for most basics CSS structures
-  $pinklist=array("{","}",":");
-  foreach ($pinklist as $needed) {
-    if (strpos($cssin,$needed)===false) {
-      return false;
-    }
-  }
-  return true;
 }
 
 ?>
