@@ -2,18 +2,6 @@
 
 // NOTE: implements section 4 of the specs
 
-/*
- * cronned queue-processing
- * 
- * todo:
- * for each entry in queue check if for "page type" & "CSS hash" an critcss-file exists
- *  if not check if there is a critcss job id
- *   if not use criticalcss.com API to create crit css + update queue with critcss job id
- *   if yes use job id to check if critcss has finished and if yes get & write to file & update $aocritSettings
- *  if yes remove from queue and continue
- * only run if critcss is active (and deactivate cron if no AO or no "inline & defer"
- */
-
 // Add a 5 seconds interval to WP-Cron
 function ao_ccss_interval($schedules) {
    $schedules['5sec'] = array(
@@ -39,7 +27,8 @@ function ao_ccss_queue_control() {
   // Iterates over the entire queue
   foreach ($ao_ccss_queue as $path => $jprops) {
 
-    // Initialize rule related variables
+    // Prepare flags and target rule
+    $update      = FALSE;
     $rule_update = FALSE;
     $trule       = explode('|', $jprops['rtarget']);
 
@@ -56,19 +45,19 @@ function ao_ccss_queue_control() {
       // Log the new job
       ao_ccss_log('Found NEW job with local ID <' . $jprops['ljid'] . '>, starting its queue processing', 3);
 
-      // Compare and update job hash if required
-      $hash = ao_ccss_compare_job_hashes($jprops['ljid'], $jprops['hash'], $jprops['hashes']);
-      if ($hash) {
-        $jprops['hash'] = $hash;
-      }
+      // Compare job and rule hashes (if any)
+      $hash = ao_ccss_diff_hashes($jprops['ljid'], $jprops['hash'], $jprops['hashes'], $jprops['rtarget']);
 
       // If job hash is new or different of a previous one
       if ($hash) {
 
+        // Set job hash
+        $jprops['hash'] = $hash;
+
         // Dispatch the job generation request
         $apireq = ao_ccss_api_generate($path);
 
-        // NOTE: All the following condigitons maps to the ones in admin_settings_queue.js.php
+        // NOTE: All the following conditions maps to the ones in admin_settings_queue.js.php
 
         // Request has a valid result
         // Process a PENDING job
@@ -88,13 +77,17 @@ function ao_ccss_queue_control() {
           ao_ccss_log('Job id <' . $jprops['ljid'] . '> generation request has an UNKNOWN condition, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
         }
 
-      // Job hash is equal a previous one
+      // Job hash is equal a previous one, so it's done
       } else {
 
         // Update job status and finish time
         $jprops['jqstat'] = 'JOB_DONE';
         $jprops['jftime'] = microtime(TRUE);
+        ao_ccss_log('Job id <' . $jprops['ljid'] . '> requires no further processing, status now is <' . $jprops['jqstat'] . '>', 3);
       }
+
+      // Set queue update flag
+      $update = TRUE;
 
     // Process QUEUED and ONGOING jobs
     // NOTE: implements section 4, id 3.2 of the specs
@@ -117,7 +110,7 @@ function ao_ccss_queue_control() {
       } elseif ($apireq['status'] == 'JOB_DONE') {
 
         // Process GOOD jobs
-        if ($apireq['resultStatus'] == 'GOOD' || $apireq['validationStatus'] == 'GOOD') {
+        if ($apireq['resultStatus'] == 'GOOD' && $apireq['validationStatus'] == 'GOOD') {
 
           // Update job properties
           $jprops['file']   = ao_ccss_save_file($apireq['css'], $trule[1], FALSE);
@@ -141,7 +134,7 @@ function ao_ccss_queue_control() {
           ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful, remote id <' . $jprops['jid'] . '>, status <' . $jprops['jqstat'] . ', file saved <' . $jprops['file'] . '> but requires REVIEW', 3);
 
         // Process ERROR jobs
-        } elseif ($apireq['resultStatus'] != 'GOOD' || ($apireq['validationStatus'] != 'GOOD' || $apireq['validationStatus'] != 'WARN' || $apireq['validationStatus'] != 'BAD')) {
+        } elseif ($apireq['resultStatus'] != 'GOOD' && ($apireq['validationStatus'] != 'GOOD' || $apireq['validationStatus'] != 'WARN' || $apireq['validationStatus'] != 'BAD')) {
 
           // Update job properties
           $jprops['jqstat'] = $apireq['status'];
@@ -178,19 +171,26 @@ function ao_ccss_queue_control() {
         $jprops['jftime'] = microtime(TRUE);
         ao_ccss_log('Job id <' . $jprops['ljid'] . '> generation request has an UNKNOWN condition, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
       }
+
+      // Set queue update flag
+      $update = TRUE;
     }
 
     // Persist updated queue object
     // NOTE: implements section 4, id 3.2.1 of the specs
-    $ao_ccss_queue[$path] = $jprops;
-    $ao_ccss_queue_raw    = json_encode($ao_ccss_queue);
-    update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw);
-    ao_ccss_log('Queue updated by job id <' . $jprops['ljid'] . '>', 3);
+    if ($update) {
 
-    // Update rules
-    if ($rule_update) {
-      ao_ccss_log('Job id <' . $jprops['ljid'] . '> requires rules update for target rule <' . $jprops['rtarget'] . '>', 3);
-      ao_ccss_rule_update($jprops['ljid'], $jprops['rtarget'], $jprops['file'], $jprops['hash']);
+      // Update queue
+      $ao_ccss_queue[$path] = $jprops;
+      $ao_ccss_queue_raw    = json_encode($ao_ccss_queue);
+      update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw);
+      ao_ccss_log('Queue updated by job id <' . $jprops['ljid'] . '>', 3);
+
+      // Update rules
+      if ($rule_update) {
+        ao_ccss_log('Job id <' . $jprops['ljid'] . '> requires rules update for target rule <' . $jprops['rtarget'] . '>', 3);
+        ao_ccss_rule_update($jprops['ljid'], $jprops['rtarget'], $jprops['file'], $jprops['hash']);
+      }
     }
 
     // Increment job counter
@@ -199,22 +199,18 @@ function ao_ccss_queue_control() {
 }
 
 // Compare job hashes
-function ao_ccss_compare_job_hashes($ljid, $hash, $hashes) {
+function ao_ccss_diff_hashes($ljid, $hash, $hashes, $rule) {
 
-  // Initialize hash checking flags
-  $newhash  = FALSE;
-  $diffhash = FALSE;
-
-  // Hash checks for new jobs
-  if (empty($hash) && count($hashes) == 1) {
+  // STEP 1: update job hashes
+  // Job with a single hash
+  if (count($hashes) == 1) {
 
     // Set job hash
-    $hash    = $hashes[0];
-    $newhash = TRUE;
-    ao_ccss_log('Job id <' . $ljid . '> has an empty hash, updating with SINGLE hash <' . $hash . '>', 3);
+    $hash = $hashes[0];
+    ao_ccss_log('Job id <' . $ljid . '> updated with SINGLE hash <' . $hash . '>', 3);
 
-  // Check if job has more than one hash to concatenate and hash them
-  } elseif (empty($hash) && count($hashes) >= 1) {
+  // Job with multiple hashes
+  } else {
 
     // Loop through hashes to concatenate them
     $nhash = '';
@@ -223,52 +219,41 @@ function ao_ccss_compare_job_hashes($ljid, $hash, $hashes) {
     }
 
     // Set job hash
-    $hash    = md5($nhash);
-    $newhash = TRUE;
-    ao_ccss_log('Job id <' . $ljid . '> has an empty hash, updating with COMPOSITE hash <' . $hash . '>', 3);
+    $hash = md5($nhash);
+    ao_ccss_log('Job id <' . $ljid . '> updated with a COMPOSITE hash <' . $hash . '>', 3);
   }
 
-  // Hash checks for existing jobs
-  $hash_type = '';
-  if (!empty($hash) && $newhash == FALSE) {
+  // STEP 2: compare job and existing rule (if any) hashes
+  // Attach required arrays
+  global $ao_ccss_rules;
 
-    // Initialize temporary hash
-    $tmphash = '';
+  // Prepare rule variables
+  $trule = explode('|', $rule);
+  $srule = $ao_ccss_rules[$trule[0]][$trule[1]];
 
-    // Check if job has only one hash
-    if (count($hashes) == 1) {
+  // Check if an AUTO rule exist
+  if (!empty($srule) && $srule['hash'] !== 0) {
 
-      // Set job hash
-      $tmphash   = $hashes[0];
-      $hash_type = 'SINGLE';
+    // Check if job hash matches rule and return false if yes
+    if ($hash == $srule['hash']) {
+      ao_ccss_log('Job id <' . $ljid . '> with hash <' . $hash . '> MATCH the one in rule ' . $trule[0] . '.' . $trule[1], 3);
+      return FALSE;
 
-    // Check if job has more than one hash to concatenate and hash them
-    } elseif (empty($hash) && count($hashes) >= 1) {
-
-      // Loop through hashes to concatenate them
-      $tmphash = '';
-      foreach ($hashes as $shash) {
-        $tmphash .= $shash;
-      }
-
-      // Set job hash
-      $tmphash   = md5($jhash);
-      $hash_type = 'COMPOSITE';
+    // Or return the new hash if they differ
+    } else {
+      ao_ccss_log('Job id <' . $ljid . '> with hash <' . $hash . '> DOES NOT MATCH the one in rule ' . $trule[0] . '.' . $trule[1], 3);
+      return $hash;
     }
 
-    // If temporary and job hashes are different, update it
-    if ($tmphash != $hash) {
-      ao_ccss_log('Job id <' . $ljid . '> hash <' . $hash . '> has changed, updating with new ' . $hash_type . ' hash <' . $tmphash . '>', 3);
-      $hash     = $tmphash;
-      $diffhash = TRUE;
-    }
-  }
-
-  if ($diffhash || $newhash) {
-    return $hash;
-  } else {
-    ao_ccss_log('Job id <' . $ljid . '> hash <' . $hash . '> has not changed since last processing', 3);
+  // Check if a MANUAL rule exist and return false
+  } elseif (!empty($srule) && $srule['hash'] === 0) {
+    ao_ccss_log('Job id <' . $ljid . '> matches the MANUAL rule ' . $trule[0] . '.' . $trule[1], 3);
     return FALSE;
+
+  // Or just return the hash if no rule exist yet
+  } else {
+    ao_ccss_log('Job id <' . $ljid . '> with hash <' . $hash . '> has no rule yet', 3);
+    return $hash;
   }
 }
 
@@ -427,11 +412,10 @@ function ao_ccss_save_file($ccss, $target, $review) {
 
 // Upate or create a rule
 // NOTE: implements section 4, id 3.2.1 of the specs
-function ao_ccss_rule_update($jid, $srule, $file, $hash) {
+function ao_ccss_rule_update($ljid, $srule, $file, $hash) {
 
   // Attach required arrays
   global $ao_ccss_rules;
-  ao_ccss_log("RULE OBJECT START:\n" . print_r($ao_ccss_rules, TRUE), 3);
 
   // Prepare rule variables
   $trule  = explode('|', $srule);
@@ -474,12 +458,12 @@ function ao_ccss_rule_update($jid, $srule, $file, $hash) {
     }
   }
 
-  ao_ccss_log("RULE OBJECT END:\n" . print_r($ao_ccss_rules, TRUE), 3);
-
   // If a rule creation/update is required, persist updated rules object
   if ($update) {
+    $ao_ccss_rules[$trule[0]][$trule[1]] = $rule;
     $ao_ccss_rules_raw = json_encode($ao_ccss_rules);
     update_option('autoptimize_ccss_rules', $ao_ccss_rules_raw);
-    ao_ccss_log('Rule <' . $trule[0] . '.' . $trule[1] . '> was ' . $update . ' for job id <' . $jid . '>', 3);
+    ao_ccss_log('Rule target <' . $srule . '> of type <' . $rtype . '> was ' . $update . ' for job id <' . $ljid . '>', 3);
   }
 }
+?>

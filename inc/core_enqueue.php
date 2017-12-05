@@ -99,7 +99,17 @@ function ao_ccss_enqueue($hash) {
       if (!array_key_exists($req_path, $ao_ccss_queue)) {
 
         // Merge job into the queue
-        $ao_ccss_queue[$req_path] = ao_ccss_create_job($target_rule, $req_path, $req_type, $hash);
+        $ao_ccss_queue[$req_path] = ao_ccss_define_job(
+                                      $req_path,
+                                      $target_rule,
+                                      $req_type,
+                                      $hash,
+                                      NULL,
+                                      NULL,
+                                      NULL,
+                                      NULL,
+                                      TRUE
+                                    );
 
         // Set update flag
         $queue_update = TRUE;
@@ -126,8 +136,18 @@ function ao_ccss_enqueue($hash) {
         // Allow requeuing jobs that are not NEW, JOB_QUEUED or JOB_ONGOING
         } elseif ($ao_ccss_queue[$req_path]['jqstat'] != 'NEW' || $ao_ccss_queue[$req_path]['jqstat'] != 'JOB_QUEUED' || $ao_ccss_queue[$req_path]['jqstat'] != 'JOB_ONGOING') {
 
-          // Reset old job by merging it again into the queue
-          $ao_ccss_queue[$req_path] = ao_ccss_create_job($target_rule, $req_path, $req_type, $hash);
+          // Merge new job keeping some previous job values
+          $ao_ccss_queue[$req_path] = ao_ccss_define_job(
+                                        $req_path,
+                                        $target_rule,
+                                        $req_type,
+                                        $hash,
+                                        $ao_ccss_queue[$req_path]['file'],
+                                        $ao_ccss_queue[$req_path]['jid'],
+                                        $ao_ccss_queue[$req_path]['jrstat'],
+                                        $ao_ccss_queue[$req_path]['jvstat'],
+                                        FALSE
+                                      );
 
           // Set update flag
           $queue_update = TRUE;
@@ -212,25 +232,33 @@ function ao_ccss_get_type() {
   return $page_type;
 }
 
-// Create a new job entry
-function ao_ccss_create_job($target, $path, $type, $hash) {
+// Define a job entry to be created or updated
+function ao_ccss_define_job($path, $target, $type, $hash, $file, $jid, $jrstat, $jvstat, $create) {
 
+    // Define commom job properties
     $path            = array();
     $path['ljid']    = ao_ccss_job_id();
     $path['rtarget'] = $target;
     $path['ptype']   = $type;
     $path['hashes']  = array($hash);
-    $path['hash']    = NULL;
-    $path['file']    = NULL;
-    $path['jid']     = NULL;
+    $path['hash']    = $hash;
+    $path['file']    = $file;
+    $path['jid']     = $jid;
     $path['jqstat']  = 'NEW';
-    $path['jrstat']  = NULL;
-    $path['jvstat']  = NULL;
+    $path['jrstat']  = $jrstat;
+    $path['jvstat']  = $jvstat;
     $path['jctime']  = microtime(TRUE);
     $path['jftime']  = NULL;
 
+    // Set operation requested
+    if ($create) {
+      $operation = 'CREATED';
+    } else {
+      $operation = 'UPDATED';
+    }
+
     // Log job creation
-    ao_ccss_log('New job CREATED, local job id <' . $path['ljid'] . '>, target rule <' . $target . '>', 3);
+    ao_ccss_log('Job ' . $operation . ' with local job id <' . $path['ljid'] . '> for target rule <' . $target . '>', 3);
 
     return $path;
 }
