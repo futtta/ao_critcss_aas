@@ -32,6 +32,11 @@ function drawTable(critCssArray) {
       nodeId=k + "_" + nodeNumber;
       hash=nv.hash;
       file=nv.file;
+      if (nv.file == 0) {
+        file='<?php _e("To be fetched from criticalcss.com in the next queue run...", "autoptimize") ?>';
+      } else {
+        file=nv.file;
+      }
       if (nv.hash === 0) {
         type='<?php _e("MANUAL", "autoptimize") ?>';
         typeClass = 'manual';
@@ -39,7 +44,7 @@ function drawTable(critCssArray) {
         type='<?php _e("AUTO", "autoptimize") ?>';
         typeClass = 'auto';
       }
-      jQuery("#rules-list").append("<tr class='rule'><td class='type'><span class='badge " + typeClass + "'>" + type + "</span></td><td class='target'>" + i + "</td><td class='file'>" + nv.file + "</td><td class='btn edit'><span class=\"button-secondary\" id=\"" + nodeId + "_edit\"><?php _e("Edit", "autoptimize"); ?></span></td><td class='btn delete'><span class=\"button-secondary\" id=\"" + nodeId + "_remove\"><?php _e("Remove", "autoptimize"); ?></span></td></tr>");
+      jQuery("#rules-list").append("<tr class='rule'><td class='type'><span class='badge " + typeClass + "'>" + type + "</span></td><td class='target'>" + i + "</td><td class='file'>" + file + "</td><td class='btn edit'><span class=\"button-secondary\" id=\"" + nodeId + "_edit\"><?php _e("Edit", "autoptimize"); ?></span></td><td class='btn delete'><span class=\"button-secondary\" id=\"" + nodeId + "_remove\"><?php _e("Remove", "autoptimize"); ?></span></td></tr>");
       jQuery("#" + nodeId + "_edit").click(function(){addEditRow(this.id);});
       jQuery("#" + nodeId + "_remove").click(function(){confirmRemove(this.id);});
     })
@@ -208,7 +213,9 @@ function saveEditCritCss(){
     critcsstarget=jQuery("#critcss_addedit_path").val();
   }
 
-  if (!critcssfile) {
+  if (!critcssfile && !critcsscontents) {
+    critcssfile=0;
+  } else if (!critcssfile && critcsscontents) {
     critcssfile="ccss_" + md5(critcsscontents+critcsstarget) + ".css";
   }
 
@@ -249,7 +256,7 @@ function displayNotice(textIn) {
 }
 
 function resetForm() {
-  jQuery("#critcss_addedit_css").attr("placeholder", "Copy/paste minified critical CSS here.");
+  jQuery("#critcss_addedit_css").attr("placeholder", "Copy/paste minified critical CSS here or just leave empty to fetch it from criticalcss.com.");
   jQuery("#critcss_addedit_type").attr("disabled",false);
   jQuery("#critcss_addedit_path_wrapper").show();
   jQuery("#critcss_addedit_id").val("");

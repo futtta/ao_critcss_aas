@@ -39,8 +39,9 @@ function ao_ccss_queue_control() {
   // Iterates over the entire queue
   foreach ($ao_ccss_queue as $path => $jprops) {
 
-    // Initialize rule update flag
+    // Initialize rule related variables
     $rule_update = FALSE;
+    $trule       = explode('|', $jprops['rtarget']);
 
     // If this is not the first job, wait 5 seconds before process next job due criticalcss.com API limits
     if ($jc > 1) {
@@ -119,7 +120,7 @@ function ao_ccss_queue_control() {
         if ($apireq['resultStatus'] == 'GOOD' || $apireq['validationStatus'] == 'GOOD') {
 
           // Update job properties
-          $jprops['file']   = ao_ccss_save_file($apireq['css'], FALSE);
+          $jprops['file']   = ao_ccss_save_file($apireq['css'], $trule[1], FALSE);
           $jprops['jqstat'] = $apireq['status'];
           $jprops['jrstat'] = $apireq['resultStatus'];
           $jprops['jvstat'] = $apireq['validationStatus'];
@@ -131,7 +132,7 @@ function ao_ccss_queue_control() {
         } elseif ($apireq['resultStatus'] == 'GOOD' && ($apireq['validationStatus'] == 'WARN' || $apireq['validationStatus'] == 'BAD')) {
 
           // Update job properties
-          $jprops['file']   = ao_ccss_save_file($apireq['css'], TRUE);
+          $jprops['file']   = ao_ccss_save_file($apireq['css'], $trule[1], TRUE);
           $jprops['jqstat'] = $apireq['status'];
           $jprops['jrstat'] = $apireq['resultStatus'];
           $jprops['jvstat'] = $apireq['validationStatus'];
@@ -179,12 +180,18 @@ function ao_ccss_queue_control() {
       }
     }
 
-    // Persist updated job to the queue
+    // Persist updated queue object
     // NOTE: implements section 4, id 3.2.1 of the specs
     $ao_ccss_queue[$path] = $jprops;
-    $ao_ccss_queue_raw = json_encode($ao_ccss_queue);
+    $ao_ccss_queue_raw    = json_encode($ao_ccss_queue);
     update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw);
     ao_ccss_log('Queue updated by job id <' . $jprops['ljid'] . '>', 3);
+
+    // Update rules
+    if ($rule_update) {
+      ao_ccss_log('Job id <' . $jprops['ljid'] . '> requires rules update for target rule <' . $jprops['rtarget'] . '>', 3);
+      ao_ccss_rule_update($jprops['ljid'], $jprops['rtarget'], $jprops['file'], $jprops['hash']);
+    }
 
     // Increment job counter
     $jc++;
@@ -386,7 +393,7 @@ function ao_ccss_api_results($jobid) {
 }
 
 // Save critical CSS into the filesystem and return its filename
-function ao_ccss_save_file($ccss, $review) {
+function ao_ccss_save_file($ccss, $target, $review) {
 
   // Prepare reivew mark
   if ($review) {
@@ -401,7 +408,7 @@ function ao_ccss_save_file($ccss, $review) {
 
   // Sanitize content, set filename and try to save file
   if (ao_ccss_check_contents($content)) {
-    $file     = AO_CCSS_DIR . 'ccss_' . md5($ccss) . $rmark . '.css';
+    $file     = AO_CCSS_DIR . 'ccss_' . md5($ccss . $target) . $rmark . '.css';
     $status   = file_put_contents($file, $content, LOCK_EX);
     $filename = pathinfo($file, PATHINFO_BASENAME);
 
@@ -416,4 +423,63 @@ function ao_ccss_save_file($ccss, $review) {
 
   // Return filename or false
   return $filename;
+}
+
+// Upate or create a rule
+// NOTE: implements section 4, id 3.2.1 of the specs
+function ao_ccss_rule_update($jid, $srule, $file, $hash) {
+
+  // Attach required arrays
+  global $ao_ccss_rules;
+  ao_ccss_log("RULE OBJECT START:\n" . print_r($ao_ccss_rules, TRUE), 3);
+
+  // Prepare rule variables
+  $trule  = explode('|', $srule);
+  $rule   = $ao_ccss_rules[$trule[0]][$trule[1]];
+  $update = FALSE;
+  $rtype  = '';
+
+  // If this is an existing MANUAL rule with no file yet, update with the fetched filename
+  if ($rule['hash'] === 0 && $rule['file'] === 0) {
+
+    // Set rule file and update flag
+    $rule['file'] = $file;
+    $update       = 'updated';
+    $rtype        = 'MANUAL';
+
+  // If this is an existing AUTO rule, update its hash and the fetched filename
+  } elseif ($rule['hash'] !== 0) {
+
+    // Set rule hash and file and update flag
+    $rule['hash'] = $hash;
+    $rule['file'] = $file;
+    $update       = 'updated';
+    $rtype        = 'AUTO';
+
+  // If rule doesn't exist, create an AUTO rule
+  } else {
+
+    // AUTO rules are only for types
+    if ($trule[0] == 'types') {
+
+      // Set rule hash and file and update flag
+      $rule['hash'] = $hash;
+      $rule['file'] = $file;
+      $update       = 'created';
+      $rtype        = 'AUTO';
+
+    // Log that no rule was created
+    } else {
+      ao_ccss_log('AUTO rules are only for page types, no rule created', 3);
+    }
+  }
+
+  ao_ccss_log("RULE OBJECT END:\n" . print_r($ao_ccss_rules, TRUE), 3);
+
+  // If a rule creation/update is required, persist updated rules object
+  if ($update) {
+    $ao_ccss_rules_raw = json_encode($ao_ccss_rules);
+    update_option('autoptimize_ccss_rules', $ao_ccss_rules_raw);
+    ao_ccss_log('Rule <' . $trule[0] . '.' . $trule[1] . '> was ' . $update . ' for job id <' . $jid . '>', 3);
+  }
 }

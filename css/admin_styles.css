@@ -120,6 +120,10 @@
 .form-table.rules th {
   width: 175px;
 }
+.ui-dialog .form-table.rules th,
+.ui-dialog .form-table.rules td {
+  padding: 5px 0px;
+}
 .rules-list {
   width: 100%;
   margin-bottom: 10px;

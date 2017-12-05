@@ -60,21 +60,21 @@ function drawQueueTable(aoCssQueue) {
       status      = '<span class="hidden">2</span>R';
       statusClass = 'review';
       title       = '<?php _e("REVIEW", "autoptimize"); ?>';
-      buttons     = '<span class="button-secondary" id="' + ljid + '_approve"><?php _e("Approve", "autoptimize"); ?></span>&nbsp;<span class="button-secondary" id="' + ljid + '_reject"><?php _e("Reject", "autoptimize"); ?></span>';
+      buttons     = '<?php _e("None", "autoptimize"); ?>';
 
     // Status: ERROR (E, sort priority 1)
     } else if ((keys.jqstat === 'JOB_FAILED' || keys.jqstat === 'JOB_DONE') && (keys.jrstat !== 'GOOD' || (keys.jvstat !== 'GOOD' || keys.jvstat !== 'WARN' || keys.jvstat !== 'BAD'))) {
       status      = '<span class="hidden">1</span>E';
       statusClass = 'error';
       title       = "<?php _e('ERROR', 'autoptimize'); ?>\n<?php _e('Info from criticalcss.com:', 'autoptimize'); ?>\n<?php _e('- Job ID: ', 'autoptimize'); ?>" + keys.jid + "\n<?php _e('- Status: ', 'autoptimize'); ?>" + keys.jqstat + "\n<?php _e('- Result: ', 'autoptimize'); ?>" + keys.jrstat + "\n<?php _e('- Validation: ', 'autoptimize'); ?>" + keys.jvstat;
-      buttons     = '<span class="button-secondary" id="' + ljid + '_retry"><?php _e("Retry", "autoptimize"); ?></span>&nbsp;<span class="button-secondary" id="' + ljid + '_help"><a hef="https://criticalcss.com/faq/" target="_blank"><?php _e("Help", "autoptimize"); ?></a></span>';
+      buttons     = '<span class="button-secondary" id="' + ljid + '_retry"><?php _e("Retry", "autoptimize"); ?></span>&nbsp;<span class="button-secondary" id="' + ljid + '_remove"><?php _e("Remove", "autoptimize"); ?></span>&nbsp;<span class="button-secondary" id="' + ljid + '_help"><a hef="https://criticalcss.com/faq/" target="_blank"><?php _e("Help", "autoptimize"); ?></a></span>';
 
     // Status: UNKNOWN (U, sort priority 3)
     } else {
       status      = '<span class="hidden">3</span>U';
       statusClass = 'unknown';
       title       = "<?php _e('UNKNOWN', 'autoptimize'); ?>\n<?php _e('Info from criticalcss.com:', 'autoptimize'); ?>\n<?php _e('- Job ID: ', 'autoptimize'); ?>" + keys.jid + "\n<?php _e('- Status: ', 'autoptimize'); ?>" + keys.jqstat + "\n<?php _e('- Result: ', 'autoptimize'); ?>" + keys.jrstat + "\n<?php _e('- Validation: ', 'autoptimize'); ?>" + keys.jvstat;
-      buttons     = '<span class="button-secondary" id="' + ljid + '_help"><a hef="https://criticalcss.com/faq/" target="_blank"><?php _e("Help", "autoptimize"); ?></a></span>';
+      buttons     = '<span class="button-secondary" id="' + ljid + '_remove"><?php _e("Remove", "autoptimize"); ?></span>&nbsp;<span class="button-secondary" id="' + ljid + '_help"><a hef="https://criticalcss.com/faq/" target="_blank"><?php _e("Help", "autoptimize"); ?></a></span>';
     }
 
     // Prepare job finish time
