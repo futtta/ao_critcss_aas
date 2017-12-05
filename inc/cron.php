@@ -46,72 +46,14 @@ function ao_ccss_queue_control() {
       // Log the new job
       ao_ccss_log('Found NEW job with local ID <' . $jprops['ljid'] . '>, starting its queue processing', 3);
 
-      // Initialize hash checking flags
-      $newhash  = FALSE;
-      $diffhash = FALSE;
-
-      // Hash checks for new jobs
-      if (empty($jprops['hash']) && count($jprops['hashes']) == 1) {
-
-        // Set job hash
-        $jprops['hash'] = $jprops['hashes'][0];
-        $newhash        = TRUE;
-        ao_ccss_log('Job id <' . $jprops['ljid'] . '> has an empty hash, updating with SINGLE hash <' . $jprops['hash'] . '>', 3);
-
-      // Check if job has more than one hash to concatenate and hash them
-      } elseif (empty($jprops['hash']) && count($jprops['hashes']) >= 1) {
-
-        // Loop through hashes to concatenate them
-        $nhash = '';
-        foreach ($jprops['hashes'] as $shash) {
-          $nhash .= $shash;
-        }
-
-        // Set job hash
-        $jprops['hash'] = md5($nhash);
-        $newhash        = TRUE;
-        ao_ccss_log('Job id <' . $jprops['ljid'] . '> has an empty hash, updating with COMPOSITE hash <' . $jprops['hash'] . '>', 3);
-      }
-
-      // Hash checks for existing jobs
-      $hash_type = '';
-      if (!empty($jprops['hash']) && $newhash == FALSE) {
-
-        // Initialize temporary hash
-        $tmphash = '';
-
-        // Check if job has only one hash
-        if (count($jprops['hashes']) == 1) {
-
-          // Set job hash
-          $tmphash   = $jprops['hashes'][0];
-          $hash_type = 'SINGLE';
-
-        // Check if job has more than one hash to concatenate and hash them
-        } elseif (empty($jprops['hash']) && count($jprops['hashes']) >= 1) {
-
-          // Loop through hashes to concatenate them
-          $tmphash = '';
-          foreach ($jprops['hashes'] as $shash) {
-            $tmphash .= $shash;
-          }
-
-          // Set job hash
-          $tmphash   = md5($jhash);
-          $hash_type = 'COMPOSITE';
-        }
-
-        // If temporary and job hashes are different, update it
-        if ($tmphash != $jprops['hash']) {
-          ao_ccss_log('Job id <' . $jprops['ljid'] . '> hash <' . $jprops['hash'] . '> has changed, updating with new ' . $hash_type . ' hash <' . $tmphash . '>', 3);
-          $jprops['hash'] = $tmphash;
-          $diffhash = TRUE;
-        }
-
+      // Compare and update job hash if required
+      $hash = ao_ccss_job_hashes($jprops['ljid'], $jprops['hash'], $jprops['hashes']);
+      if ($hash) {
+        $jprops['hash'] = $hash;
       }
 
       // If job hash is new or different of a previous one
-      if ($newhash || $diffhash) {
+      if ($hash) {
 
         // Dispatch the job generation request
         $apireq = ao_ccss_api_generate($path);
@@ -134,14 +76,13 @@ function ao_ccss_queue_control() {
           ao_ccss_log('Job id <' . $jprops['ljid'] . '> generation request has FAILED, check log messages above for more information', 2);
         }
 
-      // Job hash is equal of a previous one
+      // Job hash is equal a previous one
       } else {
 
         // Update job status and finish time
         $jprops['jqstat'] = 'JOB_DONE';
         $jprops['jftime'] = microtime(TRUE);
         $queue_update     = TRUE;
-        ao_ccss_log('Job id <' . $jprops['ljid'] . '> hash <' . $jprops['hash'] . '> has not changed since last processing, job is done', 3);
       }
 
       // Persist update job to the queue
@@ -150,6 +91,7 @@ function ao_ccss_queue_control() {
         $ao_ccss_queue[$path] = $jprops;
         $ao_ccss_queue_raw = json_encode($ao_ccss_queue);
         update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw);
+        ao_ccss_log('Queue updated by job id <' . $jprops['ljid'] . '>', 3);
 
       // Or just log if no job was updated
       } else {
@@ -168,6 +110,80 @@ function ao_ccss_queue_control() {
     // Wait 5 seconds before process next job due criticalcss.com API limits
     ao_ccss_log('Wait 5 seconds before process next job due criticalcss.com API limits', 3);
     sleep(5);
+  }
+}
+
+// Compare job hashes
+function ao_ccss_job_hashes($ljid, $hash, $hashes) {
+
+  // Initialize hash checking flags
+  $newhash  = FALSE;
+  $diffhash = FALSE;
+
+  // Hash checks for new jobs
+  if (empty($hash) && count($hashes) == 1) {
+
+    // Set job hash
+    $hash    = $hashes[0];
+    $newhash = TRUE;
+    ao_ccss_log('Job id <' . $ljid . '> has an empty hash, updating with SINGLE hash <' . $hash . '>', 3);
+
+  // Check if job has more than one hash to concatenate and hash them
+  } elseif (empty($hash) && count($hashes) >= 1) {
+
+    // Loop through hashes to concatenate them
+    $nhash = '';
+    foreach ($hashes as $shash) {
+      $nhash .= $shash;
+    }
+
+    // Set job hash
+    $hash    = md5($nhash);
+    $newhash = TRUE;
+    ao_ccss_log('Job id <' . $ljid . '> has an empty hash, updating with COMPOSITE hash <' . $hash . '>', 3);
+  }
+
+  // Hash checks for existing jobs
+  $hash_type = '';
+  if (!empty($hash) && $newhash == FALSE) {
+
+    // Initialize temporary hash
+    $tmphash = '';
+
+    // Check if job has only one hash
+    if (count($hashes) == 1) {
+
+      // Set job hash
+      $tmphash   = $hashes[0];
+      $hash_type = 'SINGLE';
+
+    // Check if job has more than one hash to concatenate and hash them
+    } elseif (empty($hash) && count($hashes) >= 1) {
+
+      // Loop through hashes to concatenate them
+      $tmphash = '';
+      foreach ($hashes as $shash) {
+        $tmphash .= $shash;
+      }
+
+      // Set job hash
+      $tmphash   = md5($jhash);
+      $hash_type = 'COMPOSITE';
+    }
+
+    // If temporary and job hashes are different, update it
+    if ($tmphash != $hash) {
+      ao_ccss_log('Job id <' . $ljid . '> hash <' . $hash . '> has changed, updating with new ' . $hash_type . ' hash <' . $tmphash . '>', 3);
+      $hash     = $tmphash;
+      $diffhash = TRUE;
+    }
+  }
+
+  if ($diffhash || $newhash) {
+    return $hash;
+  } else {
+    ao_ccss_log('Job id <' . $ljid . '> hash <' . $hash . '> has not changed since last processing', 3);
+    return FALSE;
   }
 }
 
