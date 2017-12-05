@@ -228,9 +228,19 @@ function ao_ccss_api_generate($path) {
   // Response code is ok (200)
   if ($code == 200) {
 
-    // Log successful and return encoded request body
-    ao_ccss_log('criticalcss.com: POST generate request for path <' . $src_url . '> replied sucessfully', 3);
-    return json_decode($body, TRUE);
+    // Workaround criticalcss.com non-RESTful reponses
+    if ($body['job']['status'] == 'JOB_QUEUED' || $body['job']['status'] == 'JOB_ONGOING') {
+
+      // Log successful and return encoded request body
+      ao_ccss_log('criticalcss.com: POST generate request for path <' . $src_url . '> replied sucessfully', 3);
+      return json_decode($body, TRUE);
+
+    // Log failed request and return false
+    } else {
+      ao_ccss_log('criticalcss.com: POST generate request for path <' . $src_url . '> replied with error code <' . $code . ">, body follows...", 2);
+      ao_ccss_log($body, 2);
+      return FALSE;
+    }
 
   // Response code is anything else
   } else {
