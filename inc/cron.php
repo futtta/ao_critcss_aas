@@ -39,8 +39,8 @@ function ao_ccss_queue_control() {
   // Iterates over the entire queue
   foreach ($ao_ccss_queue as $path => $jprops) {
 
-    // Initialize queue updte flag
-    $queue_update = FALSE;
+    // Initialize rule update flag
+    $rule_update = FALSE;
 
     // If this is not the first job, wait 5 seconds before process next job due criticalcss.com API limits
     if ($jc > 1) {
@@ -76,7 +76,6 @@ function ao_ccss_queue_control() {
           // Update job properties
           $jprops['jid']    = $apireq['job']['id'];
           $jprops['jqstat'] = $apireq['job']['status'];
-          $queue_update     = TRUE;
           ao_ccss_log('Job id <' . $jprops['ljid'] . '> generation request successful, remote id <' . $jprops['jid'] . '>, status now is <' . $jprops['jqstat'] . '>', 3);
 
         // Request has failed
@@ -85,7 +84,6 @@ function ao_ccss_queue_control() {
           // Update job properties
           $jprops['jqstat'] = 'JOB_UNKNOWN';
           $jprops['jftime'] = microtime(TRUE);
-          $queue_update     = TRUE;
           ao_ccss_log('Job id <' . $jprops['ljid'] . '> generation request has an UNKNOWN condition, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
         }
 
@@ -95,7 +93,6 @@ function ao_ccss_queue_control() {
         // Update job status and finish time
         $jprops['jqstat'] = 'JOB_DONE';
         $jprops['jftime'] = microtime(TRUE);
-        $queue_update     = TRUE;
       }
 
     // Process QUEUED and ONGOING jobs
@@ -113,7 +110,6 @@ function ao_ccss_queue_control() {
 
         // Update job properties
         $jprops['jqstat'] = $apireq['status'];
-        $queue_update     = TRUE;
         ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful, remote id <' . $jprops['jid'] . '>, status <' . $jprops['jqstat'] . '> unchanged', 3);
 
       // Process a DONE job
@@ -128,7 +124,7 @@ function ao_ccss_queue_control() {
           $jprops['jrstat'] = $apireq['resultStatus'];
           $jprops['jvstat'] = $apireq['validationStatus'];
           $jprops['jftime'] = microtime(TRUE);
-          $queue_update     = TRUE;
+          $rule_update      = TRUE;
           ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful, remote id <' . $jprops['jid'] . '>, status <' . $jprops['jqstat'] . '>, file saved <' . $jprops['file'] . '>', 3);
 
         // Process REVIEW jobs
@@ -140,7 +136,7 @@ function ao_ccss_queue_control() {
           $jprops['jrstat'] = $apireq['resultStatus'];
           $jprops['jvstat'] = $apireq['validationStatus'];
           $jprops['jftime'] = microtime(TRUE);
-          $queue_update     = TRUE;
+          $rule_update      = TRUE;
           ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful, remote id <' . $jprops['jid'] . '>, status <' . $jprops['jqstat'] . ', file saved <' . $jprops['file'] . '> but requires REVIEW', 3);
 
         // Process ERROR jobs
@@ -151,7 +147,6 @@ function ao_ccss_queue_control() {
           $jprops['jrstat'] = $apireq['resultStatus'];
           $jprops['jvstat'] = $apireq['validationStatus'];
           $jprops['jftime'] = microtime(TRUE);
-          $queue_update     = TRUE;
           ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successfull but job FAILED, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
 
         // Process UNKNOWN jobs
@@ -161,7 +156,6 @@ function ao_ccss_queue_control() {
           $jprops['jqstat'] = 'JOB_UNKNOWN';
           $jprops['jrstat'] = $apireq['resultStatus'];
           $jprops['jvstat'] = $apireq['validationStatus'];
-          $jprops['jftime'] = microtime(TRUE);
           $queue_update     = TRUE;
           ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successfull but job FAILED, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
 
@@ -173,7 +167,6 @@ function ao_ccss_queue_control() {
         // Update job properties
         $jprops['jqstat'] = $apireq['status'];
         $jprops['jftime'] = microtime(TRUE);
-        $queue_update     = TRUE;
         ao_ccss_log('Job id <' . $jprops['ljid'] . '> generation request successfull but job FAILED, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
 
       // Request has failed
@@ -182,23 +175,16 @@ function ao_ccss_queue_control() {
         // Update job properties
         $jprops['jqstat'] = 'JOB_UNKNOWN';
         $jprops['jftime'] = microtime(TRUE);
-        $queue_update     = TRUE;
         ao_ccss_log('Job id <' . $jprops['ljid'] . '> generation request has an UNKNOWN condition, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
       }
     }
 
-    // Persist update job to the queue
+    // Persist updated job to the queue
     // NOTE: implements section 4, id 3.2.1 of the specs
-    if ($queue_update) {
-      $ao_ccss_queue[$path] = $jprops;
-      $ao_ccss_queue_raw = json_encode($ao_ccss_queue);
-      update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw);
-      ao_ccss_log('Queue updated by job id <' . $jprops['ljid'] . '>', 3);
-
-    // Or just log if no job was updated
-    } else {
-      ao_ccss_log('No queue updated required by job id <' . $jprops['ljid'] . '>', 3);
-    }
+    $ao_ccss_queue[$path] = $jprops;
+    $ao_ccss_queue_raw = json_encode($ao_ccss_queue);
+    update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw);
+    ao_ccss_log('Queue updated by job id <' . $jprops['ljid'] . '>', 3);
 
     // Increment job counter
     $jc++;
