@@ -46,20 +46,20 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 ## Project Stats
 
-*Stats updated at: 2017/12/04*
+*Stats updated at: 2017/12/05*
 
-**Project size:** 160 KB
+**Project size:** 176 KB
 
 ### Lines of Code
 
 **Language**|**Files**|**Blank Lines**|**Comments**|**Functional Code**
 :-------|-------:|-------:|-------:|-------:
-PHP|14|311|318|1510
-CSS|2|6|8|348
+PHP|14|368|371|1692
+CSS|2|6|8|352
 JavaScript|2|12|1|111
 Bourne Shell|2|15|0|49
 --------|--------|--------|--------|--------
-**SUM:**|**20**|**344**|**327**|**2018**
+**SUM:**|**20**|**401**|**380**|**2204**
 
 ### Media and Other
 
@@ -83,9 +83,10 @@ inc/core.php:49:  // NOTE: implements section 4, id 1.1 of the specs (for paths)
 inc/core.php:61:  // NOTE: implements section 4, id 1.1 of the specs (for types)
 inc/core.php:81:  // NOTE: implements section 4, id 1.2 of the specs
 inc/cron.php:3:// NOTE: implements section 4 of the specs
-inc/cron.php:43:    // NOTE: implements section 4, id 3.1 of the specs
-inc/cron.php:148:      // NOTE: implements section 4, id 3.2.1 of the specs
-inc/cron.php:160:    // NOTE: implements section 4, id 3.2 of the specs
+inc/cron.php:42:    // NOTE: implements section 4, id 3.1 of the specs
+inc/cron.php:93:    // NOTE: implements section 4, id 3.2 of the specs
+inc/cron.php:183:    // NOTE: implements section 4, id 3.2.1 of the specs
+inc/cron.php:421:// NOTE: implements section 4, id 3.2.1 of the specs
 ```
 
 ### Out of Scope Items
