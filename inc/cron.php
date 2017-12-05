@@ -93,6 +93,9 @@ function ao_ccss_queue_control() {
     // NOTE: implements section 4, id 3.2 of the specs
     } elseif ($jprops['jqstat'] == 'JOB_QUEUED' || $jprops['jqstat'] == 'JOB_ONGOING') {
 
+      // Log the pending job
+      ao_ccss_log('Found PENDING job with local ID <' . $jprops['ljid'] . '>, continuing its queue processing', 3);
+
       // Dispatch the job generation request
       $apireq = ao_ccss_api_results($jprops['jid']);
 
@@ -191,6 +194,10 @@ function ao_ccss_queue_control() {
         ao_ccss_log('Job id <' . $jprops['ljid'] . '> requires rules update for target rule <' . $jprops['rtarget'] . '>', 3);
         ao_ccss_rule_update($jprops['ljid'], $jprops['rtarget'], $jprops['file'], $jprops['hash']);
       }
+
+    // Or log no queue action
+    } else {
+      ao_ccss_log('Queue has nothing to do', 3);
     }
 
     // Increment job counter
@@ -420,24 +427,24 @@ function ao_ccss_rule_update($ljid, $srule, $file, $hash) {
   // Prepare rule variables
   $trule  = explode('|', $srule);
   $rule   = $ao_ccss_rules[$trule[0]][$trule[1]];
-  $update = FALSE;
+  $action = FALSE;
   $rtype  = '';
 
   // If this is an existing MANUAL rule with no file yet, update with the fetched filename
   if ($rule['hash'] === 0 && $rule['file'] === 0) {
 
-    // Set rule file and update flag
+    // Set rule file and action flag
     $rule['file'] = $file;
-    $update       = 'updated';
+    $action       = 'UPDATED';
     $rtype        = 'MANUAL';
 
   // If this is an existing AUTO rule, update its hash and the fetched filename
-  } elseif ($rule['hash'] !== 0) {
+  } elseif ($rule['hash'] !== 0 && ctype_alnum($rule['hash'])) {
 
-    // Set rule hash and file and update flag
+    // Set rule hash and file and action flag
     $rule['hash'] = $hash;
     $rule['file'] = $file;
-    $update       = 'updated';
+    $action       = 'UPDATED';
     $rtype        = 'AUTO';
 
   // If rule doesn't exist, create an AUTO rule
@@ -446,10 +453,10 @@ function ao_ccss_rule_update($ljid, $srule, $file, $hash) {
     // AUTO rules are only for types
     if ($trule[0] == 'types') {
 
-      // Set rule hash and file and update flag
+      // Set rule hash and file and action flag
       $rule['hash'] = $hash;
       $rule['file'] = $file;
-      $update       = 'created';
+      $action       = 'CREATED';
       $rtype        = 'AUTO';
 
     // Log that no rule was created
@@ -459,11 +466,13 @@ function ao_ccss_rule_update($ljid, $srule, $file, $hash) {
   }
 
   // If a rule creation/update is required, persist updated rules object
-  if ($update) {
+  if ($action) {
     $ao_ccss_rules[$trule[0]][$trule[1]] = $rule;
     $ao_ccss_rules_raw = json_encode($ao_ccss_rules);
     update_option('autoptimize_ccss_rules', $ao_ccss_rules_raw);
     ao_ccss_log('Rule target <' . $srule . '> of type <' . $rtype . '> was ' . $update . ' for job id <' . $ljid . '>', 3);
+  } else {
+    ao_ccss_log('No rule action required', 3);
   }
 }
 ?>

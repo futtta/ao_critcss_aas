@@ -84,7 +84,7 @@ function ao_ccss_enqueue($hash) {
       if (empty($target_rule)) {
         $target_rule = 'types|' . $req_type;
       }
-      ao_ccss_log('Job submission QUALIFIED by MISSING rule for page type <' . $req_type . '> on path <' . $req_path . '>, new rule <' . $target_rule . '>', 3);
+      ao_ccss_log('Job submission QUALIFIED by MISSING rule for page type <' . $req_type . '> on path <' . $req_path . '>, new rule target is <' . $target_rule . '>', 3);
 
     // Or just log a job qualified by a matching rule
     } else {
