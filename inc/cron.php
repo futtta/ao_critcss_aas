@@ -47,7 +47,7 @@ function ao_ccss_queue_control() {
       ao_ccss_log('Found NEW job with local ID <' . $jprops['ljid'] . '>, starting its queue processing', 3);
 
       // Compare and update job hash if required
-      $hash = ao_ccss_job_hashes($jprops['ljid'], $jprops['hash'], $jprops['hashes']);
+      $hash = ao_ccss_compare_job_hashes($jprops['ljid'], $jprops['hash'], $jprops['hashes']);
       if ($hash) {
         $jprops['hash'] = $hash;
       }
@@ -114,7 +114,7 @@ function ao_ccss_queue_control() {
 }
 
 // Compare job hashes
-function ao_ccss_job_hashes($ljid, $hash, $hashes) {
+function ao_ccss_compare_job_hashes($ljid, $hash, $hashes) {
 
   // Initialize hash checking flags
   $newhash  = FALSE;
