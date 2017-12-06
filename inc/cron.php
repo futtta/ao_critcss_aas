@@ -12,11 +12,48 @@ function ao_ccss_interval($schedules) {
 }
 add_filter('cron_schedules', 'ao_ccss_interval');
 
-// Add queue to a registered event
+// Add queue control to a registered event
 add_action('ao_ccss_queue', 'ao_ccss_queue_control');
 
 // The queue execution backend
 function ao_ccss_queue_control() {
+
+  // Log queue start
+  ao_ccss_log('Queue control started', 3);
+
+  /**
+   * Provide a debug facility for the queue
+   *  This debug facility provides a way to easily force some queue behaviors useful for development and testing.
+   *  To enable this feature, create the file 'queuedebug.json' with a JSON object like the one bellow:
+   *
+   *  {"enable":bool,"htcode":int,"jqstat":0|"str","jrstat":0|"str","jvstat":0|"str"}
+   *
+   *  Where values are:
+   *  - enable          : 0 or 1, enable or disable this debug facility straight from the file
+   *  - htcode          : 0 or any HTTP reponse code (e.g. 2xx, 4xx, 5xx) to force API responses
+   *  - status          : 0 or a valid value for 'status' (see 'Generating critical css - Job Status Types' in spec docs)
+   *  - resultStatus    : 0 or a valid value for 'resultStatus' (see 'Appendix - Result status types' in the spec docs)
+   *  - validationStatus: 0 or a valid value for 'validationStatus' (see 'Appendix - Validation status types' in the spec docs)
+   *
+   *  When properly set, queue will always finish a job with the declared settings above regardless of the real API responses.
+   */
+  // NOTE: out of scope queue debug
+  $queue_debug      = FALSE;
+  $queue_debug_file = AO_CCSS_DIR . strip_tags('qdobj.json');
+  if (file_exists($queue_debug_file)) {
+    $qdobj_raw = file_get_contents($queue_debug_file);
+    $qdobj     = json_decode($qdobj_raw, TRUE);
+    if ($qdobj) {
+      if ($qdobj['enable'] === 1) {
+        $queue_debug = TRUE;
+        ao_ccss_log('Queue operating in debug mode with the following settings: <' . $qdobj_raw . '>', 3);
+      }
+    }
+  }
+  // Set some default values for $qdobj to avoid function call warnings
+  if (!$queue_debug) {
+    $qdobj['htcode'] = FALSE;
+  }
 
   // Attach required arrays
   global $ao_ccss_queue;
@@ -55,7 +92,7 @@ function ao_ccss_queue_control() {
         $jprops['hash'] = $hash;
 
         // Dispatch the job generation request
-        $apireq = ao_ccss_api_generate($path);
+        $apireq = ao_ccss_api_generate($path, $queue_debug, $qdobj['htcode']);
 
         // NOTE: All the following conditions maps to the ones in admin_settings_queue.js.php
 
@@ -97,9 +134,16 @@ function ao_ccss_queue_control() {
       ao_ccss_log('Found PENDING job with local ID <' . $jprops['ljid'] . '>, continuing its queue processing', 3);
 
       // Dispatch the job generation request
-      $apireq = ao_ccss_api_results($jprops['jid']);
+      $apireq = ao_ccss_api_results($jprops['jid'], $queue_debug, $qdobj['htcode']);
 
       // NOTE: All the following condigitons maps to the ones in admin_settings_queue.js.php
+
+      // Replace $apireq values if queue debug is active
+      if ($queue_debug) {
+        $apireq['status']           = $qdobj['status'];
+        $apireq['resultStatus']     = $qdobj['resultStatus'];
+        $apireq['validationStatus'] = $qdobj['validationStatus'];
+      }
 
       // Request has a valid result
       // Process a PENDING job
@@ -265,7 +309,7 @@ function ao_ccss_diff_hashes($ljid, $hash, $hashes, $rule) {
 }
 
 // POST jobs to criticalcss.com and return responses
-function ao_ccss_api_generate($path) {
+function ao_ccss_api_generate($path, $debug, $dcode) {
 
   // Prepare full URL for request
   $src_url = get_site_url() . $path;
@@ -306,6 +350,11 @@ function ao_ccss_api_generate($path) {
   $code = wp_remote_retrieve_response_code($req);
   $body = json_decode(wp_remote_retrieve_body($req), TRUE);
 
+  // If queue debug is active, change response code
+  if ($debug && $dcode) {
+    $code = $dcode;
+  }
+
   // Response code is ok (200)
   if ($code == 200) {
 
@@ -319,7 +368,7 @@ function ao_ccss_api_generate($path) {
     // Log failed request and return false
     } else {
       ao_ccss_log('criticalcss.com: POST generate request for path <' . $src_url . '> replied with code <' . $code . '> but with an error condition, body follows...', 2);
-      ao_ccss_log($body, 2);
+      ao_ccss_log(print_r($body, TRUE), 2);
       return FALSE;
     }
 
@@ -328,13 +377,13 @@ function ao_ccss_api_generate($path) {
 
     // Log failed request and return false
     ao_ccss_log('criticalcss.com: POST generate request for path <' . $src_url . '> replied with error code <' . $code . '>, body follows...', 2);
-    ao_ccss_log($body, 2);
+    ao_ccss_log(print_r($body, TRUE), 2);
     return FALSE;
   }
 }
 
 // GET jobs from criticalcss.com and return responses
-function ao_ccss_api_results($jobid) {
+function ao_ccss_api_results($jobid, $debug, $dcode) {
 
   // Log request start
   ao_ccss_log('criticalcss.com: GET results request for remote job id <' . $jobid . '>', 3);
@@ -357,6 +406,11 @@ function ao_ccss_api_results($jobid) {
   $code = wp_remote_retrieve_response_code($req);
   $body = json_decode(wp_remote_retrieve_body($req), TRUE);
 
+  // If queue debug is active, change response code
+  if ($debug && $dcode) {
+    $code = $dcode;
+  }
+
   // Response code is ok (200)
   if ($code == 200) {
 
@@ -370,7 +424,7 @@ function ao_ccss_api_results($jobid) {
     // Log failed request and return false
     } else {
       ao_ccss_log('criticalcss.com: GET results request for remote job id <' . $jobid . '> replied with code <' . $code . "> but with an error condition, body follows...", 2);
-      ao_ccss_log($body, 2);
+      ao_ccss_log(print_r($body, TRUE), 2);
       return FALSE;
     }
 
@@ -379,7 +433,7 @@ function ao_ccss_api_results($jobid) {
 
     // Log failed request and return false
     ao_ccss_log('criticalcss.com: GET results request for remote job id <' . $jobid . '> replied with error code <' . $code . ">, body follows...", 2);
-    ao_ccss_log($body, 2);
+    ao_ccss_log(print_r($body, TRUE), 2);
     return FALSE;
   }
 }
