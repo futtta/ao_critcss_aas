@@ -48,10 +48,10 @@ function ao_ccss_frontend($inlined) {
   // Check for a valid CriticalCSS based on path to return its contents
   // NOTE: implements section 4, id 1.1 of the specs (for paths)
   if (!empty($ao_ccss_rules['paths'])) {
-    foreach ($ao_ccss_rules['paths'] as $paths => $ccss_file) {
-      if ((strpos($_SERVER['REQUEST_URI'], str_replace(site_url(), '', $paths)) !== FALSE) && ($paths !== 'dummy')) {
-        if (file_exists(AO_CCSS_DIR . $ccss_file)) {
-          return apply_filters('ao_ccss_filter', file_get_contents(AO_CCSS_DIR . $ccss_file));
+    foreach ($ao_ccss_rules['paths'] as $path => $rule) {
+      if (strpos($_SERVER['REQUEST_URI'], str_replace(site_url(), '', $path)) !== FALSE) {
+        if (file_exists(AO_CCSS_DIR . $rule['file'])) {
+          return apply_filters('ao_ccss_filter', file_get_contents(AO_CCSS_DIR . $rule['file']));
         }
       }
     }
@@ -60,18 +60,22 @@ function ao_ccss_frontend($inlined) {
   // Check for a valid CriticalCSS based on conditional tags to return its contents
   // NOTE: implements section 4, id 1.1 of the specs (for types)
   if (!empty($ao_ccss_rules['types'])) {
-    foreach ($ao_ccss_rules['types'] as $type => $ccss_file) {
-      if (in_array($type, $ao_ccss_types) && file_exists(AO_CCSS_DIR . $ccss_file)) {
+    foreach ($ao_ccss_rules['types'] as $type => $rule) {
+      if (in_array($type, $ao_ccss_types) && file_exists(AO_CCSS_DIR . $rule['file'])) {
         if (strpos($type, 'custom_post_') === 0) {
           if (get_post_type(get_the_ID()) === substr($type, 12)) {
-            return apply_filters('ao_ccss_filter', file_get_contents(AO_CCSS_DIR . $ccss_file));
+            return apply_filters('ao_ccss_filter', file_get_contents(AO_CCSS_DIR . $rule['file']));
           }
         } elseif (strpos($type, 'template_') === 0) {
           if (is_page_template(substr($type, 9))) {
-            return apply_filters('ao_ccss_filter', file_get_contents(AO_CCSS_DIR . $ccss_file));
+            return apply_filters('ao_ccss_filter', file_get_contents(AO_CCSS_DIR . $rule['file']));
+          }
+        } elseif (strpos($type, 'woo_') === 0) {
+          if (is_page_template(substr($type, 4))) {
+            return apply_filters('ao_ccss_filter', file_get_contents(AO_CCSS_DIR . $rule['file']));
           }
         } elseif (function_exists($type) && call_user_func($type)) {
-          return apply_filters('ao_ccss_filter', file_get_contents(AO_CCSS_DIR . $ccss_file));
+          return apply_filters('ao_ccss_filter', file_get_contents(AO_CCSS_DIR . $rule['file']));
         }
       }
     }
@@ -114,8 +118,7 @@ function ao_ccss_extend_types() {
   }
 
   // bbPress tags
-  // FIXME: switch logic for release
-  if (!function_exists('is_bbpress')) {
+  if (function_exists('is_bbpress')) {
     $ao_ccss_types = array_merge($ao_ccss_types, array(
       'bbp_is_bbpress',
       'bbp_is_favorites',
@@ -145,8 +148,7 @@ function ao_ccss_extend_types() {
   }
 
   // BuddyPress tags
-  // FIXME: switch logic for release
-  if (!function_exists('is_buddypress')) {
+  if (function_exists('is_buddypress')) {
     $ao_ccss_types=array_merge($ao_ccss_types, array(
       'bp_is_activation_page',
       'bp_is_activity',
@@ -186,8 +188,7 @@ function ao_ccss_extend_types() {
   }
 
   // Easy Digital Downloads (EDD) tags
-  // FIXME: switch logic for release
-  if (!function_exists('edd_is_checkout')) {
+  if (function_exists('edd_is_checkout')) {
     $ao_ccss_types=array_merge($ao_ccss_types, array(
       'edd_is_checkout',
       'edd_is_failed_transaction_page',
@@ -197,9 +198,7 @@ function ao_ccss_extend_types() {
   }
 
   // WooCommerce tags
-  // FIXME: remove 'woo_' prefix in the frontend logic
-  // FIXME: switch logic for release
-  if (!class_exists('WooCommerce')) {
+  if (class_exists('WooCommerce')) {
     $ao_ccss_types = array_merge($ao_ccss_types, array(
       'woo_is_account_page',
       'woo_is_cart',
