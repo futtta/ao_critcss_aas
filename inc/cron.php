@@ -24,7 +24,7 @@ function ao_ccss_queue_control() {
   /**
    * Provide a debug facility for the queue
    *  This debug facility provides a way to easily force some queue behaviors useful for development and testing.
-   *  To enable this feature, create the file 'queuedebug.json' with a JSON object like the one bellow:
+   *  To enable this feature, create the file AO_CCSS_DIR . 'qdobj.json' with a JSON object like the one bellow:
    *
    *  {"enable":bool,"htcode":int,"status":0|"str","resultStatus ":0|"str","validationStatus":0|"str"}
    *
