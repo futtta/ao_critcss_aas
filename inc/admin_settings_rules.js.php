@@ -262,7 +262,7 @@ function displayNotice(textIn) {
 }
 
 function resetForm() {
-  jQuery("#critcss_addedit_css").attr("placeholder", "Copy/paste minified critical CSS here or just leave empty to fetch it from criticalcss.com.");
+  jQuery("#critcss_addedit_css").attr("placeholder", "Leave this empty to fetch from criticalcss.com or copy/paste a minified critical CSS here.");
   jQuery("#critcss_addedit_type").attr("disabled",false);
   jQuery("#critcss_addedit_path_wrapper").show();
   jQuery("#critcss_addedit_id").val("");
