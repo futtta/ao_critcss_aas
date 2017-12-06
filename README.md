@@ -46,7 +46,7 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 ## Project Stats
 
-*Stats updated at: 2017/12/05*
+*Stats updated at: 2017/12/06*
 
 **Project size:** 176 KB
 
@@ -54,12 +54,12 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 **Language**|**Files**|**Blank Lines**|**Comments**|**Functional Code**
 :-------|-------:|-------:|-------:|-------:
-PHP|14|368|371|1692
-CSS|2|6|8|352
+PHP|14|389|393|1814
+CSS|2|6|8|362
 JavaScript|2|12|1|111
 Bourne Shell|2|15|0|49
 --------|--------|--------|--------|--------
-**SUM:**|**20**|**401**|**380**|**2204**
+**SUM:**|**20**|**422**|**402**|**2336**
 
 ### Media and Other
 
@@ -81,12 +81,12 @@ inc/core_enqueue.php:4:// NOTE: implements section 4, id 2 of the specs
 inc/core.php:41:// NOTE: implements section 4, id 1 of the specs
 inc/core.php:49:  // NOTE: implements section 4, id 1.1 of the specs (for paths)
 inc/core.php:61:  // NOTE: implements section 4, id 1.1 of the specs (for types)
-inc/core.php:81:  // NOTE: implements section 4, id 1.2 of the specs
+inc/core.php:85:  // NOTE: implements section 4, id 1.2 of the specs
 inc/cron.php:3:// NOTE: implements section 4 of the specs
-inc/cron.php:42:    // NOTE: implements section 4, id 3.1 of the specs
-inc/cron.php:93:    // NOTE: implements section 4, id 3.2 of the specs
-inc/cron.php:183:    // NOTE: implements section 4, id 3.2.1 of the specs
-inc/cron.php:421:// NOTE: implements section 4, id 3.2.1 of the specs
+inc/cron.php:79:    // NOTE: implements section 4, id 3.1 of the specs
+inc/cron.php:130:    // NOTE: implements section 4, id 3.2 of the specs
+inc/cron.php:233:    // NOTE: implements section 4, id 3.2.1 of the specs
+inc/cron.php:484:// NOTE: implements section 4, id 3.2.1 of the specs
 ```
 
 ### Out of Scope Items
@@ -96,6 +96,7 @@ inc/admin_settings_adv.php:3:// NOTE: out of scope advanced panel
 inc/admin_settings_debug.php:3:// NOTE: out of scope debug panel
 inc/admin_settings_feeds.php:1:<?php // NOTE: out of scope feeds panel ?>
 inc/core_enqueue.php:10:  // NOTE: out of scope check for criticalcss.com UA
+inc/cron.php:40:  // NOTE: out of scope queue debug
 ```
 
 #### Notes
