@@ -11,6 +11,20 @@ function ao_ccss_render_queue() {
   <ul>
     <li class="itemDetail">
       <h2 class="itemTitle"><?php _e('Jobs Queue', 'autoptimize'); ?></h2>
+
+      <!-- BEGIN Queue dialogs -->
+      <!-- Retry dialog -->
+      <div id="queue-confirm-retry" title="<?php _e('Delete Job', 'autoptimize') ?>" class="hidden">
+        <p><?php _e('Are you sure you want to retry this job?', 'autoptimize'); ?></p>
+      </div>
+
+      <!-- Remove dialog -->
+      <div id="queue-confirm-rm" title="<?php _e('Delete Job', 'autoptimize') ?>" class="hidden">
+        <p><?php _e('Are you sure you want to delete this job?', 'autoptimize'); ?></p>
+      </div>
+      <!-- END Queue dialogs -->
+
+      <!-- BEGIN Queue UI -->
       <div class="howto">
         <div class="title-wrap">
           <h4 class="title"><?php _e('How To Use Autoptimize CriticalCSS Power-Up Queue', 'autoptimize');?></h4>
@@ -41,6 +55,8 @@ function ao_ccss_render_queue() {
         <tbody id="queue"></tbody>
       </table>
       <input type="text" id="ao-ccss-queue" name="autoptimize_ccss_queue" style="width:100%;" value='<?php echo (json_encode($ao_ccss_queue)); ?>'>
+      <!-- END Queue UI -->
+
     </li>
   </ul>
   <?php

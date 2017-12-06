@@ -68,7 +68,7 @@ function confirmRemove(idToRemove) {
         updateAfterChange();
         jQuery( this ).dialog( "close" );
       },
-      Cancel: function() {
+      "<?php _e("Cancel", "autoptimize") ?>": function() {
         jQuery( this ).dialog( "close" );
       }
     }
@@ -173,7 +173,7 @@ function addEditRow(idToEdit) {
     modal: true,
     buttons: {
       "<?php _e("Submit", "autoptimize") ?>": saveEditCritCss,
-      Cancel: function() {
+      "<?php _e("Cancel", "autoptimize") ?>": function() {
           resetForm();
           jQuery("#addEditCritCss").dialog( "close" );
       }
@@ -190,12 +190,12 @@ function editDefaultCritCss(){
     title: "<?php _e("Your Default Critical CSS", "autoptimize"); ?>",
     modal: true,
     buttons: {
-      "<?php _e("Submit", "autoptimize") ?>": function(){
-      document.getElementById("autoptimize_css_defer_inline").value=document.getElementById("dummyDefault").value;
-      jQuery("#unSavedWarning").show();
-      jQuery("#default_critcss_wrapper").dialog( "close" );
+      "<?php _e("Submit", "autoptimize") ?>": function() {
+        document.getElementById("autoptimize_css_defer_inline").value=document.getElementById("dummyDefault").value;
+        jQuery("#unSavedWarning").show();
+        jQuery("#default_critcss_wrapper").dialog( "close" );
       },
-      Cancel: function() {
+      "<?php _e("Cancel", "autoptimize") ?>": function() {
           jQuery("#default_critcss_wrapper").dialog( "close" );
       }
     }
