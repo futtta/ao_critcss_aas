@@ -26,7 +26,7 @@ function ao_ccss_queue_control() {
    *  This debug facility provides a way to easily force some queue behaviors useful for development and testing.
    *  To enable this feature, create the file 'queuedebug.json' with a JSON object like the one bellow:
    *
-   *  {"enable":bool,"htcode":int,"jqstat":0|"str","jrstat":0|"str","jvstat":0|"str"}
+   *  {"enable":bool,"htcode":int,"status":0|"str","resultStatus ":0|"str","validationStatus":0|"str"}
    *
    *  Where values are:
    *  - enable          : 0 or 1, enable or disable this debug facility straight from the file
@@ -138,11 +138,17 @@ function ao_ccss_queue_control() {
 
       // NOTE: All the following condigitons maps to the ones in admin_settings_queue.js.php
 
-      // Replace $apireq values if queue debug is active
+      // Replace API response values if queue debugging is enabled and some value is set
       if ($queue_debug) {
-        $apireq['status']           = $qdobj['status'];
-        $apireq['resultStatus']     = $qdobj['resultStatus'];
-        $apireq['validationStatus'] = $qdobj['validationStatus'];
+        if ($qdobj['status']) {
+          $apireq['status'] = $qdobj['status'];
+        }
+        if ($qdobj['resultStatus']) {
+          $apireq['resultStatus'] = $qdobj['resultStatus'];
+        }
+        if ($qdobj['validationStatus']) {
+          $apireq['validationStatus'] = $qdobj['validationStatus'];
+        }
       }
 
       // Request has a valid result
@@ -247,6 +253,9 @@ function ao_ccss_queue_control() {
     // Increment job counter
     $jc++;
   }
+
+  // Log queue end
+  ao_ccss_log('Queue control finished', 3);
 }
 
 // Compare job hashes
@@ -524,7 +533,7 @@ function ao_ccss_rule_update($ljid, $srule, $file, $hash) {
     $ao_ccss_rules[$trule[0]][$trule[1]] = $rule;
     $ao_ccss_rules_raw = json_encode($ao_ccss_rules);
     update_option('autoptimize_ccss_rules', $ao_ccss_rules_raw);
-    ao_ccss_log('Rule target <' . $srule . '> of type <' . $rtype . '> was ' . $update . ' for job id <' . $ljid . '>', 3);
+    ao_ccss_log('Rule target <' . $srule . '> of type <' . $rtype . '> was ' . $action . ' for job id <' . $ljid . '>', 3);
   } else {
     ao_ccss_log('No rule action required', 3);
   }

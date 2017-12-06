@@ -150,7 +150,9 @@
   margin: 0;
   border-bottom: 1px solid #ccc;
 }
-#rules-list .type,
+#rules-list .type {
+  width: 80px;
+}
 #rules-list .btn {
   width: 55px;
 }
@@ -213,6 +215,9 @@ p.rules-btn {
 .badge.review {
   background-color: #ffb900;
 }
+.badge.review.rule {
+  margin-left: 2px;
+}
 .badge.error {
   background-color: #dc3232;
 }
@@ -220,17 +225,17 @@ p.rules-btn {
   color: #666;
   background-color: #ccc;
 }
-.queue td.btn {
-  text-align: center;
-}
 .queue .btn {
-  width: 110px;
+  width: 86px;
 }
 .queue .button-secondary {
   line-height: 17px;
   height: 19px;
-  padding: 0 5px;
+  padding: 0 2px;
   font-size: 8pt;
+}
+.queue .button-secondary.to-right {
+  margin-left: 2px;
 }
 .queue .button-secondary a {
   color: #555;
@@ -238,6 +243,11 @@ p.rules-btn {
 }
 .queue .button-secondary a:hover {
   color: #23282d;
+}
+.queue .button-secondary .dashicons {
+  position: relative;
+  top: 1px;
+  font-size: 15px;
 }
 input[type=url]:invalid {color: red; border-color:red;} .form-table th{font-weight:100;}
 #autoptimize_main .cb_label {display: block; padding-left: 25px; text-indent: -25px;}

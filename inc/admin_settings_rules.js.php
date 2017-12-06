@@ -32,10 +32,8 @@ function drawTable(critCssArray) {
       nodeId=k + "_" + nodeNumber;
       hash=nv.hash;
       file=nv.file;
-      if (nv.file == 0) {
+      if (file == 0) {
         file='<?php _e("To be fetched from criticalcss.com in the next queue run...", "autoptimize") ?>';
-      } else {
-        file=nv.file;
       }
       if (nv.hash === 0) {
         type='<?php _e("MANUAL", "autoptimize") ?>';
@@ -44,7 +42,15 @@ function drawTable(critCssArray) {
         type='<?php _e("AUTO", "autoptimize") ?>';
         typeClass = 'auto';
       }
-      jQuery("#rules-list").append("<tr class='rule'><td class='type'><span class='badge " + typeClass + "'>" + type + "</span></td><td class='target'>" + i + "</td><td class='file'>" + file + "</td><td class='btn edit'><span class=\"button-secondary\" id=\"" + nodeId + "_edit\"><?php _e("Edit", "autoptimize"); ?></span></td><td class='btn delete'><span class=\"button-secondary\" id=\"" + nodeId + "_remove\"><?php _e("Remove", "autoptimize"); ?></span></td></tr>");
+      if (file && typeof file == 'string') {
+        rmark=file.split('_');
+        if (rmark[2] || rmark[2] == 'R.css') {
+          rmark = '<span class="badge review rule">R</span>'
+        } else {
+          rmark = '';
+        }
+      }
+      jQuery("#rules-list").append("<tr class='rule'><td class='type'><span class='badge " + typeClass + "'>" + type + "</span>" + rmark + "</td><td class='target'>" + i + "</td><td class='file'>" + file + "</td><td class='btn edit'><span class=\"button-secondary\" id=\"" + nodeId + "_edit\"><?php _e("Edit", "autoptimize"); ?></span></td><td class='btn delete'><span class=\"button-secondary\" id=\"" + nodeId + "_remove\"><?php _e("Remove", "autoptimize"); ?></span></td></tr>");
       jQuery("#" + nodeId + "_edit").click(function(){addEditRow(this.id);});
       jQuery("#" + nodeId + "_remove").click(function(){confirmRemove(this.id);});
     })

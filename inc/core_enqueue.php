@@ -169,7 +169,7 @@ function ao_ccss_enqueue($hash) {
 
   // Log unavailable queue
   } else {
-    ao_ccss_log('Queue unavailable for logged in users or criticalcss.com itself', 3);
+    ao_ccss_log('Job queuing unavailable for logged in users or criticalcss.com itself', 3);
   }
 }
 
