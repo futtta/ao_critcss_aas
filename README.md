@@ -54,12 +54,12 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 **Language**|**Files**|**Blank Lines**|**Comments**|**Functional Code**
 :-------|-------:|-------:|-------:|-------:
-PHP|15|421|430|1984
+PHP|15|423|432|1988
 CSS|2|6|8|380
 JavaScript|2|13|2|112
 Bourne Shell|2|17|0|54
 --------|--------|--------|--------|--------
-**SUM:**|**21**|**457**|**440**|**2530**
+**SUM:**|**21**|**459**|**442**|**2534**
 
 ### Media and Other
 
@@ -83,10 +83,10 @@ inc/core.php:49:  // NOTE: implements section 4, id 1.1 of the specs (for paths)
 inc/core.php:61:  // NOTE: implements section 4, id 1.1 of the specs (for types)
 inc/core.php:85:  // NOTE: implements section 4, id 1.2 of the specs
 inc/cron.php:3:// NOTE: implements section 4 of the specs
-inc/cron.php:80:    // NOTE: implements section 4, id 3.1 of the specs
-inc/cron.php:131:    // NOTE: implements section 4, id 3.2 of the specs
-inc/cron.php:234:    // NOTE: implements section 4, id 3.2.1 of the specs
-inc/cron.php:485:// NOTE: implements section 4, id 3.2.1 of the specs
+inc/cron.php:81:    // NOTE: implements section 4, id 3.1 of the specs
+inc/cron.php:132:    // NOTE: implements section 4, id 3.2 of the specs
+inc/cron.php:235:    // NOTE: implements section 4, id 3.2.1 of the specs
+inc/cron.php:486:// NOTE: implements section 4, id 3.2.1 of the specs
 ```
 
 ### Out of Scope Items
@@ -99,7 +99,7 @@ inc/core_ajax.php:145:// NOTE: out of scope export settings
 inc/core_ajax.php:208:// NOTE: out of scope import settings
 inc/core_enqueue.php:10:  // NOTE: out of scope check for criticalcss.com UA
 inc/cron.php:41:  // NOTE: out of scope queue debug
-inc/cron.php:544:// NOTE: out of scope log file maintenance
+inc/cron.php:545:// NOTE: out of scope log file maintenance
 ```
 
 ### Items To Fix
