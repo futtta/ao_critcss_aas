@@ -57,6 +57,9 @@ if (is_multisite()) {
 define('AO_CCSS_URL', 'https://criticalcss.com');
 define('AO_CCSS_API', AO_CCSS_URL . '/api/premium/');
 
+// Define the log file location
+define('AO_CCSS_LOG', AO_CCSS_DIR . 'queue.log');
+
 // Add hidden submenu and register allowed settings
 function ao_ccss_settings_init() {
   $hook = add_submenu_page(NULL, 'Autoptimize CriticalCSS Power-Up', 'Autoptimize CriticalCSS Power-Up', 'manage_options', 'ao_ccss_settings', 'ao_ccss_settings');
@@ -115,6 +118,11 @@ function ao_ccss_activation() {
   if (!wp_next_scheduled('ao_ccss_queue')) {
     wp_schedule_event(time(), '5sec', 'ao_ccss_queue');
   }
+
+  // Create a scheduled event for log maintenance
+  if (!wp_next_scheduled('ao_ccss_log_truncate')) {
+    wp_schedule_event(time(), 'daily', 'ao_ccss_log_truncate');
+  }
 }
 register_activation_hook(__FILE__, 'ao_ccss_activation');
 
@@ -128,8 +136,9 @@ function ao_ccss_deactivation() {
   delete_option('autoptimize_ccss_viewport');
   delete_option('autoptimize_ccss_debug');
 
-  // Remove the scheduled event of the queue
+  // Remove the scheduled events
   wp_clear_scheduled_hook('ao_ccss_queue');
+  wp_clear_scheduled_hook('ao_ccss_log_truncate');
 }
 register_deactivation_hook(__FILE__, 'ao_ccss_deactivation');
 

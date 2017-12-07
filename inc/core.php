@@ -311,14 +311,11 @@ function ao_ccss_log($msg, $lvl) {
   // Prepare and write a log message if there's a valid level
   if ($level) {
 
-    // Set log file
-    $logfile = AO_CCSS_DIR . 'queue.log';
-
     // Prepare message
     $message = date('c') . ' - [' . $level . '] ' . $msg . "\n";
 
     //Write message to log file
-    error_log($message, 3,  $logfile);
+    error_log($message, 3,  AO_CCSS_LOG);
   }
 }
 
