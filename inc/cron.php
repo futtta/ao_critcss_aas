@@ -249,7 +249,7 @@ function ao_ccss_queue_control() {
 
     // Or log no queue action
     } else {
-      ao_ccss_log('Queue has nothing to do', 3);
+      ao_ccss_log('Queue control has nothing to do', 3);
     }
 
     // Increment job counter
@@ -298,18 +298,18 @@ function ao_ccss_diff_hashes($ljid, $hash, $hashes, $rule) {
 
     // Check if job hash matches rule and return false if yes
     if ($hash == $srule['hash']) {
-      ao_ccss_log('Job id <' . $ljid . '> with hash <' . $hash . '> MATCH the one in rule ' . $trule[0] . '.' . $trule[1], 3);
+      ao_ccss_log('Job id <' . $ljid . '> with hash <' . $hash . '> MATCH the one in rule <' . $trule[0] . '|' . $trule[1] . '>', 3);
       return FALSE;
 
     // Or return the new hash if they differ
     } else {
-      ao_ccss_log('Job id <' . $ljid . '> with hash <' . $hash . '> DOES NOT MATCH the one in rule ' . $trule[0] . '.' . $trule[1], 3);
+      ao_ccss_log('Job id <' . $ljid . '> with hash <' . $hash . '> DOES NOT MATCH the one in rule <' . $trule[0] . '|' . $trule[1] . '>', 3);
       return $hash;
     }
 
   // Check if a MANUAL rule exist and return false
   } elseif (!empty($srule) && $srule['hash'] === 0) {
-    ao_ccss_log('Job id <' . $ljid . '> matches the MANUAL rule ' . $trule[0] . '.' . $trule[1], 3);
+    ao_ccss_log('Job id <' . $ljid . '> matches the MANUAL rule <' . $trule[0] . '|' . $trule[1] . '>', 3);
     return FALSE;
 
   // Or just return the hash if no rule exist yet
@@ -535,7 +535,7 @@ function ao_ccss_rule_update($ljid, $srule, $file, $hash) {
     $ao_ccss_rules[$trule[0]][$trule[1]] = $rule;
     $ao_ccss_rules_raw = json_encode($ao_ccss_rules);
     update_option('autoptimize_ccss_rules', $ao_ccss_rules_raw);
-    ao_ccss_log('Rule target <' . $srule . '> of type <' . $rtype . '> was ' . $action . ' for job id <' . $ljid . '>', 3);
+    ao_ccss_log('Target rule <' . $srule . '> of type <' . $rtype . '> was ' . $action . ' for job id <' . $ljid . '>', 3);
   } else {
     ao_ccss_log('No rule action required', 3);
   }
