@@ -312,7 +312,7 @@ function ao_ccss_log($msg, $lvl) {
   if ($level) {
 
     // Set log file
-    $logfile = AO_CCSS_DIR . 'messages.log';
+    $logfile = AO_CCSS_DIR . 'queue.log';
 
     // Prepare message
     $message = date('c') . ' - [' . $level . '] ' . $msg . "\n";

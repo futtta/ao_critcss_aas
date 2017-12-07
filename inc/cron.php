@@ -24,7 +24,7 @@ function ao_ccss_queue_control() {
   /**
    * Provide a debug facility for the queue
    *  This debug facility provides a way to easily force some queue behaviors useful for development and testing.
-   *  To enable this feature, create the file AO_CCSS_DIR . 'qdobj.json' with a JSON object like the one bellow:
+   *  To enable this feature, create the file AO_CCSS_DIR . 'queue.json' with a JSON object like the one bellow:
    *
    *  {"enable":bool,"htcode":int,"status":0|"str","resultStatus ":0|"str","validationStatus":0|"str"}
    *
@@ -39,7 +39,7 @@ function ao_ccss_queue_control() {
    */
   // NOTE: out of scope queue debug
   $queue_debug      = FALSE;
-  $queue_debug_file = AO_CCSS_DIR . strip_tags('qdobj.json');
+  $queue_debug_file = AO_CCSS_DIR . strip_tags('queue.json');
   if (file_exists($queue_debug_file)) {
     $qdobj_raw = file_get_contents($queue_debug_file);
     $qdobj     = json_decode($qdobj_raw, TRUE);
