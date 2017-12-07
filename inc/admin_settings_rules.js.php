@@ -172,10 +172,18 @@ function addEditRow(idToEdit) {
     title: dialogTitle,
     modal: true,
     buttons: {
-      "<?php _e("Submit", "autoptimize") ?>": saveEditCritCss,
+      "<?php _e("Submit", "autoptimize") ?>": function() {
+        rpath = jQuery("#critcss_addedit_path").val();
+        rtype = jQuery("#critcss_addedit_pagetype option:selected").val();
+        if (rpath === '' && rtype === '') {
+          alert('<?php _e("RULE VALIDATION ERROR!\\n\\nBased on your rule type, you SHOULD set a path or conditional tag.", "autoptimize") ?>');
+        } else {
+          saveEditCritCss();
+        }
+      },
       "<?php _e("Cancel", "autoptimize") ?>": function() {
-          resetForm();
-          jQuery("#addEditCritCss").dialog( "close" );
+        resetForm();
+        jQuery("#addEditCritCss").dialog("close");
       }
     }
   });
