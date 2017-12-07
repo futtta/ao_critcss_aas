@@ -12,6 +12,7 @@
 ./inc/core.php
 ./inc/admin_settings_adv.php
 ./inc/admin_settings_debug.php
+./inc/admin_settings_impexp.js.php
 ./inc/admin_settings_rules.js.php
 ./inc/core_enqueue.php
 ./stats.sh

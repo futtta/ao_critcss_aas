@@ -45,11 +45,18 @@ STATS+='```'$'\n'
 STATS+="$SPEC_ITEMS"$'\n'
 STATS+='```'
 
-OUTSCOPE_ITEMS=$(grep -n -r "NOTE: out of scope" --exclude=\*.{md,sh} | sort -dV)
+OUTSCOPE_ITEMS=$(grep -nr "NOTE: out of scope" --exclude=\*.{md,sh} | sort -dV)
 
 STATS+=$'\n'$'\n'"### Out of Scope Items"$'\n'$'\n'
 STATS+='```'$'\n'
 STATS+="$OUTSCOPE_ITEMS"$'\n'
+STATS+='```'
+
+FIXME_ITEMS=$(grep -nr "FIXME" --exclude=\*.{md,sh} --exclude-dir=.git | sort -dV)
+
+STATS+=$'\n'$'\n'"### Items To Fix"$'\n'$'\n'
+STATS+='```'$'\n'
+STATS+="$FIXME_ITEMS"$'\n'
 STATS+='```'
 
 echo "$STATS"
