@@ -102,6 +102,16 @@ add_filter('autoptimize_filter_settingsscreen_tabs', 'ao_ccss_add_tab');
 
 // Perform plugin activation tasks
 function ao_ccss_activation() {
+
+  // Create options with empty values
+  add_option('autoptimize_ccss_key', '');
+  add_option('autoptimize_ccss_rules', '');
+  add_option('autoptimize_ccss_queue', '');
+  add_option('autoptimize_ccss_viewport', '');
+  add_option('autoptimize_ccss_debug', '');
+
+  // Create a scheduled event for the queue
+  // FIXME: change this to 10min for relase (also required in inc/cron.php)
   if (!wp_next_scheduled('ao_ccss_queue')) {
     wp_schedule_event(time(), '5sec', 'ao_ccss_queue');
   }
@@ -110,6 +120,15 @@ register_activation_hook(__FILE__, 'ao_ccss_activation');
 
 // Perform plugin deactivation tasks
 function ao_ccss_deactivation() {
+
+  // Delete options
+  delete_option('autoptimize_ccss_key');
+  delete_option('autoptimize_ccss_rules');
+  delete_option('autoptimize_ccss_queue');
+  delete_option('autoptimize_ccss_viewport');
+  delete_option('autoptimize_ccss_debug');
+
+  // Remove the scheduled event of the queue
   wp_clear_scheduled_hook('ao_ccss_queue');
 }
 register_deactivation_hook(__FILE__, 'ao_ccss_deactivation');
