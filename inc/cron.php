@@ -544,7 +544,7 @@ function ao_ccss_rule_update($ljid, $srule, $file, $hash) {
 // NOTE: out of scope log file maintenance
 function ao_ccss_log_truncate() {
   if (file_exists(AO_CCSS_LOG)) {
-    if (filesize(AO_CCSS_LOG) >= 1048576)
+    if (filesize(AO_CCSS_LOG) >= 1048576) {
       $logfile = fopen(AO_CCSS_LOG, "w");
       fclose($logfile);
     }
