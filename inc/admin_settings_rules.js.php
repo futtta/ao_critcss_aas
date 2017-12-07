@@ -3,16 +3,22 @@ if ($ao_ccss_debug) echo "console.log('[WARN] Autoptimize CriticalCSS Power-Up i
 if ($ao_ccss_debug) echo "console.log('[WARN] DO NOT use debug mode on production/live environments!');\n";
 ?>
 
-document.getElementById("critCssOrigin").style.display = 'none';
-document.getElementById("autoptimize_css_defer_inline").style.display = 'none';
+var rulesOriginEl = document.getElementById("critCssOrigin");
+var deferInlineEl = document.getElementById("autoptimize_css_defer_inline");
+if (rulesOriginEl)
+  rulesOriginEl.style.display = 'none';
+if (deferInlineEl)
+  deferInlineEl.style.display = 'none';
 
-jQuery(document).ready(function() {
-  critCssArray=JSON.parse(document.getElementById("critCssOrigin").value);
-  <?php if ($ao_ccss_debug) echo "console.log('Rules Object:', critCssArray);\n" ?>
-  drawTable(critCssArray);
-  jQuery("#addCritCssButton").click(function(){addEditRow();});
-  jQuery("#editDefaultButton").click(function(){editDefaultCritCss();});
-})
+if (rulesOriginEl) {
+  jQuery(document).ready(function() {
+    critCssArray=JSON.parse(document.getElementById("critCssOrigin").value);
+    <?php if ($ao_ccss_debug) echo "console.log('Rules Object:', critCssArray);\n" ?>
+    drawTable(critCssArray);
+    jQuery("#addCritCssButton").click(function(){addEditRow();});
+    jQuery("#editDefaultButton").click(function(){editDefaultCritCss();});
+  });
+}
 
 function drawTable(critCssArray) {
   jQuery("#rules-list").empty();

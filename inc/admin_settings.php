@@ -69,14 +69,17 @@ function ao_ccss_settings() {
 
           // Render rules section
           ao_ccss_render_queue();
-
-          echo '<!-- TODO: here goes more and more settings... -->';
         } ?>
 
         <p class="submit">
           <input type="submit" class="button-primary" value="<?php _e('Save Changes', 'autoptimize') ?>" />
         </p>
 
+      </form>
+      <form id="importSettingsForm">
+        <span id="exportSettings" class="button-secondary"><?php _e('Export Settings', 'autoptimize') ?></span>
+        <input class="button-secondary" id="importSettings" type="button" value="<?php _e('Import Settings', 'autoptimize') ?>" onclick="upload();return false;" />
+        <input class="button-secondary" id="settingsfile" name="settingsfile" type="file" />
       </form>
     </div><!-- /#autoptimize_main -->
   </div><!-- /#wrap -->
@@ -97,6 +100,7 @@ function ao_ccss_settings() {
   echo '<script>';
   include('admin_settings_rules.js.php');
   include('admin_settings_queue.js.php');
+  include('admin_settings_impexp.js.php');
   echo '</script>';
 }
 

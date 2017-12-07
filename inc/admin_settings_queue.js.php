@@ -1,24 +1,25 @@
 // Hide object text box
-document.getElementById('ao-ccss-queue').style.display = 'none';
+var queueOriginEl = document.getElementById('ao-ccss-queue')
+if (queueOriginEl) {
+  queueOriginEl.style.display = 'none';
 
-// Get queue object and call table renderer
-jQuery(document).ready(function() {
+  // Get queue object and call table renderer
+  jQuery(document).ready(function() {
 
-  // Instance queue object
-  aoCssQueue = JSON.parse(document.getElementById('ao-ccss-queue').value);
-  <?php if ($ao_ccss_debug) echo "console.log('Queue Object:', aoCssQueue);\n" ?>
+    // Instance queue object
+    aoCssQueue = JSON.parse(document.getElementById('ao-ccss-queue').value);
+    <?php if ($ao_ccss_debug) echo "console.log('Queue Object:', aoCssQueue);\n" ?>
 
-  // Render queue table
-  drawQueueTable(aoCssQueue);
+    // Render queue table
+    drawQueueTable(aoCssQueue);
 
-  // Let it be sortable
-  jQuery('#queue-tbl').tablesorter({
-    sortList: [[0,0]],
-    headers: {6: {sorter: false}}
+    // Let it be sortable
+    jQuery('#queue-tbl').tablesorter({
+      sortList: [[0,0]],
+      headers: {6: {sorter: false}}
+    });
   });
-
-  //jQuery("#editDefaultButton").click(function(){editDefaultCritCss();});
-})
+}
 
 // Render the queue in a table
 function drawQueueTable(aoCssQueue) {

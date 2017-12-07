@@ -249,6 +249,24 @@ p.rules-btn {
   top: 1px;
   font-size: 15px;
 }
+p.submit {
+  float: left;
+}
+#importSettingsForm {
+  float: right;
+  text-align: left;
+  max-width: 100%;
+  margin-top: 20px;
+  padding-top: 10px;
+  position: relative;
+  overflow: hidden;
+}
+#settingsfile {
+  padding: 0 2px;
+}
+#settingsfile {
+  padding: 0 2px;
+}
 input[type=url]:invalid {color: red; border-color:red;} .form-table th{font-weight:100;}
 #autoptimize_main .cb_label {display: block; padding-left: 25px; text-indent: -25px;}
 

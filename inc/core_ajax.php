@@ -141,6 +141,136 @@ function critcss_rm_callback() {
 }
 add_action('wp_ajax_rm_critcss', 'critcss_rm_callback');
 
+// Ajax handler export settings
+// NOTE: out of scope export settings
+function ao_ccss_export_callback() {
+
+  // Check referer
+  check_ajax_referer('ao_ccss_export_nonce', 'ao_ccss_export_nonce');
+
+  // Init array, get options and prepare the raw object
+  $settings             = array();
+  $settings['key']      = get_option('autoptimize_ccss_key');
+  $settings['rules']    = get_option('autoptimize_ccss_rules');
+  $settings['queue']    = get_option('autoptimize_ccss_queue');
+  $settings['viewport'] = get_option('autoptimize_ccss_viewport');
+  $settings['debug']    = get_option('autoptimize_ccss_debug');
+
+  // Initialize error flag
+  $error = TRUE;
+
+  // Check user permissios
+  if (current_user_can('manage_options')) {
+
+    // Prepare settings file path and content
+    $exportfile = AO_CCSS_DIR . 'settings.json';
+    $contents   = json_encode($settings);
+    $status     = file_put_contents($exportfile, $contents, LOCK_EX);
+    $error      = FALSE;
+  }
+
+  // Prepare archive
+  $zipfile = AO_CCSS_DIR . date('Ymd') . '_ao_ccss_settings.zip';
+  $file    = pathinfo($zipfile, PATHINFO_BASENAME);
+  $zip     = new ZipArchive();
+  $ret     = $zip->open($zipfile, ZipArchive::OVERWRITE);
+  if ($ret !== TRUE) {
+    $error = TRUE;
+  } else {
+    $zip->addFile(AO_CCSS_DIR . 'settings.json', 'settings.json');
+    if (file_exists(AO_CCSS_DIR . 'queue.json')) {
+      $zip->addFile(AO_CCSS_DIR . 'queue.json', 'queue.json');
+    }
+    $options = array('add_path' => './', 'remove_all_path' => TRUE);
+    $zip->addGlob(AO_CCSS_DIR . '*.css', 0, $options);
+    $zip->close();
+  }
+
+  // Prepare response
+  if (!$status || $error) {
+    $response['code'] ='500';
+    $response['msg']  = 'Error saving file ' . $file . ', code: ' . $ret;
+  } else {
+    $response['code'] = '200';
+    $response['msg']  = 'File ' . $file . ' saved.';
+    $response['file']  = $file;
+  }
+
+  // Dispatch respose
+  echo json_encode($response);
+
+  // Close ajax request
+  wp_die();
+}
+add_action('wp_ajax_ao_ccss_export', 'ao_ccss_export_callback');
+
+// Ajax handler import settings
+// NOTE: out of scope import settings
+function ao_ccss_import_callback() {
+
+  // Check referer
+  check_ajax_referer('ao_ccss_import_nonce', 'ao_ccss_import_nonce');
+
+  // Initialize error flag
+  $error  = FALSE;
+
+  // Process an uploaded file with no errors
+  if (!$_FILES['file']['error']) {
+    // Save file to the cache directory
+    $zipfile = AO_CCSS_DIR . $_FILES['file']['name'];
+    move_uploaded_file($_FILES['file']['tmp_name'], $zipfile);
+
+    // Extract archive
+    $zip = new ZipArchive;
+    if ($zip->open($zipfile) === TRUE) {
+      $zip->extractTo(AO_CCSS_DIR);
+      $zip->close();
+    } else {
+      $error = 'extracting';
+    }
+
+    // Archive extraction ok, continue settings importing
+    if (!$error) {
+
+      // Settings file
+      $importfile = AO_CCSS_DIR . 'settings.json';
+
+      if (file_exists($importfile)) {
+
+        // Get settings and turn them into an object
+        $settings = json_decode(file_get_contents($importfile), TRUE);
+
+        // Update options
+        update_option('autoptimize_ccss_key',      $settings['key']);
+        update_option('autoptimize_ccss_rules',    $settings['rules']);
+        update_option('autoptimize_ccss_queue',    $settings['queue']);
+        update_option('autoptimize_ccss_viewport', $settings['viewport']);
+        update_option('autoptimize_ccss_debug',    $settings['debug']);
+
+      // Settings file doesn't exist, update error flag
+      } else {
+        $error = 'settings file does not exist';
+      }
+    }
+  }
+
+  // Prepare response
+  if ($error) {
+    $response['code'] ='500';
+    $response['msg']  = 'Error importing settings: ' . $error;
+  } else {
+    $response['code'] = '200';
+    $response['msg']  = 'Settings imported successfully';
+  }
+
+  // Dispatch respose
+  echo json_encode($response);
+
+  // Close ajax request
+  wp_die();
+}
+add_action('wp_ajax_ao_ccss_import', 'ao_ccss_import_callback');
+
 // Try to avoid directory traversal when reading/writing/deleting critical CSS files
 function critcss_check_filename($filename) {
   if (strpos($filename, "ccss_") !== 0) {

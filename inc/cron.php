@@ -540,7 +540,7 @@ function ao_ccss_rule_update($ljid, $srule, $file, $hash) {
   }
 }
 
-// Truncate log file exists and is >= 1MB
+// Truncate log file if it exist and is >= 1MB
 // NOTE: out of scope log file maintenance
 function ao_ccss_log_truncate() {
   if (file_exists(AO_CCSS_LOG)) {

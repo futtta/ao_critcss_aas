@@ -6,3 +6,6 @@ jQuery(".toggle-btn").click(function () {
       jQuery("span.toggle-indicator", $header).toggleClass('dashicons-arrow-down');
   });
 });
+
+// Attach an event to export buttons
+jQuery("#exportSettings").click(function(){exportSettings();});

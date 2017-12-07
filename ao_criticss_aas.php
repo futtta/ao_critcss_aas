@@ -106,6 +106,9 @@ add_filter('autoptimize_filter_settingsscreen_tabs', 'ao_ccss_add_tab');
 // Perform plugin activation tasks
 function ao_ccss_activation() {
 
+  // Create the cache directory
+  mkdir(AO_CCSS_DIR, 0755);
+
   // Create options with empty values
   add_option('autoptimize_ccss_key', '');
   add_option('autoptimize_ccss_rules', '');
@@ -136,9 +139,13 @@ function ao_ccss_deactivation() {
   delete_option('autoptimize_ccss_viewport');
   delete_option('autoptimize_ccss_debug');
 
-  // Remove the scheduled events
+  // Remove scheduled events
   wp_clear_scheduled_hook('ao_ccss_queue');
   wp_clear_scheduled_hook('ao_ccss_log_truncate');
+
+  // Remove cached files and directory
+  array_map('unlink', glob(AO_CCSS_DIR . '*.{css,html,json,log,zip}', GLOB_BRACE));
+  rmdir(AO_CCSS_DIR);
 }
 register_deactivation_hook(__FILE__, 'ao_ccss_deactivation');
 
