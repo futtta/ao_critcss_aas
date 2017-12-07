@@ -123,8 +123,8 @@ function ao_ccss_activation() {
   }
 
   // Create a scheduled event for log maintenance
-  if (!wp_next_scheduled('ao_ccss_log_truncate')) {
-    wp_schedule_event(time(), 'daily', 'ao_ccss_log_truncate');
+  if (!wp_next_scheduled('ao_ccss_log')) {
+    wp_schedule_event(time(), 'daily', 'ao_ccss_log');
   }
 }
 register_activation_hook(__FILE__, 'ao_ccss_activation');
@@ -141,7 +141,7 @@ function ao_ccss_deactivation() {
 
   // Remove scheduled events
   wp_clear_scheduled_hook('ao_ccss_queue');
-  wp_clear_scheduled_hook('ao_ccss_log_truncate');
+  wp_clear_scheduled_hook('ao_ccss_log');
 
   // Remove cached files and directory
   array_map('unlink', glob(AO_CCSS_DIR . '*.{css,html,json,log,zip}', GLOB_BRACE));

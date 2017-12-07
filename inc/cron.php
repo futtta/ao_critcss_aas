@@ -51,6 +51,7 @@ function ao_ccss_queue_control() {
       }
     }
   }
+
   // Set some default values for $qdobj to avoid function call warnings
   if (!$queue_debug) {
     $qdobj['htcode'] = FALSE;
@@ -550,4 +551,7 @@ function ao_ccss_log_truncate() {
     }
   }
 }
+
+// Add truncate log to a registered event
+add_action('ao_ccss_log', 'ao_ccss_log_truncate');
 ?>

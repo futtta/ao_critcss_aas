@@ -71,7 +71,7 @@ function ao_ccss_settings() {
           ao_ccss_render_queue();
         } ?>
 
-        <p class="submit">
+        <p class="submit left">
           <input type="submit" class="button-primary" value="<?php _e('Save Changes', 'autoptimize') ?>" />
         </p>
 

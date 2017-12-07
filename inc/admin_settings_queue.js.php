@@ -1,5 +1,5 @@
 // Hide object text box
-var queueOriginEl = document.getElementById('ao-ccss-queue')
+var queueOriginEl = document.getElementById('ao-ccss-queue');
 if (queueOriginEl) {
   queueOriginEl.style.display = 'none';
 
@@ -13,11 +13,14 @@ if (queueOriginEl) {
     // Render queue table
     drawQueueTable(aoCssQueue);
 
-    // Let it be sortable
-    jQuery('#queue-tbl').tablesorter({
-      sortList: [[0,0]],
-      headers: {6: {sorter: false}}
-    });
+    // Make queue table sortable if there are any elements
+    var queueBodyEl = jQuery('#queue > tr').length;
+    if (queueBodyEl > 0) {
+      jQuery('#queue-tbl').tablesorter({
+        sortList: [[0,0]],
+        headers: {6: {sorter: false}}
+      });
+    }
   });
 }
 

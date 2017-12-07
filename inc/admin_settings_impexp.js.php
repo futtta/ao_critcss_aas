@@ -14,6 +14,7 @@ function exportSettings(idToEdit) {
   });
 }
 
+// Upload and import settings
 function upload(){
   var fd = new FormData();
   var file = jQuery(document).find('#settingsfile');

@@ -249,7 +249,7 @@ p.rules-btn {
   top: 1px;
   font-size: 15px;
 }
-p.submit {
+p.submit.left {
   float: left;
 }
 #importSettingsForm {
