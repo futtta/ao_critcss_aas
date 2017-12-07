@@ -10,7 +10,7 @@ function ao_ccss_render_queue() {
 ?>
   <ul>
     <li class="itemDetail">
-      <h2 class="itemTitle"><?php _e('Jobs Queue', 'autoptimize'); ?></h2>
+      <h2 class="itemTitle"><?php _e('Job Queue', 'autoptimize'); ?></h2>
 
       <!-- BEGIN Queue dialogs -->
       <!-- Retry dialog -->
