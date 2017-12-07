@@ -119,7 +119,8 @@ function delJob(jid, jpath) {
     modal: true,
     buttons: {
       <?php _e("Delete", "autoptimize") ?>: function() {
-        updateQueue(jpath);
+        delete aoCssQueue[jpath];
+        updateQueue();
         jQuery(this).dialog('close');
       },
       <?php _e("Cancel", "autoptimize") ?>: function() {
@@ -139,6 +140,13 @@ function retryJob(jid, jpath) {
     buttons: {
       <?php _e("Retry", "autoptimize") ?>: function() {
         <?php if ($ao_ccss_debug) echo "console.log('SHOULD retry job:', jid[0], jpath);\n" ?>
+        aoCssQueue[jpath].jid = null;
+        aoCssQueue[jpath].jqstat = 'NEW';
+        aoCssQueue[jpath].jrstat = null;
+        aoCssQueue[jpath].jvstat = null;
+        aoCssQueue[jpath].jctime = (new Date).getTime() / 1000;
+        aoCssQueue[jpath].jftime = null;
+        updateQueue();
         jQuery(this).dialog('close');
       },
       <?php _e("Cancel", "autoptimize") ?>: function() {
@@ -149,12 +157,11 @@ function retryJob(jid, jpath) {
 }
 
 // Refresh queue
-function updateQueue(jpath) {
-  delete aoCssQueue[jpath];
+function updateQueue() {
   document.getElementById('ao-ccss-queue').value=JSON.stringify(aoCssQueue);
   drawQueueTable(aoCssQueue);
   jQuery('#unSavedWarning').show();
-  <?php if ($ao_ccss_debug) echo "console.log('Queue Object Updated:', aoCssQueue);\n" ?>
+  <?php if ($ao_ccss_debug) echo "console.log('Updated Queue Object:', aoCssQueue);\n" ?>
 }
 
 // Convert epoch to date for job times

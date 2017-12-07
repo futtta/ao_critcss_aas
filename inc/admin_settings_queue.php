@@ -14,7 +14,7 @@ function ao_ccss_render_queue() {
 
       <!-- BEGIN Queue dialogs -->
       <!-- Retry dialog -->
-      <div id="queue-confirm-retry" title="<?php _e('Delete Job', 'autoptimize') ?>" class="hidden">
+      <div id="queue-confirm-retry" title="<?php _e('Retry Job', 'autoptimize') ?>" class="hidden">
         <p><?php _e('Are you sure you want to retry this job?', 'autoptimize'); ?></p>
       </div>
 
@@ -54,7 +54,7 @@ function ao_ccss_render_queue() {
         </thead>
         <tbody id="queue"></tbody>
       </table>
-      <input type="text" id="ao-ccss-queue" name="autoptimize_ccss_queue" style="width:100%;" value='<?php echo (json_encode($ao_ccss_queue)); ?>'>
+      <input class="hidden" type="text" id="ao-ccss-queue" name="autoptimize_ccss_queue" value='<?php echo (json_encode($ao_ccss_queue)); ?>'>
       <!-- END Queue UI -->
 
     </li>

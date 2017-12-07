@@ -16,7 +16,7 @@ function ao_ccss_render_rules() {
       <!-- BEGIN Rule dialogs -->
       <!-- Unsaved dialog -->
       <div id="unSavedWarning" class="hidden updated settings-error notice notice-warning is-dismissible">
-        <p><?php _e("<strong>Rules changed. DON'T forget to save the changes!</strong>", 'autoptimize'); ?></p>
+        <p><?php _e("<strong>RULES OR QUEUE CHANGED!</strong> Don't forget to save your changes!", 'autoptimize'); ?></p>
       </div>
 
       <!-- Create/edit rule dialog -->
@@ -158,7 +158,7 @@ function ao_ccss_render_rules() {
       </div>
       <textarea id="autoptimize_css_defer_inline" name="autoptimize_css_defer_inline" rows="19" cols="10" style="width:100%;" placeholder="<?php _e('Paste your default critical CSS here and hit submit to save.', 'autoptimize'); ?>"><?php echo get_option('autoptimize_css_defer_inline',''); ?></textarea>
       <table class="rules-list" cellspacing="0"><tbody id="rules-list"></tbody></table>
-      <input type="text" id="critCssOrigin" name="autoptimize_ccss_rules" value='<?php echo (json_encode($ao_ccss_rules, JSON_FORCE_OBJECT)); ?>'>
+      <input class="hidden" type="text" id="critCssOrigin" name="autoptimize_ccss_rules" value='<?php echo (json_encode($ao_ccss_rules, JSON_FORCE_OBJECT)); ?>'>
       <p class="submit rules-btn">
         <span id="addCritCssButton" class="button-secondary"><?php _e('Add New Rule', 'autoptimize') ?></span>
         <span id="editDefaultButton" class="button-secondary"><?php _e('Edit Default Critical CSS', 'autoptimize'); ?></span>

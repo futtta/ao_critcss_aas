@@ -179,11 +179,12 @@ function addEditRow(idToEdit) {
           alert('<?php _e("RULE VALIDATION ERROR!\\n\\nBased on your rule type, you SHOULD set a path or conditional tag.", "autoptimize") ?>');
         } else {
           saveEditCritCss();
+          jQuery(this).dialog('close');
         }
       },
       "<?php _e("Cancel", "autoptimize") ?>": function() {
         resetForm();
-        jQuery("#addEditCritCss").dialog("close");
+        jQuery(this).dialog("close");
       }
     }
   });
@@ -255,8 +256,6 @@ function saveEditCritCss(){
       displayNotice(response_array["string"]);
     }
   });
-
-  jQuery("#addEditCritCss").dialog( "close" );
 }
 
 function updateAfterChange() {
