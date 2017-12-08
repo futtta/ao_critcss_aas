@@ -76,14 +76,12 @@ function ao_ccss_enqueue($hash) {
       $job_qualify = FALSE;
       ao_ccss_log('Job submission DISQUALIFIED by MANUAL rule <' . $target_rule . '> with hash <' . $rule_properties['hash'] . '>', 3);
 
-    // But if job does not qualify and rule properties are set, job qualifies as there is no rule for it yet
+    // But if job does not qualify and rule properties are set, job qualifies as there is no matching rule for it yet
     } elseif (!$job_qualify && empty($rule_properties)) {
-      $job_qualify = TRUE;
 
-      // Fill target rule with page type if empty
-      if (empty($target_rule)) {
-        $target_rule = 'types|' . $req_type;
-      }
+      // Fill-in the new target rule
+      $job_qualify = TRUE;
+      $target_rule = 'types|' . $req_type;
       ao_ccss_log('Job submission QUALIFIED by MISSING rule for page type <' . $req_type . '> on path <' . $req_path . '>, new rule target is <' . $target_rule . '>', 3);
 
     // Or just log a job qualified by a matching rule
