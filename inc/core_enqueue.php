@@ -21,7 +21,7 @@ function ao_ccss_enqueue($hash) {
     global $ao_ccss_queue;
 
     // Get request path and page type, and initialize the queue update flag
-    $req_path          = $_SERVER['REQUEST_URI'];
+    $req_path          = strtok($_SERVER['REQUEST_URI'],'?');
     $req_type          = ao_ccss_get_type();
     $job_qualify       = FALSE;
     $target_rule       = FALSE;

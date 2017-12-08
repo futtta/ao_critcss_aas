@@ -338,7 +338,7 @@ input[type=url]:invalid {color: red; border-color:red;} .form-table th{font-weig
 
 /* responsive stuff: hide admin-feed on smaller screens */
 @media (min-width: 961px) {
-  #autoptimize_main {float:left;width:69%;}
+  #autoptimize_main {float:left;width:100%;}
   #autoptimize_admin_feed{float:right;width:30%;display:block !important;}
 }
 @media (max-width: 960px) {

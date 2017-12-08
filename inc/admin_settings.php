@@ -85,8 +85,6 @@ function ao_ccss_settings() {
   </div><!-- /#wrap -->
 
   <?php
-  // Include Futta feeds sidebar
-  include('admin_settings_feeds.php');
 
   // Include debug panel if debug mode is enable
   if ($ao_ccss_debug) { ?>
