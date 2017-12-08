@@ -74,7 +74,6 @@ I18|2|41674
 ### Spec Items
 
 ```
-Arquivo binário .README.md.kate-swp coincide com o padrão
 inc/admin_settings_license.php:3:// NOTE: implements section 4, id 4.1 of the specs
 inc/admin_settings.php:3:// NOTE: implements section 4, id 4 of the specs
 inc/admin_settings_queue.php:4:// NOTE: implements section 4, id 4.2 and 4.3 of the specs
@@ -94,7 +93,6 @@ inc/cron.php:486:// NOTE: implements section 4, id 3.2.1 of the specs
 ### Out of Scope Items
 
 ```
-Arquivo binário .README.md.kate-swp coincide com o padrão
 inc/admin_settings_adv.php:3:// NOTE: out of scope advanced panel
 inc/admin_settings_debug.php:3:// NOTE: out of scope debug panel
 inc/admin_settings_feeds.php:1:<?php // NOTE: out of scope feeds panel ?>
@@ -110,7 +108,6 @@ languages/autoptimize-pt_BR.po:1:# NOTE: out of scope pt-BR localization
 ### Items To Fix
 
 ```
-Arquivo binário .README.md.kate-swp coincide com o padrão
 ao_criticss_aas.php:120:  // FIXME: change this to 10min for relase (also required in inc/cron.php)
 inc/cron.php:6:// FIXME: change this to 10min ('interval' => 600) for relase (also required in ../ao_criticcss_aas.php)
 ```
