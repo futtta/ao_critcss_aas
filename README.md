@@ -54,12 +54,12 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 **Language**|**Files**|**Blank Lines**|**Comments**|**Functional Code**
 :-------|-------:|-------:|-------:|-------:
-PHP|15|423|432|1986
+PHP|15|423|431|1985
 CSS|2|6|8|380
 JavaScript|2|13|2|112
 Bourne Shell|2|18|0|57
 --------|--------|--------|--------|--------
-**SUM:**|**21**|**460**|**442**|**2535**
+**SUM:**|**21**|**460**|**441**|**2534**
 
 ### Media and Other
 
