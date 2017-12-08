@@ -29,12 +29,16 @@ GIF_SIZE=$(cat FILELIST.txt | grep '.gif' | xargs -d \\n du -b -c | grep total |
 PNG_FILES=$(cat FILELIST.txt | grep '.png' | wc -l)
 PNG_SIZE=$(cat FILELIST.txt | grep '.png' | xargs -d \\n du -b -c | grep total | cut -f1)
 
-FILE_SUM=$((GIF_FILES + PNG_FILES))
-SIZE_SUM=$((GIF_SIZE + PNG_SIZE))
+I18_FILES=$(cat FILELIST.txt | grep '.\(pot\|po\)' | wc -l)
+I18_SIZE=$(cat FILELIST.txt | grep '.\(pot\|po\)' | xargs -d \\n du -b -c | grep total | cut -f1)
+
+FILE_SUM=$((GIF_FILES + PNG_FILES + I18_FILES))
+SIZE_SUM=$((GIF_SIZE + PNG_SIZE + I18_SIZE))
 
 STATS+=":-------|-------:|-------:"$'\n'
 STATS+="GIF|$GIF_FILES|$GIF_SIZE"$'\n'
 STATS+="PNG|$PNG_FILES|$PNG_SIZE"$'\n'
+STATS+="I18|$I18_FILES|$I18_SIZE"$'\n'
 STATS+="--------|--------|--------"$'\n'
 STATS+="**SUM:**|**$FILE_SUM**|**$SIZE_SUM**"
 

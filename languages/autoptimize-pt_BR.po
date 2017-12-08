@@ -1,3 +1,4 @@
+# NOTE: out of scope pt-BR localization
 msgid ""
 msgstr ""
 "Project-Id-Version: Autoptimize Power-Up: CriticalCSS 0.dev\n"

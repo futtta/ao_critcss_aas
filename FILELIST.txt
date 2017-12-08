@@ -1,6 +1,9 @@
 ./tunnel.sh
 ./js/admin_settings_feeds.js
 ./js/admin_settings.js
+./languages/ao_critcss_aas.pot
+./languages/autoptimize-pt_BR.mo
+./languages/autoptimize-pt_BR.po
 ./inc/core_ajax.php
 ./inc/admin_settings_feeds.php
 ./inc/cron.php
