@@ -45,21 +45,21 @@ function drawQueueTable(aoCssQueue) {
     if (keys.jqstat === 'NEW') {
       status      = '<span class="hidden">6</span>N';
       statusClass = 'new';
-      title       = '<?php _e("NEW", "autoptimize"); ?>';
+      title       = '<?php _e("NEW", "autoptimize"); ?> (' + ljid + ')';
       buttons     = '<?php _e("None", "autoptimize"); ?>';
 
     // Status: PENDING (P, sort priority 5)
     } else if (keys.jqstat === 'JOB_QUEUED' || keys.jqstat === 'JOB_ONGOING') {
       status      = '<span class="hidden">5</span>P';
       statusClass = 'pending';
-      title       = '<?php _e("PENDING", "autoptimize"); ?>';
+      title       = '<?php _e("PENDING", "autoptimize"); ?> (' + ljid + ')';
       buttons     = '<?php _e("None", "autoptimize"); ?>';
 
     // Status: DONE (D, sort priority 4)
     } else if (keys.jqstat === 'JOB_DONE' && keys.jrstat === 'GOOD' && keys.jvstat === 'GOOD') {
       status      = '<span class="hidden">4</span>D';
       statusClass = 'done';
-      title       = '<?php _e("DONE", "autoptimize"); ?>';
+      title       = '<?php _e("DONE", "autoptimize"); ?> (' + ljid + ')';
       buttons     = '<span class="button-secondary" id="' + ljid + '_remove" title="<?php _e("Delete Job", "autoptimize"); ?>"><span class="dashicons dashicons-trash"></span></span>';
       dbtn        = true;
 
@@ -67,7 +67,7 @@ function drawQueueTable(aoCssQueue) {
     } else if (keys.jqstat === 'JOB_DONE' && keys.jrstat === 'GOOD' && (keys.jvstat === 'WARN' || keys.jvstat === 'BAD')) {
       status      = '<span class="hidden">3</span>R';
       statusClass = 'review';
-      title       = '<?php _e("REVIEW", "autoptimize"); ?>';
+      title       = "<?php _e('REVIEW', 'autoptimize'); ?> (" + ljid + ")\n<?php _e('Info from criticalcss.com:', 'autoptimize'); ?>\n<?php _e('- Job ID: ', 'autoptimize'); ?>" + keys.jid + "\n<?php _e('- Status: ', 'autoptimize'); ?>" + keys.jqstat + "\n<?php _e('- Result: ', 'autoptimize'); ?>" + keys.jrstat + "\n<?php _e('- Validation: ', 'autoptimize'); ?>" + keys.jvstat;
       buttons     = '<span class="button-secondary" id="' + ljid + '_remove" title="<?php _e("Delete Job", "autoptimize"); ?>"><span class="dashicons dashicons-trash"></span></span>';
       dbtn        = true;
 
@@ -75,7 +75,7 @@ function drawQueueTable(aoCssQueue) {
     } else if ((keys.jqstat === 'JOB_FAILED' || keys.jqstat === 'JOB_DONE') && (keys.jrstat !== 'GOOD' || (keys.jvstat !== 'GOOD' || keys.jvstat !== 'WARN' || keys.jvstat !== 'BAD'))) {
       status      = '<span class="hidden">1</span>E';
       statusClass = 'error';
-      title       = "<?php _e('ERROR', 'autoptimize'); ?>\n<?php _e('Info from criticalcss.com:', 'autoptimize'); ?>\n<?php _e('- Job ID: ', 'autoptimize'); ?>" + keys.jid + "\n<?php _e('- Status: ', 'autoptimize'); ?>" + keys.jqstat + "\n<?php _e('- Result: ', 'autoptimize'); ?>" + keys.jrstat + "\n<?php _e('- Validation: ', 'autoptimize'); ?>" + keys.jvstat;
+      title       = "<?php _e('ERROR', 'autoptimize'); ?> (" + ljid + ")\n<?php _e('Info from criticalcss.com:', 'autoptimize'); ?>\n<?php _e('- Job ID: ', 'autoptimize'); ?>" + keys.jid + "\n<?php _e('- Status: ', 'autoptimize'); ?>" + keys.jqstat + "\n<?php _e('- Result: ', 'autoptimize'); ?>" + keys.jrstat + "\n<?php _e('- Validation: ', 'autoptimize'); ?>" + keys.jvstat;
       buttons     = '<span class="button-secondary" id="' + ljid + '_retry" title="<?php _e("Retry Job", "autoptimize"); ?>"><span class="dashicons dashicons-update"></span></span><span class="button-secondary to-right" id="' + ljid + '_remove" title="<?php _e("Delete Job", "autoptimize"); ?>"><span class="dashicons dashicons-trash"></span></span><span class="button-secondary to-right" id="' + ljid + '_help" title="<?php _e("Get Help", "autoptimize"); ?>"><span class="dashicons dashicons-sos"></span></span>';
       rbtn        = true;
       dbtn        = true;
@@ -85,7 +85,7 @@ function drawQueueTable(aoCssQueue) {
     } else {
       status      = '<span class="hidden">2</span>U';
       statusClass = 'unknown';
-      title       = "<?php _e('UNKNOWN', 'autoptimize'); ?>\n<?php _e('Info from criticalcss.com:', 'autoptimize'); ?>\n<?php _e('- Job ID: ', 'autoptimize'); ?>" + keys.jid + "\n<?php _e('- Status: ', 'autoptimize'); ?>" + keys.jqstat + "\n<?php _e('- Result: ', 'autoptimize'); ?>" + keys.jrstat + "\n<?php _e('- Validation: ', 'autoptimize'); ?>" + keys.jvstat;
+      title       = "<?php _e('UNKNOWN', 'autoptimize'); ?> (" + ljid + ")\n<?php _e('Info from criticalcss.com:', 'autoptimize'); ?>\n<?php _e('- Job ID: ', 'autoptimize'); ?>" + keys.jid + "\n<?php _e('- Status: ', 'autoptimize'); ?>" + keys.jqstat + "\n<?php _e('- Result: ', 'autoptimize'); ?>" + keys.jrstat + "\n<?php _e('- Validation: ', 'autoptimize'); ?>" + keys.jvstat;
       buttons     = '<span class="button-secondary" id="' + ljid + '_remove" title="<?php _e("Delete Job", "autoptimize"); ?>"><span class="dashicons dashicons-trash"></span></span><span class="button-secondary to-right" id="' + ljid + '_help" title="<?php _e("Get Help", "autoptimize"); ?>"><span class="dashicons dashicons-sos"></span></span>';
       dbtn        = true;
       hbtn        = true;
