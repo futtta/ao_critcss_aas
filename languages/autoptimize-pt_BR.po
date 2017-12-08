@@ -3,11 +3,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Autoptimize Power-Up: CriticalCSS 0.dev\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ao_critcss_aas\n"
-"POT-Creation-Date: 2017-12-07 22:23:52+00:00\n"
+"POT-Creation-Date: 2017-12-08 10:01+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-12-07 22:56+0000\n"
+"PO-Revision-Date: 2017-12-08 10:49+0000\n"
 "Last-Translator: Deny Dias <https://mexapi.macpress.com.br/about>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "Language: pt-BR\n"
@@ -20,6 +20,460 @@ msgstr ""
 
 #: inc/admin_settings.php:17
 msgid "Autoptimize Settings: CriticalCSS Power-Up"
+msgstr ""
+
+#: inc/admin_settings_feeds.php:29
+msgid "Autoptimize"
+msgstr ""
+
+#: inc/admin_settings_feeds.php:30
+msgid "WordPress"
+msgstr ""
+
+#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:88
+msgid "- Job ID: "
+msgstr ""
+
+#: inc/admin_settings_queue.php:41
+msgid ""
+"Autoptimize CriticalCSS Power-Up constantly query the queue for <span "
+"class='badge new'>N</span> jobs. When it finds one, gears spins and jobs "
+"becomes <span class='badge pending'>P</span> while they are running and <a "
+"href='https://criticalcss.com/' target='_blank'>criticalcss.com</a> doesn't "
+"return a result."
+msgstr ""
+"O Autoptimize CriticalCSS Power-Up monitora constantemente a fila para jobs "
+"<span class='badge new'>N</span>. Quando encontra um, ele começa a ser "
+"executado e seu estado muda para <span class='badge pending'>P</span> "
+"enquanto o <a href='https://criticalcss.com/' target='_blank'>criticalcss."
+"com</a> não retorna um resultado."
+
+#: inc/admin_settings_queue.php:42
+msgid ""
+"As soon as <a href=\"https://criticalcss.com/\" target=\"_blank\">"
+"criticalcss.com</a> returns a valid critical CSS file, the job is then <span "
+"class=\"badge done\">D</span>. You can delete done jobs as you wish."
+msgstr ""
+"Assim que o <a href=\"https://criticalcss.com/\" target=\"_blank\">"
+"criticalcss.com</a> retorna um CSS crítico válido, o job torna-se <span "
+"class=\"badge done\">D</span>. Você pode apagar jobs prontos a vontade."
+
+#: inc/admin_settings_queue.php:43
+msgid ""
+"If <a href=\"https://criticalcss.com/\" target=\"_blank\">criticalcss.com</a>"
+" results are not perfect, then the job becomes <span class=\"badge review\">"
+"R</span> and you need to review the resulting critical CSS file fetched in "
+"the target rule pointed out by that job."
+msgstr ""
+"Se o resultado do <a href=\"https://criticalcss.com/\" target=\"_blank\">"
+"criticalcss.com</a> não for perfeito, o job torna-se <span class=\"badge "
+"review\">R</span>. Você precisa revisar a regra criada por este job para "
+"conferir o CSS crítico obtido."
+
+#: inc/admin_settings_queue.php:44
+msgid ""
+"When things go wrong, a job is marked as <span class=\"badge error\">E</span>"
+". You can retry faulty jobs, delete them or get in touch with <a "
+"href=\"https://criticalcss.com/\" target=\"_blank\">criticalcss.com</a> for "
+"assistance."
+msgstr ""
+"Quando as coisas dão errado, o job é marcado como <span class=\"badge "
+"error\">E</span>. Você pode reenviar jobs neste estado ou entrar em contado "
+"com o <a href=\"https://criticalcss.com/\" target=\"_blank\">criticalcss."
+"com</a> para obter ajuda."
+
+#: inc/admin_settings_queue.php:45
+msgid ""
+"Sometimes an unknown condition can happen. In this case, the job status "
+"becomes <span class=\"badge unknown\">U</span> and you may want to ask <a "
+"href=\"https://criticalcss.com/\" target=\"_blank\">criticalcss.com</a> for "
+"help or just delete it."
+msgstr ""
+"As vezes uma condição desconhecida pode ocorrer. Neste caso o estado do job "
+"torna-se <span class=\"badge unknown\">U</span>  e você pode pedir ajuda ao "
+"a href=\"https://criticalcss.com/\" target=\"_blank\">criticalcss.com</a> ou "
+"apenas apagar o job neste estado."
+
+#: inc/admin_settings_queue.php:46
+msgid ""
+"To get more information about jobs statuses, specially the ones with <span "
+"class=\"badge error\">E</span> and <span class=\"badge unknown\">U</span> "
+"status, hover your mouse in the status badge of that job. This information "
+"might be crucial when contacting <a href=\"https://criticalcss.com/\" "
+"target=\"_blank\">criticalcss.com</a> for assistance."
+msgstr ""
+"Para obter mais informações sobre os estados dos jobs, especialmente aqueles "
+"cujo estado são <span class=\"badge error\">E</span> e <span class=\"badge "
+"unknown\">U</span>, deixe o mouse sobre o rótulo do estado. Esta informação "
+"pode ser crucial para pedir ajuda ao <a href=\"https://criticalcss.com/\" "
+"target=\"_blank\">criticalcss.com</a>."
+
+#: inc/admin_settings_queue.php:47
+msgid ""
+"<strong>A WORD ABOUT WORDPRESS CRON:</strong> Autoptimize CriticalCSS Power-"
+"Up watch the queue by using WordPress Cron (or WP-Cron for short.) It <a "
+"href=\"https://www.smashingmagazine.com/2013/10/schedule-events-using-"
+"wordpress-cron/#limitations-of-wordpress-cron-and-solutions-to-fix-em\" "
+"target=\"_blank\">could be faulty</a> on very light or very heavy loads. If "
+"your site receives just a few or thousands visits a day, it might be a good "
+"idea to <a href=\"https://developer.wordpress.org/plugins/cron/hooking-into-"
+"the-system-task-scheduler/\" target=\"_blank\">turn WP-Cron off and use your "
+"system task scheduler</a> to fire it instead."
+msgstr ""
+"<strong>SOBRE O CRON DO WORDPRESS:</strong> o Autoptimize CriticalCSS Power-"
+"Up monitora a fila através do Cron do Wordpress (também chamado de WP-Cron). "
+"Ele <a href=\"https://www.smashingmagazine.com/2013/10/schedule-events-using-"
+"wordpress-cron/#limitations-of-wordpress-cron-and-solutions-to-fix-em\" "
+"target=\"_blank\">pode falhar</a> em cargas muito baixas ou muito altas. Se "
+"seu site recebe apenas algumas visitas por dia, pode ser uma boa ideia a "
+"href=\"https://developer.wordpress.org/plugins/cron/hooking-into-the-system-"
+"task-scheduler/\" target=\"_blank\">desligar o WP-Cron e usar o agendador de "
+"eventos do seu sistema</a> para rodar executá-lo."
+
+#: inc/admin_settings_queue.php:53
+msgid "Status"
+msgstr "Estado"
+
+#: inc/admin_settings_queue.php:53
+msgid "Target Rule"
+msgstr "Regra"
+
+#: inc/admin_settings_queue.php:53
+msgid "Page Path"
+msgstr "Caminho da Página"
+
+#: inc/admin_settings_queue.php:53
+msgid "Page Type"
+msgstr "Tipo da Página"
+
+#: inc/admin_settings_queue.php:53
+msgid "Creation Date"
+msgstr "Criado Em"
+
+#: inc/admin_settings_queue.php:53
+msgid "Finish Date"
+msgstr "Finalizado Em"
+
+#: inc/admin_settings_queue.php:53 inc/admin_settings_rules.js.php:33
+msgid "Actions"
+msgstr "Ações"
+
+#: inc/admin_settings_rules.js.php:27
+msgid "Path Based Rules"
+msgstr "Regras Baseadas em Caminho"
+
+#: inc/admin_settings_rules.js.php:29
+msgid "Conditional Tags, Custom Post Types and Page Templates Rules"
+msgstr ""
+"Regras para Tags Condicionais, Tipos de Posts Personalizados e Templates"
+
+#: inc/admin_settings_rules.js.php:33
+msgid "Type"
+msgstr "Tipo"
+
+#: inc/admin_settings_rules.js.php:33
+msgid "Target"
+msgstr "Alvo"
+
+#: inc/admin_settings_rules.js.php:33
+msgid "Critical CSS File"
+msgstr "Arquivo de CSS Crítico"
+
+#: inc/admin_settings_rules.js.php:42
+msgid "To be fetched from criticalcss.com in the next queue run..."
+msgstr "Será obtido do criticalcss.com..."
+
+#: inc/admin_settings_rules.js.php:45
+msgid "MANUAL"
+msgstr ""
+
+#: inc/admin_settings_rules.js.php:48
+msgid "AUTO"
+msgstr ""
+
+#: inc/admin_settings_rules.js.php:59
+msgid "Edit"
+msgstr "Editar"
+
+#: inc/admin_settings_rules.js.php:59
+msgid "Remove"
+msgstr "Remover"
+
+#: inc/admin_settings_rules.js.php:115
+msgid "Edit Critical CSS Rule"
+msgstr "Editar Regra"
+
+#: inc/admin_settings_rules.js.php:126
+msgid "Loading critical CSS..."
+msgstr "Carregando CSS crítico"
+
+#: inc/admin_settings_rules.js.php:156
+msgid "Add Critical CSS Rule"
+msgstr "Adicionar Regra"
+
+#: inc/admin_settings_rules.js.php:181 inc/admin_settings_rules.js.php:208
+msgid "Submit"
+msgstr "Enviar"
+
+#: inc/admin_settings_rules.js.php:185
+msgid ""
+"RULE VALIDATION ERROR!\\n\\nBased on your rule type, you SHOULD set a path "
+"or conditional tag."
+msgstr ""
+"ERRO DE VALIDAÇÃO DA REGRA!\\n\\nBaseado no tipo da regra, você DEVE "
+"escolher um caminho ou uma tag condicional."
+
+#: inc/admin_settings_rules.js.php:205
+msgid "Your Default Critical CSS"
+msgstr "CSS Crítico Padrão"
+
+#: inc/admin_settings_rules.php:14
+msgid "Rules"
+msgstr "Regras"
+
+#: inc/admin_settings_rules.php:19
+msgid ""
+"<strong>RULES OR QUEUE CHANGED!</strong> Don't forget to save your changes!"
+msgstr ""
+"<strong>REGRA OU FILA ALTERADAS!</strong> Não esqueça de salvar as mudanças."
+
+#: inc/admin_settings_rules.php:27
+msgid "Rule Type"
+msgstr "Tipo de Regra"
+
+#: inc/admin_settings_rules.php:31
+msgid "Path"
+msgstr "Caminho"
+
+#: inc/admin_settings_rules.php:32
+msgid "Conditional Tag"
+msgstr "Tag Condicional"
+
+#: inc/admin_settings_rules.php:38
+msgid "String in Path"
+msgstr "Texto no Caminho"
+
+#: inc/admin_settings_rules.php:41
+msgid "Enter a part of the URL that identifies the page(s) you're targetting."
+msgstr "Digite uma parte da URL que identifica a(s) página(s) que você deseja."
+
+#: inc/admin_settings_rules.php:46
+msgid "Conditional Tag, Custom Post Type or Page Template"
+msgstr "Tags Condicionais, Tipos de Posts ou Templates"
+
+#: inc/admin_settings_rules.php:50
+msgid "Select from the list below..."
+msgstr "Selecione Nesta Lista..."
+
+#: inc/admin_settings_rules.php:51
+msgid "Standard Conditional Tags"
+msgstr "Tags Condicionais Padrão"
+
+#: inc/admin_settings_rules.php:70
+msgid "Custom Post Types"
+msgstr "Tipos de Post"
+
+#: inc/admin_settings_rules.php:72
+msgid "Page Templates"
+msgstr "Templates"
+
+#: inc/admin_settings_rules.php:74
+msgid "BBPress Conditional Tags"
+msgstr "BBPress"
+
+#: inc/admin_settings_rules.php:76
+msgid "BuddyPress Conditional Tags"
+msgstr "BuddyPress"
+
+#: inc/admin_settings_rules.php:78
+msgid "Easy Digital Downloads Conditional Tags"
+msgstr "Easy Digital Downloads"
+
+#: inc/admin_settings_rules.php:80
+msgid "WooCommerce Conditional Tags"
+msgstr "WooCommerce"
+
+#: inc/admin_settings_rules.php:111
+msgid "Custom Critical CSS"
+msgstr "CSS Crítico"
+
+#: inc/admin_settings_rules.php:114
+msgid "Paste your specific critical CSS here and hit submit to save."
+msgstr "Cole o CSS crítico aqui e envie para salvar."
+
+#: inc/admin_settings_rules.php:123
+msgid "Delete Rule"
+msgstr "Apagar Regra"
+
+#: inc/admin_settings_rules.php:124
+msgid ""
+"This Critical CSS rule will be deleted immediately and cannot be recovered."
+"<br /><br /><strong>Are you sure?</strong>"
+msgstr ""
+"Estra regra será apagada imediatamente e não poderá ser recuperada.<br /><br "
+"/><strong>Tem certeza que quer apagá-la?</strong>"
+
+#: inc/admin_settings_rules.php:129 inc/admin_settings_rules.php:159
+msgid "Paste your default critical CSS here and hit submit to save."
+msgstr "Cole o CSS crítico padrão aqui e envie para salvar."
+
+#: inc/admin_settings_rules.php:139
+msgid "How To Use Autoptimize CriticalCSS Power-Up Rules"
+msgstr "Como Usar as Regras do Autoptimize CriticalCSS Power-Up"
+
+#: inc/admin_settings_rules.php:146
+msgid ""
+"TL;DR:<br />Critical CSS files from <span class='badge auto'>AUTO</span> "
+"<strong>rules are updated automatically</strong> while from <span "
+"class='badge manual'>MANUAL</span> <strong>rules are not.</strong>"
+msgstr ""
+"Arquivos de CSS crítico de uma regra <span class='badge auto'>AUTO</span> "
+"são atualizados automaticamente</strong> enquanto os de uma regra <span "
+"class='badge manual'>MANUAL</span> <strong>não são.</strong>"
+
+#: inc/admin_settings_rules.php:148
+msgid ""
+"When a valid <a href=\"https://criticalcss.com/\" target=\"_blank\">"
+"criticalcss.com</a> API key is in place, Autoptimize CriticalCSS Power-Up "
+"starts to operate <strong>automatically</strong>."
+msgstr ""
+"Quando uma chave de API do <a href=\"https://criticalcss.com/\" "
+"target=\"_blank\">criticalcss.com</a>, o Autoptimize CriticalCSS Power-Up "
+"começa a funcionar <strong>automaticamente</strong>."
+
+#: inc/admin_settings_rules.php:149
+msgid ""
+"Upon a request to any of the frontend pages made by a <strong>not logged in "
+"user</strong>, it will <strong>asynchronously</strong> fetch and update the "
+"critical CSS from <a href=\"https://criticalcss.com/\" target=\"_blank\">"
+"criticalcss.com</a> for conditional tags you have on your site (e.g. is_page,"
+" is_single, is_archive etc.)"
+msgstr ""
+"Quando um requisição é feita em qualquer uma das páginas do frontend por um "
+"<strong>usuário que não esta logado</strong>, ele irá obter e atualizar "
+"<strong>de modo assíncrono</strong>  o CSS crítico a partir do <a "
+"href=\"https://criticalcss.com/\" target=\"_blank\">criticalcss.com</a> para "
+"as tags condicionais que você tiver em seu site (por exemplo: is_page, "
+"is_single, is_archive etc)."
+
+#: inc/admin_settings_rules.php:150
+msgid ""
+"These requests also creates an <span class=\"badge auto\">AUTO</span> rule "
+"for you. The critical CSS files from <span class=\"badge auto\">AUTO</span> "
+"<strong>rules are updated automatically</strong> when a CSS file in your "
+"theme or frontend plugins changes."
+msgstr ""
+"Essas requisições também criam uma regra <span class=\"badge auto\">"
+"AUTO</span> para você. O CSS crítico de uma regra <span class=\"badge auto\">"
+"AUTO</span>  <strong>são atualizados automaticamente</strong> quando um CSS "
+"do seu tema ou plugins de frontend forem alterados."
+
+#: inc/admin_settings_rules.php:151
+msgid ""
+"If you want to make any fine tunning in the critical CSS file of an <span "
+"class=\"badge auto\">AUTO</span> rule, click on \"Edit\" button of that rule,"
+" change what you need, submit and save it. The rule you've just edited "
+"becomes a <span class=\"badge manual\">MANUAL</span> rule then."
+msgstr ""
+"Se você quiser fazer ajustes no CSS crítico de uma regra <span class=\"badge "
+"auto\">AUTO</span>, clique em \"Editar\" da regra desejada, altera o que "
+"quiser, envie e salve as mudanças. A regra que você acabou de editar torna-"
+"se então uma regra <span class=\"badge manual\">MANUAL</span>."
+
+#: inc/admin_settings_rules.php:152
+msgid ""
+"You can create <span class=\"badge manual\">MANUAL</span> rules for specific "
+"page paths (URL). Longer, more specific paths have higher priority over "
+"shorter ones, which in turn have higher priority over <span class=\"badge "
+"auto\">AUTO</span> rules. Also, critical CSS files from <span class=\"badge "
+"manual\">MANUAL</span> <strong>rules are NEVER updated automatically."
+"</strong>"
+msgstr ""
+"Você pode criar regras do tipo <span class=\"badge manual\">MANUAL</span> "
+"para caminhos específicos (URL). Quanto mais específico o caminho, maior a "
+"prioridade da regra, que por sua vez têm mais prioridade do que regras <span "
+"class=\"badge auto\">AUTO</span>. O CSS crítico de regras do tipo <span "
+"class=\"badge auto\">MANUAL</span> <strong>NUNCA são atualizados "
+"automaticamente.</strong>"
+
+#: inc/admin_settings_rules.php:153
+msgid ""
+"Nonetheless, if you create a <span class=\"badge manual\">MANUAL</span> for "
+"a path and leave its critical CSS content empty, the critical CSS for that "
+"path will be automatically fetched from <a href=\"https://criticalcss.com/\" "
+"target=\"_blank\">criticalcss.com</a> for you. You can later edit it as you "
+"wish, as it will <strong>NEVER be updated again</strong> while that <span "
+"class=\"badge manual\">MANUAL</span> exist."
+msgstr ""
+"Mesmo assim, se você criar uma regra <span class=\"badge manual\">"
+"MANUAL</span> deixando o CSS crítico em branco, o CSS crítico do caminho "
+"digitado será obtido automaticamente a partir do <a href=\"https:"
+"//criticalcss.com/\" target=\"_blank\">criticalcss.com</a>. Você pode editá-"
+"lo mais tarde se quiser, já que ele <strong>NUNCA será atualizado "
+"novamente</strong> enquanto a regra <span class=\"badge manual\">"
+"MANUAL</span> existir."
+
+#: inc/admin_settings_rules.php:154
+msgid ""
+"If you see an <span class='badge auto'>AUTO</span> or <span class='badge "
+"manual'>MANUAL</span> rule with a <span class='badge review'>R</span> "
+"besides it (R is after REVIEW), it means that the fetched critical CSS for "
+"that rule is not 100% garanteed to work according to <a href='https:"
+"//criticalcss.com/' target='_blank'>criticalcss.com</a> analysis. It's "
+"advised that you edit and review that rule to make any required adjustments."
+msgstr ""
+"Se você ver uma regra <span class='badge auto'>AUTO</span> ou <span "
+"class='badge manual'>MANUAL</span> com um <span class='badge review'>R</span>"
+" ao lado dela, significa que o CSS crítico obtido para ela não tem 100% de "
+"garantia que irá funcionar bem de acordo com a análise feita pelo <a "
+"href='https://criticalcss.com/' target='_blank'>criticalcss.com</a>. "
+"Recomendamos que você edite e revise a regra e faça os ajustes necessários."
+
+#: inc/admin_settings_rules.php:155
+msgid ""
+"At any time you can delete an <span class=\"badge auto\">AUTO</span> or "
+"<span class=\"badge manual\">MANUAL</span> rule by cliking on \"Remove\" "
+"button of the desired rule and saving your changes."
+msgstr ""
+"A qualquer momento você pode apagar regras <span class=\"badge auto\">"
+"AUTO</span> ou <span class=\"badge manual\">MANUAL</span> clicando no botão "
+"\"Remover\" da regra desejada e salvando as mudanças."
+
+#: inc/admin_settings_rules.php:163
+msgid "Add New Rule"
+msgstr "Adicionar Regra"
+
+#: inc/admin_settings_rules.php:164
+msgid "Edit Default Critical CSS"
+msgstr "Editar CSS Crítico Padrão"
+
+#: inc/cron.php:10
+msgid "Every 5 Seconds (FOR DEVELOPMENT ONLY)"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Autoptimize Power-Up: CriticalCSS"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://optimizingmatters/autoptimize/criticalcss/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Let Autoptimize and CriticalCSS unleash your site performance and make it "
+"appear better than anyone in search results."
+msgstr ""
+"Deixe o Autoptimize e o CriticalCSS libertarem a performance do seu site "
+"para fazê-lo aparecer melhor que qualquer um nos resultados de pesquisas."
+
+#. Author of the plugin/theme
+msgid "Deny Dias on behalf of Optimizing Matters"
+msgstr "Deny Dias para Optimizing Matters"
+
+#. Author URI of the plugin/theme
+msgid "http://optimizingmatters.com/"
 msgstr ""
 
 #: inc/admin_settings.php:30
@@ -146,14 +600,6 @@ msgstr "Teste meus outros plugins!"
 msgid "futtta about"
 msgstr "Sobre o futta"
 
-#: inc/admin_settings_feeds.php:29
-msgid "Autoptimize"
-msgstr ""
-
-#: inc/admin_settings_feeds.php:30
-msgid "WordPress"
-msgstr ""
-
 #: inc/admin_settings_feeds.php:31
 msgid "Web Technology"
 msgstr "Tecnologia Web"
@@ -254,103 +700,103 @@ msgstr ""
 
 #: inc/admin_settings_queue.js.php:48
 msgid "NEW"
-msgstr ""
+msgstr "NOVO"
 
 #: inc/admin_settings_queue.js.php:55
 msgid "PENDING"
-msgstr ""
+msgstr "PENDENTE"
 
 #: inc/admin_settings_queue.js.php:62
 msgid "DONE"
-msgstr ""
+msgstr "PRONTO"
 
 #: inc/admin_settings_queue.js.php:63 inc/admin_settings_queue.js.php:71
 #: inc/admin_settings_queue.js.php:79 inc/admin_settings_queue.js.php:89
 #: inc/admin_settings_queue.php:22
 msgid "Delete Job"
-msgstr ""
+msgstr "Apagar Job"
 
 #: inc/admin_settings_queue.js.php:70
 msgid "REVIEW"
-msgstr ""
+msgstr "REVISAR"
+
+#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:88
+msgid "Info from criticalcss.com:"
+msgstr "Informações do criticalcss.com:"
+
+#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:88
+msgid "- Status: "
+msgstr "- Estado:"
+
+#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:88
+msgid "- Result: "
+msgstr "- Resultado"
+
+#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:88
+msgid "- Validation: "
+msgstr "- Validação:"
 
 #: inc/admin_settings_queue.js.php:78
 msgid "ERROR"
-msgstr ""
-
-#: inc/admin_settings_queue.js.php:78 inc/admin_settings_queue.js.php:88
-msgid "Info from criticalcss.com:"
-msgstr ""
-
-#: inc/admin_settings_queue.js.php:78 inc/admin_settings_queue.js.php:88
-msgid "- Job ID: "
-msgstr ""
-
-#: inc/admin_settings_queue.js.php:78 inc/admin_settings_queue.js.php:88
-msgid "- Status: "
-msgstr ""
-
-#: inc/admin_settings_queue.js.php:78 inc/admin_settings_queue.js.php:88
-msgid "- Result: "
-msgstr ""
-
-#: inc/admin_settings_queue.js.php:78 inc/admin_settings_queue.js.php:88
-msgid "- Validation: "
-msgstr ""
+msgstr "ERRO"
 
 #: inc/admin_settings_queue.js.php:79 inc/admin_settings_queue.php:17
 msgid "Retry Job"
-msgstr ""
+msgstr "Reenviar Job"
 
 #: inc/admin_settings_queue.js.php:79 inc/admin_settings_queue.js.php:89
 msgid "Get Help"
-msgstr ""
+msgstr "Obter Ajuda"
 
 #: inc/admin_settings_queue.js.php:88
 msgid "UNKNOWN"
-msgstr ""
+msgstr "DESCONHECIDO"
 
 #: inc/admin_settings_queue.js.php:96
 msgid "N/A"
-msgstr ""
+msgstr "N/D"
 
 #: inc/admin_settings_queue.js.php:102
 msgid "Job status is "
-msgstr ""
+msgstr "Estado do job é"
 
 #: inc/admin_settings_queue.js.php:125 inc/admin_settings_rules.js.php:72
 msgid "Delete"
-msgstr ""
+msgstr "Apagar"
 
 #: inc/admin_settings_queue.js.php:130 inc/admin_settings_queue.js.php:156
 #: inc/admin_settings_rules.js.php:77 inc/admin_settings_rules.js.php:191
 #: inc/admin_settings_rules.js.php:213
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: inc/admin_settings_queue.js.php:145
 msgid "Retry"
-msgstr ""
+msgstr "Reenviar"
 
 #: inc/admin_settings_queue.php:13
 msgid "Job Queue"
-msgstr ""
+msgstr "Fila de Trabalhos"
 
 #: inc/admin_settings_queue.php:18
 msgid "Are you sure you want to retry this job?"
-msgstr ""
+msgstr "Você tem certeza que deseja reenviar este job?"
 
 #: inc/admin_settings_queue.php:23
 msgid "Are you sure you want to delete this job?"
-msgstr ""
+msgstr "Você tem certeza que deseja apagar este job?"
 
 #: inc/admin_settings_queue.php:30
 msgid "How To Use Autoptimize CriticalCSS Power-Up Queue"
-msgstr ""
+msgstr "Como usar a fila de trabalhos do Autoptimize CriticalCSS Power-Up"
 
 #: inc/admin_settings_queue.php:31 inc/admin_settings_rules.php:140
 msgid "Click the side arrow to toggle instructions"
-msgstr ""
+msgstr "Clique na seta ao lado para mostrar/esconder as instruções"
 
 #: inc/admin_settings_queue.php:37
 msgid ""
@@ -360,6 +806,13 @@ msgid ""
 "class=\"badge review\">R</span> for REVIEW, <span class=\"badge error\">"
 "E</span> for ERROR and <span class=\"badge unknown\">U</span> for UNKOWN."
 msgstr ""
+"TL;DR:<br /><strong>A fila roda a cada 10 minutos</strong> Os status dos "
+"jobs (trabalhos) são <span class=\"badge new\">N</span> para NOVO (New), "
+"<span class=\"badge pending\">P</span> para PENDENTE (Pending), <span "
+"class=\"badge done\">D</span> para PRONTO (Done), <span class=\"badge "
+"review\">R</span> para REVISAR (Review), <span class=\"badge error\">E</span>"
+" para ERRO (Error) e <span class=\"badge unknown\">U</span> for DESCONHECIDO "
+"(Unknown)."
 
 #: inc/admin_settings_queue.php:39
 msgid ""
@@ -367,368 +820,18 @@ msgid ""
 "intervals of 10 minutes.</strong> To view updated queue status, refresh this "
 "page."
 msgstr ""
+"A fila roda <strong>automaticamente e de modo assíncrono em intervalos "
+"regulares de 10 minutos.</strong> Para ver o estado atualizado da fila, "
+"recarregue esta página."
 
 #: inc/admin_settings_queue.php:40
 msgid ""
-"When the conditions to create a rule are met (i.e. user not logged in, no "
-"matching <span class=\"badge manual\">MANUAL</span> rule, changed CSS files "
-"for an <span class=\"badge auto\">AUTO</span> rule), a <span class=\"badge "
-"new\">N</span> job is created in the queue."
-msgstr ""
-
-#: inc/admin_settings_queue.php:41
-msgid ""
-"Autoptimize CriticalCSS Power-Up constantly query the queue for <span "
-"class='badge new'>N</span> jobs. When it finds one, gears spins and jobs "
-"becomes <span class='badge pending'>P</span> while they are running and <a "
-"href='https://criticalcss.com/' target='_blank'>criticalcss.com</a> doesn't "
-"return a result"
-msgstr ""
-
-#: inc/admin_settings_queue.php:42
-msgid ""
-"As soon as <a href=\"https://criticalcss.com/\" target=\"_blank\">"
-"criticalcss.com</a> returns a valid critical CSS file, the job is then <span "
-"class=\"badge done\">D</span>. You can delete done jobs as you wish."
-msgstr ""
-
-#: inc/admin_settings_queue.php:43
-msgid ""
-"If <a href=\"https://criticalcss.com/\" target=\"_blank\">criticalcss.com</a>"
-" results are not perfect, then the job becomes <span class=\"badge review\">"
-"R</span> and you need to review the resulting critical CSS file fetched in "
-"the target rule pointed out by that job."
-msgstr ""
-
-#: inc/admin_settings_queue.php:44
-msgid ""
-"When things go wrong, a job is marked as <span class=\"badge error\">E</span>"
-". You can retry faulty jobs, delete them or get in touch with <a "
-"href=\"https://criticalcss.com/\" target=\"_blank\">criticalcss.com</a> for "
-"assistance."
-msgstr ""
-
-#: inc/admin_settings_queue.php:45
-msgid ""
-"Sometimes an unknown condition can happen. In this case, the job status "
-"becomes <span class=\"badge unknown\">U</span> and you may want to ask <a "
-"href=\"https://criticalcss.com/\" target=\"_blank\">criticalcss.com</a> for "
-"help or just delete it."
-msgstr ""
-
-#: inc/admin_settings_queue.php:46
-msgid ""
-"To get more information about jobs statuses, specially the ones with <span "
-"class=\"badge error\">E</span> and <span class=\"badge unknown\">U</span> "
-"status, hover your mouse in the status badge of that job. This information "
-"might be crucial when contacting <a href=\"https://criticalcss.com/\" "
-"target=\"_blank\">criticalcss.com</a> for assistance."
-msgstr ""
-
-#: inc/admin_settings_queue.php:47
-msgid ""
-"<strong>A WORD ABOUT WORDPRESS CRON:</strong> Autoptimize CriticalCSS Power-"
-"Up watch the queue by using WordPress Cron (or WP-Cron for short.) It <a "
-"href=\"https://www.smashingmagazine.com/2013/10/schedule-events-using-"
-"wordpress-cron/#limitations-of-wordpress-cron-and-solutions-to-fix-em\" "
-"target=\"_blank\">could be faulty</a> on very light or very heavy loads. If "
-"your site receives just a few or thousands visits a day, it might be a good "
-"idea to <a href=\"https://developer.wordpress.org/plugins/cron/hooking-into-"
-"the-system-task-scheduler/\" target=\"_blank\">turn WP-Cron off and use your "
-"system task scheduler</a> to fire it instead."
-msgstr ""
-
-#: inc/admin_settings_queue.php:53
-msgid "Status"
-msgstr ""
-
-#: inc/admin_settings_queue.php:53
-msgid "Target Rule"
-msgstr ""
-
-#: inc/admin_settings_queue.php:53
-msgid "Page Path"
-msgstr ""
-
-#: inc/admin_settings_queue.php:53
-msgid "Page Type"
-msgstr ""
-
-#: inc/admin_settings_queue.php:53
-msgid "Creation Date"
-msgstr ""
-
-#: inc/admin_settings_queue.php:53
-msgid "Finish Date"
-msgstr ""
-
-#: inc/admin_settings_queue.php:53 inc/admin_settings_rules.js.php:33
-msgid "Actions"
-msgstr ""
-
-#: inc/admin_settings_rules.js.php:27
-msgid "Path Based Rules"
-msgstr ""
-
-#: inc/admin_settings_rules.js.php:29
-msgid "Conditional Tags, Custom Post Types and Page Templates Rules"
-msgstr ""
-
-#: inc/admin_settings_rules.js.php:33
-msgid "Type"
-msgstr ""
-
-#: inc/admin_settings_rules.js.php:33
-msgid "Target"
-msgstr ""
-
-#: inc/admin_settings_rules.js.php:33
-msgid "Critical CSS File"
-msgstr ""
-
-#: inc/admin_settings_rules.js.php:42
-msgid "To be fetched from criticalcss.com in the next queue run..."
-msgstr ""
-
-#: inc/admin_settings_rules.js.php:45
-msgid "MANUAL"
-msgstr ""
-
-#: inc/admin_settings_rules.js.php:48
-msgid "AUTO"
-msgstr ""
-
-#: inc/admin_settings_rules.js.php:59
-msgid "Edit"
-msgstr ""
-
-#: inc/admin_settings_rules.js.php:59
-msgid "Remove"
-msgstr ""
-
-#: inc/admin_settings_rules.js.php:115
-msgid "Edit Critical CSS Rule"
-msgstr ""
-
-#: inc/admin_settings_rules.js.php:126
-msgid "Loading critical CSS..."
-msgstr ""
-
-#: inc/admin_settings_rules.js.php:156
-msgid "Add Critical CSS Rule"
-msgstr ""
-
-#: inc/admin_settings_rules.js.php:181 inc/admin_settings_rules.js.php:208
-msgid "Submit"
-msgstr ""
-
-#: inc/admin_settings_rules.js.php:185
-msgid ""
-"RULE VALIDATION ERROR!\\n\\nBased on your rule type, you SHOULD set a path "
-"or conditional tag."
-msgstr ""
-
-#: inc/admin_settings_rules.js.php:205
-msgid "Your Default Critical CSS"
-msgstr ""
-
-#: inc/admin_settings_rules.php:14
-msgid "Rules"
-msgstr ""
-
-#: inc/admin_settings_rules.php:19
-msgid ""
-"<strong>RULES OR QUEUE CHANGED!</strong> Don't forget to save your changes!"
-msgstr ""
-
-#: inc/admin_settings_rules.php:27
-msgid "Rule Type"
-msgstr ""
-
-#: inc/admin_settings_rules.php:31
-msgid "Path"
-msgstr ""
-
-#: inc/admin_settings_rules.php:32
-msgid "Conditional Tag"
-msgstr ""
-
-#: inc/admin_settings_rules.php:38
-msgid "String in Path"
-msgstr ""
-
-#: inc/admin_settings_rules.php:41
-msgid "Enter a part of the URL that identifies the page(s) you're targetting."
-msgstr ""
-
-#: inc/admin_settings_rules.php:46
-msgid "Conditional Tag, Custom Post Type or Page Template"
-msgstr ""
-
-#: inc/admin_settings_rules.php:50
-msgid "Select from the list below..."
-msgstr ""
-
-#: inc/admin_settings_rules.php:51
-msgid "Standard Conditional Tags"
-msgstr ""
-
-#: inc/admin_settings_rules.php:70
-msgid "Custom Post Types"
-msgstr ""
-
-#: inc/admin_settings_rules.php:72
-msgid "Page Templates"
-msgstr ""
-
-#: inc/admin_settings_rules.php:74
-msgid "BBPress Conditional Tags"
-msgstr ""
-
-#: inc/admin_settings_rules.php:76
-msgid "BuddyPress Conditional Tags"
-msgstr ""
-
-#: inc/admin_settings_rules.php:78
-msgid "Easy Digital Downloads Conditional Tags"
-msgstr ""
-
-#: inc/admin_settings_rules.php:80
-msgid "WooCommerce Conditional Tags"
-msgstr ""
-
-#: inc/admin_settings_rules.php:111
-msgid "Custom Critical CSS"
-msgstr ""
-
-#: inc/admin_settings_rules.php:114
-msgid "Paste your specific critical CSS here and hit submit to save."
-msgstr ""
-
-#: inc/admin_settings_rules.php:123
-msgid "Delete Rule"
-msgstr ""
-
-#: inc/admin_settings_rules.php:124
-msgid ""
-"This Critical CSS rule will be deleted immediately and cannot be recovered."
-"<br /><br /><strong>Are you sure?</strong>"
-msgstr ""
-
-#: inc/admin_settings_rules.php:129 inc/admin_settings_rules.php:159
-msgid "Paste your default critical CSS here and hit submit to save."
-msgstr ""
-
-#: inc/admin_settings_rules.php:139
-msgid "How To Use Autoptimize CriticalCSS Power-Up Rules"
-msgstr ""
-
-#: inc/admin_settings_rules.php:146
-msgid ""
-"TL;DR:<br />Critical CSS files from <span class='badge auto'>AUTO</span> "
-"<strong>rules are updated automatically</strong> while from <span "
-"class='badge manual'>MANUAL</span> <strong>rules are not.</strong>"
-msgstr ""
-
-#: inc/admin_settings_rules.php:148
-msgid ""
-"When a valid <a href=\"https://criticalcss.com/\" target=\"_blank\">"
-"criticalcss.com</a> API key is in place, Autoptimize CriticalCSS Power-Up "
-"starts to operate <strong>automatically</strong>."
-msgstr ""
-
-#: inc/admin_settings_rules.php:149
-msgid ""
-"Upon a request to any of the frontend pages made by a <strong>not logged in "
-"user</strong>, it will <strong>asynchronously</strong> fetch and update the "
-"critical CSS from <a href=\"https://criticalcss.com/\" target=\"_blank\">"
-"criticalcss.com</a> for conditional tags you have on your site (e.g. is_page,"
-" is_single, is_archive etc.)"
-msgstr ""
-
-#: inc/admin_settings_rules.php:150
-msgid ""
-"These requests also creates an <span class=\"badge auto\">AUTO</span> rule "
-"for you. The critical CSS files from <span class=\"badge auto\">AUTO</span> "
-"<strong>rules are updated automatically</strong> when a CSS file in your "
-"theme or frontend plugins changes."
-msgstr ""
-
-#: inc/admin_settings_rules.php:151
-msgid ""
-"If you want to make any fine tunning in the critical CSS file of an <span "
-"class=\"badge auto\">AUTO</span> rule, click on \"Edit\" button of that rule,"
-" change what you need, submit and save it. The rule you've just edited "
-"becomes a <span class=\"badge manual\">MANUAL</span> rule then."
-msgstr ""
-
-#: inc/admin_settings_rules.php:152
-msgid ""
-"You can create <span class=\"badge manual\">MANUAL</span> rules for specific "
-"page paths (URL). Longer, more specific paths have higher priority over "
-"shorter ones, which in turn have higher priority over <span class=\"badge "
-"auto\">AUTO</span> rules. Also, critical CSS files from <span class=\"badge "
-"manual\">MANUAL</span> <strong>rules are NEVER updated automatically."
-"</strong>"
-msgstr ""
-
-#: inc/admin_settings_rules.php:153
-msgid ""
-"Nonetheless, if you create a <span class=\"badge manual\">MANUAL</span> for "
-"a path and leave its critical CSS content empty, the critical CSS for that "
-"path will be automatically fetched from <a href=\"https://criticalcss.com/\" "
-"target=\"_blank\">criticalcss.com</a> for you. You can later edit it as you "
-"wish, as it will <strong>NEVER be updated again</strong> while that <span "
-"class=\"badge manual\">MANUAL</span> exist."
-msgstr ""
-
-#: inc/admin_settings_rules.php:154
-msgid ""
-"If you see an <span class='badge auto'>AUTO</span> or <span class='badge "
-"manual'>MANUAL</span> rule with a <span class='badge review'>R</span> "
-"besides it (R is after REVIEW), it means that the fetched critical CSS for "
-"that rule is not 100% garanteed to work according to <a href='https:"
-"//criticalcss.com/' target='_blank'>criticalcss.com</a> analysis. It's "
-"advised that you edit and review that rule to make any required adjustments."
-msgstr ""
-
-#: inc/admin_settings_rules.php:155
-msgid ""
-"At any time you can delete an <span class=\"badge auto\">AUTO</span> or "
-"<span class=\"badge manual\">MANUAL</span> rule by cliking on \"Remove\" "
-"button of the desired rule and saving your changes."
-msgstr ""
-
-#: inc/admin_settings_rules.php:163
-msgid "Add New Rule"
-msgstr ""
-
-#: inc/admin_settings_rules.php:164
-msgid "Edit Default Critical CSS"
-msgstr ""
-
-#: inc/cron.php:10
-msgid "Every 5 Seconds (FOR DEVELOPMENT ONLY)"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "Autoptimize Power-Up: CriticalCSS"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "http://optimizingmatters/autoptimize/criticalcss/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid ""
-"Let Autoptimize and CriticalCSS unleash your site performance and make it "
-"appear better than anyone in search results."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "Deny Dias on behalf of Optimizing Matters"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "http://optimizingmatters.com/"
-msgstr ""
+"When the conditions to create a job are met (i.e. user not logged in, no "
+"matching <span class=\"badge manual\">MANUAL</span> rule or CSS files has "
+"changed for an <span class=\"badge auto\">AUTO</span> rule), a <span "
+"class=\"badge new\">N</span> job is created in the queue."
+msgstr ""
+"Quando as condições para criar um job existem (usuário não está logado, "
+"nenhuma regra <span class=\"badge manual\">MANUAL</span> que combine ou o "
+"CSS de uma regra <span class=\"badge auto\">AUTO</span> foi alterado), um "
+"job <span class=\"badge new\">N</span> é criado na fila."

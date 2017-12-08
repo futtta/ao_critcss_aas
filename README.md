@@ -48,7 +48,7 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 *Stats updated at: 2017/12/08*
 
-**Project size:** 240 KB
+**Project size:** 264 KB
 
 ### Lines of Code
 
@@ -67,9 +67,9 @@ Bourne Shell|2|18|0|57
 :-------|-------:|-------:
 GIF|3|172
 PNG|1|9585
-I18|2|41674
+I18|2|50170
 --------|--------|--------
-**SUM:**|**6**|**51431**
+**SUM:**|**6**|**59927**
 
 ### Spec Items
 

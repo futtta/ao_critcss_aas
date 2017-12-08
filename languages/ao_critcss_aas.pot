@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Autoptimize Power-Up: CriticalCSS 0.dev\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ao_critcss_aas\n"
-"POT-Creation-Date: 2017-12-07 22:23:52+00:00\n"
+"POT-Creation-Date: 2017-12-08 09:57:55+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -243,28 +243,33 @@ msgstr ""
 msgid "REVIEW"
 msgstr ""
 
-#: inc/admin_settings_queue.js.php:78
-msgid "ERROR"
-msgstr ""
-
-#: inc/admin_settings_queue.js.php:78 inc/admin_settings_queue.js.php:88
+#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:88
 msgid "Info from criticalcss.com:"
 msgstr ""
 
-#: inc/admin_settings_queue.js.php:78 inc/admin_settings_queue.js.php:88
+#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:88
 msgid "- Job ID: "
 msgstr ""
 
-#: inc/admin_settings_queue.js.php:78 inc/admin_settings_queue.js.php:88
+#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:88
 msgid "- Status: "
 msgstr ""
 
-#: inc/admin_settings_queue.js.php:78 inc/admin_settings_queue.js.php:88
+#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:88
 msgid "- Result: "
 msgstr ""
 
-#: inc/admin_settings_queue.js.php:78 inc/admin_settings_queue.js.php:88
+#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:88
 msgid "- Validation: "
+msgstr ""
+
+#: inc/admin_settings_queue.js.php:78
+msgid "ERROR"
 msgstr ""
 
 #: inc/admin_settings_queue.js.php:79 inc/admin_settings_queue.php:17
@@ -339,10 +344,10 @@ msgstr ""
 
 #: inc/admin_settings_queue.php:40
 msgid ""
-"When the conditions to create a rule are met (i.e. user not logged in, no "
-"matching <span class=\"badge manual\">MANUAL</span> rule, changed CSS files "
-"for an <span class=\"badge auto\">AUTO</span> rule), a <span class=\"badge "
-"new\">N</span> job is created in the queue."
+"When the conditions to create a job are met (i.e. user not logged in, no "
+"matching <span class=\"badge manual\">MANUAL</span> rule or CSS files has "
+"changed for an <span class=\"badge auto\">AUTO</span> rule), a <span class="
+"\"badge new\">N</span> job is created in the queue."
 msgstr ""
 
 #: inc/admin_settings_queue.php:41
@@ -351,7 +356,7 @@ msgid ""
 "class='badge new'>N</span> jobs. When it finds one, gears spins and jobs "
 "becomes <span class='badge pending'>P</span> while they are running and <a "
 "href='https://criticalcss.com/' target='_blank'>criticalcss.com</a> doesn't "
-"return a result"
+"return a result."
 msgstr ""
 
 #: inc/admin_settings_queue.php:42

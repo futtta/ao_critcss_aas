@@ -1,0 +1,8 @@
+# WordPress files and directories
+*.po~
+
+# Hidden system files
+*.DS_Store
+*[Tt]humbs.db
+*.Trashes
+.*swp
