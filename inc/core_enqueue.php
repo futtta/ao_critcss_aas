@@ -6,10 +6,11 @@ function ao_ccss_enqueue($hash) {
 
   // Queue is available to anyone...
   $enqueue = TRUE;
-  // ...but it does not belong to logged in users or criticalcss.com requests
-  // NOTE: out of scope check for criticalcss.com UA
-  if (ao_ccss_ua() || is_user_logged_in()) {
+  // ...which are not the ones bellow
+  // NOTE: out of scope check for allowed job enqueuing
+  if (is_user_logged_in() || is_feed() || (defined('DOING_AJAX') && DOING_AJAX) || ao_ccss_ua()) {
     $enqueue = FALSE;
+    ao_ccss_log("Job queuing is not available for WordPress's logged in users, feeds and ajax calls and to criticalcss.com itself", 3);
   }
 
   // Continue if queue is available
@@ -164,10 +165,6 @@ function ao_ccss_enqueue($hash) {
         return FALSE;
       }
     }
-
-  // Log unavailable queue
-  } else {
-    ao_ccss_log('Job queuing unavailable for logged in users or criticalcss.com itself', 3);
   }
 }
 
@@ -274,6 +271,7 @@ function ao_ccss_job_id($length = 6) {
 }
 
 // Check for criticalcss.com user agent
+// NOTE: out of scope check for criticalcss.com UA
 function ao_ccss_ua() {
 
   // Get UA

@@ -46,7 +46,7 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 ## Project Stats
 
-*Stats updated at: 2017/12/08*
+*Stats updated at: 2017/12/09*
 
 **Project size:** 264 KB
 
@@ -54,12 +54,12 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 **Language**|**Files**|**Blank Lines**|**Comments**|**Functional Code**
 :-------|-------:|-------:|-------:|-------:
-PHP|15|423|431|1985
+PHP|15|422|431|1984
 CSS|2|6|8|380
 JavaScript|2|13|2|112
 Bourne Shell|2|18|0|57
 --------|--------|--------|--------|--------
-**SUM:**|**21**|**460**|**441**|**2534**
+**SUM:**|**21**|**459**|**441**|**2533**
 
 ### Media and Other
 
@@ -98,7 +98,8 @@ inc/admin_settings_debug.php:3:// NOTE: out of scope debug panel
 inc/admin_settings_feeds.php:1:<?php // NOTE: out of scope feeds panel ?>
 inc/core_ajax.php:145:// NOTE: out of scope export settings
 inc/core_ajax.php:208:// NOTE: out of scope import settings
-inc/core_enqueue.php:10:  // NOTE: out of scope check for criticalcss.com UA
+inc/core_enqueue.php:10:  // NOTE: out of scope check for allowed job enqueuing
+inc/core_enqueue.php:274:// NOTE: out of scope check for criticalcss.com UA
 inc/cron.php:41:  // NOTE: out of scope queue debug
 inc/cron.php:545:// NOTE: out of scope log file maintenance
 languages/ao_critcss_aas.pot:3:# NOTE: out of scope localization template
