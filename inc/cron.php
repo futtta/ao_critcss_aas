@@ -254,7 +254,7 @@ function ao_ccss_queue_control() {
 
     // Or log no queue action
     } else {
-      ao_ccss_log('Nothing to do on job' . $jc . ' (of ' . $jt . 'in the queue at this moment), job id <' . $jprops['ljid'] . '>, status <' . $jprops['status'] . '>', 3);
+      ao_ccss_log('Nothing to do on job' . $jc . ' (of ' . $jt . 'in the queue at this moment), job id <' . $jprops['ljid'] . '>, status <' . $jprops['jqstat'] . '>', 3);
     }
 
     // Increment job counter
