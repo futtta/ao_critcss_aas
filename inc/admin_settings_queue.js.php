@@ -56,7 +56,7 @@ function drawQueueTable(aoCssQueue) {
       buttons     = '<?php _e("None", "autoptimize"); ?>';
 
     // Status: DONE (D, sort priority 4)
-    } else if (keys.jqstat === 'JOB_DONE' && keys.jrstat === 'GOOD' && keys.jvstat === 'GOOD') {
+    } else if (keys.jqstat === 'JOB_DONE' && (keys.jrstat === 'GOOD' || keys.jrstat == null) && (keys.jvstat === 'GOOD' || keys.jrstat == null)) {
       status      = '<span class="hidden">4</span>D';
       statusClass = 'done';
       title       = '<?php _e("DONE", "autoptimize"); ?> (' + ljid + ')';

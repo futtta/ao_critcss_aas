@@ -126,7 +126,7 @@ function ao_ccss_enqueue($hash) {
             $queue_update = array_push($ao_ccss_queue[$req_path]['hashes'], $hash);
 
             // Log job update
-            ao_ccss_log('Hashes UPDATED on a new job, local job id <' . $ao_ccss_queue[$req_path]['ljid'] . '>, target rule: <' . $ao_ccss_queue[$req_path]['target'] . '>, new hash: ' . $hash, 3);
+            ao_ccss_log('Hashes UPDATED on local job id <' . $ao_ccss_queue[$req_path]['ljid'] . '>, job status NEW, target rule <' . $ao_ccss_queue[$req_path]['rtarget'] . '>, hash added: ' . $hash, 3);
 
             // Return from here as the hash array is already updated
             return TRUE;
