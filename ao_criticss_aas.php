@@ -53,12 +53,14 @@ if (is_multisite()) {
   define('AO_CCSS_DIR', WP_CONTENT_DIR . '/cache/ao_ccss/');
 }
 
+// Define support files locations
+define('AO_CCSS_LOCK',  AO_CCSS_DIR . 'queue.lock');
+define('AO_CCSS_LOG',   AO_CCSS_DIR . 'queue.log');
+define('AO_CCSS_DEBUG', AO_CCSS_DIR . 'queue.json');
+
 // Define constants for criticalcss.com base path and API endpoints
 define('AO_CCSS_URL', 'https://criticalcss.com');
 define('AO_CCSS_API', AO_CCSS_URL . '/api/premium/');
-
-// Define the log file location
-define('AO_CCSS_LOG', AO_CCSS_DIR . 'queue.log');
 
 // Add hidden submenu and register allowed settings
 function ao_ccss_settings_init() {

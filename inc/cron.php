@@ -19,9 +19,6 @@ add_action('ao_ccss_queue', 'ao_ccss_queue_control');
 // The queue execution backend
 function ao_ccss_queue_control() {
 
-  // Log queue start
-  ao_ccss_log('Queue control started', 3);
-
   /**
    * Provide a debug facility for the queue
    *  This debug facility provides a way to easily force some queue behaviors useful for development and testing.
@@ -39,10 +36,9 @@ function ao_ccss_queue_control() {
    *  When properly set, queue will always finish a job with the declared settings above regardless of the real API responses.
    */
   // NOTE: out of scope queue debug
-  $queue_debug      = FALSE;
-  $queue_debug_file = AO_CCSS_DIR . strip_tags('queue.json');
-  if (file_exists($queue_debug_file)) {
-    $qdobj_raw = file_get_contents($queue_debug_file);
+  $queue_debug = FALSE;
+  if (file_exists(AO_CCSS_DEBUG)) {
+    $qdobj_raw = file_get_contents(AO_CCSS_DEBUG);
     $qdobj     = json_decode($qdobj_raw, TRUE);
     if ($qdobj) {
       if ($qdobj['enable'] === 1) {
@@ -57,40 +53,102 @@ function ao_ccss_queue_control() {
     $qdobj['htcode'] = FALSE;
   }
 
-  // Attach required arrays
-  global $ao_ccss_queue;
+  // Check for if queue is already running
+  $queue_lock = FALSE;
+  if (file_exists(AO_CCSS_DEBUG)) {
+    $queue_lock = TRUE;
+  }
 
-  // Initialize job counters
-  $jc = 1;
-  $jr = 1;
-  $jt = count($ao_ccss_queue);
+  // Proceed with the queue if it's not already running
+  if (!$queue_lock) {
 
-  // Iterates over the entire queue
-  foreach ($ao_ccss_queue as $path => $jprops) {
+    // Create the lock file and log the queue start
+    touch(AO_CCSS_LOCK);
+    ao_ccss_log('Queue control locked and started', 3);
 
-    // Prepare flags and target rule
-    $update      = FALSE;
-    $rule_update = FALSE;
-    $trule       = explode('|', $jprops['rtarget']);
+    // Attach required arrays
+    global $ao_ccss_queue;
 
-    // Log job count
-    ao_ccss_log('Processing job ' . $jc . ' (of ' . $jt . ' in the queue at this moment)', 3);
+    // Initialize job counters
+    $jc = 1;
+    $jr = 1;
+    $jt = count($ao_ccss_queue);
 
-    // Process NEW jobs
-    // NOTE: implements section 4, id 3.1 of the specs
-    if ($jprops['jqstat'] == 'NEW') {
+    // Iterates over the entire queue
+    foreach ($ao_ccss_queue as $path => $jprops) {
 
-      // Log the new job
-      ao_ccss_log('Found NEW job with local ID <' . $jprops['ljid'] . '>, starting its queue processing', 3);
+      // Prepare flags and target rule
+      $update      = FALSE;
+      $rule_update = FALSE;
+      $trule       = explode('|', $jprops['rtarget']);
 
-      // Compare job and rule hashes (if any)
-      $hash = ao_ccss_diff_hashes($jprops['ljid'], $jprops['hash'], $jprops['hashes'], $jprops['rtarget']);
+      // Log job count
+      ao_ccss_log('Processing job ' . $jc . ' of ' . $jt . ' (in the queue at this moment)', 3);
 
-      // If job hash is new or different of a previous one
-      if ($hash) {
+      // Process NEW jobs
+      // NOTE: implements section 4, id 3.1 of the specs
+      if ($jprops['jqstat'] == 'NEW') {
 
-        // Set job hash
-        $jprops['hash'] = $hash;
+        // Log the new job
+        ao_ccss_log('Found NEW job with local ID <' . $jprops['ljid'] . '>, starting its queue processing', 3);
+
+        // Compare job and rule hashes (if any)
+        $hash = ao_ccss_diff_hashes($jprops['ljid'], $jprops['hash'], $jprops['hashes'], $jprops['rtarget']);
+
+        // If job hash is new or different of a previous one
+        if ($hash) {
+
+          // Set job hash
+          $jprops['hash'] = $hash;
+
+          // If this is not the first job, wait 5 seconds before process next job due criticalcss.com API limits
+          if ($jr > 1) {
+            ao_ccss_log('Wait 5 seconds before process the next job due criticalcss.com API limits', 3);
+            sleep(5);
+          }
+
+          // Dispatch the job generation request and increment request count
+          $apireq = ao_ccss_api_generate($path, $queue_debug, $qdobj['htcode']);
+          $jr++;
+
+          // NOTE: All the following conditions maps to the ones in admin_settings_queue.js.php
+
+          // Request has a valid result
+          // Process a PENDING job
+          if ($apireq['job']['status'] == 'JOB_QUEUED' || $apireq['job']['status'] == 'JOB_ONGOING') {
+
+            // Update job properties
+            $jprops['jid']    = $apireq['job']['id'];
+            $jprops['jqstat'] = $apireq['job']['status'];
+            ao_ccss_log('Job id <' . $jprops['ljid'] . '> generation request successful, remote id <' . $jprops['jid'] . '>, status now is <' . $jprops['jqstat'] . '>', 3);
+
+          // Request has failed
+          } else {
+
+            // Update job properties
+            $jprops['jqstat'] = 'JOB_UNKNOWN';
+            $jprops['jftime'] = microtime(TRUE);
+            ao_ccss_log('Job id <' . $jprops['ljid'] . '> generation request has an UNKNOWN condition, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
+          }
+
+        // Job hash is equal a previous one, so it's done
+        } else {
+
+          // Update job status and finish time
+          $jprops['jqstat'] = 'JOB_DONE';
+          $jprops['jftime'] = microtime(TRUE);
+          ao_ccss_log('Job id <' . $jprops['ljid'] . '> requires no further processing, status now is <' . $jprops['jqstat'] . '>', 3);
+        }
+
+        // Set queue update flag
+        $update = TRUE;
+
+      // Process QUEUED and ONGOING jobs
+      // NOTE: implements section 4, id 3.2 of the specs
+      } elseif ($jprops['jqstat'] == 'JOB_QUEUED' || $jprops['jqstat'] == 'JOB_ONGOING') {
+
+        // Log the pending job
+        ao_ccss_log('Found PENDING job with local ID <' . $jprops['ljid'] . '>, continuing its queue processing', 3);
 
         // If this is not the first job, wait 5 seconds before process next job due criticalcss.com API limits
         if ($jr > 1) {
@@ -99,179 +157,136 @@ function ao_ccss_queue_control() {
         }
 
         // Dispatch the job generation request and increment request count
-        $apireq = ao_ccss_api_generate($path, $queue_debug, $qdobj['htcode']);
+        $apireq = ao_ccss_api_results($jprops['jid'], $queue_debug, $qdobj['htcode']);
         $jr++;
 
-        // NOTE: All the following conditions maps to the ones in admin_settings_queue.js.php
+        // NOTE: All the following condigitons maps to the ones in admin_settings_queue.js.php
+
+        // Replace API response values if queue debugging is enabled and some value is set
+        if ($queue_debug) {
+          if ($qdobj['status']) {
+            $apireq['status'] = $qdobj['status'];
+          }
+          if ($qdobj['resultStatus']) {
+            $apireq['resultStatus'] = $qdobj['resultStatus'];
+          }
+          if ($qdobj['validationStatus']) {
+            $apireq['validationStatus'] = $qdobj['validationStatus'];
+          }
+        }
 
         // Request has a valid result
         // Process a PENDING job
-        if ($apireq['job']['status'] == 'JOB_QUEUED' || $apireq['job']['status'] == 'JOB_ONGOING') {
+        if ($apireq['status'] == 'JOB_QUEUED' || $apireq['status'] == 'JOB_ONGOING') {
 
           // Update job properties
-          $jprops['jid']    = $apireq['job']['id'];
-          $jprops['jqstat'] = $apireq['job']['status'];
-          ao_ccss_log('Job id <' . $jprops['ljid'] . '> generation request successful, remote id <' . $jprops['jid'] . '>, status now is <' . $jprops['jqstat'] . '>', 3);
+          $jprops['jqstat'] = $apireq['status'];
+          ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful, remote id <' . $jprops['jid'] . '>, status <' . $jprops['jqstat'] . '> unchanged', 3);
 
-        // Request has failed
-        } else {
+        // Process a DONE job
+        } elseif ($apireq['status'] == 'JOB_DONE') {
+
+          // Process GOOD jobs
+          if ($apireq['resultStatus'] == 'GOOD' && $apireq['validationStatus'] == 'GOOD') {
+
+            // Update job properties
+            $jprops['file']   = ao_ccss_save_file($apireq['css'], $trule[1], FALSE);
+            $jprops['jqstat'] = $apireq['status'];
+            $jprops['jrstat'] = $apireq['resultStatus'];
+            $jprops['jvstat'] = $apireq['validationStatus'];
+            $jprops['jftime'] = microtime(TRUE);
+            $rule_update      = TRUE;
+            ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful, remote id <' . $jprops['jid'] . '>, status <' . $jprops['jqstat'] . '>, file saved <' . $jprops['file'] . '>', 3);
+
+          // Process REVIEW jobs
+          } elseif ($apireq['resultStatus'] == 'GOOD' && ($apireq['validationStatus'] == 'WARN' || $apireq['validationStatus'] == 'BAD')) {
+
+            // Update job properties
+            $jprops['file']   = ao_ccss_save_file($apireq['css'], $trule[1], TRUE);
+            $jprops['jqstat'] = $apireq['status'];
+            $jprops['jrstat'] = $apireq['resultStatus'];
+            $jprops['jvstat'] = $apireq['validationStatus'];
+            $jprops['jftime'] = microtime(TRUE);
+            $rule_update      = TRUE;
+            ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful, remote id <' . $jprops['jid'] . '>, status <' . $jprops['jqstat'] . ', file saved <' . $jprops['file'] . '> but requires REVIEW', 3);
+
+          // Process ERROR jobs
+          } elseif ($apireq['resultStatus'] != 'GOOD' && ($apireq['validationStatus'] != 'GOOD' || $apireq['validationStatus'] != 'WARN' || $apireq['validationStatus'] != 'BAD')) {
+
+            // Update job properties
+            $jprops['jqstat'] = $apireq['status'];
+            $jprops['jrstat'] = $apireq['resultStatus'];
+            $jprops['jvstat'] = $apireq['validationStatus'];
+            $jprops['jftime'] = microtime(TRUE);
+            ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successfull but job FAILED, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
+
+          // Process UNKNOWN jobs
+          } else {
+
+            // Update job properties
+            $jprops['jqstat'] = 'JOB_UNKNOWN';
+            $jprops['jrstat'] = $apireq['resultStatus'];
+            $jprops['jvstat'] = $apireq['validationStatus'];
+            $queue_update     = TRUE;
+            ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successfull but job FAILED, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
+
+          }
+
+        // Process a FAILED job
+        } elseif ($apireq['status'] == 'JOB_FAILED') {
+
+          // Update job properties
+          $jprops['jqstat'] = $apireq['status'];
+          $jprops['jftime'] = microtime(TRUE);
+          ao_ccss_log('Job id <' . $jprops['ljid'] . '> generation request successfull but job FAILED, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
+
+        // Request has failed with an UNKNOWN condition
+        } elseif (empty($apireq) || $apireq['status'] == 'JOB_UNKNOWN') {
 
           // Update job properties
           $jprops['jqstat'] = 'JOB_UNKNOWN';
+          $jprops['jrstat'] = 'criticalcss.com replied with status ' . $apireq['status'] . ' and error message ' . $apireq['error'];
           $jprops['jftime'] = microtime(TRUE);
           ao_ccss_log('Job id <' . $jprops['ljid'] . '> generation request has an UNKNOWN condition, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
         }
 
-      // Job hash is equal a previous one, so it's done
+        // Set queue update flag
+        $update = TRUE;
+      }
+
+      // Persist updated queue object
+      // NOTE: implements section 4, id 3.2.1 of the specs
+      if ($update) {
+
+        // Update queue
+        $ao_ccss_queue[$path] = $jprops;
+        $ao_ccss_queue_raw    = json_encode($ao_ccss_queue);
+        update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw);
+        ao_ccss_log('Queue updated by job id <' . $jprops['ljid'] . '>', 3);
+
+        // Update rules
+        if ($rule_update) {
+          ao_ccss_log('Job id <' . $jprops['ljid'] . '> requires rules update for target rule <' . $jprops['rtarget'] . '>', 3);
+          ao_ccss_rule_update($jprops['ljid'], $jprops['rtarget'], $jprops['file'], $jprops['hash']);
+        }
+
+      // Or log no queue action
       } else {
-
-        // Update job status and finish time
-        $jprops['jqstat'] = 'JOB_DONE';
-        $jprops['jftime'] = microtime(TRUE);
-        ao_ccss_log('Job id <' . $jprops['ljid'] . '> requires no further processing, status now is <' . $jprops['jqstat'] . '>', 3);
+        ao_ccss_log('Nothing to do on job ' . $jc . ' of ' . $jt . ' (in the queue at this moment), job id <' . $jprops['ljid'] . '>, status <' . $jprops['jqstat'] . '>', 3);
       }
 
-      // Set queue update flag
-      $update = TRUE;
-
-    // Process QUEUED and ONGOING jobs
-    // NOTE: implements section 4, id 3.2 of the specs
-    } elseif ($jprops['jqstat'] == 'JOB_QUEUED' || $jprops['jqstat'] == 'JOB_ONGOING') {
-
-      // Log the pending job
-      ao_ccss_log('Found PENDING job with local ID <' . $jprops['ljid'] . '>, continuing its queue processing', 3);
-
-      // If this is not the first job, wait 5 seconds before process next job due criticalcss.com API limits
-      if ($jr > 1) {
-        ao_ccss_log('Wait 5 seconds before process the next job due criticalcss.com API limits', 3);
-        sleep(5);
-      }
-
-      // Dispatch the job generation request and increment request count
-      $apireq = ao_ccss_api_results($jprops['jid'], $queue_debug, $qdobj['htcode']);
-      $jr++;
-
-      // NOTE: All the following condigitons maps to the ones in admin_settings_queue.js.php
-
-      // Replace API response values if queue debugging is enabled and some value is set
-      if ($queue_debug) {
-        if ($qdobj['status']) {
-          $apireq['status'] = $qdobj['status'];
-        }
-        if ($qdobj['resultStatus']) {
-          $apireq['resultStatus'] = $qdobj['resultStatus'];
-        }
-        if ($qdobj['validationStatus']) {
-          $apireq['validationStatus'] = $qdobj['validationStatus'];
-        }
-      }
-
-      // Request has a valid result
-      // Process a PENDING job
-      if ($apireq['status'] == 'JOB_QUEUED' || $apireq['status'] == 'JOB_ONGOING') {
-
-        // Update job properties
-        $jprops['jqstat'] = $apireq['status'];
-        ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful, remote id <' . $jprops['jid'] . '>, status <' . $jprops['jqstat'] . '> unchanged', 3);
-
-      // Process a DONE job
-      } elseif ($apireq['status'] == 'JOB_DONE') {
-
-        // Process GOOD jobs
-        if ($apireq['resultStatus'] == 'GOOD' && $apireq['validationStatus'] == 'GOOD') {
-
-          // Update job properties
-          $jprops['file']   = ao_ccss_save_file($apireq['css'], $trule[1], FALSE);
-          $jprops['jqstat'] = $apireq['status'];
-          $jprops['jrstat'] = $apireq['resultStatus'];
-          $jprops['jvstat'] = $apireq['validationStatus'];
-          $jprops['jftime'] = microtime(TRUE);
-          $rule_update      = TRUE;
-          ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful, remote id <' . $jprops['jid'] . '>, status <' . $jprops['jqstat'] . '>, file saved <' . $jprops['file'] . '>', 3);
-
-        // Process REVIEW jobs
-        } elseif ($apireq['resultStatus'] == 'GOOD' && ($apireq['validationStatus'] == 'WARN' || $apireq['validationStatus'] == 'BAD')) {
-
-          // Update job properties
-          $jprops['file']   = ao_ccss_save_file($apireq['css'], $trule[1], TRUE);
-          $jprops['jqstat'] = $apireq['status'];
-          $jprops['jrstat'] = $apireq['resultStatus'];
-          $jprops['jvstat'] = $apireq['validationStatus'];
-          $jprops['jftime'] = microtime(TRUE);
-          $rule_update      = TRUE;
-          ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful, remote id <' . $jprops['jid'] . '>, status <' . $jprops['jqstat'] . ', file saved <' . $jprops['file'] . '> but requires REVIEW', 3);
-
-        // Process ERROR jobs
-        } elseif ($apireq['resultStatus'] != 'GOOD' && ($apireq['validationStatus'] != 'GOOD' || $apireq['validationStatus'] != 'WARN' || $apireq['validationStatus'] != 'BAD')) {
-
-          // Update job properties
-          $jprops['jqstat'] = $apireq['status'];
-          $jprops['jrstat'] = $apireq['resultStatus'];
-          $jprops['jvstat'] = $apireq['validationStatus'];
-          $jprops['jftime'] = microtime(TRUE);
-          ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successfull but job FAILED, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
-
-        // Process UNKNOWN jobs
-        } else {
-
-          // Update job properties
-          $jprops['jqstat'] = 'JOB_UNKNOWN';
-          $jprops['jrstat'] = $apireq['resultStatus'];
-          $jprops['jvstat'] = $apireq['validationStatus'];
-          $queue_update     = TRUE;
-          ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successfull but job FAILED, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
-
-        }
-
-      // Process a FAILED job
-      } elseif ($apireq['status'] == 'JOB_FAILED') {
-
-        // Update job properties
-        $jprops['jqstat'] = $apireq['status'];
-        $jprops['jftime'] = microtime(TRUE);
-        ao_ccss_log('Job id <' . $jprops['ljid'] . '> generation request successfull but job FAILED, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
-
-      // Request has failed with an UNKNOWN condition
-      } elseif (empty($apireq) || $apireq['status'] == 'JOB_UNKNOWN') {
-
-        // Update job properties
-        $jprops['jqstat'] = 'JOB_UNKNOWN';
-        $jprops['jrstat'] = 'criticalcss.com replied with status ' . $apireq['status'] . ' and error message ' . $apireq['error'];
-        $jprops['jftime'] = microtime(TRUE);
-        ao_ccss_log('Job id <' . $jprops['ljid'] . '> generation request has an UNKNOWN condition, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
-      }
-
-      // Set queue update flag
-      $update = TRUE;
+      // Increment job counter
+      $jc++;
     }
 
-    // Persist updated queue object
-    // NOTE: implements section 4, id 3.2.1 of the specs
-    if ($update) {
+    // Remove the lock file and log the queue end
+    unlink(AO_CCSS_LOCK);
+    ao_ccss_log('Queue control unlocked and finished', 3);
 
-      // Update queue
-      $ao_ccss_queue[$path] = $jprops;
-      $ao_ccss_queue_raw    = json_encode($ao_ccss_queue);
-      update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw);
-      ao_ccss_log('Queue updated by job id <' . $jprops['ljid'] . '>', 3);
-
-      // Update rules
-      if ($rule_update) {
-        ao_ccss_log('Job id <' . $jprops['ljid'] . '> requires rules update for target rule <' . $jprops['rtarget'] . '>', 3);
-        ao_ccss_rule_update($jprops['ljid'], $jprops['rtarget'], $jprops['file'], $jprops['hash']);
-      }
-
-    // Or log no queue action
-    } else {
-      ao_ccss_log('Nothing to do on job ' . $jc . ' (of ' . $jt . ' in the queue at this moment), job id <' . $jprops['ljid'] . '>, status <' . $jprops['jqstat'] . '>', 3);
-    }
-
-    // Increment job counter
-    $jc++;
+  // Log that queue is locked
+  } else {
+    ao_ccss_log('Queue is already running, skipping the attempt to run it again', 3);
   }
-
-  // Log queue end
-  ao_ccss_log('Queue control finished', 3);
 }
 
 // Compare job hashes
@@ -555,15 +570,20 @@ function ao_ccss_rule_update($ljid, $srule, $file, $hash) {
   }
 }
 
-// Truncate log file if it exist and is >= 1MB
+// Truncate log file if it exist and is >= 1MB and remove a stalled lock file
 // NOTE: out of scope log file maintenance
 function ao_ccss_log_truncate() {
+
+  // Truncate log file >= 1MB
   if (file_exists(AO_CCSS_LOG)) {
     if (filesize(AO_CCSS_LOG) >= 1048576) {
       $logfile = fopen(AO_CCSS_LOG, "w");
       fclose($logfile);
     }
   }
+
+  // Remove lock file
+  unlink(AO_CCSS_LOCK);
 }
 
 // Add truncate log to a registered event
