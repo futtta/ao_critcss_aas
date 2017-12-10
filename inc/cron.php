@@ -60,8 +60,9 @@ function ao_ccss_queue_control() {
   // Attach required arrays
   global $ao_ccss_queue;
 
-  // Initialize job counter
+  // Initialize job counters
   $jc = 1;
+  $jr = 1;
   $jt = count($ao_ccss_queue);
 
   // Iterates over the entire queue
@@ -74,12 +75,6 @@ function ao_ccss_queue_control() {
 
     // Log job count
     ao_ccss_log('Processing job ' . $jc . ' (of ' . $jt . ' in the queue at this moment)', 3);
-
-    // If this is not the first job, wait 5 seconds before process next job due criticalcss.com API limits
-    if ($jc > 1) {
-      ao_ccss_log('Wait 5 seconds before process the next job due criticalcss.com API limits', 3);
-      sleep(5);
-    }
 
     // Process NEW jobs
     // NOTE: implements section 4, id 3.1 of the specs
@@ -97,8 +92,15 @@ function ao_ccss_queue_control() {
         // Set job hash
         $jprops['hash'] = $hash;
 
-        // Dispatch the job generation request
+        // If this is not the first job, wait 5 seconds before process next job due criticalcss.com API limits
+        if ($jr > 1) {
+          ao_ccss_log('Wait 5 seconds before process the next job due criticalcss.com API limits', 3);
+          sleep(5);
+        }
+
+        // Dispatch the job generation request and increment request count
         $apireq = ao_ccss_api_generate($path, $queue_debug, $qdobj['htcode']);
+        $jr++;
 
         // NOTE: All the following conditions maps to the ones in admin_settings_queue.js.php
 
@@ -139,8 +141,15 @@ function ao_ccss_queue_control() {
       // Log the pending job
       ao_ccss_log('Found PENDING job with local ID <' . $jprops['ljid'] . '>, continuing its queue processing', 3);
 
-      // Dispatch the job generation request
+      // If this is not the first job, wait 5 seconds before process next job due criticalcss.com API limits
+      if ($jr > 1) {
+        ao_ccss_log('Wait 5 seconds before process the next job due criticalcss.com API limits', 3);
+        sleep(5);
+      }
+
+      // Dispatch the job generation request and increment request count
       $apireq = ao_ccss_api_results($jprops['jid'], $queue_debug, $qdobj['htcode']);
+      $jr++;
 
       // NOTE: All the following condigitons maps to the ones in admin_settings_queue.js.php
 
