@@ -126,7 +126,7 @@ function ao_ccss_activation() {
 
   // Create a scheduled event for log maintenance
   if (!wp_next_scheduled('ao_ccss_log')) {
-    wp_schedule_event(time(), 'daily', 'ao_ccss_log');
+    wp_schedule_event(time(), 'twicedaily', 'ao_ccss_log');
   }
 }
 register_activation_hook(__FILE__, 'ao_ccss_activation');

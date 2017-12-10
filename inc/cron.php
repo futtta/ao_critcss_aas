@@ -83,7 +83,7 @@ function ao_ccss_queue_control() {
       $trule       = explode('|', $jprops['rtarget']);
 
       // Log job count
-      ao_ccss_log('Processing job ' . $jc . ' of ' . $jt . ' (in the queue at this moment)', 3);
+      ao_ccss_log('Processing job ' . $jc . ' of ' . $jt . ' with id <' . $jprops['ljid'] . '> and status <' . $jprops['jqstat'] . '>', 3);
 
       // Process NEW jobs
       // NOTE: implements section 4, id 3.1 of the specs
@@ -272,7 +272,7 @@ function ao_ccss_queue_control() {
 
       // Or log no queue action
       } else {
-        ao_ccss_log('Nothing to do on job ' . $jc . ' of ' . $jt . ' (in the queue at this moment), job id <' . $jprops['ljid'] . '>, status <' . $jprops['jqstat'] . '>', 3);
+        ao_ccss_log('Nothing to do on this job');
       }
 
       // Increment job counter
