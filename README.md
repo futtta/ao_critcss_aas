@@ -46,20 +46,20 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 ## Project Stats
 
-*Stats updated at: 2017/12/09*
+*Stats updated at: 2017/12/10*
 
-**Project size:** 264 KB
+**Project size:** 268 KB
 
 ### Lines of Code
 
 **Language**|**Files**|**Blank Lines**|**Comments**|**Functional Code**
 :-------|-------:|-------:|-------:|-------:
-PHP|15|422|431|1984
+PHP|15|427|436|2004
 CSS|2|6|8|380
 JavaScript|2|13|2|112
 Bourne Shell|2|18|0|57
 --------|--------|--------|--------|--------
-**SUM:**|**21**|**459**|**441**|**2533**
+**SUM:**|**21**|**464**|**446**|**2553**
 
 ### Media and Other
 
@@ -84,10 +84,10 @@ inc/core.php:49:  // NOTE: implements section 4, id 1.1 of the specs (for paths)
 inc/core.php:61:  // NOTE: implements section 4, id 1.1 of the specs (for types)
 inc/core.php:85:  // NOTE: implements section 4, id 1.2 of the specs
 inc/cron.php:3:// NOTE: implements section 4 of the specs
-inc/cron.php:81:    // NOTE: implements section 4, id 3.1 of the specs
-inc/cron.php:132:    // NOTE: implements section 4, id 3.2 of the specs
-inc/cron.php:235:    // NOTE: implements section 4, id 3.2.1 of the specs
-inc/cron.php:486:// NOTE: implements section 4, id 3.2.1 of the specs
+inc/cron.php:89:      // NOTE: implements section 4, id 3.1 of the specs
+inc/cron.php:147:      // NOTE: implements section 4, id 3.2 of the specs
+inc/cron.php:258:      // NOTE: implements section 4, id 3.2.1 of the specs
+inc/cron.php:509:// NOTE: implements section 4, id 3.2.1 of the specs
 ```
 
 ### Out of Scope Items
@@ -100,8 +100,8 @@ inc/core_ajax.php:145:// NOTE: out of scope export settings
 inc/core_ajax.php:208:// NOTE: out of scope import settings
 inc/core_enqueue.php:10:  // NOTE: out of scope check for allowed job enqueuing
 inc/core_enqueue.php:274:// NOTE: out of scope check for criticalcss.com UA
-inc/cron.php:41:  // NOTE: out of scope queue debug
-inc/cron.php:545:// NOTE: out of scope log file maintenance
+inc/cron.php:38:  // NOTE: out of scope queue debug
+inc/cron.php:568:// NOTE: out of scope log file maintenance
 languages/ao_critcss_aas.pot:3:# NOTE: out of scope localization template
 languages/autoptimize-pt_BR.po:1:# NOTE: out of scope pt-BR localization
 ```
@@ -109,7 +109,7 @@ languages/autoptimize-pt_BR.po:1:# NOTE: out of scope pt-BR localization
 ### Items To Fix
 
 ```
-ao_criticss_aas.php:120:  // FIXME: change this to 10min for relase (also required in inc/cron.php)
+ao_criticss_aas.php:122:  // FIXME: change this to 10min for relase (also required in inc/cron.php)
 inc/cron.php:6:// FIXME: change this to 10min ('interval' => 600) for relase (also required in ../ao_criticcss_aas.php)
 ```
 
