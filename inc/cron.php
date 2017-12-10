@@ -218,11 +218,12 @@ function ao_ccss_queue_control() {
         $jprops['jftime'] = microtime(TRUE);
         ao_ccss_log('Job id <' . $jprops['ljid'] . '> generation request successfull but job FAILED, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
 
-      // Request has failed
+      // Request has failed with an UNKNOWN condition
       } elseif (empty($apireq) || $apireq['status'] == 'JOB_UNKNOWN') {
 
         // Update job properties
         $jprops['jqstat'] = 'JOB_UNKNOWN';
+        $jprops['jrstat'] = 'Status: '$apireq['status'] . ', Error message: ' . $apireq['error'];
         $jprops['jftime'] = microtime(TRUE);
         ao_ccss_log('Job id <' . $jprops['ljid'] . '> generation request has an UNKNOWN condition, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
       }
@@ -380,7 +381,7 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
     } else {
       ao_ccss_log('criticalcss.com: POST generate request for path <' . $src_url . '> replied with code <' . $code . '> but with an error condition, body follows...', 2);
       ao_ccss_log(print_r($body, TRUE), 2);
-      return FALSE;
+      return $body;
     }
 
   // Response code is anything else
