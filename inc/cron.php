@@ -223,7 +223,7 @@ function ao_ccss_queue_control() {
 
         // Update job properties
         $jprops['jqstat'] = 'JOB_UNKNOWN';
-        $jprops['jrstat'] = 'Status: '$apireq['status'] . ', Error message: ' . $apireq['error'];
+        $jprops['jrstat'] = 'criticalcss.com replied with status ' . $apireq['status'] . ' and error message ' . $apireq['error'];
         $jprops['jftime'] = microtime(TRUE);
         ao_ccss_log('Job id <' . $jprops['ljid'] . '> generation request has an UNKNOWN condition, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
       }
