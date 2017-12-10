@@ -62,6 +62,7 @@ function ao_ccss_queue_control() {
 
   // Initialize job counter
   $jc = 1;
+  $jt = count($ao_ccss_queue);
 
   // Iterates over the entire queue
   foreach ($ao_ccss_queue as $path => $jprops) {
@@ -70,6 +71,9 @@ function ao_ccss_queue_control() {
     $update      = FALSE;
     $rule_update = FALSE;
     $trule       = explode('|', $jprops['rtarget']);
+
+    // Log job count
+    ao_ccss_log('Processing job ' . $jc . ' (of ' . $jt . 'in the queue at this moment)', 3);
 
     // If this is not the first job, wait 5 seconds before process next job due criticalcss.com API limits
     if ($jc > 1) {
@@ -250,7 +254,7 @@ function ao_ccss_queue_control() {
 
     // Or log no queue action
     } else {
-      ao_ccss_log('Queue control has nothing to do', 3);
+      ao_ccss_log('Nothing to do on job' . $jc . ' (of ' . $jt . 'in the queue at this moment), job id <' . $jprops['ljid'] . '>, status <' . $jprops['status'] . '>', 3);
     }
 
     // Increment job counter
