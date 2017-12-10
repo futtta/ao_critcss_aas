@@ -73,7 +73,7 @@ function ao_ccss_queue_control() {
     $trule       = explode('|', $jprops['rtarget']);
 
     // Log job count
-    ao_ccss_log('Processing job ' . $jc . ' (of ' . $jt . 'in the queue at this moment)', 3);
+    ao_ccss_log('Processing job ' . $jc . ' (of ' . $jt . ' in the queue at this moment)', 3);
 
     // If this is not the first job, wait 5 seconds before process next job due criticalcss.com API limits
     if ($jc > 1) {
