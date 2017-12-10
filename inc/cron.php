@@ -354,9 +354,6 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
   // Prepare full URL for request
   $src_url = get_site_url() . $path;
 
-  // Log request start
-  ao_ccss_log('criticalcss.com: POST generate request for path <' . $src_url . '>', 3);
-
   // Get key
   global $ao_ccss_key;
   $key = $ao_ccss_key;
@@ -424,9 +421,6 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
 
 // GET jobs from criticalcss.com and return responses
 function ao_ccss_api_results($jobid, $debug, $dcode) {
-
-  // Log request start
-  ao_ccss_log('criticalcss.com: GET results request for remote job id <' . $jobid . '>', 3);
 
   // Get key
   global $ao_ccss_key;
