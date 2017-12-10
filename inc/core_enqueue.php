@@ -175,7 +175,7 @@ function ao_ccss_get_type() {
   global $ao_ccss_types;
 
   // By default, a page type is false
-  $page_type = false;
+  $page_type = FALSE;
 
   // Iterates over the array to match a type
   foreach ($ao_ccss_types as $type) {

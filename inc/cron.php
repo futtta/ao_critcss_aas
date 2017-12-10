@@ -272,7 +272,7 @@ function ao_ccss_queue_control() {
 
       // Or log no queue action
       } else {
-        ao_ccss_log('Nothing to do on this job');
+        ao_ccss_log('Nothing to do on this job', 3);
       }
 
       // Increment job counter
