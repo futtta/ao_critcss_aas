@@ -81,6 +81,7 @@ function ao_ccss_queue_control() {
       $update      = FALSE;
       $deljob      = FALSE;
       $rule_update = FALSE;
+      $oldccssfile = FALSE;
       $trule       = explode('|', $jprops['rtarget']);
 
       // Log job count
@@ -191,6 +192,7 @@ function ao_ccss_queue_control() {
           if ($apireq['resultStatus'] == 'GOOD' && $apireq['validationStatus'] == 'GOOD') {
 
             // Update job properties
+            $oldccssfile      = $jprops['file'];
             $jprops['file']   = ao_ccss_save_file($apireq['css'], $trule[1], FALSE);
             $jprops['jqstat'] = $apireq['status'];
             $jprops['jrstat'] = $apireq['resultStatus'];
@@ -203,6 +205,7 @@ function ao_ccss_queue_control() {
           } elseif ($apireq['resultStatus'] == 'GOOD' && ($apireq['validationStatus'] == 'WARN' || $apireq['validationStatus'] == 'BAD')) {
 
             // Update job properties
+            $oldccssfile      = $jprops['file'];
             $jprops['file']   = ao_ccss_save_file($apireq['css'], $trule[1], TRUE);
             $jprops['jqstat'] = $apireq['status'];
             $jprops['jrstat'] = $apireq['resultStatus'];
@@ -282,8 +285,19 @@ function ao_ccss_queue_control() {
 
         // Update rules
         if ($rule_update) {
-          ao_ccss_log('Job id <' . $jprops['ljid'] . '> requires rules update for target rule <' . $jprops['rtarget'] . '>', 3);
           ao_ccss_rule_update($jprops['ljid'], $jprops['rtarget'], $jprops['file'], $jprops['hash']);
+          ao_ccss_log('Job id <' . $jprops['ljid'] . '> updated the target rule <' . $jprops['rtarget'] . '>', 3);
+
+          // Remove old critical CSS if a previous one existed in the rule and if that file exists in filesystem
+          if ($oldccssfile) {
+            $filetoremove = AO_CCSS_DIR . $oldccssfile;
+            if (file_exists($filetoremove) {
+              $unlinkst = unlink($filetoremove);
+              if ($unlinkst) {
+                ao_ccss_log('Job id <' . $jprops['ljid'] . '> removed the previous critical CSS file <' . $oldccssfile . '> for the rule <' . $jprops['rtarget'] . '>', 3);
+              }
+            }
+          }
         }
 
       // Or log no queue action
