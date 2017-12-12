@@ -259,7 +259,7 @@ function ao_ccss_queue_control() {
 
       // Process DONE jobs
       // NOTE: out of scope DONE job removal (issue #4)
-      } elseif ($jprops['jqstat'] == 'JOB_DONE' && $jprops['jrstat'] == 'GOOD' && $jprops['jvstat'] == 'GOOD') {
+      } elseif ($jprops['jqstat'] == 'JOB_DONE' && ($jprops['jrstat'] == '' || $jprops['jrstat'] == 'GOOD') && ($jprops['jvstat'] == '' || $jprops['jvstat'] == 'GOOD')) {
         $deljob = TRUE;
         $update = TRUE;
         ao_ccss_log('Job id <' . $jprops['ljid'] . '> is DONE, removing it', 3);
