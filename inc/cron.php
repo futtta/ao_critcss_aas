@@ -3,11 +3,10 @@
 // NOTE: implements section 4 of the specs
 
 // Add a 5 seconds interval to WP-Cron
-// FIXME: change this to 10min ('interval' => 600) for relase (also required in ../ao_criticcss_aas.php)
 function ao_ccss_interval($schedules) {
-   $schedules['5sec'] = array(
-      'interval' => 5,
-      'display' => __('Every 5 Seconds (FOR DEVELOPMENT ONLY)')
+   $schedules['10min'] = array(
+      'interval' => 600,
+      'display' => __('Every 10 Minutes')
    );
    return $schedules;
 }

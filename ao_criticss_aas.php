@@ -119,9 +119,8 @@ function ao_ccss_activation() {
   add_option('autoptimize_ccss_debug', '');
 
   // Create a scheduled event for the queue
-  // FIXME: change this to 10min for relase (also required in inc/cron.php)
   if (!wp_next_scheduled('ao_ccss_queue')) {
-    wp_schedule_event(time(), '5sec', 'ao_ccss_queue');
+    wp_schedule_event(time(), '10min', 'ao_ccss_queue');
   }
 
   // Create a scheduled event for log maintenance

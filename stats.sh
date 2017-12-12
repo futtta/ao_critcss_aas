@@ -58,9 +58,11 @@ STATS+='```'
 
 FIXME_ITEMS=$(grep -nr "FIXME" --exclude=\*.{md,sh} --exclude-dir=.git | sort -dV)
 
-STATS+=$'\n'$'\n'"### Items To Fix"$'\n'$'\n'
-STATS+='```'$'\n'
-STATS+="$FIXME_ITEMS"$'\n'
-STATS+='```'
+if [ -n  "$FIXME_ITEMS" ]; then
+  STATS+=$'\n'$'\n'"### Items To Fix"$'\n'$'\n'
+  STATS+='```'$'\n'
+  STATS+="$FIXME_ITEMS"$'\n'
+  STATS+='```'
+fi
 
 echo "$STATS"
