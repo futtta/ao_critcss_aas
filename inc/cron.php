@@ -79,6 +79,7 @@ function ao_ccss_queue_control() {
 
       // Prepare flags and target rule
       $update      = FALSE;
+      $deljob      = FALSE;
       $rule_update = FALSE;
       $trule       = explode('|', $jprops['rtarget']);
 
@@ -252,14 +253,29 @@ function ao_ccss_queue_control() {
 
         // Set queue update flag
         $update = TRUE;
+
+      // Process DONE jobs
+      // NOTE: out of scope DONE job removal (issue #4)
+      } elseif ($jprops['jqstat'] == 'JOB_DONE') {
+        $deljob = TRUE;
+        $update = TRUE;
+        ao_ccss_log('Job id <' . $jprops['ljid'] . '> is DONE, removing it', 3);
       }
 
       // Persist updated queue object
       // NOTE: implements section 4, id 3.2.1 of the specs
       if ($update) {
 
-        // Update queue
-        $ao_ccss_queue[$path] = $jprops;
+        // Update properties of a NEW or PENDING job...
+        if (!$deljob) {
+          $ao_ccss_queue[$path] = $jprops;
+
+        // ...or remove the DONE job
+        } else {
+          unset($ao_ccss_queue[$path]);
+        }
+
+        // Update queue object
         $ao_ccss_queue_raw    = json_encode($ao_ccss_queue);
         update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw);
         ao_ccss_log('Queue updated by job id <' . $jprops['ljid'] . '>', 3);
