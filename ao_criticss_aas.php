@@ -112,11 +112,11 @@ function ao_ccss_activation() {
   mkdir(AO_CCSS_DIR, 0755);
 
   // Create options with empty values
-  add_option('autoptimize_ccss_key', '');
-  add_option('autoptimize_ccss_rules', '');
-  add_option('autoptimize_ccss_queue', '');
-  add_option('autoptimize_ccss_viewport', '');
-  add_option('autoptimize_ccss_debug', '');
+  add_option('autoptimize_ccss_key', '', '', 'no');
+  add_option('autoptimize_ccss_rules', '', '', 'no');
+  add_option('autoptimize_ccss_queue', '', '', 'no');
+  add_option('autoptimize_ccss_viewport', '', '', 'no');
+  add_option('autoptimize_ccss_debug', '', '', 'no');
 
   // Create a scheduled event for the queue
   if (!wp_next_scheduled('ao_ccss_queue')) {
