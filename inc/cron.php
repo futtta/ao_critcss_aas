@@ -193,7 +193,7 @@ function ao_ccss_queue_control() {
 
             // Update job properties
             $oldccssfile      = $jprops['file'];
-            $jprops['file']   = ao_ccss_save_file($apireq['css'], $trule[1], FALSE);
+            $jprops['file']   = ao_ccss_save_file($apireq['css'], $trule[1], $oldccssfile, FALSE);
             $jprops['jqstat'] = $apireq['status'];
             $jprops['jrstat'] = $apireq['resultStatus'];
             $jprops['jvstat'] = $apireq['validationStatus'];
@@ -206,7 +206,7 @@ function ao_ccss_queue_control() {
 
             // Update job properties
             $oldccssfile      = $jprops['file'];
-            $jprops['file']   = ao_ccss_save_file($apireq['css'], $trule[1], TRUE);
+            $jprops['file']   = ao_ccss_save_file($apireq['css'], $trule[1], $oldccssfile, TRUE);
             $jprops['jqstat'] = $apireq['status'];
             $jprops['jrstat'] = $apireq['resultStatus'];
             $jprops['jvstat'] = $apireq['validationStatus'];
@@ -283,22 +283,10 @@ function ao_ccss_queue_control() {
         update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw);
         ao_ccss_log('Queue updated by job id <' . $jprops['ljid'] . '>', 3);
 
-        // Update rules
+        // Update target rule
         if ($rule_update) {
           ao_ccss_rule_update($jprops['ljid'], $jprops['rtarget'], $jprops['file'], $jprops['hash']);
           ao_ccss_log('Job id <' . $jprops['ljid'] . '> updated the target rule <' . $jprops['rtarget'] . '>', 3);
-
-          // Remove old critical CSS if a previous one existed in the rule and if that file exists in filesystem
-          // NOTE: out of scope critical CSS file removal (issue #5)
-          if ($oldccssfile) {
-            $filetoremove = AO_CCSS_DIR . $oldccssfile;
-            if (file_exists($filetoremove)) {
-              $unlinkst = unlink($filetoremove);
-              if ($unlinkst) {
-                ao_ccss_log('Job id <' . $jprops['ljid'] . '> removed the previous critical CSS file <' . $oldccssfile . '> for the rule <' . $jprops['rtarget'] . '>', 3);
-              }
-            }
-          }
         }
 
       // Or log no queue action
@@ -504,7 +492,7 @@ function ao_ccss_api_results($jobid, $debug, $dcode) {
 }
 
 // Save critical CSS into the filesystem and return its filename
-function ao_ccss_save_file($ccss, $target, $review) {
+function ao_ccss_save_file($ccss, $target, $oldfile, $review) {
 
   // Prepare reivew mark
   if ($review) {
@@ -529,6 +517,18 @@ function ao_ccss_save_file($ccss, $target, $review) {
     if (!$status) {
       ao_ccss_log('Critical CSS file <' . $filename . '> could not be not saved', 2);
       $filename = FALSE;
+    }
+  }
+
+  // Remove old critical CSS if a previous one existed in the rule and if that file exists in filesystem
+  // NOTE: out of scope critical CSS file removal (issue #5)
+  if ($oldfile) {
+    $delfile = AO_CCSS_DIR . $oldfile;
+    if (file_exists($delfile)) {
+      $unlinkst = unlink($delfile);
+      if ($unlinkst) {
+        ao_ccss_log('Job id <' . $jprops['ljid'] . '> removed the previous critical CSS file <' . $oldfile . '> for the rule <' . $target . '>', 3);
+      }
     }
   }
 
