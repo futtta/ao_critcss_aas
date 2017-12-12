@@ -8,9 +8,9 @@ function ao_ccss_enqueue($hash) {
   $enqueue = TRUE;
   // ...which are not the ones bellow
   // NOTE: out of scope check for allowed job enqueuing
-  if (is_user_logged_in() || is_feed() || (defined('DOING_AJAX') && DOING_AJAX) || ao_ccss_ua()) {
+  if (is_user_logged_in() || is_feed() || is_404() || (defined('DOING_AJAX') && DOING_AJAX) || ao_ccss_ua()) {
     $enqueue = FALSE;
-    ao_ccss_log("Job queuing is not available for WordPress's logged in users, feeds and ajax calls and to criticalcss.com itself", 3);
+    ao_ccss_log("Job queuing is not available for WordPress's logged in users, feeds, error pages, ajax calls and to criticalcss.com itself", 3);
   }
 
   // Continue if queue is available
