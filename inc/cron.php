@@ -262,7 +262,7 @@ function ao_ccss_queue_control() {
       } elseif ($jprops['jqstat'] == 'JOB_DONE' && ($jprops['jrstat'] == '' || $jprops['jrstat'] == 'GOOD') && ($jprops['jvstat'] == '' || $jprops['jvstat'] == 'GOOD')) {
         $deljob = TRUE;
         $update = TRUE;
-        ao_ccss_log('Job id <' . $jprops['ljid'] . '> is DONE, removing it', 3);
+        ao_ccss_log('Job id <' . $jprops['ljid'] . '> is DONE with good results, removing it', 3);
       }
 
       // Persist updated queue object
