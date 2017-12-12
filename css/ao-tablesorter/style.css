@@ -22,7 +22,7 @@ table.tablesorter tbody td {
   color: #444;
   padding: 4px;
   background-color: #fff;
-  vertical-align: top;
+  vertical-align: middle;
 }
 table.tablesorter tbody tr.even td,
 table.tablesorter tbody tr:nth-child(even) td {

@@ -184,11 +184,6 @@ p.rules-btn {
   table-layout: fixed;
   border-collapse: collapse;
 }
-.queue th,
-.queue td {
-  overflow: hidden;
-  white-space: nowrap;
-}
 .queue .job td {
   border-bottom: 1px solid #ccc;
 }
