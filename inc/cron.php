@@ -289,6 +289,7 @@ function ao_ccss_queue_control() {
           ao_ccss_log('Job id <' . $jprops['ljid'] . '> updated the target rule <' . $jprops['rtarget'] . '>', 3);
 
           // Remove old critical CSS if a previous one existed in the rule and if that file exists in filesystem
+          // NOTE: out of scope critical CSS file removal (issue #5)
           if ($oldccssfile) {
             $filetoremove = AO_CCSS_DIR . $oldccssfile;
             if (file_exists($filetoremove) {
