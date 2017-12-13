@@ -60,14 +60,14 @@ function ao_ccss_settings() {
         // If a usable key status is in place, render other panels
         if ($key_status == 'valid' || $key_status == 'waiting') {
 
-          // Render advanced section
-          ao_ccss_render_adv();
-
           // Render rules section
           ao_ccss_render_rules();
 
-          // Render rules section
+          // Render queue section
           ao_ccss_render_queue();
+
+          // Render advanced section
+          ao_ccss_render_adv();
         } ?>
 
         <p class="submit left">
