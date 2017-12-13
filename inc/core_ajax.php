@@ -152,7 +152,6 @@ function ao_ccss_export_callback() {
   $settings             = array();
   $settings['key']      = get_option('autoptimize_ccss_key');
   $settings['rules']    = get_option('autoptimize_ccss_rules');
-  $settings['queue']    = get_option('autoptimize_ccss_queue');
   $settings['viewport'] = get_option('autoptimize_ccss_viewport');
   $settings['debug']    = get_option('autoptimize_ccss_debug');
 
@@ -243,7 +242,6 @@ function ao_ccss_import_callback() {
         // Update options
         update_option('autoptimize_ccss_key',      $settings['key']);
         update_option('autoptimize_ccss_rules',    $settings['rules']);
-        update_option('autoptimize_ccss_queue',    $settings['queue']);
         update_option('autoptimize_ccss_viewport', $settings['viewport']);
         update_option('autoptimize_ccss_debug',    $settings['debug']);
 
