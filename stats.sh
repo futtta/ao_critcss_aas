@@ -42,14 +42,14 @@ STATS+="I18|$I18_FILES|$I18_SIZE"$'\n'
 STATS+="--------|--------|--------"$'\n'
 STATS+="**SUM:**|**$FILE_SUM**|**$SIZE_SUM**"
 
-SPEC_ITEMS=$(grep -nr "NOTE: implements section" --exclude=\*.{md,sh} | sort -dV)
+SPEC_ITEMS=$(grep -nr "NOTE: implements section" --exclude=\*.{md,sh} --exclude-dir=.git | sort -dV)
 
 STATS+=$'\n'$'\n'"### Spec Items"$'\n'$'\n'
 STATS+='```'$'\n'
 STATS+="$SPEC_ITEMS"$'\n'
 STATS+='```'
 
-OUTSCOPE_ITEMS=$(grep -nr "NOTE: out of scope" --exclude=\*.{md,sh} | sort -dV)
+OUTSCOPE_ITEMS=$(grep -nr "NOTE: out of scope" --exclude=\*.{md,sh} --exclude-dir=.git | sort -dV)
 
 STATS+=$'\n'$'\n'"### Out of Scope Items"$'\n'$'\n'
 STATS+='```'$'\n'
