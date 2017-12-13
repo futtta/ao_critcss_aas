@@ -45,6 +45,9 @@ require_once('inc/admin_settings_queue.php');
 require_once('inc/admin_settings_adv.php');
 require_once('inc/cron.php');
 
+// Define plugin version
+define('AO_CCSS_VER', '0.dev');
+
 // Define a constant with the directory to store critical CSS in
 if (is_multisite()) {
   $blog_id = get_current_blog_id();

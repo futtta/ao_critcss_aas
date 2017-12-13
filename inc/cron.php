@@ -383,8 +383,9 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
   $url  = esc_url_raw(AO_CCSS_API . 'generate');
   $args = array(
     'headers' => array(
+      'User-Agent'    => 'Autoptimize CriticalCSS Power-Up v' . AO_CCSS_VER,
       'Content-type'  => 'application/json; charset=utf-8',
-      'authorization' => 'JWT ' . $key,
+      'Authorization' => 'JWT ' . $key,
       'Connection'    => 'close'
     ),
     // Body must be JSON
@@ -471,7 +472,8 @@ function ao_ccss_api_results($jobid, $debug, $dcode) {
   $url  = AO_CCSS_API . 'results?resultId=' . $jobid;
   $args = array(
     'headers' => array(
-      'authorization' => 'JWT ' . $key,
+      'User-Agent'    => 'Autoptimize CriticalCSS Power-Up v' . AO_CCSS_VER,
+      'Authorization' => 'JWT ' . $key,
       'Connection'    => 'close'
     ),
   );

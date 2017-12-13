@@ -54,12 +54,12 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 **Language**|**Files**|**Blank Lines**|**Comments**|**Functional Code**
 :-------|-------:|-------:|-------:|-------:
-PHP|15|427|435|2010
+PHP|15|428|436|2013
 CSS|2|6|8|375
 JavaScript|2|13|2|112
 Bourne Shell|2|18|0|59
 --------|--------|--------|--------|--------
-**SUM:**|**21**|**464**|**445**|**2556**
+**SUM:**|**21**|**465**|**446**|**2559**
 
 ### Media and Other
 
@@ -87,7 +87,7 @@ inc/cron.php:3:// NOTE: implements section 4 of the specs
 inc/cron.php:90:      // NOTE: implements section 4, id 3.1 of the specs
 inc/cron.php:148:      // NOTE: implements section 4, id 3.2 of the specs
 inc/cron.php:270:      // NOTE: implements section 4, id 3.2.1 of the specs
-inc/cron.php:562:// NOTE: implements section 4, id 3.2.1 of the specs
+inc/cron.php:564:// NOTE: implements section 4, id 3.2.1 of the specs
 ```
 
 ### Out of Scope Items
@@ -102,8 +102,8 @@ inc/core_enqueue.php:10:  // NOTE: out of scope check for allowed job enqueuing 
 inc/core_enqueue.php:274:// NOTE: out of scope check for criticalcss.com UA
 inc/cron.php:37:  // NOTE: out of scope queue debug
 inc/cron.php:262:      // NOTE: out of scope DONE job removal (issue #4)
-inc/cron.php:546:  // NOTE: out of scope critical CSS file removal (issue #5)
-inc/cron.php:621:// NOTE: out of scope plugin maintenanc
+inc/cron.php:548:  // NOTE: out of scope critical CSS file removal (issue #5)
+inc/cron.php:623:// NOTE: out of scope plugin maintenanc
 languages/ao_critcss_aas.pot:3:# NOTE: out of scope localization template
 languages/autoptimize-pt_BR.po:1:# NOTE: out of scope pt-BR localization
 ```
