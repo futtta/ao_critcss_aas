@@ -7,7 +7,6 @@ function ao_ccss_settings() {
 
   // Attach globals
   global $ao_css_defer;
-  global $ao_ccss_key;
   global $ao_ccss_debug;
 
   ?>
@@ -56,9 +55,9 @@ function ao_ccss_settings() {
         <?php settings_fields('ao_ccss_options_group');
 
         // Verify and render license section
-        $key_status = ao_ccss_validate_key($ao_ccss_key, TRUE);
+        $key_status = ao_ccss_key_status(TRUE);
 
-        // If key status is valid, render other settings panels
+        // If a usable key status is in place, render other panels
         if ($key_status == 'valid' || $key_status == 'waiting') {
 
           // Render advanced section

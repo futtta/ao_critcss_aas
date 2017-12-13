@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Autoptimize Power-Up: CriticalCSS 0.dev\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ao_critcss_aas\n"
-"POT-Creation-Date: 2017-12-13 01:04:13+00:00\n"
+"POT-Creation-Date: 2017-12-13 17:40:24+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,45 +13,45 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: ao_criticss_aas.php:103
+#: ao_criticss_aas.php:108
 msgid "CriticalCSS"
 msgstr ""
 
-#: inc/admin_settings.php:17
+#: inc/admin_settings.php:16
 msgid "Autoptimize Settings: CriticalCSS Power-Up"
 msgstr ""
 
-#: inc/admin_settings.php:30
+#: inc/admin_settings.php:29
 msgid ""
 "Could not create the required directory. Make sure the webserver can write "
 "to the wp-content directory."
 msgstr ""
 
-#: inc/admin_settings.php:38
+#: inc/admin_settings.php:37
 msgid "Oops! Please install and activate Autoptimize first."
 msgstr ""
 
-#: inc/admin_settings.php:43
+#: inc/admin_settings.php:42
 msgid ""
 "Oops! Please <strong>activate the \"Inline and Defer CSS\" option</strong> "
 "on Autoptimize's main settings page to use this power-up."
 msgstr ""
 
-#: inc/admin_settings.php:48
+#: inc/admin_settings.php:47
 msgid ""
 "Oops! It looks you need to upgrade to Autoptimize 2.2.0 or higher to use "
 "this CriticCSS Power-Up."
 msgstr ""
 
-#: inc/admin_settings.php:75
+#: inc/admin_settings.php:74
 msgid "Save Changes"
 msgstr ""
 
-#: inc/admin_settings.php:80
+#: inc/admin_settings.php:79
 msgid "Export Settings"
 msgstr ""
 
-#: inc/admin_settings.php:81
+#: inc/admin_settings.php:80
 msgid "Import Settings"
 msgstr ""
 
@@ -154,51 +154,61 @@ msgstr ""
 msgid "Posted %s"
 msgstr ""
 
-#: inc/admin_settings_license.php:20
+#: inc/admin_settings_license.php:23
 msgid "Valid"
 msgstr ""
 
-#: inc/admin_settings_license.php:36
+#: inc/admin_settings_license.php:32
+msgid "Invalid"
+msgstr ""
+
+#: inc/admin_settings_license.php:34
+msgid ""
+"Your API key is invalid. Please enter a valid <a href=\"https://criticalcss."
+"com/\" target=\"_blank\">criticalcss.com</a> key."
+msgstr ""
+
+#: inc/admin_settings_license.php:41
 msgid "Waiting Validation"
 msgstr ""
 
-#: inc/admin_settings_license.php:38
+#: inc/admin_settings_license.php:43
 msgid ""
 "Your API key is waiting for validation. It will be <strong>validated "
 "automatically</strong> when the first job in the queue run successfully."
 msgstr ""
 
-#: inc/admin_settings_license.php:52 inc/admin_settings_queue.js.php:49
+#: inc/admin_settings_license.php:50 inc/admin_settings_queue.js.php:49
 #: inc/admin_settings_queue.js.php:56
 msgid "None"
 msgstr ""
 
-#: inc/admin_settings_license.php:54
+#: inc/admin_settings_license.php:52
 msgid ""
-"Please, enter a valid <a href=\"https://criticalcss.com/\" target=\"_blank"
+"Please enter a valid <a href=\"https://criticalcss.com/\" target=\"_blank"
 "\">criticalcss.com</a> API key to start."
 msgstr ""
 
-#: inc/admin_settings_license.php:70
+#: inc/admin_settings_license.php:68
 msgid "API Key"
 msgstr ""
 
-#: inc/admin_settings_license.php:91
+#: inc/admin_settings_license.php:89
 msgid "Your API Key"
 msgstr ""
 
-#: inc/admin_settings_license.php:94
+#: inc/admin_settings_license.php:92
 msgid "Please enter your criticalcss.com API key here..."
 msgstr ""
 
-#: inc/admin_settings_license.php:96
+#: inc/admin_settings_license.php:94
 msgid ""
 "Enter your <a href=\"https://criticalcss.com/account/api-keys\" target="
-"\"_blank\">criticalcss.com</a> API key above. The license is validated every "
-"24h.<br />To obtain your license key, go to <a href=\"https://criticalcss."
-"com/account/api-keys\" target=\"_blank\">criticalcss.com</a> > Account > API "
-"Keys.<br /><strong>Requests to generate CriticalCSS via the API are priced "
-"at £5 per domain per month.</strong>"
+"\"_blank\">criticalcss.com</a> API key above. The key is validated every "
+"time a new job is created there.<br />To obtain your API key, go to <a href="
+"\"https://criticalcss.com/account/api-keys\" target=\"_blank\">criticalcss."
+"com</a> > Account > API Keys.<br /><strong>Requests to generate a critical "
+"CSS via the API are priced at £5 per domain per month.</strong>"
 msgstr ""
 
 #: inc/admin_settings_queue.js.php:48

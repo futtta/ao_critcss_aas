@@ -3,22 +3,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Autoptimize Power-Up: CriticalCSS 0.dev\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ao_critcss_aas\n"
-"POT-Creation-Date: 2017-12-13 01:04+0000\n"
+"POT-Creation-Date: 2017-12-13 17:40+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-12-13 01:06+0000\n"
+"PO-Revision-Date: 2017-12-13 17:44+0000\n"
 "Last-Translator: Deny Dias <https://mexapi.macpress.com.br/about>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "Language: pt-BR\n"
 "Plural-Forms: nplurals=2; plural=n != 1\n"
 "X-Generator: Loco - https://localise.biz/"
 
-#: ao_criticss_aas.php:103
+#: ao_criticss_aas.php:108
 msgid "CriticalCSS"
 msgstr ""
 
-#: inc/admin_settings.php:17
+#: inc/admin_settings.php:16
 msgid "Autoptimize Settings: CriticalCSS Power-Up"
 msgstr ""
 
@@ -30,24 +30,47 @@ msgstr ""
 msgid "WordPress"
 msgstr ""
 
+#: inc/admin_settings_license.php:32
+msgid "Invalid"
+msgstr "Inválida"
+
+#: inc/admin_settings_license.php:34
+msgid ""
+"Your API key is invalid. Please enter a valid <a href=\"https://criticalcss."
+"com/\" target=\"_blank\">criticalcss.com</a> key."
+msgstr ""
+"Sua chave da API é inválida. Por favor, digite uma chave do <a href=\"https:"
+"//criticalcss.com/\" target=\"_blank\">criticalcss.com</a> válida."
+
+#: inc/admin_settings_license.php:52
+msgid ""
+"Please enter a valid <a href=\"https://criticalcss.com/\" target=\"_blank\">"
+"criticalcss.com</a> API key to start."
+msgstr ""
+"Por favor, digite uma chave do <a href=\"https://criticalcss.com/\" "
+"target=\"_blank\">criticalcss.com</a> válida para começar."
+
+#: inc/admin_settings_license.php:94
+msgid ""
+"Enter your <a href=\"https://criticalcss.com/account/api-keys\" "
+"target=\"_blank\">criticalcss.com</a> API key above. The key is validated "
+"every time a new job is created there.<br />To obtain your API key, go to <a "
+"href=\"https://criticalcss.com/account/api-keys\" target=\"_blank\">"
+"criticalcss.com</a> > Account > API Keys.<br /><strong>Requests to generate "
+"a critical CSS via the API are priced at £5 per domain per month.</strong>"
+msgstr ""
+"Digite acima uma chave de API do <a href=\"https://criticalcss.com/\" "
+"target=\"_blank\">criticalcss.com</a> válida. A chave é validada toda vez "
+"que um novo job é criado lá.<br />Para obter sua chave de API, vá em <a "
+"href=\"https://criticalcss.com/account/api-keys\" target=\"_blank\">"
+"criticalcss.com</a> > Account > API Keys.<br /><strong>Requisições para "
+"gerar um CSS crítico via API tem preço de £5 (cinco libras esterlinas) por "
+"domínio, por mês.</strong>"
+
 #: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
 #: inc/admin_settings_queue.js.php:88
 msgid "- Job ID: "
 msgstr ""
-
-#: inc/admin_settings_queue.php:41
-msgid ""
-"Autoptimize CriticalCSS Power-Up constantly query the queue for <span "
-"class='badge new'>N</span> jobs. When it finds one, gears spins and jobs "
-"becomes <span class='badge pending'>P</span> while they are running and <a "
-"href='https://criticalcss.com/' target='_blank'>criticalcss.com</a> doesn't "
-"return a result."
-msgstr ""
-"O Autoptimize CriticalCSS Power-Up procura na fila os jobs com estado <span "
-"class='badge new'>N</span>. Quando os encontra, ela os executa e eles passam "
-"a ter o estado <span class='badge pending'>P</span> enquanto o <a "
-"href='https://criticalcss.com/' target='_blank'>criticalcss.com</a> não "
-"retorna um resultado."
 
 #: inc/admin_settings_rules.js.php:45
 msgid "MANUAL"
@@ -56,10 +79,6 @@ msgstr ""
 #: inc/admin_settings_rules.js.php:48
 msgid "AUTO"
 msgstr ""
-
-#: inc/cron.php:9
-msgid "Every 10 Minutes"
-msgstr "A Cada 10 Minutos"
 
 #. Plugin Name of the plugin/theme
 msgid "Autoptimize Power-Up: CriticalCSS"
@@ -73,7 +92,7 @@ msgstr ""
 msgid "http://optimizingmatters.com/"
 msgstr ""
 
-#: inc/admin_settings.php:30
+#: inc/admin_settings.php:29
 msgid ""
 "Could not create the required directory. Make sure the webserver can write "
 "to the wp-content directory."
@@ -81,11 +100,11 @@ msgstr ""
 "Não foi possível criar o diretório. Certifique-se de que o servidor web pode "
 "escrever no diretório wp-content."
 
-#: inc/admin_settings.php:38
+#: inc/admin_settings.php:37
 msgid "Oops! Please install and activate Autoptimize first."
 msgstr "Opa! Primeiro instale e ative o Autoptimize."
 
-#: inc/admin_settings.php:43
+#: inc/admin_settings.php:42
 msgid ""
 "Oops! Please <strong>activate the \"Inline and Defer CSS\" option</strong> "
 "on Autoptimize's main settings page to use this power-up."
@@ -93,7 +112,7 @@ msgstr ""
 "Opa! <strong>Ative a opção \"Inline and Defer CSS\"</strong> na página de "
 "configurações principais do Autoptimize para usar esta extensão."
 
-#: inc/admin_settings.php:48
+#: inc/admin_settings.php:47
 msgid ""
 "Oops! It looks you need to upgrade to Autoptimize 2.2.0 or higher to use "
 "this CriticCSS Power-Up."
@@ -101,15 +120,15 @@ msgstr ""
 "Opa! Parece que você precisa atualizar o Autoptimize para a versão 2.2.0 ou "
 "superior para usar esta extensão."
 
-#: inc/admin_settings.php:75
+#: inc/admin_settings.php:74
 msgid "Save Changes"
 msgstr "Salvar Mudanças"
 
-#: inc/admin_settings.php:80
+#: inc/admin_settings.php:79
 msgid "Export Settings"
 msgstr "Exportar Configurações"
 
-#: inc/admin_settings.php:81
+#: inc/admin_settings.php:80
 msgid "Import Settings"
 msgstr "Importar Configurações"
 
@@ -213,15 +232,15 @@ msgstr "Nada aqui"
 msgid "Posted %s"
 msgstr "Publicado %s"
 
-#: inc/admin_settings_license.php:20
+#: inc/admin_settings_license.php:23
 msgid "Valid"
 msgstr "Válida"
 
-#: inc/admin_settings_license.php:36
+#: inc/admin_settings_license.php:41
 msgid "Waiting Validation"
 msgstr "Aguardando Validação"
 
-#: inc/admin_settings_license.php:38
+#: inc/admin_settings_license.php:43
 msgid ""
 "Your API key is waiting for validation. It will be <strong>validated "
 "automatically</strong> when the first job in the queue run successfully."
@@ -230,46 +249,22 @@ msgstr ""
 "automaticamente</strong> quando o primeiro job da fila for executado com "
 "sucesso."
 
-#: inc/admin_settings_license.php:52 inc/admin_settings_queue.js.php:49
+#: inc/admin_settings_license.php:50 inc/admin_settings_queue.js.php:49
 #: inc/admin_settings_queue.js.php:56
 msgid "None"
 msgstr "Nenhum"
 
-#: inc/admin_settings_license.php:54
-msgid ""
-"Please, enter a valid <a href=\"https://criticalcss.com/\" target=\"_blank\">"
-"criticalcss.com</a> API key to start."
-msgstr ""
-"Por favor, digite uma chave de API do <a href=\"https://criticalcss.com/\" "
-"target=\"_blank\">criticalcss.com</a> para começar."
-
-#: inc/admin_settings_license.php:70
+#: inc/admin_settings_license.php:68
 msgid "API Key"
 msgstr "Chave de API"
 
-#: inc/admin_settings_license.php:91
+#: inc/admin_settings_license.php:89
 msgid "Your API Key"
 msgstr "Sua Chave de API"
 
-#: inc/admin_settings_license.php:94
+#: inc/admin_settings_license.php:92
 msgid "Please enter your criticalcss.com API key here..."
 msgstr "Digite sua chave de API do criticalcss.com aqui..."
-
-#: inc/admin_settings_license.php:96
-msgid ""
-"Enter your <a href=\"https://criticalcss.com/account/api-keys\" "
-"target=\"_blank\">criticalcss.com</a> API key above. The license is "
-"validated every 24h.<br />To obtain your license key, go to <a href=\"https:"
-"//criticalcss.com/account/api-keys\" target=\"_blank\">criticalcss.com</a> > "
-"Account > API Keys.<br /><strong>Requests to generate CriticalCSS via the "
-"API are priced at £5 per domain per month.</strong>"
-msgstr ""
-"Digite sua chave de API do <a href=\"https://criticalcss.com/account/api-"
-"keys\" target=\"_blank\">criticalcss.com</a> acima. A licença é validada a "
-"cada 24 horas.<br />Para obter sua chave de licença, acesse <a href=\"https:"
-"//criticalcss.com/account/api-keys\" target=\"_blank\">criticalcss.com</a>  >"
-" Account > API Keys.<br /><strong>O uso da API custa £5 por domínio, por mês."
-"</strong>"
 
 #: inc/admin_settings_queue.js.php:48
 msgid "NEW"
@@ -408,6 +403,20 @@ msgstr ""
 "nenhuma regra <span class=\"badge manual\">MANUAL</span> que combine ou o "
 "CSS de uma regra <span class=\"badge auto\">AUTO</span> foi alterado), um "
 "job <span class=\"badge new\">N</span> é criado na fila."
+
+#: inc/admin_settings_queue.php:41
+msgid ""
+"Autoptimize CriticalCSS Power-Up constantly query the queue for <span "
+"class='badge new'>N</span> jobs. When it finds one, gears spins and jobs "
+"becomes <span class='badge pending'>P</span> while they are running and <a "
+"href='https://criticalcss.com/' target='_blank'>criticalcss.com</a> doesn't "
+"return a result."
+msgstr ""
+"O Autoptimize CriticalCSS Power-Up procura na fila os jobs com estado <span "
+"class='badge new'>N</span>. Quando os encontra, ela os executa e eles passam "
+"a ter o estado <span class='badge pending'>P</span> enquanto o <a "
+"href='https://criticalcss.com/' target='_blank'>criticalcss.com</a> não "
+"retorna um resultado."
 
 #: inc/admin_settings_queue.php:42
 msgid ""
@@ -799,6 +808,10 @@ msgstr "Adicionar Regra"
 #: inc/admin_settings_rules.php:164
 msgid "Edit Default Critical CSS"
 msgstr "Editar CSS Crítico Padrão"
+
+#: inc/cron.php:9
+msgid "Every 10 Minutes"
+msgstr "A Cada 10 Minutos"
 
 #. Description of the plugin/theme
 msgid ""

@@ -5,7 +5,7 @@
 // Add a 5 seconds interval to WP-Cron
 function ao_ccss_interval($schedules) {
    $schedules['10min'] = array(
-      'interval' => 600,
+      'interval' => 5,
       'display' => __('Every 10 Minutes')
    );
    return $schedules;
@@ -115,7 +115,6 @@ function ao_ccss_queue_control() {
           // NOTE: All the following conditions maps to the ones in admin_settings_queue.js.php
 
           // Request has a valid result
-          // Process a PENDING job
           if ($apireq['job']['status'] == 'JOB_QUEUED' || $apireq['job']['status'] == 'JOB_ONGOING') {
 
             // Update job properties
@@ -123,7 +122,16 @@ function ao_ccss_queue_control() {
             $jprops['jqstat'] = $apireq['job']['status'];
             ao_ccss_log('Job id <' . $jprops['ljid'] . '> generation request successful, remote id <' . $jprops['jid'] . '>, status now is <' . $jprops['jqstat'] . '>', 3);
 
-          // Request has failed
+          // Key validation error
+          } elseif ($apireq['errorCode'] == 'INVALID_JWT_TOKEN') {
+
+            // Update job properties
+            $jprops['jqstat'] = $apireq['errorCode'];
+            $jprops['jrstat'] = $apireq['error'];
+            $jprops['jvstat'] = 'ERROR';
+            ao_ccss_log('API key validation error when processing job id <' . $jprops['ljid'] . '>, job status is now <' . $jprops['jqstat'] . '>', 2);
+
+          // Request with a general expection
           } else {
 
             // Update job properties
@@ -376,8 +384,9 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
 
   // Get key and key status
   global $ao_ccss_key;
+  global $ao_ccss_keyst;
   $key        = $ao_ccss_key;
-  $key_status = get_transient('autoptimize_ccss_key_status_' . md5($key));
+  $key_status = $ao_ccss_keyst;
 
   // Prepare the request
   $url  = esc_url_raw(AO_CCSS_API . 'generate');
@@ -425,8 +434,8 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
 
       // This code also means the key is valid, so cache key status for 24h if not already cached
       if (!$key_status && $key) {
-        set_transient("autoptimize_ccss_key_status_" . md5($key), TRUE, DAY_IN_SECONDS);
-        ao_ccss_log('criticalcss.com API key is valid, caching key status for 24h', 3);
+        update_option('autoptimize_ccss_keyst', 2);
+        ao_ccss_log('criticalcss.com: API key is valid, updating key status', 3);
       }
 
       // Return the request body
@@ -448,16 +457,12 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
 
     // If request is unauthorized, also clear key status
     if ($code == 401) {
-      $wpdb->query("
-        DELETE FROM $wpdb->options
-        WHERE option_name LIKE ('_transient_autoptimize_ccss_key_status_%')
-          OR option_name LIKE ('_transient_timeout_autoptimize_ccss_key_status_%')
-      ");
-      ao_ccss_log('criticalcss.com API key is invalid, key status cleared', 3);
+      update_option('autoptimize_ccss_keyst', 1);
+      ao_ccss_log('criticalcss.com: API key is invalid, updating key status', 3);
     }
 
-    // Jst return false for request erros
-    return FALSE;
+    // Return the request body
+    return $body;
   }
 }
 

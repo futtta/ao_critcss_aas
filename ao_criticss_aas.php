@@ -10,13 +10,14 @@ Text Domain: autoptimize
 */
 
 // Get options
-$ao_css_defer        = get_option('autoptimize_css_defer', FALSE);
+$ao_css_defer        = get_option('autoptimize_css_defer'       , FALSE);
 $ao_css_defer_inline = get_option('autoptimize_css_defer_inline');
-$ao_ccss_key         = get_option('autoptimize_ccss_key');
-$ao_ccss_rules_raw   = get_option('autoptimize_ccss_rules', FALSE);
-$ao_ccss_queue_raw   = get_option('autoptimize_ccss_queue', FALSE);
-$ao_ccss_viewport    = get_option('autoptimize_ccss_viewport', FALSE);
-$ao_ccss_debug       = get_option('autoptimize_ccss_debug', FALSE);
+$ao_ccss_key         = get_option('autoptimize_ccss_key'        );
+$ao_ccss_keyst       = get_option('autoptimize_ccss_keyst'      );
+$ao_ccss_rules_raw   = get_option('autoptimize_ccss_rules'      , FALSE);
+$ao_ccss_queue_raw   = get_option('autoptimize_ccss_queue'      , FALSE);
+$ao_ccss_viewport    = get_option('autoptimize_ccss_viewport'   , FALSE);
+$ao_ccss_debug       = get_option('autoptimize_ccss_debug'      , FALSE);
 
 
 // Setup the rules array
@@ -69,6 +70,7 @@ define('AO_CCSS_API', AO_CCSS_URL . '/api/premium/');
 function ao_ccss_settings_init() {
   $hook = add_submenu_page(NULL, 'Autoptimize CriticalCSS Power-Up', 'Autoptimize CriticalCSS Power-Up', 'manage_options', 'ao_ccss_settings', 'ao_ccss_settings');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_key');
+  register_setting('ao_ccss_options_group', 'autoptimize_ccss_keyst');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_rules');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_queue');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_viewport');
@@ -115,11 +117,12 @@ function ao_ccss_activation() {
   mkdir(AO_CCSS_DIR, 0755);
 
   // Create options with empty values
-  add_option('autoptimize_ccss_key', '', '', 'no');
-  add_option('autoptimize_ccss_rules', '', '', 'no');
-  add_option('autoptimize_ccss_queue', '', '', 'no');
+  add_option('autoptimize_ccss_key'     , '', '', 'no');
+  add_option('autoptimize_ccss_keyst'   , '', '', 'no');
+  add_option('autoptimize_ccss_rules'   , '', '', 'no');
+  add_option('autoptimize_ccss_queue'   , '', '', 'no');
   add_option('autoptimize_ccss_viewport', '', '', 'no');
-  add_option('autoptimize_ccss_debug', '', '', 'no');
+  add_option('autoptimize_ccss_debug'   , '', '', 'no');
 
   // Create a scheduled event for the queue
   if (!wp_next_scheduled('ao_ccss_queue')) {
@@ -138,6 +141,7 @@ function ao_ccss_deactivation() {
 
   // Delete options
   delete_option('autoptimize_ccss_key');
+  delete_option('autoptimize_ccss_keyst');
   delete_option('autoptimize_ccss_rules');
   delete_option('autoptimize_ccss_queue');
   delete_option('autoptimize_ccss_viewport');

@@ -2,18 +2,21 @@
 
 // NOTE: implements section 4, id 4.1 of the specs
 
-// Validate critical.css API key
-function ao_ccss_validate_key($key, $renderpanel) {
+// Get critical.css API key status
+function ao_ccss_key_status($renderpanel) {
 
   // Attach wpdb
   global $wpdb;
 
-  // Get key status and set default return status
-  $key_status = get_transient('autoptimize_ccss_key_status_' . md5($key));
+  // Get key and key status
+  global $ao_ccss_key;
+  global $ao_ccss_keyst;
+  $key        = $ao_ccss_key;
+  $key_status = $ao_ccss_keyst;
   $status     = FALSE;
 
   // Key exists and its status is valid
-  if ($key && $key_status) {
+  if ($key && $key_status == 2) {
 
     // Set valid key status
     $status     = 'valid';
@@ -21,15 +24,17 @@ function ao_ccss_validate_key($key, $renderpanel) {
     $color      = '#46b450'; // Green
     $message    = NULL;
 
-  // Key exists but it has no status, so it's 
-  } elseif ($key && !$key_status) {
+  // Key exists but its validation has failed
+  } elseif ($key && $key_status == 1) {
 
-    // Delete cached status for all keys
-    $wpdb->query("
-      DELETE FROM $wpdb->options
-      WHERE option_name LIKE ('_transient_autoptimize_ccss_key_status_%')
-          OR option_name LIKE ('_transient_timeout_autoptimize_ccss_key_status_%')
-    ");
+    // Set error status
+    $status     = 'invalid';
+    $status_msg = __('Invalid');
+    $color      = '#dc3232'; // Red
+    $message    = __('Your API key is invalid. Please enter a valid <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> key.', 'autoptimize');
+
+  // Key exists but it has no valid status yet
+  } elseif ($key && !$key_status) {
 
     // Set waiting validation status
     $status     = 'waiting';
@@ -40,18 +45,11 @@ function ao_ccss_validate_key($key, $renderpanel) {
   // No key nor status
   } else {
 
-    // Delete cached status for all keys
-    $wpdb->query("
-      DELETE FROM $wpdb->options
-      WHERE option_name LIKE ('_transient_autoptimize_ccss_key_status_%')
-         OR option_name LIKE ('_transient_timeout_autoptimize_ccss_key_status_%')
-    ");
-
     // Set no key status
     $status     = 'nokey';
     $status_msg = __('None');
     $color      = '#ffb900'; // Yellow
-    $message    = __('Please, enter a valid <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> API key to start.', 'autoptimize');
+    $message    = __('Please enter a valid <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> API key to start.', 'autoptimize');
   }
 
   // Render license panel
@@ -93,7 +91,7 @@ function ao_ccss_render_license($key, $status, $status_msg, $message, $color) { 
             <td>
               <textarea id="autoptimize_ccss_key" name="autoptimize_ccss_key" rows='3' style="width:100%;" placeholder="<?php _e('Please enter your criticalcss.com API key here...', 'autoptimize'); ?>"><?php echo trim($key); ?></textarea>
               <p class="notes">
-                <?php _e('Enter your <a href="https://criticalcss.com/account/api-keys" target="_blank">criticalcss.com</a> API key above. The license is validated every 24h.<br />To obtain your license key, go to <a href="https://criticalcss.com/account/api-keys" target="_blank">criticalcss.com</a> > Account > API Keys.<br /><strong>Requests to generate CriticalCSS via the API are priced at £5 per domain per month.</strong>', 'autoptimize'); ?>
+                <?php _e('Enter your <a href="https://criticalcss.com/account/api-keys" target="_blank">criticalcss.com</a> API key above. The key is validated every time a new job is created there.<br />To obtain your API key, go to <a href="https://criticalcss.com/account/api-keys" target="_blank">criticalcss.com</a> > Account > API Keys.<br /><strong>Requests to generate a critical CSS via the API are priced at £5 per domain per month.</strong>', 'autoptimize'); ?>
               </p>
             </td>
           </tr>
