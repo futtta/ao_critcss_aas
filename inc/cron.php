@@ -5,7 +5,7 @@
 // Add a 5 seconds interval to WP-Cron
 function ao_ccss_interval($schedules) {
    $schedules['10min'] = array(
-      'interval' => 5,
+      'interval' => 600,
       'display' => __('Every 10 Minutes')
    );
    return $schedules;
@@ -102,10 +102,10 @@ function ao_ccss_queue_control() {
           // Set job hash
           $jprops['hash'] = $hash;
 
-          // If this is not the first job, wait 5 seconds before process next job due criticalcss.com API limits
+          // If this is not the first job, wait 15 seconds before process next job due criticalcss.com API limits
           if ($jr > 1) {
-            ao_ccss_log('Wait 5 seconds before process the next job due criticalcss.com limits on API interaction #' . $jr, 3);
-            sleep(10);
+            ao_ccss_log('Wait 15 seconds before process the next job due criticalcss.com limits on API interaction #' . $jr, 3);
+            sleep(15);
           }
 
           // Dispatch the job generation request and increment request count
@@ -131,7 +131,7 @@ function ao_ccss_queue_control() {
             $jprops['jvstat'] = 'ERROR';
             ao_ccss_log('API key validation error when processing job id <' . $jprops['ljid'] . '>, job status is now <' . $jprops['jqstat'] . '>', 2);
 
-          // Request with a general expection
+          // Request with an unhandled exception
           } else {
 
             // Update job properties
@@ -199,8 +199,7 @@ function ao_ccss_queue_control() {
           if ($apireq['resultStatus'] == 'GOOD' && $apireq['validationStatus'] == 'GOOD') {
 
             // Update job properties
-            $oldccssfile      = $jprops['file'];
-            $jprops['file']   = ao_ccss_save_file($apireq['css'], $trule[1], $oldccssfile, FALSE);
+            $jprops['file']   = ao_ccss_save_file($apireq['css'], $trule, FALSE);
             $jprops['jqstat'] = $apireq['status'];
             $jprops['jrstat'] = $apireq['resultStatus'];
             $jprops['jvstat'] = $apireq['validationStatus'];
@@ -212,8 +211,7 @@ function ao_ccss_queue_control() {
           } elseif ($apireq['resultStatus'] == 'GOOD' && ($apireq['validationStatus'] == 'WARN' || $apireq['validationStatus'] == 'BAD')) {
 
             // Update job properties
-            $oldccssfile      = $jprops['file'];
-            $jprops['file']   = ao_ccss_save_file($apireq['css'], $trule[1], $oldccssfile, TRUE);
+            $jprops['file']   = ao_ccss_save_file($apireq['css'], $trule, TRUE);
             $jprops['jqstat'] = $apireq['status'];
             $jprops['jrstat'] = $apireq['resultStatus'];
             $jprops['jvstat'] = $apireq['validationStatus'];
@@ -239,23 +237,24 @@ function ao_ccss_queue_control() {
             $jprops['jrstat'] = $apireq['resultStatus'];
             $jprops['jvstat'] = $apireq['validationStatus'];
             $queue_update     = TRUE;
-            ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successfull but job FAILED, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
+            ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successfull but job is UNKNOWN, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
 
           }
 
         // Process a FAILED job
-        } elseif ($apireq['status'] == 'JOB_FAILED' || $apireq['status'] == 'STATUS_JOB_BAD') {
+        } elseif ($apireq['job']['status'] == 'JOB_FAILED' || $apireq['job']['status'] == 'STATUS_JOB_BAD') {
 
           // Update job properties
-          $jprops['jqstat'] = $apireq['status'];
+          $jprops['jqstat'] = $apireq['job']['status'];
           if ($apireq['error']) {
-            $jprops['jrstat'] = $apireq['error'];
+            $jprops['jrstat'] = $apireq['job']['error'];
           }
+          $jprops['jvstat'] = 'ERROR';
           $jprops['jftime'] = microtime(TRUE);
           ao_ccss_log('Job id <' . $jprops['ljid'] . '> generation request successfull but job FAILED, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
 
-        // Request has failed with an UNKNOWN condition
-        } elseif (empty($apireq) || $apireq['status'] == 'JOB_UNKNOWN') {
+        // Request with an unhandled exception
+        } else {
 
           // Update job properties
           $jprops['jqstat'] = 'JOB_UNKNOWN';
@@ -521,7 +520,7 @@ function ao_ccss_api_results($jobid, $debug, $dcode) {
 }
 
 // Save critical CSS into the filesystem and return its filename
-function ao_ccss_save_file($ccss, $target, $oldfile, $review) {
+function ao_ccss_save_file($ccss, $target, $review) {
 
   // Prepare reivew mark
   if ($review) {
@@ -530,17 +529,17 @@ function ao_ccss_save_file($ccss, $target, $oldfile, $review) {
     $rmark = '';
   }
 
-  // Prepare filename and content
+  // Prepare target rule, filename and content
   $filename = FALSE;
   $content  = stripslashes($ccss);
 
   // Sanitize content, set filename and try to save file
   if (ao_ccss_check_contents($content)) {
-    $file     = AO_CCSS_DIR . 'ccss_' . md5($ccss . $target) . $rmark . '.css';
+    $file     = AO_CCSS_DIR . 'ccss_' . md5($ccss . $target[1]) . $rmark . '.css';
     $status   = file_put_contents($file, $content, LOCK_EX);
     $filename = pathinfo($file, PATHINFO_BASENAME);
 
-    ao_ccss_log('Critical CSS file saved as <' . $filename . '>, size in bytes is <' . $status . ">", 3);
+    ao_ccss_log('Critical CSS file for the rule <' . $target[0] . '|' . $target[1] . '> was saved as <' . $filename . '>, size in bytes is <' . $status . ">", 3);
 
     // If file has not been saved, reset filename
     if (!$status) {
@@ -551,12 +550,19 @@ function ao_ccss_save_file($ccss, $target, $oldfile, $review) {
 
   // Remove old critical CSS if a previous one existed in the rule and if that file exists in filesystem
   // NOTE: out of scope critical CSS file removal (issue #5)
+  // Attach required arrays
+  global $ao_ccss_rules;
+
+  // Prepare rule variables
+  $srule   = $ao_ccss_rules[$target[0]][$target[1]];
+  $oldfile = $srule['file'];
+
   if ($oldfile) {
     $delfile = AO_CCSS_DIR . $oldfile;
     if (file_exists($delfile)) {
       $unlinkst = unlink($delfile);
       if ($unlinkst) {
-        ao_ccss_log('Job id <' . $jprops['ljid'] . '> removed the previous critical CSS file <' . $oldfile . '> for the rule <' . $target . '>', 3);
+        ao_ccss_log('A previous critical CSS file <' . $oldfile . '> was removed for the rule <' . $target[0] . '|' . $target[1] . '>', 3);
       }
     }
   }
