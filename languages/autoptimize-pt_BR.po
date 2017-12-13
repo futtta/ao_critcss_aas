@@ -3,18 +3,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Autoptimize Power-Up: CriticalCSS 0.dev\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ao_critcss_aas\n"
-"POT-Creation-Date: 2017-12-08 10:01+0000\n"
+"POT-Creation-Date: 2017-12-13 01:04+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-12-08 10:49+0000\n"
+"PO-Revision-Date: 2017-12-13 01:06+0000\n"
 "Last-Translator: Deny Dias <https://mexapi.macpress.com.br/about>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "Language: pt-BR\n"
 "Plural-Forms: nplurals=2; plural=n != 1\n"
 "X-Generator: Loco - https://localise.biz/"
 
-#: ao_criticss_aas.php:101
+#: ao_criticss_aas.php:103
 msgid "CriticalCSS"
 msgstr ""
 
@@ -43,11 +43,371 @@ msgid ""
 "href='https://criticalcss.com/' target='_blank'>criticalcss.com</a> doesn't "
 "return a result."
 msgstr ""
-"O Autoptimize CriticalCSS Power-Up monitora constantemente a fila para jobs "
-"<span class='badge new'>N</span>. Quando encontra um, ele começa a ser "
-"executado e seu estado muda para <span class='badge pending'>P</span> "
-"enquanto o <a href='https://criticalcss.com/' target='_blank'>criticalcss."
-"com</a> não retorna um resultado."
+"O Autoptimize CriticalCSS Power-Up procura na fila os jobs com estado <span "
+"class='badge new'>N</span>. Quando os encontra, ela os executa e eles passam "
+"a ter o estado <span class='badge pending'>P</span> enquanto o <a "
+"href='https://criticalcss.com/' target='_blank'>criticalcss.com</a> não "
+"retorna um resultado."
+
+#: inc/admin_settings_rules.js.php:45
+msgid "MANUAL"
+msgstr ""
+
+#: inc/admin_settings_rules.js.php:48
+msgid "AUTO"
+msgstr ""
+
+#: inc/cron.php:9
+msgid "Every 10 Minutes"
+msgstr "A Cada 10 Minutos"
+
+#. Plugin Name of the plugin/theme
+msgid "Autoptimize Power-Up: CriticalCSS"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://optimizingmatters/autoptimize/criticalcss/"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://optimizingmatters.com/"
+msgstr ""
+
+#: inc/admin_settings.php:30
+msgid ""
+"Could not create the required directory. Make sure the webserver can write "
+"to the wp-content directory."
+msgstr ""
+"Não foi possível criar o diretório. Certifique-se de que o servidor web pode "
+"escrever no diretório wp-content."
+
+#: inc/admin_settings.php:38
+msgid "Oops! Please install and activate Autoptimize first."
+msgstr "Opa! Primeiro instale e ative o Autoptimize."
+
+#: inc/admin_settings.php:43
+msgid ""
+"Oops! Please <strong>activate the \"Inline and Defer CSS\" option</strong> "
+"on Autoptimize's main settings page to use this power-up."
+msgstr ""
+"Opa! <strong>Ative a opção \"Inline and Defer CSS\"</strong> na página de "
+"configurações principais do Autoptimize para usar esta extensão."
+
+#: inc/admin_settings.php:48
+msgid ""
+"Oops! It looks you need to upgrade to Autoptimize 2.2.0 or higher to use "
+"this CriticCSS Power-Up."
+msgstr ""
+"Opa! Parece que você precisa atualizar o Autoptimize para a versão 2.2.0 ou "
+"superior para usar esta extensão."
+
+#: inc/admin_settings.php:75
+msgid "Save Changes"
+msgstr "Salvar Mudanças"
+
+#: inc/admin_settings.php:80
+msgid "Export Settings"
+msgstr "Exportar Configurações"
+
+#: inc/admin_settings.php:81
+msgid "Import Settings"
+msgstr "Importar Configurações"
+
+#: inc/admin_settings_adv.php:17
+msgid "Advanced Settings"
+msgstr "Avançado"
+
+#: inc/admin_settings_adv.php:25
+msgid "Viewport Size"
+msgstr "Tamanho da Área Visível"
+
+#: inc/admin_settings_adv.php:28
+msgid "Width"
+msgstr "Largura"
+
+#: inc/admin_settings_adv.php:29
+msgid "Height"
+msgstr "Altura"
+
+#: inc/admin_settings_adv.php:31
+msgid ""
+"<a href=\"https://criticalcss.com/account/api-keys\" target=\"_blank\">"
+"criticalcss.com</a> default viewport size is 1300x900 pixels (width x height)"
+". You can change this size by typing a desired width and height values above."
+" Allowed value ranges are from 800 to 4096 for width and from 600 to 2160 "
+"for height."
+msgstr ""
+"O tamanho padrão da área visível no <a href=\"https://criticalcss."
+"com/account/api-keys\" target=\"_blank\">criticalcss.com</a> é 1300x900 "
+"píxeis. Você pode alterar este tamanho digitando acima a largura e altura "
+"desejada. Os valores permitidos são de 800 a 4096 para a largura e de 600 a "
+"2160 para a altura."
+
+#: inc/admin_settings_adv.php:37
+msgid "Debug Mode"
+msgstr "Modo de Depuração"
+
+#: inc/admin_settings_adv.php:42
+msgid ""
+"<strong>CAUTION! DO NOT use debug mode on production/live environments."
+"</strong><br />Check the box above to enable Autoptimize CriticalCSS Power-"
+"Up debug mode. It provides debug facilities in this screen, to the browser "
+"console and to this file: "
+msgstr ""
+"<strong>Cuidado! NÃO USE o modo de depuração em ambiente de produção."
+"</strong><br />Marque a caixa acima para habilitar o modo de depuração do "
+"Autoptimize CriticalCSS Power-Up. Ele provê métodos de depuração nesta tela, "
+"no console do navegador e para este arquivo:"
+
+#: inc/admin_settings_debug.php:32
+msgid "Debug Information"
+msgstr "Informação de Debug"
+
+#: inc/admin_settings_debug.php:37
+msgid "Options"
+msgstr "Opções"
+
+#: inc/admin_settings_debug.php:65
+msgid "Transients"
+msgstr "Transientes"
+
+#: inc/admin_settings_debug.php:82
+msgid "WP-Cron Intervals"
+msgstr "Intervalos do WP-Cron"
+
+#: inc/admin_settings_debug.php:85
+msgid "WP-Cron Scheduled Events"
+msgstr "Eventos Agendados do WP-Cron"
+
+#: inc/admin_settings_feeds.php:21
+msgid ""
+"Need help? <a href=\"https://wordpress.org/plugins/autoptimize/faq/\">Check "
+"out the FAQ here</a>."
+msgstr "Precisa de ajuda? Leia o FAQ aqui."
+
+#: inc/admin_settings_feeds.php:22
+msgid "Happy with Autoptimize?"
+msgstr "Feliz com o Autoptimize?"
+
+#: inc/admin_settings_feeds.php:22
+msgid "Try my other plugins!"
+msgstr "Teste meus outros plugins!"
+
+#: inc/admin_settings_feeds.php:27
+msgid "futtta about"
+msgstr "Sobre o futta"
+
+#: inc/admin_settings_feeds.php:31
+msgid "Web Technology"
+msgstr "Tecnologia Web"
+
+#: inc/admin_settings_feeds.php:48
+msgid "Do not donate for this plugin!"
+msgstr "Não doe para este plugin!"
+
+#: inc/admin_settings_feeds.php:68
+msgid "No items"
+msgstr "Nada aqui"
+
+#: inc/admin_settings_feeds.php:73
+msgid "Posted %s"
+msgstr "Publicado %s"
+
+#: inc/admin_settings_license.php:20
+msgid "Valid"
+msgstr "Válida"
+
+#: inc/admin_settings_license.php:36
+msgid "Waiting Validation"
+msgstr "Aguardando Validação"
+
+#: inc/admin_settings_license.php:38
+msgid ""
+"Your API key is waiting for validation. It will be <strong>validated "
+"automatically</strong> when the first job in the queue run successfully."
+msgstr ""
+"A chave da API está aguardando ser validade. Ela será <strong>validada "
+"automaticamente</strong> quando o primeiro job da fila for executado com "
+"sucesso."
+
+#: inc/admin_settings_license.php:52 inc/admin_settings_queue.js.php:49
+#: inc/admin_settings_queue.js.php:56
+msgid "None"
+msgstr "Nenhum"
+
+#: inc/admin_settings_license.php:54
+msgid ""
+"Please, enter a valid <a href=\"https://criticalcss.com/\" target=\"_blank\">"
+"criticalcss.com</a> API key to start."
+msgstr ""
+"Por favor, digite uma chave de API do <a href=\"https://criticalcss.com/\" "
+"target=\"_blank\">criticalcss.com</a> para começar."
+
+#: inc/admin_settings_license.php:70
+msgid "API Key"
+msgstr "Chave de API"
+
+#: inc/admin_settings_license.php:91
+msgid "Your API Key"
+msgstr "Sua Chave de API"
+
+#: inc/admin_settings_license.php:94
+msgid "Please enter your criticalcss.com API key here..."
+msgstr "Digite sua chave de API do criticalcss.com aqui..."
+
+#: inc/admin_settings_license.php:96
+msgid ""
+"Enter your <a href=\"https://criticalcss.com/account/api-keys\" "
+"target=\"_blank\">criticalcss.com</a> API key above. The license is "
+"validated every 24h.<br />To obtain your license key, go to <a href=\"https:"
+"//criticalcss.com/account/api-keys\" target=\"_blank\">criticalcss.com</a> > "
+"Account > API Keys.<br /><strong>Requests to generate CriticalCSS via the "
+"API are priced at £5 per domain per month.</strong>"
+msgstr ""
+"Digite sua chave de API do <a href=\"https://criticalcss.com/account/api-"
+"keys\" target=\"_blank\">criticalcss.com</a> acima. A licença é validada a "
+"cada 24 horas.<br />Para obter sua chave de licença, acesse <a href=\"https:"
+"//criticalcss.com/account/api-keys\" target=\"_blank\">criticalcss.com</a>  >"
+" Account > API Keys.<br /><strong>O uso da API custa £5 por domínio, por mês."
+"</strong>"
+
+#: inc/admin_settings_queue.js.php:48
+msgid "NEW"
+msgstr "NOVO"
+
+#: inc/admin_settings_queue.js.php:55
+msgid "PENDING"
+msgstr "PENDENTE"
+
+#: inc/admin_settings_queue.js.php:62
+msgid "DONE"
+msgstr "PRONTO"
+
+#: inc/admin_settings_queue.js.php:63 inc/admin_settings_queue.js.php:71
+#: inc/admin_settings_queue.js.php:79 inc/admin_settings_queue.js.php:89
+#: inc/admin_settings_queue.php:22
+msgid "Delete Job"
+msgstr "Apagar Job"
+
+#: inc/admin_settings_queue.js.php:70
+msgid "REVIEW"
+msgstr "REVISAR"
+
+#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:88
+msgid "Info from criticalcss.com:"
+msgstr "Informações do criticalcss.com:"
+
+#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:88
+msgid "- Status: "
+msgstr "- Estado:"
+
+#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:88
+msgid "- Result: "
+msgstr "- Resultado"
+
+#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:88
+msgid "- Validation: "
+msgstr "- Validação:"
+
+#: inc/admin_settings_queue.js.php:78
+msgid "ERROR"
+msgstr "ERRO"
+
+#: inc/admin_settings_queue.js.php:79 inc/admin_settings_queue.php:17
+msgid "Retry Job"
+msgstr "Reenviar Job"
+
+#: inc/admin_settings_queue.js.php:79 inc/admin_settings_queue.js.php:89
+msgid "Get Help"
+msgstr "Obter Ajuda"
+
+#: inc/admin_settings_queue.js.php:88
+msgid "UNKNOWN"
+msgstr "DESCONHECIDO"
+
+#: inc/admin_settings_queue.js.php:96
+msgid "N/A"
+msgstr "N/D"
+
+#: inc/admin_settings_queue.js.php:102
+msgid "Job status is "
+msgstr "Estado do job é"
+
+#: inc/admin_settings_queue.js.php:125 inc/admin_settings_rules.js.php:72
+msgid "Delete"
+msgstr "Apagar"
+
+#: inc/admin_settings_queue.js.php:130 inc/admin_settings_queue.js.php:156
+#: inc/admin_settings_rules.js.php:77 inc/admin_settings_rules.js.php:191
+#: inc/admin_settings_rules.js.php:213
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: inc/admin_settings_queue.js.php:145
+msgid "Retry"
+msgstr "Reenviar"
+
+#: inc/admin_settings_queue.php:13
+msgid "Job Queue"
+msgstr "Fila de Trabalhos"
+
+#: inc/admin_settings_queue.php:18
+msgid "Are you sure you want to retry this job?"
+msgstr "Você tem certeza que deseja reenviar este job?"
+
+#: inc/admin_settings_queue.php:23
+msgid "Are you sure you want to delete this job?"
+msgstr "Você tem certeza que deseja apagar este job?"
+
+#: inc/admin_settings_queue.php:30
+msgid "How To Use Autoptimize CriticalCSS Power-Up Queue"
+msgstr "Como usar a fila de trabalhos do Autoptimize CriticalCSS Power-Up"
+
+#: inc/admin_settings_queue.php:31 inc/admin_settings_rules.php:140
+msgid "Click the side arrow to toggle instructions"
+msgstr "Clique na seta ao lado para mostrar/esconder as instruções"
+
+#: inc/admin_settings_queue.php:37
+msgid ""
+"TL;DR:<br /><strong>Queue runs every 10 minutes.</strong> Job statuses are "
+"<span class=\"badge new\">N</span> for NEW, <span class=\"badge pending\">"
+"P</span> for PENDING, <span class=\"badge done\">D</span> for DONE, <span "
+"class=\"badge review\">R</span> for REVIEW, <span class=\"badge error\">"
+"E</span> for ERROR and <span class=\"badge unknown\">U</span> for UNKOWN."
+msgstr ""
+"TL;DR:<br /><strong>A fila roda a cada 10 minutos</strong> Os status dos "
+"jobs (trabalhos) são <span class=\"badge new\">N</span> para NOVO (New), "
+"<span class=\"badge pending\">P</span> para PENDENTE (Pending), <span "
+"class=\"badge done\">D</span> para PRONTO (Done), <span class=\"badge "
+"review\">R</span> para REVISAR (Review), <span class=\"badge error\">E</span>"
+" para ERRO (Error) e <span class=\"badge unknown\">U</span> for DESCONHECIDO "
+"(Unknown)."
+
+#: inc/admin_settings_queue.php:39
+msgid ""
+"The queue operates <strong>automatically, asynchronously and on regular "
+"intervals of 10 minutes.</strong> To view updated queue status, refresh this "
+"page."
+msgstr ""
+"A fila roda <strong>automaticamente e de modo assíncrono em intervalos "
+"regulares de 10 minutos.</strong> Para ver o estado atualizado da fila, "
+"recarregue esta página."
+
+#: inc/admin_settings_queue.php:40
+msgid ""
+"When the conditions to create a job are met (i.e. user not logged in, no "
+"matching <span class=\"badge manual\">MANUAL</span> rule or CSS files has "
+"changed for an <span class=\"badge auto\">AUTO</span> rule), a <span "
+"class=\"badge new\">N</span> job is created in the queue."
+msgstr ""
+"Quando as condições para criar um job existem (usuário não está logado, "
+"nenhuma regra <span class=\"badge manual\">MANUAL</span> que combine ou o "
+"CSS de uma regra <span class=\"badge auto\">AUTO</span> foi alterado), um "
+"job <span class=\"badge new\">N</span> é criado na fila."
 
 #: inc/admin_settings_queue.php:42
 msgid ""
@@ -183,14 +543,6 @@ msgstr "Arquivo de CSS Crítico"
 #: inc/admin_settings_rules.js.php:42
 msgid "To be fetched from criticalcss.com in the next queue run..."
 msgstr "Será obtido do criticalcss.com..."
-
-#: inc/admin_settings_rules.js.php:45
-msgid "MANUAL"
-msgstr ""
-
-#: inc/admin_settings_rules.js.php:48
-msgid "AUTO"
-msgstr ""
 
 #: inc/admin_settings_rules.js.php:59
 msgid "Edit"
@@ -448,18 +800,6 @@ msgstr "Adicionar Regra"
 msgid "Edit Default Critical CSS"
 msgstr "Editar CSS Crítico Padrão"
 
-#: inc/cron.php:10
-msgid "Every 5 Seconds (FOR DEVELOPMENT ONLY)"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "Autoptimize Power-Up: CriticalCSS"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "http://optimizingmatters/autoptimize/criticalcss/"
-msgstr ""
-
 #. Description of the plugin/theme
 msgid ""
 "Let Autoptimize and CriticalCSS unleash your site performance and make it "
@@ -471,367 +811,3 @@ msgstr ""
 #. Author of the plugin/theme
 msgid "Deny Dias on behalf of Optimizing Matters"
 msgstr "Deny Dias para Optimizing Matters"
-
-#. Author URI of the plugin/theme
-msgid "http://optimizingmatters.com/"
-msgstr ""
-
-#: inc/admin_settings.php:30
-msgid ""
-"Could not create the required directory. Make sure the webserver can write "
-"to the wp-content directory."
-msgstr ""
-"Não foi possível criar o diretório. Certifique-se de que o servidor web pode "
-"escrever no diretório wp-content."
-
-#: inc/admin_settings.php:38
-msgid "Oops! Please install and activate Autoptimize first."
-msgstr "Opa! Primeiro instale e ative o Autoptimize."
-
-#: inc/admin_settings.php:43
-msgid ""
-"Oops! Please <strong>activate the \"Inline and Defer CSS\" option</strong> "
-"on Autoptimize's main settings page to use this power-up."
-msgstr ""
-"Opa! <strong>Ative a opção \"Inline and Defer CSS\"</strong> na página de "
-"configurações principais do Autoptimize para usar esta extensão."
-
-#: inc/admin_settings.php:48
-msgid ""
-"Oops! It looks you need to upgrade to Autoptimize 2.2.0 or higher to use "
-"this CriticCSS Power-Up."
-msgstr ""
-"Opa! Parece que você precisa atualizar o Autoptimize para a versão 2.2.0 ou "
-"superior para usar esta extensão."
-
-#: inc/admin_settings.php:75
-msgid "Save Changes"
-msgstr "Salvar Mudanças"
-
-#: inc/admin_settings.php:80
-msgid "Export Settings"
-msgstr "Exportar Configurações"
-
-#: inc/admin_settings.php:81
-msgid "Import Settings"
-msgstr "Importar Configurações"
-
-#: inc/admin_settings_adv.php:17
-msgid "Advanced Settings"
-msgstr "Avançado"
-
-#: inc/admin_settings_adv.php:25
-msgid "Viewport Size"
-msgstr "Tamanho da Área Visível"
-
-#: inc/admin_settings_adv.php:28
-msgid "Width"
-msgstr "Largura"
-
-#: inc/admin_settings_adv.php:29
-msgid "Height"
-msgstr "Altura"
-
-#: inc/admin_settings_adv.php:31
-msgid ""
-"<a href=\"https://criticalcss.com/account/api-keys\" target=\"_blank\">"
-"criticalcss.com</a> default viewport size is 1300x900 pixels (width x height)"
-". You can change this size by typing a desired width and height values above."
-" Allowed value ranges are from 800 to 4096 for width and from 600 to 2160 "
-"for height."
-msgstr ""
-"O tamanho padrão da área visível no <a href=\"https://criticalcss."
-"com/account/api-keys\" target=\"_blank\">criticalcss.com</a> é 1300x900 "
-"píxeis. Você pode alterar este tamanho digitando acima a largura e altura "
-"desejada. Os valores permitidos são de 800 a 4096 para a largura e de 600 a "
-"2160 para a altura."
-
-#: inc/admin_settings_adv.php:37
-msgid "Debug Mode"
-msgstr "Modo de Depuração"
-
-#: inc/admin_settings_adv.php:42
-msgid ""
-"<strong>CAUTION! DO NOT use debug mode on production/live environments."
-"</strong><br />Check the box above to enable Autoptimize CriticalCSS Power-"
-"Up debug mode. It provides debug facilities in this screen, to the browser "
-"console and to this file: "
-msgstr ""
-"<strong>Cuidado! NÃO USE o modo de depuração em ambiente de produção."
-"</strong><br />Marque a caixa acima para habilitar o modo de depuração do "
-"Autoptimize CriticalCSS Power-Up. Ele provê métodos de depuração nesta tela, "
-"no console do navegador e para este arquivo:"
-
-#: inc/admin_settings_debug.php:32
-msgid "Debug Information"
-msgstr "Informação de Debug"
-
-#: inc/admin_settings_debug.php:37
-msgid "Options"
-msgstr "Opções"
-
-#: inc/admin_settings_debug.php:65
-msgid "Transients"
-msgstr "Transientes"
-
-#: inc/admin_settings_debug.php:82
-msgid "WP-Cron Intervals"
-msgstr "Intervalos do WP-Cron"
-
-#: inc/admin_settings_debug.php:85
-msgid "WP-Cron Scheduled Events"
-msgstr "Eventos Agendados do WP-Cron"
-
-#: inc/admin_settings_feeds.php:21
-msgid ""
-"Need help? <a href=\"https://wordpress.org/plugins/autoptimize/faq/\">Check "
-"out the FAQ here</a>."
-msgstr "Precisa de ajuda? Leia o FAQ aqui."
-
-#: inc/admin_settings_feeds.php:22
-msgid "Happy with Autoptimize?"
-msgstr "Feliz com o Autoptimize?"
-
-#: inc/admin_settings_feeds.php:22
-msgid "Try my other plugins!"
-msgstr "Teste meus outros plugins!"
-
-#: inc/admin_settings_feeds.php:27
-msgid "futtta about"
-msgstr "Sobre o futta"
-
-#: inc/admin_settings_feeds.php:31
-msgid "Web Technology"
-msgstr "Tecnologia Web"
-
-#: inc/admin_settings_feeds.php:48
-msgid "Do not donate for this plugin!"
-msgstr "Não doe para este plugin!"
-
-#: inc/admin_settings_feeds.php:68
-msgid "No items"
-msgstr "Nada aqui"
-
-#: inc/admin_settings_feeds.php:73
-msgid "Posted %s"
-msgstr "Publicado %s"
-
-#: inc/admin_settings_license.php:45
-msgid "Validated"
-msgstr "Validada"
-
-#: inc/admin_settings_license.php:47
-msgid ""
-"Thank you! Your <a href=\"https://criticalcss.com/\" target=\"_blank\">"
-"criticalcss.com</a> API key is valid."
-msgstr ""
-"Obrigado! Sua chave de API do <a href=\"https://criticalcss.com/\" "
-"target=\"_blank\">criticalcss.com</a> é válida."
-
-#: inc/admin_settings_license.php:62
-msgid "Invalid"
-msgstr "Inválida"
-
-#: inc/admin_settings_license.php:64
-msgid ""
-"Your API key is invalid, please check again in <a href=\"https://criticalcss."
-"com/\" target=\"_blank\">criticalcss.com</a>."
-msgstr ""
-"Sua chave de API é inválida. Por favor verifique novamente no <a "
-"href=\"https://criticalcss.com/\" target=\"_blank\">criticalcss.com</a>."
-
-#: inc/admin_settings_license.php:71
-msgid "Error"
-msgstr "Erro"
-
-#: inc/admin_settings_license.php:73
-msgid ""
-"Something went wrong while validating your <a href=\"https://criticalcss."
-"com/\" target=\"_blank\">criticalcss.com</a> API key. Please try again later."
-msgstr ""
-"Algo deu errado com a validação da sua chave de API no <a href=\"https:"
-"//criticalcss.com/\" target=\"_blank\">criticalcss.com</a>. Por favor, tente "
-"novamente mais tarde."
-
-#: inc/admin_settings_license.php:81
-msgid "Valid"
-msgstr "Válida"
-
-#: inc/admin_settings_license.php:97 inc/admin_settings_queue.js.php:49
-#: inc/admin_settings_queue.js.php:56
-msgid "None"
-msgstr "Nenhum"
-
-#: inc/admin_settings_license.php:99
-msgid ""
-"Please, enter a valid <a href=\"https://criticalcss.com/\" target=\"_blank\">"
-"criticalcss.com</a> API key to start."
-msgstr ""
-"Por favor, digite uma chave de API do <a href=\"https://criticalcss.com/\" "
-"target=\"_blank\">criticalcss.com</a> para começar."
-
-#: inc/admin_settings_license.php:117
-msgid "API Key"
-msgstr "Chave de API"
-
-#: inc/admin_settings_license.php:138
-msgid "Your API Key"
-msgstr "Sua Chave de API"
-
-#: inc/admin_settings_license.php:141
-msgid "Please enter your criticalcss.com API key here..."
-msgstr "Digite sua chave de API do criticalcss.com aqui..."
-
-#: inc/admin_settings_license.php:143
-msgid ""
-"Enter your <a href=\"https://criticalcss.com/account/api-keys\" "
-"target=\"_blank\">criticalcss.com</a> API key above. The license is "
-"validated every 24h.<br />To obtain your license key, go to <a href=\"https:"
-"//criticalcss.com/account/api-keys\" target=\"_blank\">criticalcss.com</a> > "
-"Account > API Keys.<br /><strong>Requests to generate CriticalCSS via the "
-"API are priced at £5 per domain per month.</strong>"
-msgstr ""
-"Digite sua chave de API do <a href=\"https://criticalcss.com/account/api-"
-"keys\" target=\"_blank\">criticalcss.com</a> acima. A licença é validada a "
-"cada 24 horas.<br />Para obter sua chave de licença, acesse <a href=\"https:"
-"//criticalcss.com/account/api-keys\" target=\"_blank\">criticalcss.com</a>  >"
-" Account > API Keys.<br /><strong>O uso da API custa £5 por domínio, por mês."
-"</strong>"
-
-#: inc/admin_settings_queue.js.php:48
-msgid "NEW"
-msgstr "NOVO"
-
-#: inc/admin_settings_queue.js.php:55
-msgid "PENDING"
-msgstr "PENDENTE"
-
-#: inc/admin_settings_queue.js.php:62
-msgid "DONE"
-msgstr "PRONTO"
-
-#: inc/admin_settings_queue.js.php:63 inc/admin_settings_queue.js.php:71
-#: inc/admin_settings_queue.js.php:79 inc/admin_settings_queue.js.php:89
-#: inc/admin_settings_queue.php:22
-msgid "Delete Job"
-msgstr "Apagar Job"
-
-#: inc/admin_settings_queue.js.php:70
-msgid "REVIEW"
-msgstr "REVISAR"
-
-#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
-#: inc/admin_settings_queue.js.php:88
-msgid "Info from criticalcss.com:"
-msgstr "Informações do criticalcss.com:"
-
-#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
-#: inc/admin_settings_queue.js.php:88
-msgid "- Status: "
-msgstr "- Estado:"
-
-#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
-#: inc/admin_settings_queue.js.php:88
-msgid "- Result: "
-msgstr "- Resultado"
-
-#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
-#: inc/admin_settings_queue.js.php:88
-msgid "- Validation: "
-msgstr "- Validação:"
-
-#: inc/admin_settings_queue.js.php:78
-msgid "ERROR"
-msgstr "ERRO"
-
-#: inc/admin_settings_queue.js.php:79 inc/admin_settings_queue.php:17
-msgid "Retry Job"
-msgstr "Reenviar Job"
-
-#: inc/admin_settings_queue.js.php:79 inc/admin_settings_queue.js.php:89
-msgid "Get Help"
-msgstr "Obter Ajuda"
-
-#: inc/admin_settings_queue.js.php:88
-msgid "UNKNOWN"
-msgstr "DESCONHECIDO"
-
-#: inc/admin_settings_queue.js.php:96
-msgid "N/A"
-msgstr "N/D"
-
-#: inc/admin_settings_queue.js.php:102
-msgid "Job status is "
-msgstr "Estado do job é"
-
-#: inc/admin_settings_queue.js.php:125 inc/admin_settings_rules.js.php:72
-msgid "Delete"
-msgstr "Apagar"
-
-#: inc/admin_settings_queue.js.php:130 inc/admin_settings_queue.js.php:156
-#: inc/admin_settings_rules.js.php:77 inc/admin_settings_rules.js.php:191
-#: inc/admin_settings_rules.js.php:213
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: inc/admin_settings_queue.js.php:145
-msgid "Retry"
-msgstr "Reenviar"
-
-#: inc/admin_settings_queue.php:13
-msgid "Job Queue"
-msgstr "Fila de Trabalhos"
-
-#: inc/admin_settings_queue.php:18
-msgid "Are you sure you want to retry this job?"
-msgstr "Você tem certeza que deseja reenviar este job?"
-
-#: inc/admin_settings_queue.php:23
-msgid "Are you sure you want to delete this job?"
-msgstr "Você tem certeza que deseja apagar este job?"
-
-#: inc/admin_settings_queue.php:30
-msgid "How To Use Autoptimize CriticalCSS Power-Up Queue"
-msgstr "Como usar a fila de trabalhos do Autoptimize CriticalCSS Power-Up"
-
-#: inc/admin_settings_queue.php:31 inc/admin_settings_rules.php:140
-msgid "Click the side arrow to toggle instructions"
-msgstr "Clique na seta ao lado para mostrar/esconder as instruções"
-
-#: inc/admin_settings_queue.php:37
-msgid ""
-"TL;DR:<br /><strong>Queue runs every 10 minutes.</strong> Job statuses are "
-"<span class=\"badge new\">N</span> for NEW, <span class=\"badge pending\">"
-"P</span> for PENDING, <span class=\"badge done\">D</span> for DONE, <span "
-"class=\"badge review\">R</span> for REVIEW, <span class=\"badge error\">"
-"E</span> for ERROR and <span class=\"badge unknown\">U</span> for UNKOWN."
-msgstr ""
-"TL;DR:<br /><strong>A fila roda a cada 10 minutos</strong> Os status dos "
-"jobs (trabalhos) são <span class=\"badge new\">N</span> para NOVO (New), "
-"<span class=\"badge pending\">P</span> para PENDENTE (Pending), <span "
-"class=\"badge done\">D</span> para PRONTO (Done), <span class=\"badge "
-"review\">R</span> para REVISAR (Review), <span class=\"badge error\">E</span>"
-" para ERRO (Error) e <span class=\"badge unknown\">U</span> for DESCONHECIDO "
-"(Unknown)."
-
-#: inc/admin_settings_queue.php:39
-msgid ""
-"The queue operates <strong>automatically, asynchronously and on regular "
-"intervals of 10 minutes.</strong> To view updated queue status, refresh this "
-"page."
-msgstr ""
-"A fila roda <strong>automaticamente e de modo assíncrono em intervalos "
-"regulares de 10 minutos.</strong> Para ver o estado atualizado da fila, "
-"recarregue esta página."
-
-#: inc/admin_settings_queue.php:40
-msgid ""
-"When the conditions to create a job are met (i.e. user not logged in, no "
-"matching <span class=\"badge manual\">MANUAL</span> rule or CSS files has "
-"changed for an <span class=\"badge auto\">AUTO</span> rule), a <span "
-"class=\"badge new\">N</span> job is created in the queue."
-msgstr ""
-"Quando as condições para criar um job existem (usuário não está logado, "
-"nenhuma regra <span class=\"badge manual\">MANUAL</span> que combine ou o "
-"CSS de uma regra <span class=\"badge auto\">AUTO</span> foi alterado), um "
-"job <span class=\"badge new\">N</span> é criado na fila."

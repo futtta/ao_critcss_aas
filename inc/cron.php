@@ -372,9 +372,10 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
   // Prepare full URL for request
   $src_url = get_site_url() . $path;
 
-  // Get key
+  // Get key and key status
   global $ao_ccss_key;
-  $key = $ao_ccss_key;
+  $key        = $ao_ccss_key;
+  $key_status = get_transient('autoptimize_ccss_key_status_' . md5($key));
 
   // Prepare the request
   $url  = esc_url_raw(AO_CCSS_API . 'generate');
@@ -418,6 +419,14 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
 
       // Log successful and return encoded request body
       ao_ccss_log('criticalcss.com: POST generate request for path <' . $src_url . '> replied successfully', 3);
+
+      // This code also means the key is valid, so cache key status for 24h if not already cached
+      if (!$key_status && $key) {
+        set_transient("autoptimize_ccss_key_status_" . md5($key), TRUE, DAY_IN_SECONDS);
+        ao_ccss_log('criticalcss.com API key is valid, caching key status for 24h', 3);
+      }
+
+      // Return the request body
       return $body;
 
     // Log failed request and return false
@@ -433,6 +442,18 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
     // Log failed request and return false
     ao_ccss_log('criticalcss.com: POST generate request for path <' . $src_url . '> replied with error code <' . $code . '>, body follows...', 2);
     ao_ccss_log(print_r($body, TRUE), 2);
+
+    // If request is unauthorized, also clear key status
+    if ($code == 401) {
+      $wpdb->query("
+        DELETE FROM $wpdb->options
+        WHERE option_name LIKE ('_transient_autoptimize_ccss_key_status_%')
+          OR option_name LIKE ('_transient_timeout_autoptimize_ccss_key_status_%')
+      ");
+      ao_ccss_log('criticalcss.com API key is invalid, key status cleared', 3);
+    }
+
+    // Jst return false for request erros
     return FALSE;
   }
 }
@@ -594,9 +615,9 @@ function ao_ccss_rule_update($ljid, $srule, $file, $hash) {
   }
 }
 
-// Truncate log file if it exist and is >= 1MB and remove a stalled lock file
-// NOTE: out of scope log file maintenance
-function ao_ccss_log_truncate() {
+// Perform plugin maintenance
+// NOTE: out of scope plugin maintenanc
+function ao_ccss_cleaning() {
 
   // Truncate log file >= 1MB
   if (file_exists(AO_CCSS_LOG)) {
@@ -607,9 +628,11 @@ function ao_ccss_log_truncate() {
   }
 
   // Remove lock file
-  unlink(AO_CCSS_LOCK);
+  if (file_exists(AO_CCSS_LOCK)) {
+    unlink(AO_CCSS_LOCK);
+  }
 }
 
 // Add truncate log to a registered event
-add_action('ao_ccss_log', 'ao_ccss_log_truncate');
+add_action('ao_ccss_maintenance', 'ao_ccss_cleaning');
 ?>

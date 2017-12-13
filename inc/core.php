@@ -5,10 +5,10 @@ if ($ao_css_defer) {
 
   // Set AO behavior: disable minification to avoid double minifying and caching
   add_filter('autoptimize_filter_css_critcss_minify', '__return_false');
-  add_filter('autoptimize_filter_css_defer_inline', 'ao_ccss_frontend', 10,1);
+  add_filter('autoptimize_filter_css_defer_inline', 'ao_ccss_frontend', 10, 1);
 
   // Add the filter to enqueue jobs for CriticalCSS cron
-  add_filter('autoptimize_action_css_hash', 'ao_ccss_enqueue',10,2);
+  add_filter('autoptimize_action_css_hash', 'ao_ccss_enqueue', 10, 2);
 
   // Order paths by length, as longest ones have greater priority in the rules
   if (!empty($ao_ccss_rules['paths'])) {

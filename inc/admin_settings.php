@@ -56,10 +56,10 @@ function ao_ccss_settings() {
         <?php settings_fields('ao_ccss_options_group');
 
         // Verify and render license section
-        $key_status = ao_ccss_validate_key($ao_ccss_key);
+        $key_status = ao_ccss_validate_key($ao_ccss_key, TRUE);
 
         // If key status is valid, render other settings panels
-        if ($key_status === TRUE) {
+        if ($key_status == 'valid' || $key_status == 'waiting') {
 
           // Render advanced section
           ao_ccss_render_adv();
