@@ -108,7 +108,7 @@ function ao_ccss_queue_control() {
             sleep(15);
           }
 
-          // Dispatch the job generation request and increment request count
+          // Dispatch the job generate request and increment request count
           $apireq = ao_ccss_api_generate($path, $queue_debug, $qdobj['htcode']);
           $jr++;
 
@@ -120,7 +120,7 @@ function ao_ccss_queue_control() {
             // Update job properties
             $jprops['jid']    = $apireq['job']['id'];
             $jprops['jqstat'] = $apireq['job']['status'];
-            ao_ccss_log('Job id <' . $jprops['ljid'] . '> generation request successful, remote id <' . $jprops['jid'] . '>, status now is <' . $jprops['jqstat'] . '>', 3);
+            ao_ccss_log('Job id <' . $jprops['ljid'] . '> generate request successful, remote id <' . $jprops['jid'] . '>, status now is <' . $jprops['jqstat'] . '>', 3);
 
           // Key validation error
           } elseif ($apireq['errorCode'] == 'INVALID_JWT_TOKEN') {
@@ -137,7 +137,7 @@ function ao_ccss_queue_control() {
             // Update job properties
             $jprops['jqstat'] = 'JOB_UNKNOWN';
             $jprops['jftime'] = microtime(TRUE);
-            ao_ccss_log('Job id <' . $jprops['ljid'] . '> generation request has an UNKNOWN condition, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
+            ao_ccss_log('Job id <' . $jprops['ljid'] . '> generate request has an UNKNOWN condition, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
           }
 
         // Job hash is equal a previous one, so it's done
@@ -165,7 +165,7 @@ function ao_ccss_queue_control() {
           sleep(5);
         }
 
-        // Dispatch the job generation request and increment request count
+        // Dispatch the job result request and increment request count
         $apireq = ao_ccss_api_results($jprops['jid'], $queue_debug, $qdobj['htcode']);
         $jr++;
 
@@ -251,7 +251,7 @@ function ao_ccss_queue_control() {
           }
           $jprops['jvstat'] = 'ERROR';
           $jprops['jftime'] = microtime(TRUE);
-          ao_ccss_log('Job id <' . $jprops['ljid'] . '> generation request successfull but job FAILED, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
+          ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successfull but job FAILED, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
 
         // Request with an unhandled exception
         } else {
@@ -259,7 +259,7 @@ function ao_ccss_queue_control() {
           // Update job properties
           $jprops['jqstat'] = 'JOB_UNKNOWN';
           $jprops['jftime'] = microtime(TRUE);
-          ao_ccss_log('Job id <' . $jprops['ljid'] . '> generation request has an UNKNOWN condition, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
+          ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request has an UNKNOWN condition, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
         }
 
         // Set queue update flag
