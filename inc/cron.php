@@ -104,8 +104,8 @@ function ao_ccss_queue_control() {
 
           // If this is not the first job, wait 5 seconds before process next job due criticalcss.com API limits
           if ($jr > 1) {
-            ao_ccss_log('Wait 5 seconds before process the next job due criticalcss.com API limits', 3);
-            sleep(5);
+            ao_ccss_log('Wait 5 seconds before process the next job due criticalcss.com limits on API interaction #' . $jr, 3);
+            sleep(10);
           }
 
           // Dispatch the job generation request and increment request count
