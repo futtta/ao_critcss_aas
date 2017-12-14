@@ -2,67 +2,8 @@
 
 // NOTE: implements section 4, id 4.1 of the specs
 
-// Get critical.css API key status
-function ao_ccss_key_status($renderpanel) {
-
-  // Attach wpdb
-  global $wpdb;
-
-  // Get key and key status
-  global $ao_ccss_key;
-  global $ao_ccss_keyst;
-  $key        = $ao_ccss_key;
-  $key_status = $ao_ccss_keyst;
-  $status     = FALSE;
-
-  // Key exists and its status is valid
-  if ($key && $key_status == 2) {
-
-    // Set valid key status
-    $status     = 'valid';
-    $status_msg = __('Valid');
-    $color      = '#46b450'; // Green
-    $message    = NULL;
-
-  // Key exists but its validation has failed
-  } elseif ($key && $key_status == 1) {
-
-    // Set error status
-    $status     = 'invalid';
-    $status_msg = __('Invalid');
-    $color      = '#dc3232'; // Red
-    $message    = __('Your API key is invalid. Please enter a valid <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> key.', 'autoptimize');
-
-  // Key exists but it has no valid status yet
-  } elseif ($key && !$key_status) {
-
-    // Set waiting validation status
-    $status     = 'waiting';
-    $status_msg = __('Waiting Validation');
-    $color      = '#00a0d2'; // Blue
-    $message    = __('Your API key is waiting for validation. It will be <strong>validated automatically</strong> when the first job in the queue run successfully.', 'autoptimize');
-
-  // No key nor status
-  } else {
-
-    // Set no key status
-    $status     = 'nokey';
-    $status_msg = __('None');
-    $color      = '#ffb900'; // Yellow
-    $message    = __('Please enter a valid <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> API key to start.', 'autoptimize');
-  }
-
-  // Render license panel
-  if ($renderpanel) {
-    ao_ccss_render_license($key, $status, $status_msg, $message, $color);
-  }
-
-  // Return key status
-  return $status;
-}
-
-// Render license panel
-function ao_ccss_render_license($key, $status, $status_msg, $message, $color) { ?>
+// Render key panel
+function ao_ccss_render_key($key, $status, $status_msg, $message, $color) { ?>
   <ul>
     <li class="itemDetail">
       <h2 class="itemTitle fleft"><?php _e('API Key', 'autoptimize'); ?>: <span style="color:<?php echo $color; ?>;"><?php echo $status_msg; ?></span></h2>

@@ -5,13 +5,13 @@
 function ao_ccss_enqueue($hash) {
 
   // Get key status
-  $key_status = ao_ccss_key_status(FALSE);
+  $key = ao_ccss_key_status(FALSE);
 
   // Queue is available to anyone...
   $enqueue = TRUE;
   // ...which are not the ones bellow
   // NOTE: out of scope check for allowed job enqueuing (inc. issue #2)
-  if (is_user_logged_in() || is_feed() || is_404() || (defined('DOING_AJAX') && DOING_AJAX) || ao_ccss_ua() || $key_status == 'nokey' || $key_status == 'invalid') {
+  if (is_user_logged_in() || is_feed() || is_404() || (defined('DOING_AJAX') && DOING_AJAX) || ao_ccss_ua() || $key['status'] == 'nokey' || $key['status'] == 'invalid') {
     $enqueue = FALSE;
     ao_ccss_log("Job queuing is not available for WordPress's logged in users, feeds, error pages, ajax calls, to criticalcss.com itself or when a valid API key is not found", 3);
   }

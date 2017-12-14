@@ -5,8 +5,9 @@
 // Settings tab content
 function ao_ccss_settings() {
 
-  // Attach globals
+  // Attach required globals
   global $ao_css_defer;
+  global $ao_ccss_key;
   global $ao_ccss_debug;
 
   ?>
@@ -55,18 +56,23 @@ function ao_ccss_settings() {
         <?php settings_fields('ao_ccss_options_group');
 
         // Verify and render license section
-        $key_status = ao_ccss_key_status(TRUE);
+        $key = ao_ccss_key_status(TRUE);
 
-        // If a usable key status is in place, render other panels
-        if ($key_status == 'valid' || $key_status == 'waiting') {
+        // If a usable key status is in place, render rules and queue panels
+        if ($key['status'] == 'valid' || $key['status'] == 'waiting') {
 
           // Render rules section
           ao_ccss_render_rules();
 
           // Render queue section
           ao_ccss_render_queue();
+        }
 
-          // Render advanced section
+        // Render key panel inconditionally
+        ao_ccss_render_key($ao_ccss_key, $key['status'], $key['stmsg'], $key['msg'], $key['color']);
+
+        // If a usable key status is in place, render advanced panel
+        if ($key['status'] == 'valid' || $key['status'] == 'waiting') {
           ao_ccss_render_adv();
         } ?>
 

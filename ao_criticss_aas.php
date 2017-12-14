@@ -40,9 +40,9 @@ require_once('inc/core.php');
 require_once('inc/core_ajax.php');
 require_once('inc/core_enqueue.php');
 require_once('inc/admin_settings.php');
-require_once('inc/admin_settings_license.php');
 require_once('inc/admin_settings_rules.php');
 require_once('inc/admin_settings_queue.php');
+require_once('inc/admin_settings_key.php');
 require_once('inc/admin_settings_adv.php');
 require_once('inc/cron.php');
 
