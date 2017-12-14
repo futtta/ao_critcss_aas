@@ -58,7 +58,7 @@ function ao_ccss_settings() {
         // Get API key status
         $key = ao_ccss_key_status(TRUE);
 
-        // If a usable key status is in place, render rules and queue panels
+        // If a usable key status is in place, render panels
         if ($key['status'] == 'valid' || $key['status'] == 'waiting') {
 
           // Render rules section
@@ -66,15 +66,14 @@ function ao_ccss_settings() {
 
           // Render queue section
           ao_ccss_render_queue();
+
+          // Render advanced panel
+          ao_ccss_render_adv();
         }
 
         // Render key panel inconditionally
         ao_ccss_render_key($ao_ccss_key, $key['status'], $key['stmsg'], $key['msg'], $key['color']);
-
-        // If a usable key status is in place, render advanced panel
-        if ($key['status'] == 'valid' || $key['status'] == 'waiting') {
-          ao_ccss_render_adv();
-        } ?>
+        ?>
 
         <p class="submit left">
           <input type="submit" class="button-primary" value="<?php _e('Save Changes', 'autoptimize') ?>" />
