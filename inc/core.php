@@ -290,9 +290,6 @@ function ao_ccss_key_status($render) {
     $key_return['color'] = $color;
     $key_return['msg']   = $message;
   }
-  if ($renderpanel) {
-    ao_ccss_render_license($key, $status, $status_msg, $message, $color);
-  }
 
   // Return key status
   return $key_return;
