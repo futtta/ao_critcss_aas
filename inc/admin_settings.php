@@ -55,7 +55,7 @@ function ao_ccss_settings() {
       <form id="settings" method="post" action="options.php">
         <?php settings_fields('ao_ccss_options_group');
 
-        // Verify and render license section
+        // Get API key status
         $key = ao_ccss_key_status(TRUE);
 
         // If a usable key status is in place, render rules and queue panels

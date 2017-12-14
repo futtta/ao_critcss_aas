@@ -8,7 +8,7 @@ function ao_ccss_render_queue() {
   global $ao_ccss_queue;
 
 ?>
-  <ul>
+  <ul id="queue-panel">
     <li class="itemDetail">
       <h2 class="itemTitle"><?php _e('Job Queue', 'autoptimize'); ?></h2>
 

@@ -12,7 +12,7 @@ function ao_ccss_render_adv() {
   $viewport = ao_ccss_viewport();
 
 ?>
-  <ul>
+  <ul id="adv-panel">
     <li class="itemDetail">
       <h2 class="itemTitle fleft"><?php _e('Advanced Settings', 'autoptimize'); ?></h2>
       <button type="button" class="toggle-btn">

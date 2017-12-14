@@ -9,7 +9,7 @@ function ao_ccss_render_rules() {
   global $ao_ccss_types;
 
 ?>
-  <ul>
+  <ul id="rules-panel">
     <li class="itemDetail">
       <h2 class="itemTitle"><?php _e('Rules', 'autoptimize'); ?></h2>
 
