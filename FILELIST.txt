@@ -1,3 +1,4 @@
+./.gitignore
 ./tunnel.sh
 ./js/admin_settings_feeds.js
 ./js/admin_settings.js
@@ -8,8 +9,8 @@
 ./inc/admin_settings_feeds.php
 ./inc/cron.php
 ./inc/admin_settings_queue.php
+./inc/admin_settings_key.php
 ./inc/admin_settings_rules.php
-./inc/admin_settings_license.php
 ./inc/admin_settings.php
 ./inc/admin_settings_queue.js.php
 ./inc/core.php

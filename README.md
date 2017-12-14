@@ -46,20 +46,20 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 ## Project Stats
 
-*Stats updated at: 2017/12/13*
+*Stats updated at: 2017/12/14*
 
-**Project size:** 264 KB
+**Project size:** 268 KB
 
 ### Lines of Code
 
 **Language**|**Files**|**Blank Lines**|**Comments**|**Functional Code**
 :-------|-------:|-------:|-------:|-------:
-PHP|15|433|440|2019
+PHP|15|435|443|2029
 CSS|2|6|8|375
 JavaScript|2|13|2|112
 Bourne Shell|2|18|0|59
 --------|--------|--------|--------|--------
-**SUM:**|**21**|**470**|**450**|**2565**
+**SUM:**|**21**|**472**|**453**|**2575**
 
 ### Media and Other
 
@@ -74,7 +74,7 @@ I18|2|49661
 ### Spec Items
 
 ```
-inc/admin_settings_license.php:3:// NOTE: implements section 4, id 4.1 of the specs
+inc/admin_settings_key.php:3:// NOTE: implements section 4, id 4.1 of the specs
 inc/admin_settings.php:3:// NOTE: implements section 4, id 4 of the specs
 inc/admin_settings_queue.php:4:// NOTE: implements section 4, id 4.2 and 4.3 of the specs
 inc/admin_settings_rules.php:4:// NOTE: implements section 4, id 4.2 and 4.3 of the specs
