@@ -46,20 +46,20 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 ## Project Stats
 
-*Stats updated at: 2017/12/14*
+*Stats updated at: 2018/01/29*
 
-**Project size:** 268 KB
+**Project size:** 272 KB
 
 ### Lines of Code
 
 **Language**|**Files**|**Blank Lines**|**Comments**|**Functional Code**
 :-------|-------:|-------:|-------:|-------:
-PHP|15|435|443|2026
+PHP|15|436|443|2059
 CSS|2|6|8|375
 JavaScript|2|13|2|112
 Bourne Shell|2|18|0|59
 --------|--------|--------|--------|--------
-**SUM:**|**21**|**472**|**453**|**2572**
+**SUM:**|**21**|**473**|**453**|**2605**
 
 ### Media and Other
 
@@ -67,9 +67,9 @@ Bourne Shell|2|18|0|59
 :-------|-------:|-------:
 GIF|3|172
 PNG|1|9585
-I18|2|49661
+I18|2|50887
 --------|--------|--------
-**SUM:**|**6**|**59418**
+**SUM:**|**6**|**60644**
 
 ### Spec Items
 
@@ -80,9 +80,9 @@ inc/admin_settings_queue.php:4:// NOTE: implements section 4, id 4.2 and 4.3 of 
 inc/admin_settings_rules.php:4:// NOTE: implements section 4, id 4.2 and 4.3 of the specs
 inc/core_enqueue.php:4:// NOTE: implements section 4, id 2 of the specs
 inc/core.php:41:// NOTE: implements section 4, id 1 of the specs
-inc/core.php:49:  // NOTE: implements section 4, id 1.1 of the specs (for paths)
-inc/core.php:61:  // NOTE: implements section 4, id 1.1 of the specs (for types)
-inc/core.php:85:  // NOTE: implements section 4, id 1.2 of the specs
+inc/core.php:50:  // NOTE: implements section 4, id 1.1 of the specs (for paths)
+inc/core.php:62:  // NOTE: implements section 4, id 1.1 of the specs (for types)
+inc/core.php:86:  // NOTE: implements section 4, id 1.2 of the specs
 inc/cron.php:3:// NOTE: implements section 4 of the specs
 inc/cron.php:90:      // NOTE: implements section 4, id 3.1 of the specs
 inc/cron.php:156:      // NOTE: implements section 4, id 3.2 of the specs
@@ -104,9 +104,7 @@ inc/cron.php:37:  // NOTE: out of scope queue debug
 inc/cron.php:269:      // NOTE: out of scope DONE job removal (issue #4)
 inc/cron.php:552:  // NOTE: out of scope critical CSS file removal (issue #5)
 inc/cron.php:634:// NOTE: out of scope plugin maintenanc
-languages/ao_critcss_aas.pot:3:# NOTE: out of scope localization template
-languages/autoptimize-pt_BR-backup-201712131744350.po~:1:# NOTE: out of scope pt-BR localization
-languages/autoptimize-pt_BR.po:1:# NOTE: out of scope pt-BR localization
+languages/autoptimize-pt_BR-backup-201801290103120.po~:1:# NOTE: out of scope pt-BR localization
 ```
 
 #### Notes
@@ -122,4 +120,16 @@ languages/autoptimize-pt_BR.po:1:# NOTE: out of scope pt-BR localization
 
     ```
     ./stats.sh
+    ```
+
+3. To quickly create a bunch of jobs in the development environment for testing purposes, run:
+
+    ```
+    curl -K testurls.txt
+    ```
+
+4. If `define('DISABLE_WP_CRON', true);` is present in `wp-config.php`, WP-Cron should run manually. In this case, run:
+
+    ```
+    curl -o /dev/null -s -S -w '%{http_code}' http://aodev.ngrok.io/wp-cron.php?doing_wp_cron
     ```

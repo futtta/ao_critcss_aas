@@ -1,4 +1,5 @@
 ./.gitignore
+./testurls.txt
 ./tunnel.sh
 ./js/admin_settings_feeds.js
 ./js/admin_settings.js
