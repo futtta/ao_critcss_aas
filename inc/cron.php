@@ -128,8 +128,15 @@ function ao_ccss_queue_control() {
             // Update job properties
             $jprops['jqstat'] = $apireq['errorCode'];
             $jprops['jrstat'] = $apireq['error'];
-            $jprops['jvstat'] = 'ERROR';
             ao_ccss_log('API key validation error when processing job id <' . $jprops['ljid'] . '>, job status is now <' . $jprops['jqstat'] . '>', 2);
+
+          // No response from service
+          } elseif (empty($apireq)) {
+
+            // Update job properties
+            $jprops['jqstat'] = 'NO_RESPONSE';
+            $jprops['jftime'] = microtime(TRUE);
+            ao_ccss_log('Job id <' . $jprops['ljid'] . '> request has no response, status now is <' . $jprops['jqstat'] . '>, this could be a service timeout', 2);
 
           // Request with an unhandled exception
           } else {
@@ -252,6 +259,14 @@ function ao_ccss_queue_control() {
           $jprops['jvstat'] = 'ERROR';
           $jprops['jftime'] = microtime(TRUE);
           ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successfull but job FAILED, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
+
+        // No response from service
+        } elseif (empty($apireq)) {
+
+          // Update job properties
+          $jprops['jqstat'] = 'NO_RESPONSE';
+          $jprops['jftime'] = microtime(TRUE);
+          ao_ccss_log('Job id <' . $jprops['ljid'] . '> request has no response, status now is <' . $jprops['jqstat'] . '>, this could be a service timeout', 2);
 
         // Request with an unhandled exception
         } else {
@@ -450,18 +465,25 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
   // Response code is anything else
   } else {
 
-    // Log failed request and return false
-    ao_ccss_log('criticalcss.com: POST generate request for path <' . $src_url . '> replied with error code <' . $code . '>, body follows...', 2);
-    ao_ccss_log(print_r($body, TRUE), 2);
+    // Log failed request with a valid response code and return body
+    if ($code) {
+      ao_ccss_log('criticalcss.com: POST generate request for path <' . $src_url . '> replied with error code <' . $code . '>, body follows...', 2);
+      ao_ccss_log(print_r($body, TRUE), 2);
 
-    // If request is unauthorized, also clear key status
-    if ($code == 401) {
-      update_option('autoptimize_ccss_keyst', 1);
-      ao_ccss_log('criticalcss.com: API key is invalid, updating key status', 3);
+      // If request is unauthorized, also clear key status
+      if ($code == 401) {
+        update_option('autoptimize_ccss_keyst', 1);
+        ao_ccss_log('criticalcss.com: API key is invalid, updating key status', 3);
+      }
+
+      // Return the request body
+      return $body;
+
+    // Log failed request with no response and return false
+    } else {
+      ao_ccss_log('criticalcss.com: POST generate request for path <' . $src_url . '> has no response', 2);
+      return FALSE;
     }
-
-    // Return the request body
-    return $body;
   }
 }
 
@@ -512,10 +534,25 @@ function ao_ccss_api_results($jobid, $debug, $dcode) {
   // Response code is anything else
   } else {
 
-    // Log failed request and return false
-    ao_ccss_log('criticalcss.com: GET results request for remote job id <' . $jobid . '> replied with error code <' . $code . ">, body follows...", 2);
-    ao_ccss_log(print_r($body, TRUE), 2);
-    return FALSE;
+    // Log failed request with a valid response code and return body
+    if ($code) {
+      ao_ccss_log('criticalcss.com: GET results request for remote job id <' . $jobid . '> replied with error code <' . $code . '>, body follows...', 2);
+      ao_ccss_log(print_r($body, TRUE), 2);
+
+      // If request is unauthorized, also clear key status
+      if ($code == 401) {
+        update_option('autoptimize_ccss_keyst', 1);
+        ao_ccss_log('criticalcss.com: API key is invalid, updating key status', 3);
+      }
+
+      // Return the request body
+      return $body;
+
+    // Log failed request with no response and return false
+    } else {
+      ao_ccss_log('criticalcss.com: GET results request for remote job id <' . $jobid . '> has no response', 2);
+      return FALSE;
+    }
   }
 }
 
