@@ -54,12 +54,12 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 **Language**|**Files**|**Blank Lines**|**Comments**|**Functional Code**
 :-------|-------:|-------:|-------:|-------:
-PHP|15|436|443|2059
+PHP|15|436|443|2061
 CSS|2|6|8|375
 JavaScript|2|13|2|112
 Bourne Shell|2|18|0|59
 --------|--------|--------|--------|--------
-**SUM:**|**21**|**473**|**453**|**2605**
+**SUM:**|**21**|**473**|**453**|**2607**
 
 ### Media and Other
 
@@ -97,7 +97,7 @@ inc/admin_settings_adv.php:3:// NOTE: out of scope advanced panel
 inc/admin_settings_debug.php:3:// NOTE: out of scope debug panel
 inc/admin_settings_feeds.php:1:<?php // NOTE: out of scope feeds panel ?>
 inc/core_ajax.php:145:// NOTE: out of scope export settings
-inc/core_ajax.php:207:// NOTE: out of scope import settings
+inc/core_ajax.php:208:// NOTE: out of scope import settings
 inc/core_enqueue.php:13:  // NOTE: out of scope check for allowed job enqueuing (inc. issue #2)
 inc/core_enqueue.php:277:// NOTE: out of scope check for criticalcss.com UA
 inc/cron.php:37:  // NOTE: out of scope queue debug
@@ -131,5 +131,5 @@ languages/autoptimize-pt_BR-backup-201801290103120.po~:1:# NOTE: out of scope pt
 4. If `define('DISABLE_WP_CRON', true);` is present in `wp-config.php`, WP-Cron should run manually. In this case, run:
 
     ```
-    curl -o /dev/null -s -S -w '%{http_code}' http://aodev.ngrok.io/wp-cron.php?doing_wp_cron
+    curl -o /dev/null -s -S -w "%{http_code}\n" http://aodev.ngrok.io/wp-cron.php?doing_wp_cron
     ```
