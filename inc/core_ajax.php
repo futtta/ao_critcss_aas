@@ -149,11 +149,12 @@ function ao_ccss_export_callback() {
   check_ajax_referer('ao_ccss_export_nonce', 'ao_ccss_export_nonce');
 
   // Init array, get options and prepare the raw object
-  $settings             = array();
-  $settings['key']      = get_option('autoptimize_ccss_key');
-  $settings['rules']    = get_option('autoptimize_ccss_rules');
-  $settings['viewport'] = get_option('autoptimize_ccss_viewport');
-  $settings['debug']    = get_option('autoptimize_ccss_debug');
+  $settings               = array();
+  $settings['rules']      = get_option('autoptimize_ccss_rules');
+  $settings['additional'] = get_option('autoptimize_ccss_additional');
+  $settings['viewport']   = get_option('autoptimize_ccss_viewport');
+  $settings['debug']      = get_option('autoptimize_ccss_debug');
+  $settings['key']        = get_option('autoptimize_ccss_key');
 
   // Initialize error flag
   $error = TRUE;
@@ -240,10 +241,11 @@ function ao_ccss_import_callback() {
         $settings = json_decode(file_get_contents($importfile), TRUE);
 
         // Update options
-        update_option('autoptimize_ccss_key',      $settings['key']);
-        update_option('autoptimize_ccss_rules',    $settings['rules']);
-        update_option('autoptimize_ccss_viewport', $settings['viewport']);
-        update_option('autoptimize_ccss_debug',    $settings['debug']);
+        update_option('autoptimize_ccss_rules',      $settings['rules']);
+        update_option('autoptimize_ccss_additional', $settings['autoptimize_ccss_additional']);
+        update_option('autoptimize_ccss_viewport',   $settings['viewport']);
+        update_option('autoptimize_ccss_debug',      $settings['debug']);
+        update_option('autoptimize_ccss_key',        $settings['key']);
 
       // Settings file doesn't exist, update error flag
       } else {
