@@ -12,13 +12,13 @@ Text Domain: autoptimize
 // Get options
 $ao_css_defer        = get_option('autoptimize_css_defer'       , FALSE);
 $ao_css_defer_inline = get_option('autoptimize_css_defer_inline');
-$ao_ccss_key         = get_option('autoptimize_ccss_key'        );
-$ao_ccss_keyst       = get_option('autoptimize_ccss_keyst'      );
 $ao_ccss_rules_raw   = get_option('autoptimize_ccss_rules'      , FALSE);
+$ao_ccss_additional  = get_option('autoptimize_ccss_additional' );
 $ao_ccss_queue_raw   = get_option('autoptimize_ccss_queue'      , FALSE);
 $ao_ccss_viewport    = get_option('autoptimize_ccss_viewport'   , FALSE);
 $ao_ccss_debug       = get_option('autoptimize_ccss_debug'      , FALSE);
-
+$ao_ccss_key         = get_option('autoptimize_ccss_key'        );
+$ao_ccss_keyst       = get_option('autoptimize_ccss_keyst'      );
 
 // Setup the rules array
 if (empty($ao_ccss_rules_raw)) {
@@ -69,13 +69,14 @@ define('AO_CCSS_API', AO_CCSS_URL . '/api/premium/');
 // Add hidden submenu and register allowed settings
 function ao_ccss_settings_init() {
   $hook = add_submenu_page(NULL, 'Autoptimize CriticalCSS Power-Up', 'Autoptimize CriticalCSS Power-Up', 'manage_options', 'ao_ccss_settings', 'ao_ccss_settings');
-  register_setting('ao_ccss_options_group', 'autoptimize_ccss_key');
-  register_setting('ao_ccss_options_group', 'autoptimize_ccss_keyst');
+  register_setting('ao_ccss_options_group', 'autoptimize_css_defer_inline');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_rules');
+  register_setting('ao_ccss_options_group', 'autoptimize_ccss_additional');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_queue');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_viewport');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_debug');
-  register_setting('ao_ccss_options_group', 'autoptimize_css_defer_inline');
+  register_setting('ao_ccss_options_group', 'autoptimize_ccss_key');
+  register_setting('ao_ccss_options_group', 'autoptimize_ccss_keyst');
 }
 add_action('admin_menu','ao_ccss_settings_init');
 

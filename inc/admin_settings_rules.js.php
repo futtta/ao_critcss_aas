@@ -5,10 +5,13 @@ if ($ao_ccss_debug) echo "console.log('[WARN] DO NOT use debug mode on productio
 
 var rulesOriginEl = document.getElementById("critCssOrigin");
 var deferInlineEl = document.getElementById("autoptimize_css_defer_inline");
+var additionalEl  = document.getElementById("autoptimize_ccss_additional");
 if (rulesOriginEl)
   rulesOriginEl.style.display = 'none';
 if (deferInlineEl)
   deferInlineEl.style.display = 'none';
+if (additionalEl)
+  additionalEl.style.display  = 'none';
 
 if (rulesOriginEl) {
   jQuery(document).ready(function() {
@@ -17,6 +20,7 @@ if (rulesOriginEl) {
     drawTable(critCssArray);
     jQuery("#addCritCssButton").click(function(){addEditRow();});
     jQuery("#editDefaultButton").click(function(){editDefaultCritCss();});
+    jQuery("#editAdditionalButton").click(function(){editAdditionalCritCss();});
   });
 }
 
@@ -200,9 +204,9 @@ function editDefaultCritCss(){
   document.getElementById("dummyDefault").value=document.getElementById("autoptimize_css_defer_inline").value;
   jQuery("#default_critcss_wrapper").dialog({
     autoOpen: true,
-    height: 500,
+    height: 505,
     width: 700,
-    title: "<?php _e("Your Default Critical CSS", "autoptimize"); ?>",
+    title: "<?php _e("Default Critical CSS", "autoptimize"); ?>",
     modal: true,
     buttons: {
       "<?php _e("Submit", "autoptimize") ?>": function() {
@@ -211,7 +215,28 @@ function editDefaultCritCss(){
         jQuery("#default_critcss_wrapper").dialog( "close" );
       },
       "<?php _e("Cancel", "autoptimize") ?>": function() {
-          jQuery("#default_critcss_wrapper").dialog( "close" );
+        jQuery("#default_critcss_wrapper").dialog( "close" );
+      }
+    }
+  });
+}
+
+function editAdditionalCritCss(){
+  document.getElementById("dummyAdditional").value=document.getElementById("autoptimize_ccss_additional").value;
+  jQuery("#additional_critcss_wrapper").dialog({
+    autoOpen: true,
+    height: 505,
+    width: 700,
+    title: "<?php _e("Additional Critical CSS", "autoptimize"); ?>",
+    modal: true,
+    buttons: {
+      "<?php _e("Submit", "autoptimize") ?>": function() {
+        document.getElementById("autoptimize_ccss_additional").value=document.getElementById("dummyAdditional").value;
+        jQuery("#unSavedWarning").show();
+        jQuery("#additional_critcss_wrapper").dialog( "close" );
+      },
+      "<?php _e("Cancel", "autoptimize") ?>": function() {
+        jQuery("#additional_critcss_wrapper").dialog( "close" );
       }
     }
   });

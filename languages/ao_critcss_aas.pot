@@ -1,57 +1,56 @@
-# Copyright (C) 2017 Autoptimize Power-Up: CriticalCSS
+# Copyright (C) 2018 Autoptimize Power-Up: CriticalCSS
 # This file is distributed under the same license as the Autoptimize Power-Up: CriticalCSS package.
-# NOTE: out of scope localization template
 msgid ""
 msgstr ""
 "Project-Id-Version: Autoptimize Power-Up: CriticalCSS 0.dev\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ao_critcss_aas\n"
-"POT-Creation-Date: 2017-12-13 17:40:24+00:00\n"
+"POT-Creation-Date: 2018-01-29 00:58:21+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: ao_criticss_aas.php:108
+#: ao_criticss_aas.php:109
 msgid "CriticalCSS"
 msgstr ""
 
-#: inc/admin_settings.php:16
+#: inc/admin_settings.php:17
 msgid "Autoptimize Settings: CriticalCSS Power-Up"
 msgstr ""
 
-#: inc/admin_settings.php:29
+#: inc/admin_settings.php:30
 msgid ""
 "Could not create the required directory. Make sure the webserver can write "
 "to the wp-content directory."
 msgstr ""
 
-#: inc/admin_settings.php:37
+#: inc/admin_settings.php:38
 msgid "Oops! Please install and activate Autoptimize first."
 msgstr ""
 
-#: inc/admin_settings.php:42
+#: inc/admin_settings.php:43
 msgid ""
 "Oops! Please <strong>activate the \"Inline and Defer CSS\" option</strong> "
 "on Autoptimize's main settings page to use this power-up."
 msgstr ""
 
-#: inc/admin_settings.php:47
+#: inc/admin_settings.php:48
 msgid ""
 "Oops! It looks you need to upgrade to Autoptimize 2.2.0 or higher to use "
 "this CriticCSS Power-Up."
 msgstr ""
 
-#: inc/admin_settings.php:74
+#: inc/admin_settings.php:79
 msgid "Save Changes"
 msgstr ""
 
-#: inc/admin_settings.php:79
+#: inc/admin_settings.php:84
 msgid "Export Settings"
 msgstr ""
 
-#: inc/admin_settings.php:80
+#: inc/admin_settings.php:85
 msgid "Import Settings"
 msgstr ""
 
@@ -154,54 +153,19 @@ msgstr ""
 msgid "Posted %s"
 msgstr ""
 
-#: inc/admin_settings_license.php:23
-msgid "Valid"
-msgstr ""
-
-#: inc/admin_settings_license.php:32
-msgid "Invalid"
-msgstr ""
-
-#: inc/admin_settings_license.php:34
-msgid ""
-"Your API key is invalid. Please enter a valid <a href=\"https://criticalcss."
-"com/\" target=\"_blank\">criticalcss.com</a> key."
-msgstr ""
-
-#: inc/admin_settings_license.php:41
-msgid "Waiting Validation"
-msgstr ""
-
-#: inc/admin_settings_license.php:43
-msgid ""
-"Your API key is waiting for validation. It will be <strong>validated "
-"automatically</strong> when the first job in the queue run successfully."
-msgstr ""
-
-#: inc/admin_settings_license.php:50 inc/admin_settings_queue.js.php:49
-#: inc/admin_settings_queue.js.php:56
-msgid "None"
-msgstr ""
-
-#: inc/admin_settings_license.php:52
-msgid ""
-"Please enter a valid <a href=\"https://criticalcss.com/\" target=\"_blank"
-"\">criticalcss.com</a> API key to start."
-msgstr ""
-
-#: inc/admin_settings_license.php:68
+#: inc/admin_settings_key.php:9
 msgid "API Key"
 msgstr ""
 
-#: inc/admin_settings_license.php:89
+#: inc/admin_settings_key.php:30
 msgid "Your API Key"
 msgstr ""
 
-#: inc/admin_settings_license.php:92
+#: inc/admin_settings_key.php:33
 msgid "Please enter your criticalcss.com API key here..."
 msgstr ""
 
-#: inc/admin_settings_license.php:94
+#: inc/admin_settings_key.php:35
 msgid ""
 "Enter your <a href=\"https://criticalcss.com/account/api-keys\" target="
 "\"_blank\">criticalcss.com</a> API key above. The key is validated every "
@@ -213,6 +177,11 @@ msgstr ""
 
 #: inc/admin_settings_queue.js.php:48
 msgid "NEW"
+msgstr ""
+
+#: inc/admin_settings_queue.js.php:49 inc/admin_settings_queue.js.php:56
+#: inc/core.php:281
+msgid "None"
 msgstr ""
 
 #: inc/admin_settings_queue.js.php:55
@@ -282,13 +251,13 @@ msgstr ""
 msgid "Job status is "
 msgstr ""
 
-#: inc/admin_settings_queue.js.php:125 inc/admin_settings_rules.js.php:72
+#: inc/admin_settings_queue.js.php:125 inc/admin_settings_rules.js.php:76
 msgid "Delete"
 msgstr ""
 
 #: inc/admin_settings_queue.js.php:130 inc/admin_settings_queue.js.php:156
-#: inc/admin_settings_rules.js.php:77 inc/admin_settings_rules.js.php:191
-#: inc/admin_settings_rules.js.php:213
+#: inc/admin_settings_rules.js.php:81 inc/admin_settings_rules.js.php:195
+#: inc/admin_settings_rules.js.php:217 inc/admin_settings_rules.js.php:238
 msgid "Cancel"
 msgstr ""
 
@@ -312,7 +281,7 @@ msgstr ""
 msgid "How To Use Autoptimize CriticalCSS Power-Up Queue"
 msgstr ""
 
-#: inc/admin_settings_queue.php:31 inc/admin_settings_rules.php:140
+#: inc/admin_settings_queue.php:31 inc/admin_settings_rules.php:145
 msgid "Click the side arrow to toggle instructions"
 msgstr ""
 
@@ -426,74 +395,79 @@ msgstr ""
 msgid "Finish Date"
 msgstr ""
 
-#: inc/admin_settings_queue.php:53 inc/admin_settings_rules.js.php:33
+#: inc/admin_settings_queue.php:53 inc/admin_settings_rules.js.php:37
 msgid "Actions"
 msgstr ""
 
-#: inc/admin_settings_rules.js.php:27
+#: inc/admin_settings_rules.js.php:31
 msgid "Path Based Rules"
 msgstr ""
 
-#: inc/admin_settings_rules.js.php:29
+#: inc/admin_settings_rules.js.php:33
 msgid "Conditional Tags, Custom Post Types and Page Templates Rules"
 msgstr ""
 
-#: inc/admin_settings_rules.js.php:33
+#: inc/admin_settings_rules.js.php:37
 msgid "Type"
 msgstr ""
 
-#: inc/admin_settings_rules.js.php:33
+#: inc/admin_settings_rules.js.php:37
 msgid "Target"
 msgstr ""
 
-#: inc/admin_settings_rules.js.php:33
+#: inc/admin_settings_rules.js.php:37
 msgid "Critical CSS File"
 msgstr ""
 
-#: inc/admin_settings_rules.js.php:42
+#: inc/admin_settings_rules.js.php:46
 msgid "To be fetched from criticalcss.com in the next queue run..."
 msgstr ""
 
-#: inc/admin_settings_rules.js.php:45
+#: inc/admin_settings_rules.js.php:49
 msgid "MANUAL"
 msgstr ""
 
-#: inc/admin_settings_rules.js.php:48
+#: inc/admin_settings_rules.js.php:52
 msgid "AUTO"
 msgstr ""
 
-#: inc/admin_settings_rules.js.php:59
+#: inc/admin_settings_rules.js.php:63
 msgid "Edit"
 msgstr ""
 
-#: inc/admin_settings_rules.js.php:59
+#: inc/admin_settings_rules.js.php:63
 msgid "Remove"
 msgstr ""
 
-#: inc/admin_settings_rules.js.php:115
+#: inc/admin_settings_rules.js.php:119
 msgid "Edit Critical CSS Rule"
 msgstr ""
 
-#: inc/admin_settings_rules.js.php:126
+#: inc/admin_settings_rules.js.php:130
 msgid "Loading critical CSS..."
 msgstr ""
 
-#: inc/admin_settings_rules.js.php:156
+#: inc/admin_settings_rules.js.php:160
 msgid "Add Critical CSS Rule"
 msgstr ""
 
-#: inc/admin_settings_rules.js.php:181 inc/admin_settings_rules.js.php:208
+#: inc/admin_settings_rules.js.php:185 inc/admin_settings_rules.js.php:212
+#: inc/admin_settings_rules.js.php:233
 msgid "Submit"
 msgstr ""
 
-#: inc/admin_settings_rules.js.php:185
+#: inc/admin_settings_rules.js.php:189
 msgid ""
 "RULE VALIDATION ERROR!\\n\\nBased on your rule type, you SHOULD set a path "
 "or conditional tag."
 msgstr ""
 
-#: inc/admin_settings_rules.js.php:205
-msgid "Your Default Critical CSS"
+#: inc/admin_settings_rules.js.php:209
+msgid "Default Critical CSS"
+msgstr ""
+
+#: inc/admin_settings_rules.js.php:230
+msgid "Additional Critical CSS"
 msgstr ""
 
 #: inc/admin_settings_rules.php:14
@@ -579,29 +553,38 @@ msgid ""
 "<br /><br /><strong>Are you sure?</strong>"
 msgstr ""
 
-#: inc/admin_settings_rules.php:129 inc/admin_settings_rules.php:159
-msgid "Paste your default critical CSS here and hit submit to save."
+#: inc/admin_settings_rules.php:129
+msgid ""
+"Paste your MINIFIED default critical CSS here and hit submit to save. This "
+"is the critical CSS to be used for every page NOT MATCHING any rule."
 msgstr ""
 
-#: inc/admin_settings_rules.php:139
+#: inc/admin_settings_rules.php:134
+msgid ""
+"Paste your MINIFIED additional critical CSS here and hit submit to save. "
+"This is the CSS to be added AT THE END of every critical CSS provided by a "
+"matching rule, or the default one."
+msgstr ""
+
+#: inc/admin_settings_rules.php:144
 msgid "How To Use Autoptimize CriticalCSS Power-Up Rules"
 msgstr ""
 
-#: inc/admin_settings_rules.php:146
+#: inc/admin_settings_rules.php:151
 msgid ""
 "TL;DR:<br />Critical CSS files from <span class='badge auto'>AUTO</span> "
 "<strong>rules are updated automatically</strong> while from <span "
 "class='badge manual'>MANUAL</span> <strong>rules are not.</strong>"
 msgstr ""
 
-#: inc/admin_settings_rules.php:148
+#: inc/admin_settings_rules.php:153
 msgid ""
 "When a valid <a href=\"https://criticalcss.com/\" target=\"_blank"
 "\">criticalcss.com</a> API key is in place, Autoptimize CriticalCSS Power-Up "
 "starts to operate <strong>automatically</strong>."
 msgstr ""
 
-#: inc/admin_settings_rules.php:149
+#: inc/admin_settings_rules.php:154
 msgid ""
 "Upon a request to any of the frontend pages made by a <strong>not logged in "
 "user</strong>, it will <strong>asynchronously</strong> fetch and update the "
@@ -610,7 +593,7 @@ msgid ""
 "is_page, is_single, is_archive etc.)"
 msgstr ""
 
-#: inc/admin_settings_rules.php:150
+#: inc/admin_settings_rules.php:155
 msgid ""
 "These requests also creates an <span class=\"badge auto\">AUTO</span> rule "
 "for you. The critical CSS files from <span class=\"badge auto\">AUTO</span> "
@@ -618,7 +601,7 @@ msgid ""
 "theme or frontend plugins changes."
 msgstr ""
 
-#: inc/admin_settings_rules.php:151
+#: inc/admin_settings_rules.php:156
 msgid ""
 "If you want to make any fine tunning in the critical CSS file of an <span "
 "class=\"badge auto\">AUTO</span> rule, click on \"Edit\" button of that "
@@ -626,7 +609,7 @@ msgid ""
 "becomes a <span class=\"badge manual\">MANUAL</span> rule then."
 msgstr ""
 
-#: inc/admin_settings_rules.php:152
+#: inc/admin_settings_rules.php:157
 msgid ""
 "You can create <span class=\"badge manual\">MANUAL</span> rules for specific "
 "page paths (URL). Longer, more specific paths have higher priority over "
@@ -636,7 +619,7 @@ msgid ""
 "strong>"
 msgstr ""
 
-#: inc/admin_settings_rules.php:153
+#: inc/admin_settings_rules.php:158
 msgid ""
 "Nonetheless, if you create a <span class=\"badge manual\">MANUAL</span> for "
 "a path and leave its critical CSS content empty, the critical CSS for that "
@@ -646,7 +629,7 @@ msgid ""
 "class=\"badge manual\">MANUAL</span> exist."
 msgstr ""
 
-#: inc/admin_settings_rules.php:154
+#: inc/admin_settings_rules.php:159
 msgid ""
 "If you see an <span class='badge auto'>AUTO</span> or <span class='badge "
 "manual'>MANUAL</span> rule with a <span class='badge review'>R</span> "
@@ -656,19 +639,53 @@ msgid ""
 "that you edit and review that rule to make any required adjustments."
 msgstr ""
 
-#: inc/admin_settings_rules.php:155
+#: inc/admin_settings_rules.php:160
 msgid ""
 "At any time you can delete an <span class=\"badge auto\">AUTO</span> or "
 "<span class=\"badge manual\">MANUAL</span> rule by cliking on \"Remove\" "
 "button of the desired rule and saving your changes."
 msgstr ""
 
-#: inc/admin_settings_rules.php:163
-msgid "Add New Rule"
+#: inc/admin_settings_rules.php:169
+msgid "Add New Manual Rule"
 msgstr ""
 
-#: inc/admin_settings_rules.php:164
-msgid "Edit Default Critical CSS"
+#: inc/admin_settings_rules.php:170
+msgid "Add/Edit Edit Default Critical CSS"
+msgstr ""
+
+#: inc/admin_settings_rules.php:171
+msgid "Add/Edit Additional Critical CSS"
+msgstr ""
+
+#: inc/core.php:254
+msgid "Valid"
+msgstr ""
+
+#: inc/core.php:263
+msgid "Invalid"
+msgstr ""
+
+#: inc/core.php:265
+msgid ""
+"Your API key is invalid. Please enter a valid <a href=\"https://criticalcss."
+"com/\" target=\"_blank\">criticalcss.com</a> key."
+msgstr ""
+
+#: inc/core.php:272
+msgid "Waiting Validation"
+msgstr ""
+
+#: inc/core.php:274
+msgid ""
+"Your API key is waiting for validation. It will be <strong>validated "
+"automatically</strong> when the first job in the queue run successfully."
+msgstr ""
+
+#: inc/core.php:283
+msgid ""
+"Please enter a valid <a href=\"https://criticalcss.com/\" target=\"_blank"
+"\">criticalcss.com</a> API key to start."
 msgstr ""
 
 #: inc/cron.php:9

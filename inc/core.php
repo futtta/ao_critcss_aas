@@ -44,6 +44,7 @@ function ao_ccss_frontend($inlined) {
   // Attach types and settings arrays
   global $ao_ccss_types;
   global $ao_ccss_rules;
+  global $ao_ccss_additional;
 
   // Check for a valid CriticalCSS based on path to return its contents
   // NOTE: implements section 4, id 1.1 of the specs (for paths)
@@ -51,7 +52,7 @@ function ao_ccss_frontend($inlined) {
     foreach ($ao_ccss_rules['paths'] as $path => $rule) {
       if (strpos($_SERVER['REQUEST_URI'], str_replace(site_url(), '', $path)) !== FALSE) {
         if (file_exists(AO_CCSS_DIR . $rule['file'])) {
-          return apply_filters('ao_ccss_filter', file_get_contents(AO_CCSS_DIR . $rule['file']));
+          return apply_filters('ao_ccss_filter', file_get_contents(AO_CCSS_DIR . $rule['file']) . $ao_ccss_additional);
         }
       }
     }
@@ -64,18 +65,18 @@ function ao_ccss_frontend($inlined) {
       if (in_array($type, $ao_ccss_types) && file_exists(AO_CCSS_DIR . $rule['file'])) {
         if (strpos($type, 'custom_post_') === 0) {
           if (get_post_type(get_the_ID()) === substr($type, 12)) {
-            return apply_filters('ao_ccss_filter', file_get_contents(AO_CCSS_DIR . $rule['file']));
+            return apply_filters('ao_ccss_filter', file_get_contents(AO_CCSS_DIR . $rule['file']) . $ao_ccss_additional);
           }
         } elseif (strpos($type, 'template_') === 0) {
           if (is_page_template(substr($type, 9))) {
-            return apply_filters('ao_ccss_filter', file_get_contents(AO_CCSS_DIR . $rule['file']));
+            return apply_filters('ao_ccss_filter', file_get_contents(AO_CCSS_DIR . $rule['file']) . $ao_ccss_additional);
           }
         } elseif (strpos($type, 'woo_') === 0) {
           if (is_page_template(substr($type, 4))) {
-            return apply_filters('ao_ccss_filter', file_get_contents(AO_CCSS_DIR . $rule['file']));
+            return apply_filters('ao_ccss_filter', file_get_contents(AO_CCSS_DIR . $rule['file']) . $ao_ccss_additional);
           }
         } elseif (function_exists($type) && call_user_func($type)) {
-          return apply_filters('ao_ccss_filter', file_get_contents(AO_CCSS_DIR . $rule['file']));
+          return apply_filters('ao_ccss_filter', file_get_contents(AO_CCSS_DIR . $rule['file']) . $ao_ccss_additional);
         }
       }
     }
@@ -84,7 +85,7 @@ function ao_ccss_frontend($inlined) {
   // Finally, inline the CriticalCSS or, in case it's missing, the entire CSS for the page
   // NOTE: implements section 4, id 1.2 of the specs
   if (!empty($inlined)) {
-    return apply_filters('ao_ccss_filter', $inlined);
+    return apply_filters('ao_ccss_filter', $inlined . $ao_ccss_additional);
   } else {
     add_filter('autoptimize_filter_css_inline', '__return_true');
     return;

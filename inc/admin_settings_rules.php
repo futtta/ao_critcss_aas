@@ -124,9 +124,14 @@ function ao_ccss_render_rules() {
         <p><?php _e('This Critical CSS rule will be deleted immediately and cannot be recovered.<br /><br /><strong>Are you sure?</strong>', 'autoptimize'); ?></p>
       </div>
 
-      <!-- Hidden rule object -->
+      <!-- Edit default critical CSS dialog -->
       <div id="default_critcss_wrapper" class="hidden">
-        <textarea id="dummyDefault" rows="19" cols="10" style="width:100%;" placeholder="<?php _e('Paste your default critical CSS here and hit submit to save.', 'autoptimize'); ?>"></textarea>
+        <textarea id="dummyDefault" rows="19" cols="10" style="width:100%;" placeholder="<?php _e('Paste your MINIFIED default critical CSS here and hit submit to save. This is the critical CSS to be used for every page NOT MATCHING any rule.', 'autoptimize'); ?>"></textarea>
+      </div>
+
+      <!-- Edit additional critical CSS dialog -->
+      <div id="additional_critcss_wrapper" class="hidden">
+        <textarea id="dummyAdditional" rows="19" cols="10" style="width:100%;" placeholder="<?php _e('Paste your MINIFIED additional critical CSS here and hit submit to save. This is the CSS to be added AT THE END of every critical CSS provided by a matching rule, or the default one.', 'autoptimize'); ?>"></textarea>
       </div>
 
       <!-- Wrapper for in screen notices -->
@@ -156,12 +161,14 @@ function ao_ccss_render_rules() {
           </ol>
         </div>
       </div>
-      <textarea id="autoptimize_css_defer_inline" name="autoptimize_css_defer_inline" rows="19" cols="10" style="width:100%;" placeholder="<?php _e('Paste your default critical CSS here and hit submit to save.', 'autoptimize'); ?>"><?php echo get_option('autoptimize_css_defer_inline',''); ?></textarea>
+      <textarea id="autoptimize_css_defer_inline" name="autoptimize_css_defer_inline" rows="19" cols="10" style="width:100%;"><?php echo get_option('autoptimize_css_defer_inline',''); ?></textarea>
+      <textarea id="autoptimize_ccss_additional" name="autoptimize_ccss_additional" rows="19" cols="10" style="width:100%;"><?php echo get_option('autoptimize_ccss_additional',''); ?></textarea>
       <table class="rules-list" cellspacing="0"><tbody id="rules-list"></tbody></table>
       <input class="hidden" type="text" id="critCssOrigin" name="autoptimize_ccss_rules" value='<?php echo (json_encode($ao_ccss_rules, JSON_FORCE_OBJECT)); ?>'>
       <p class="submit rules-btn">
-        <span id="addCritCssButton" class="button-secondary"><?php _e('Add New Rule', 'autoptimize') ?></span>
-        <span id="editDefaultButton" class="button-secondary"><?php _e('Edit Default Critical CSS', 'autoptimize'); ?></span>
+        <span id="addCritCssButton" class="button-secondary"><?php _e('Add New Manual Rule', 'autoptimize') ?></span>
+        <span id="editDefaultButton" class="button-secondary"><?php _e('Add/Edit Edit Default Critical CSS', 'autoptimize'); ?></span>
+        <span id="editAdditionalButton" class="button-secondary"><?php _e('Add/Edit Additional Critical CSS', 'autoptimize'); ?></span>
       </p>
       <!-- END Rules UI -->
 
