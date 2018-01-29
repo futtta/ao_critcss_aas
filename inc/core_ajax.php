@@ -242,7 +242,7 @@ function ao_ccss_import_callback() {
 
         // Update options
         update_option('autoptimize_ccss_rules',      $settings['rules']);
-        update_option('autoptimize_ccss_additional', $settings['autoptimize_ccss_additional']);
+        update_option('autoptimize_ccss_additional', $settings['additional']);
         update_option('autoptimize_ccss_viewport',   $settings['viewport']);
         update_option('autoptimize_ccss_debug',      $settings['debug']);
         update_option('autoptimize_ccss_key',        $settings['key']);
