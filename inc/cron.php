@@ -151,7 +151,7 @@ function ao_ccss_queue_control() {
             $jprops['jrstat'] = 'NONE';
             $jprops['jvstat'] = 'NONE';
             $jprops['jftime'] = microtime(TRUE);
-            ao_ccss_log('Job id <' . $jprops['ljid'] . '> request has no response, status now is <' . $jprops['jqstat'] . '>, this could be a service timeout', 2);
+            ao_ccss_log('Job id <' . $jprops['ljid'] . '> request has no response, status now is <' . $jprops['jqstat'] . '>', 2);
 
           // UNKNOWN: unhandled generate exception
           } else {
@@ -295,7 +295,7 @@ function ao_ccss_queue_control() {
           $jprops['jrstat'] = 'NONE';
           $jprops['jvstat'] = 'NONE';
           $jprops['jftime'] = microtime(TRUE);
-          ao_ccss_log('Job id <' . $jprops['ljid'] . '> request has no response, status now is <' . $jprops['jqstat'] . '>, this could be a service timeout', 2);
+          ao_ccss_log('Job id <' . $jprops['ljid'] . '> request has no response, status now is <' . $jprops['jqstat'] . '>', 2);
 
         // UNKNOWN: unhandled results exception
         } else {
@@ -475,7 +475,7 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
     if ($body['job']['status'] == 'JOB_QUEUED' || $body['job']['status'] == 'JOB_ONGOING' || $body['job']['status'] == 'STATUS_JOB_BAD') {
 
       // Log successful and return encoded request body
-      ao_ccss_log('criticalcss.com: POST generate request for path <' . $src_url . '> replied successfuly', 3);
+      ao_ccss_log('criticalcss.com: POST generate request for path <' . $src_url . '> replied successfully', 3);
 
       // This code also means the key is valid, so cache key status for 24h if not already cached
       if (!$key_status && $key) {
@@ -512,7 +512,7 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
 
     // Log failed request with no response and return false
     } else {
-      ao_ccss_log('criticalcss.com: POST generate request for path <' . $src_url . '> has no response', 2);
+      ao_ccss_log('criticalcss.com: POST generate request for path <' . $src_url . '> has no response, this could be a service timeout', 2);
       return FALSE;
     }
   }
@@ -552,7 +552,14 @@ function ao_ccss_api_results($jobid, $debug, $dcode) {
     if ($body['status'] == 'JOB_QUEUED' || $body['status'] == 'JOB_ONGOING' || $body['status'] == 'JOB_DONE' || $body['status'] == 'JOB_FAILED' || $body['status'] == 'JOB_UNKNOWN' || $body['job']['status'] == 'STATUS_JOB_BAD') {
 
       // Log successful and return encoded request body
-      ao_ccss_log('criticalcss.com: GET results request for remote job id <' . $jobid . '> replied successfuly', 3);
+      ao_ccss_log('criticalcss.com: GET results request for remote job id <' . $jobid . '> replied successfully', 3);
+      return $body;
+
+    // Handle no CSS reply
+    } elseif ($body['error'] = 'This css no longer exists. Please re-generate it.'){
+
+      // Log no CSS error and return encoded request body
+      ao_ccss_log('criticalcss.com: GET results request for remote job id <' . $jobid . '> replied successfully but the CSS for it does not exist anymore', 3);
       return $body;
 
     // Log failed request and return false
@@ -581,7 +588,7 @@ function ao_ccss_api_results($jobid, $debug, $dcode) {
 
     // Log failed request with no response and return false
     } else {
-      ao_ccss_log('criticalcss.com: GET results request for remote job id <' . $jobid . '> has no response', 2);
+      ao_ccss_log('criticalcss.com: GET results request for remote job id <' . $jobid . '> has no response, this could be a service timeout', 2);
       return FALSE;
     }
   }
