@@ -251,7 +251,7 @@ function ao_ccss_queue_control() {
             $jprops['jrstat'] = $apireq['resultStatus'];
             $jprops['jvstat'] = $apireq['validationStatus'];
             $jprops['jftime'] = microtime(TRUE);
-            ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful but job FAILED, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
+            ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful but job FAILED, status now is <' . $jprops['jqstat'] . '>', 2);
 
           // UNKNOWN: unhandled JOB_DONE exception
           } else {
@@ -261,7 +261,7 @@ function ao_ccss_queue_control() {
             $jprops['jrstat'] = $apireq['resultStatus'];
             $jprops['jvstat'] = $apireq['validationStatus'];
             $jprops['jftime'] = microtime(TRUE);
-            ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful but job is UNKNOWN, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
+            ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful but job is UNKNOWN, status now is <' . $jprops['jqstat'] . '>', 2);
           }
 
         // ERROR: failed job
@@ -275,7 +275,7 @@ function ao_ccss_queue_control() {
           }
           $jprops['jvstat'] = 'NONE';
           $jprops['jftime'] = microtime(TRUE);
-          ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful but job FAILED, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
+          ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful but job FAILED, status now is <' . $jprops['jqstat'] . '>', 2);
 
         // ERROR: CSS doesn't exist
         } elseif ($apireq['error'] == "This css no longer exists. Please re-generate it.") {
@@ -285,7 +285,7 @@ function ao_ccss_queue_control() {
           $jprops['jrstat'] = $apireq['error'];
           $jprops['jvstat'] = 'NONE';
           $jprops['jftime'] = microtime(TRUE);
-          ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful but job FAILED, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
+          ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful but job FAILED, status now is <' . $jprops['jqstat'] . '>', 2);
 
         // ERROR: no response
         } elseif (empty($apireq)) {
