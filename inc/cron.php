@@ -131,7 +131,7 @@ function ao_ccss_queue_control() {
             $jprops['jrstat'] = $apireq['error'];
             $jprops['jvstat'] = 'NONE';
             $jprops['jftime'] = microtime(TRUE);
-            ao_ccss_log('API key validation error when processing job id <' . $jprops['ljid'] . '>, job status is now <' . $jprops['jqstat'] . '>', 2);
+            ao_ccss_log('Concurrent requests when processing job id <' . $jprops['ljid'] . '>, job status is now <' . $jprops['jqstat'] . '>', 3);
 
           // ERROR: key validation
           } elseif ($apireq['errorCode'] == 'INVALID_JWT_TOKEN') {
@@ -141,7 +141,7 @@ function ao_ccss_queue_control() {
             $jprops['jrstat'] = $apireq['error'];
             $jprops['jvstat'] = 'NONE';
             $jprops['jftime'] = microtime(TRUE);
-            ao_ccss_log('API key validation error when processing job id <' . $jprops['ljid'] . '>, job status is now <' . $jprops['jqstat'] . '>', 2);
+            ao_ccss_log('API key validation error when processing job id <' . $jprops['ljid'] . '>, job status is now <' . $jprops['jqstat'] . '>', 3);
 
           // ERROR: no response
           } elseif (empty($apireq)) {
@@ -151,7 +151,7 @@ function ao_ccss_queue_control() {
             $jprops['jrstat'] = 'NONE';
             $jprops['jvstat'] = 'NONE';
             $jprops['jftime'] = microtime(TRUE);
-            ao_ccss_log('Job id <' . $jprops['ljid'] . '> request has no response, status now is <' . $jprops['jqstat'] . '>', 2);
+            ao_ccss_log('Job id <' . $jprops['ljid'] . '> request has no response, status now is <' . $jprops['jqstat'] . '>', 3);
 
           // UNKNOWN: unhandled generate exception
           } else {
@@ -251,7 +251,7 @@ function ao_ccss_queue_control() {
             $jprops['jrstat'] = $apireq['resultStatus'];
             $jprops['jvstat'] = $apireq['validationStatus'];
             $jprops['jftime'] = microtime(TRUE);
-            ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful but job FAILED, status now is <' . $jprops['jqstat'] . '>', 2);
+            ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful but job FAILED, status now is <' . $jprops['jqstat'] . '>', 3);
 
           // UNKNOWN: unhandled JOB_DONE exception
           } else {
@@ -275,7 +275,7 @@ function ao_ccss_queue_control() {
           }
           $jprops['jvstat'] = 'NONE';
           $jprops['jftime'] = microtime(TRUE);
-          ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful but job FAILED, status now is <' . $jprops['jqstat'] . '>', 2);
+          ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful but job FAILED, status now is <' . $jprops['jqstat'] . '>', 3);
 
         // ERROR: CSS doesn't exist
         } elseif ($apireq['error'] == "This css no longer exists. Please re-generate it.") {
@@ -285,7 +285,7 @@ function ao_ccss_queue_control() {
           $jprops['jrstat'] = $apireq['error'];
           $jprops['jvstat'] = 'NONE';
           $jprops['jftime'] = microtime(TRUE);
-          ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful but job FAILED, status now is <' . $jprops['jqstat'] . '>', 2);
+          ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful but job FAILED, status now is <' . $jprops['jqstat'] . '>', 3);
 
         // ERROR: no response
         } elseif (empty($apireq)) {
@@ -295,7 +295,7 @@ function ao_ccss_queue_control() {
           $jprops['jrstat'] = 'NONE';
           $jprops['jvstat'] = 'NONE';
           $jprops['jftime'] = microtime(TRUE);
-          ao_ccss_log('Job id <' . $jprops['ljid'] . '> request has no response, status now is <' . $jprops['jqstat'] . '>', 2);
+          ao_ccss_log('Job id <' . $jprops['ljid'] . '> request has no response, status now is <' . $jprops['jqstat'] . '>', 3);
 
         // UNKNOWN: unhandled results exception
         } else {
