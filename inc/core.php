@@ -233,9 +233,6 @@ add_action('template_redirect', 'is_blog_page');
 // Provide key status
 function ao_ccss_key_status($render) {
 
-  // Attach wpdb
-  global $wpdb;
-
   // Get key and key status
   global $ao_ccss_key;
   global $ao_ccss_keyst;
@@ -258,7 +255,7 @@ function ao_ccss_key_status($render) {
   // Key exists but its validation has failed
   } elseif ($key && $key_status == 1) {
 
-    // Set error status
+    // Set invalid key status
     $status     = 'invalid';
     $status_msg = __('Invalid');
     $color      = '#dc3232'; // Red
@@ -267,11 +264,23 @@ function ao_ccss_key_status($render) {
   // Key exists but it has no valid status yet
   } elseif ($key && !$key_status) {
 
-    // Set waiting validation status
-    $status     = 'waiting';
-    $status_msg = __('Waiting Validation');
-    $color      = '#00a0d2'; // Blue
-    $message    = __('Your API key is waiting for validation. It will be <strong>validated automatically</strong> when the first job in the queue run successfully.', 'autoptimize');
+    // Perform key validation
+    $key_check = ao_ccss_key_validation($key);
+
+    // Key is valid, set valid status
+    if ($key_check) {
+      $status     = 'valid';
+      $status_msg = __('Valid');
+      $color      = '#46b450'; // Green
+      $message    = NULL;
+
+    // Key is invalid, set invalid status
+    } else {
+      $status     = 'invalid';
+      $status_msg = __('Invalid');
+      $color      = '#dc3232'; // Red
+      $message    = __('Your API key is invalid. Please enter a valid <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> key.', 'autoptimize');
+    }
 
   // No key nor status
   } else {
@@ -294,6 +303,63 @@ function ao_ccss_key_status($render) {
 
   // Return key status
   return $key_return;
+}
+
+// POST a dummy job to criticalcss.com to check for key validation
+function ao_ccss_key_validation($key) {
+
+  // Prepare home URL for the request
+  $src_url = get_home_url();
+
+  // Prepare the request
+  $url  = esc_url_raw(AO_CCSS_API . 'generate');
+  $args = array(
+    'headers' => array(
+      'User-Agent'    => 'Autoptimize CriticalCSS Power-Up v' . AO_CCSS_VER,
+      'Content-type'  => 'application/json; charset=utf-8',
+      'Authorization' => 'JWT ' . $key,
+      'Connection'    => 'close'
+    ),
+    // Body must be JSON
+    'body' => json_encode(
+      array(
+        'url' => $src_url,
+        'aff' => 1
+      )
+    )
+  );
+
+  // Dispatch the request and store its response code
+  $req  = wp_safe_remote_post($url, $args);
+  $code = wp_remote_retrieve_response_code($req);
+  $body = json_decode(wp_remote_retrieve_body($req), TRUE);
+
+  // Response is OK
+  if ($code == 200) {
+
+    // Set key status as valid and log key check
+    update_option('autoptimize_ccss_keyst', 2);
+    ao_ccss_log('criticalcss.com: API key is valid, updating key status', 3);
+    return TRUE;
+
+  // Response is unauthorized
+  } elseif ($code == 401) {
+
+    // Set key status as invalid and log key check
+    update_option('autoptimize_ccss_keyst', 1);
+    ao_ccss_log('criticalcss.com: API key is invalid, updating key status', 3);
+    return FALSE;
+
+  // Response unkown
+  } else {
+
+    // Log key check attempt
+    ao_ccss_log('criticalcss.com: could not check API key status, this is a service error, body follows if any...', 2);
+    if (!empty($body)) {
+      ao_ccss_log(print_r($body, TRUE), 2);
+    }
+    return FALSE;
+  }
 }
 
 // Get viewport size
@@ -367,7 +433,7 @@ function ao_ccss_log($msg, $lvl) {
       $level = 'EE';
       break;
     case 3:
-      // Debug allowed only if enabled
+      // Output debug messages only if debug mode is enabled
       if ($ao_ccss_debug)
         $level = 'DD';
       break;

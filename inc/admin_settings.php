@@ -58,8 +58,8 @@ function ao_ccss_settings() {
         // Get API key status
         $key = ao_ccss_key_status(TRUE);
 
-        // If a usable key status is in place, render panels
-        if ($key['status'] == 'valid' || $key['status'] == 'waiting') {
+        // If key status is valid, render other panels
+        if ($key['status'] == 'valid') {
 
           // Render rules section
           ao_ccss_render_rules();

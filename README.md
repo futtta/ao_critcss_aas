@@ -46,20 +46,20 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 ## Project Stats
 
-*Stats updated at: 2018/01/29*
+*Stats updated at: 2018/01/30*
 
-**Project size:** 272 KB
+**Project size:** 280 KB
 
 ### Lines of Code
 
 **Language**|**Files**|**Blank Lines**|**Comments**|**Functional Code**
 :-------|-------:|-------:|-------:|-------:
-PHP|15|436|443|2061
+PHP|15|460|469|2152
 CSS|2|6|8|375
 JavaScript|2|13|2|112
 Bourne Shell|2|18|0|59
 --------|--------|--------|--------|--------
-**SUM:**|**21**|**473**|**453**|**2607**
+**SUM:**|**21**|**497**|**479**|**2698**
 
 ### Media and Other
 
@@ -67,9 +67,9 @@ Bourne Shell|2|18|0|59
 :-------|-------:|-------:
 GIF|3|172
 PNG|1|9585
-I18|2|50887
+I18|2|50325
 --------|--------|--------
-**SUM:**|**6**|**60644**
+**SUM:**|**6**|**60082**
 
 ### Spec Items
 
@@ -85,9 +85,9 @@ inc/core.php:62:  // NOTE: implements section 4, id 1.1 of the specs (for types)
 inc/core.php:86:  // NOTE: implements section 4, id 1.2 of the specs
 inc/cron.php:3:// NOTE: implements section 4 of the specs
 inc/cron.php:90:      // NOTE: implements section 4, id 3.1 of the specs
-inc/cron.php:156:      // NOTE: implements section 4, id 3.2 of the specs
-inc/cron.php:277:      // NOTE: implements section 4, id 3.2.1 of the specs
-inc/cron.php:575:// NOTE: implements section 4, id 3.2.1 of the specs
+inc/cron.php:180:      // NOTE: implements section 4, id 3.2 of the specs
+inc/cron.php:323:      // NOTE: implements section 4, id 3.2.1 of the specs
+inc/cron.php:650:// NOTE: implements section 4, id 3.2.1 of the specs
 ```
 
 ### Out of Scope Items
@@ -101,10 +101,9 @@ inc/core_ajax.php:208:// NOTE: out of scope import settings
 inc/core_enqueue.php:13:  // NOTE: out of scope check for allowed job enqueuing (inc. issue #2)
 inc/core_enqueue.php:277:// NOTE: out of scope check for criticalcss.com UA
 inc/cron.php:37:  // NOTE: out of scope queue debug
-inc/cron.php:269:      // NOTE: out of scope DONE job removal (issue #4)
-inc/cron.php:552:  // NOTE: out of scope critical CSS file removal (issue #5)
-inc/cron.php:634:// NOTE: out of scope plugin maintenanc
-languages/autoptimize-pt_BR-backup-201801290103120.po~:1:# NOTE: out of scope pt-BR localization
+inc/cron.php:315:      // NOTE: out of scope DONE job removal (issue #4)
+inc/cron.php:627:  // NOTE: out of scope critical CSS file removal (issue #5)
+inc/cron.php:709:// NOTE: out of scope plugin maintenanc
 ```
 
 #### Notes
