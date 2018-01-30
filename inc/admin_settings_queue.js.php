@@ -72,7 +72,7 @@ function drawQueueTable(aoCssQueue) {
       dbtn        = true;
 
     // Status: ERROR (E, sort priority 1)
-    } else if ((keys.jqstat === 'JOB_DONE' || keys.jqstat === 'JOB_FAILED' || keys.jqstat === 'STATUS_JOB_BAD' || keys.jqstat === 'INVALID_JWT_TOKEN' || keys.jqstat === 'NO_CSS' || keys.jqstat === 'NO_RESPONSE') && (keys.jrstat !== 'GOOD' || (keys.jvstat !== 'GOOD' || keys.jvstat !== 'WARN' || keys.jvstat !== 'BAD'))) {
+    } else if ((keys.jqstat === 'JOB_FAILED' || keys.jqstat === 'STATUS_JOB_BAD' || keys.jqstat === 'INVALID_JWT_TOKEN' || keys.jqstat === 'NO_CSS' || keys.jqstat === 'NO_RESPONSE') && (keys.jrstat !== 'GOOD' || (keys.jvstat !== 'GOOD' || keys.jvstat !== 'WARN' || keys.jvstat !== 'BAD'))) {
       status      = '<span class="hidden">1</span>E';
       statusClass = 'error';
       title       = "<?php _e('ERROR', 'autoptimize'); ?> (" + ljid + ")\n<?php _e('Info from criticalcss.com:', 'autoptimize'); ?>\n<?php _e('- Job ID: ', 'autoptimize'); ?>" + keys.jid + "\n<?php _e('- Status: ', 'autoptimize'); ?>" + keys.jqstat + "\n<?php _e('- Result: ', 'autoptimize'); ?>" + keys.jrstat + "\n<?php _e('- Validation: ', 'autoptimize'); ?>" + keys.jvstat;
