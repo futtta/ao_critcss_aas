@@ -104,7 +104,7 @@ function ao_ccss_queue_control() {
 
           // If this is not the first job, wait 15 seconds before process next job due criticalcss.com API limits
           if ($jr > 1) {
-            ao_ccss_log('Wait 15 seconds before process the next job due criticalcss.com limits on API interaction #' . $jr, 3);
+            ao_ccss_log('Waiting 15 seconds due to criticalcss.com API limits', 3);
             sleep(15);
           }
 
@@ -114,7 +114,7 @@ function ao_ccss_queue_control() {
 
           // NOTE: All the following conditions maps to the ones in admin_settings_queue.js.php
 
-          // Request has a valid result
+          // SUCCESS: request has a valid result
           if ($apireq['job']['status'] == 'JOB_QUEUED' || $apireq['job']['status'] == 'JOB_ONGOING') {
 
             // Update job properties
@@ -122,32 +122,49 @@ function ao_ccss_queue_control() {
             $jprops['jqstat'] = $apireq['job']['status'];
             ao_ccss_log('Job id <' . $jprops['ljid'] . '> generate request successful, remote id <' . $jprops['jid'] . '>, status now is <' . $jprops['jqstat'] . '>', 3);
 
-          // Key validation error
+          // ERROR: concurrent requests
+          } elseif ($apireq['job']['status'] == 'STATUS_JOB_BAD') {
+
+            // Update job properties
+            $jprops['jid']    = $apireq['job']['id'];
+            $jprops['jqstat'] = $apireq['job']['status'];
+            $jprops['jrstat'] = $apireq['error'];
+            $jprops['jvstat'] = 'NONE';
+            $jprops['jftime'] = microtime(TRUE);
+            ao_ccss_log('API key validation error when processing job id <' . $jprops['ljid'] . '>, job status is now <' . $jprops['jqstat'] . '>', 2);
+
+          // ERROR: key validation
           } elseif ($apireq['errorCode'] == 'INVALID_JWT_TOKEN') {
 
             // Update job properties
             $jprops['jqstat'] = $apireq['errorCode'];
             $jprops['jrstat'] = $apireq['error'];
+            $jprops['jvstat'] = 'NONE';
+            $jprops['jftime'] = microtime(TRUE);
             ao_ccss_log('API key validation error when processing job id <' . $jprops['ljid'] . '>, job status is now <' . $jprops['jqstat'] . '>', 2);
 
-          // No response from service
+          // ERROR: no response
           } elseif (empty($apireq)) {
 
             // Update job properties
             $jprops['jqstat'] = 'NO_RESPONSE';
+            $jprops['jrstat'] = 'NONE';
+            $jprops['jvstat'] = 'NONE';
             $jprops['jftime'] = microtime(TRUE);
             ao_ccss_log('Job id <' . $jprops['ljid'] . '> request has no response, status now is <' . $jprops['jqstat'] . '>, this could be a service timeout', 2);
 
-          // Request with an unhandled exception
+          // UNKNOWN: unhandled generate exception
           } else {
 
             // Update job properties
             $jprops['jqstat'] = 'JOB_UNKNOWN';
+            $jprops['jrstat'] = 'NONE';
+            $jprops['jvstat'] = 'NONE';
             $jprops['jftime'] = microtime(TRUE);
             ao_ccss_log('Job id <' . $jprops['ljid'] . '> generate request has an UNKNOWN condition, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
           }
 
-        // Job hash is equal a previous one, so it's done
+        // SUCCESS: Job hash is equal to a previous one, so it's done
         } else {
 
           // Update job status and finish time
@@ -166,10 +183,10 @@ function ao_ccss_queue_control() {
         // Log the pending job
         ao_ccss_log('Found PENDING job with local ID <' . $jprops['ljid'] . '>, continuing its queue processing', 3);
 
-        // If this is not the first job, wait 5 seconds before process next job due criticalcss.com API limits
+        // If this is not the first job, wait 15 seconds before process next job due criticalcss.com API limits
         if ($jr > 1) {
-          ao_ccss_log('Wait 5 seconds before process the next job due criticalcss.com API limits', 3);
-          sleep(5);
+          ao_ccss_log('Waiting 15 seconds due to criticalcss.com API limits', 3);
+          sleep(15);
         }
 
         // Dispatch the job result request and increment request count
@@ -191,7 +208,7 @@ function ao_ccss_queue_control() {
           }
         }
 
-        // Request has a valid result
+        // SUCCESS: request has a valid result
         // Process a PENDING job
         if ($apireq['status'] == 'JOB_QUEUED' || $apireq['status'] == 'JOB_ONGOING') {
 
@@ -202,7 +219,7 @@ function ao_ccss_queue_control() {
         // Process a DONE job
         } elseif ($apireq['status'] == 'JOB_DONE') {
 
-          // Process GOOD jobs
+          // SUCCESS: GOOD job with GOOD validation
           if ($apireq['resultStatus'] == 'GOOD' && $apireq['validationStatus'] == 'GOOD') {
 
             // Update job properties
@@ -214,7 +231,7 @@ function ao_ccss_queue_control() {
             $rule_update      = TRUE;
             ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful, remote id <' . $jprops['jid'] . '>, status <' . $jprops['jqstat'] . '>, file saved <' . $jprops['file'] . '>', 3);
 
-          // Process REVIEW jobs
+          // SUCCESS: GOOD job with WARN or BAD validation
           } elseif ($apireq['resultStatus'] == 'GOOD' && ($apireq['validationStatus'] == 'WARN' || $apireq['validationStatus'] == 'BAD')) {
 
             // Update job properties
@@ -226,7 +243,7 @@ function ao_ccss_queue_control() {
             $rule_update      = TRUE;
             ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful, remote id <' . $jprops['jid'] . '>, status <' . $jprops['jqstat'] . ', file saved <' . $jprops['file'] . '> but requires REVIEW', 3);
 
-          // Process ERROR jobs
+          // ERROR: no GOOD, WARN or BAD results
           } elseif ($apireq['resultStatus'] != 'GOOD' && ($apireq['validationStatus'] != 'GOOD' || $apireq['validationStatus'] != 'WARN' || $apireq['validationStatus'] != 'BAD')) {
 
             // Update job properties
@@ -234,45 +251,59 @@ function ao_ccss_queue_control() {
             $jprops['jrstat'] = $apireq['resultStatus'];
             $jprops['jvstat'] = $apireq['validationStatus'];
             $jprops['jftime'] = microtime(TRUE);
-            ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successfull but job FAILED, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
+            ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful but job FAILED, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
 
-          // Process UNKNOWN jobs
+          // UNKNOWN: unhandled JOB_DONE exception
           } else {
 
             // Update job properties
             $jprops['jqstat'] = 'JOB_UNKNOWN';
             $jprops['jrstat'] = $apireq['resultStatus'];
             $jprops['jvstat'] = $apireq['validationStatus'];
-            $queue_update     = TRUE;
-            ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successfull but job is UNKNOWN, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
-
+            $jprops['jftime'] = microtime(TRUE);
+            ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful but job is UNKNOWN, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
           }
 
-        // Process a FAILED job
+        // ERROR: failed job
         } elseif ($apireq['job']['status'] == 'JOB_FAILED' || $apireq['job']['status'] == 'STATUS_JOB_BAD') {
 
           // Update job properties
           $jprops['jqstat'] = $apireq['job']['status'];
           if ($apireq['error']) {
             $jprops['jrstat'] = $apireq['job']['error'];
+          } else {
           }
-          $jprops['jvstat'] = 'ERROR';
+          $jprops['jvstat'] = 'NONE';
           $jprops['jftime'] = microtime(TRUE);
-          ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successfull but job FAILED, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
+          ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful but job FAILED, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
 
-        // No response from service
+        // ERROR: CSS doesn't exist
+        } elseif ($apireq['error'] == "This css no longer exists. Please re-generate it.") {
+
+          // Update job properties
+          $jprops['jqstat'] = 'NO_CSS';
+          $jprops['jrstat'] = $apireq['error'];
+          $jprops['jvstat'] = 'NONE';
+          $jprops['jftime'] = microtime(TRUE);
+          ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful but job FAILED, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
+
+        // ERROR: no response
         } elseif (empty($apireq)) {
 
           // Update job properties
           $jprops['jqstat'] = 'NO_RESPONSE';
+          $jprops['jrstat'] = 'NONE';
+          $jprops['jvstat'] = 'NONE';
           $jprops['jftime'] = microtime(TRUE);
           ao_ccss_log('Job id <' . $jprops['ljid'] . '> request has no response, status now is <' . $jprops['jqstat'] . '>, this could be a service timeout', 2);
 
-        // Request with an unhandled exception
+        // UNKNOWN: unhandled results exception
         } else {
 
           // Update job properties
           $jprops['jqstat'] = 'JOB_UNKNOWN';
+          $jprops['jrstat'] = 'NONE';
+          $jprops['jvstat'] = 'NONE';
           $jprops['jftime'] = microtime(TRUE);
           ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request has an UNKNOWN condition, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
         }
@@ -437,14 +468,14 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
     $code = $dcode;
   }
 
-  // Response code is ok (200)
+  // Response code is OK
   if ($code == 200) {
 
     // Workaround criticalcss.com non-RESTful reponses
-    if ($body['job']['status'] == 'JOB_QUEUED' || $body['job']['status'] == 'JOB_ONGOING') {
+    if ($body['job']['status'] == 'JOB_QUEUED' || $body['job']['status'] == 'JOB_ONGOING' || $body['job']['status'] == 'STATUS_JOB_BAD') {
 
       // Log successful and return encoded request body
-      ao_ccss_log('criticalcss.com: POST generate request for path <' . $src_url . '> replied successfully', 3);
+      ao_ccss_log('criticalcss.com: POST generate request for path <' . $src_url . '> replied successfuly', 3);
 
       // This code also means the key is valid, so cache key status for 24h if not already cached
       if (!$key_status && $key) {
@@ -455,9 +486,9 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
       // Return the request body
       return $body;
 
-    // Log failed request and return false
+    // Log successful requests with invalid reponses
     } else {
-      ao_ccss_log('criticalcss.com: POST generate request for path <' . $src_url . '> replied with code <' . $code . '> but with an error condition, body follows...', 2);
+      ao_ccss_log('criticalcss.com: POST generate request for path <' . $src_url . '> replied with code <' . $code . '> and an UNKNOWN error condition, body follows...', 2);
       ao_ccss_log(print_r($body, TRUE), 2);
       return $body;
     }
@@ -514,19 +545,19 @@ function ao_ccss_api_results($jobid, $debug, $dcode) {
     $code = $dcode;
   }
 
-  // Response code is ok (200)
+  // Response code is OK
   if ($code == 200) {
 
     // Workaround criticalcss.com non-RESTful reponses
-    if ($body['status'] == 'JOB_QUEUED' || $body['status'] == 'JOB_ONGOING' || $body['status'] == 'JOB_DONE' || $body['status'] == 'JOB_FAILED' || $body['status'] == 'JOB_UNKNOWN') {
+    if ($body['status'] == 'JOB_QUEUED' || $body['status'] == 'JOB_ONGOING' || $body['status'] == 'JOB_DONE' || $body['status'] == 'JOB_FAILED' || $body['status'] == 'JOB_UNKNOWN' || $body['job']['status'] == 'STATUS_JOB_BAD') {
 
       // Log successful and return encoded request body
-      ao_ccss_log('criticalcss.com: GET results request for remote job id <' . $jobid . '> replied successfully', 3);
+      ao_ccss_log('criticalcss.com: GET results request for remote job id <' . $jobid . '> replied successfuly', 3);
       return $body;
 
     // Log failed request and return false
     } else {
-      ao_ccss_log('criticalcss.com: GET results request for remote job id <' . $jobid . '> replied with code <' . $code . "> but with an error condition, body follows...", 2);
+      ao_ccss_log('criticalcss.com: GET results request for remote job id <' . $jobid . '> replied with code <' . $code . '> and an UNKNOWN error condition, body follows...', 2);
       ao_ccss_log(print_r($body, TRUE), 2);
       return FALSE;
     }
