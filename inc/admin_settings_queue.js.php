@@ -55,19 +55,19 @@ function drawQueueTable(aoCssQueue) {
       title       = '<?php _e("PENDING", "autoptimize"); ?> (' + ljid + ')';
       buttons     = '<?php _e("None", "autoptimize"); ?>';
 
-    // Status: DONE (D, sort priority 4)
-    } else if (keys.jqstat === 'JOB_DONE' && (keys.jrstat === 'GOOD' || keys.jrstat == null) && (keys.jvstat === 'GOOD' || keys.jrstat == null)) {
-      status      = '<span class="hidden">4</span>D';
-      statusClass = 'done';
-      title       = '<?php _e("DONE", "autoptimize"); ?> (' + ljid + ')';
-      buttons     = '<span class="button-secondary" id="' + ljid + '_remove" title="<?php _e("Delete Job", "autoptimize"); ?>"><span class="dashicons dashicons-trash"></span></span>';
-      dbtn        = true;
-
     // Status: REVIEW (R, sort priority 3)
     } else if (keys.jqstat === 'JOB_DONE' && keys.jrstat === 'GOOD' && (keys.jvstat === 'WARN' || keys.jvstat === 'BAD')) {
       status      = '<span class="hidden">3</span>R';
       statusClass = 'review';
       title       = "<?php _e('REVIEW', 'autoptimize'); ?> (" + ljid + ")\n<?php _e('Info from criticalcss.com:', 'autoptimize'); ?>\n<?php _e('- Job ID: ', 'autoptimize'); ?>" + keys.jid + "\n<?php _e('- Status: ', 'autoptimize'); ?>" + keys.jqstat + "\n<?php _e('- Result: ', 'autoptimize'); ?>" + keys.jrstat + "\n<?php _e('- Validation: ', 'autoptimize'); ?>" + keys.jvstat;
+      buttons     = '<span class="button-secondary" id="' + ljid + '_remove" title="<?php _e("Delete Job", "autoptimize"); ?>"><span class="dashicons dashicons-trash"></span></span>';
+      dbtn        = true;
+
+    // Status: DONE (D, sort priority 4)
+    } else if (keys.jqstat === 'JOB_DONE') {
+      status      = '<span class="hidden">4</span>D';
+      statusClass = 'done';
+      title       = '<?php _e("DONE", "autoptimize"); ?> (' + ljid + ')';
       buttons     = '<span class="button-secondary" id="' + ljid + '_remove" title="<?php _e("Delete Job", "autoptimize"); ?>"><span class="dashicons dashicons-trash"></span></span>';
       dbtn        = true;
 
