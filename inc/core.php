@@ -259,7 +259,7 @@ function ao_ccss_key_status($render) {
     $status     = 'invalid';
     $status_msg = __('Invalid');
     $color      = '#dc3232'; // Red
-    $message    = __('Your API key is invalid. Please enter a valid <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> key.', 'autoptimize');
+    $message    = __('Your API key is invalid. Please enter a valid <a href="https://criticalcss.com/?aff=1" target="_blank">criticalcss.com</a> key.', 'autoptimize');
 
   // Key exists but it has no valid status yet
   } elseif ($key && !$key_status) {
@@ -279,7 +279,7 @@ function ao_ccss_key_status($render) {
       $status     = 'invalid';
       $status_msg = __('Invalid');
       $color      = '#dc3232'; // Red
-      $message    = __('Your API key is invalid. Please enter a valid <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> key.', 'autoptimize');
+      $message    = __('Your API key is invalid. Please enter a valid <a href="https://criticalcss.com/?aff=1" target="_blank">criticalcss.com</a> key.', 'autoptimize');
     }
 
   // No key nor status
@@ -289,7 +289,7 @@ function ao_ccss_key_status($render) {
     $status     = 'nokey';
     $status_msg = __('None');
     $color      = '#ffb900'; // Yellow
-    $message    = __('Please enter a valid <a href="https://criticalcss.com/" target="_blank">criticalcss.com</a> API key to start.', 'autoptimize');
+    $message    = __('Please enter a valid <a href="https://criticalcss.com/?aff=1" target="_blank">criticalcss.com</a> API key to start.', 'autoptimize');
   }
 
   // Fill returned values
