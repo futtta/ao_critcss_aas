@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Autoptimize Power-Up: CriticalCSS 0.dev\n"
+"Project-Id-Version: Autoptimize Power-Up: CriticalCSS 0.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ao_critcss_aas\n"
 "POT-Creation-Date: 2018-02-15 14:54+0000\n"
 "MIME-Version: 1.0\n"
