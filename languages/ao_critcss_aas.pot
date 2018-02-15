@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Autoptimize Power-Up: CriticalCSS 0.dev\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ao_critcss_aas\n"
-"POT-Creation-Date: 2018-01-30 06:53:55+00:00\n"
+"POT-Creation-Date: 2018-02-15 14:54:26+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -72,7 +72,7 @@ msgstr ""
 
 #: inc/admin_settings_adv.php:31
 msgid ""
-"<a href=\"https://criticalcss.com/account/api-keys\" target=\"_blank"
+"<a href=\"https://criticalcss.com/account/api-keys?aff=1\" target=\"_blank"
 "\">criticalcss.com</a> default viewport size is 1300x900 pixels (width x "
 "height). You can change this size by typing a desired width and height "
 "values above. Allowed value ranges are from 800 to 4096 for width and from "
@@ -167,12 +167,13 @@ msgstr ""
 
 #: inc/admin_settings_key.php:35
 msgid ""
-"Enter your <a href=\"https://criticalcss.com/account/api-keys\" target="
+"Enter your <a href=\"https://criticalcss.com/account/api-keys?aff=1\" target="
 "\"_blank\">criticalcss.com</a> API key above. The key is revalidated every "
 "time a new job is sent to it.<br />To obtain your API key, go to <a href="
-"\"https://criticalcss.com/account/api-keys\" target=\"_blank\">criticalcss."
-"com</a> > Account > API Keys.<br /><strong>Requests to generate a critical "
-"CSS via the API are priced at £5 per domain per month.</strong>"
+"\"https://criticalcss.com/account/api-keys?aff=1\" target=\"_blank"
+"\">criticalcss.com</a> > Account > API Keys.<br /><strong>Requests to "
+"generate a critical CSS via the API are priced at £5 per domain per month.</"
+"strong>"
 msgstr ""
 
 #: inc/admin_settings_queue.js.php:48
@@ -189,7 +190,32 @@ msgid "PENDING"
 msgstr ""
 
 #: inc/admin_settings_queue.js.php:62
-msgid "DONE"
+msgid "REVIEW"
+msgstr ""
+
+#: inc/admin_settings_queue.js.php:62 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:88
+msgid "Info from criticalcss.com:"
+msgstr ""
+
+#: inc/admin_settings_queue.js.php:62 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:88
+msgid "- Job ID: "
+msgstr ""
+
+#: inc/admin_settings_queue.js.php:62 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:88
+msgid "- Status: "
+msgstr ""
+
+#: inc/admin_settings_queue.js.php:62 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:88
+msgid "- Result: "
+msgstr ""
+
+#: inc/admin_settings_queue.js.php:62 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:88
+msgid "- Validation: "
 msgstr ""
 
 #: inc/admin_settings_queue.js.php:63 inc/admin_settings_queue.js.php:71
@@ -199,32 +225,7 @@ msgid "Delete Job"
 msgstr ""
 
 #: inc/admin_settings_queue.js.php:70
-msgid "REVIEW"
-msgstr ""
-
-#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
-#: inc/admin_settings_queue.js.php:88
-msgid "Info from criticalcss.com:"
-msgstr ""
-
-#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
-#: inc/admin_settings_queue.js.php:88
-msgid "- Job ID: "
-msgstr ""
-
-#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
-#: inc/admin_settings_queue.js.php:88
-msgid "- Status: "
-msgstr ""
-
-#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
-#: inc/admin_settings_queue.js.php:88
-msgid "- Result: "
-msgstr ""
-
-#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
-#: inc/admin_settings_queue.js.php:88
-msgid "- Validation: "
+msgid "DONE"
 msgstr ""
 
 #: inc/admin_settings_queue.js.php:78
@@ -314,30 +315,30 @@ msgid ""
 "Autoptimize CriticalCSS Power-Up constantly query the queue for <span "
 "class='badge new'>N</span> jobs. When it finds one, gears spins and jobs "
 "becomes <span class='badge pending'>P</span> while they are running and <a "
-"href='https://criticalcss.com/' target='_blank'>criticalcss.com</a> doesn't "
-"return a result."
+"href='https://criticalcss.com/?aff=1' target='_blank'>criticalcss.com</a> "
+"doesn't return a result."
 msgstr ""
 
 #: inc/admin_settings_queue.php:42
 msgid ""
-"As soon as <a href=\"https://criticalcss.com/\" target=\"_blank"
+"As soon as <a href=\"https://criticalcss.com/?aff=1\" target=\"_blank"
 "\">criticalcss.com</a> returns a valid critical CSS file, the job is then "
 "<span class=\"badge done\">D</span>. You can delete done jobs as you wish."
 msgstr ""
 
 #: inc/admin_settings_queue.php:43
 msgid ""
-"If <a href=\"https://criticalcss.com/\" target=\"_blank\">criticalcss.com</"
-"a> results are not perfect, then the job becomes <span class=\"badge review"
-"\">R</span> and you need to review the resulting critical CSS file fetched "
-"in the target rule pointed out by that job."
+"If <a href=\"https://criticalcss.com/?aff=1\" target=\"_blank\">criticalcss."
+"com</a> results are not perfect, then the job becomes <span class=\"badge "
+"review\">R</span> and you need to review the resulting critical CSS file "
+"fetched in the target rule pointed out by that job."
 msgstr ""
 
 #: inc/admin_settings_queue.php:44
 msgid ""
 "When things go wrong, a job is marked as <span class=\"badge error\">E</"
 "span>. You can retry faulty jobs, delete them or get in touch with <a href="
-"\"https://criticalcss.com/\" target=\"_blank\">criticalcss.com</a> for "
+"\"https://criticalcss.com/?aff=1\" target=\"_blank\">criticalcss.com</a> for "
 "assistance."
 msgstr ""
 
@@ -345,8 +346,8 @@ msgstr ""
 msgid ""
 "Sometimes an unknown condition can happen. In this case, the job status "
 "becomes <span class=\"badge unknown\">U</span> and you may want to ask <a "
-"href=\"https://criticalcss.com/\" target=\"_blank\">criticalcss.com</a> for "
-"help or just delete it."
+"href=\"https://criticalcss.com/?aff=1\" target=\"_blank\">criticalcss.com</"
+"a> for help or just delete it."
 msgstr ""
 
 #: inc/admin_settings_queue.php:46
@@ -354,8 +355,8 @@ msgid ""
 "To get more information about jobs statuses, specially the ones with <span "
 "class=\"badge error\">E</span> and <span class=\"badge unknown\">U</span> "
 "status, hover your mouse in the status badge of that job. This information "
-"might be crucial when contacting <a href=\"https://criticalcss.com/\" target="
-"\"_blank\">criticalcss.com</a> for assistance."
+"might be crucial when contacting <a href=\"https://criticalcss.com/?aff=1\" "
+"target=\"_blank\">criticalcss.com</a> for assistance."
 msgstr ""
 
 #: inc/admin_settings_queue.php:47
@@ -579,7 +580,7 @@ msgstr ""
 
 #: inc/admin_settings_rules.php:153
 msgid ""
-"When a valid <a href=\"https://criticalcss.com/\" target=\"_blank"
+"When a valid <a href=\"https://criticalcss.com/?aff=1\" target=\"_blank"
 "\">criticalcss.com</a> API key is in place, Autoptimize CriticalCSS Power-Up "
 "starts to operate <strong>automatically</strong>."
 msgstr ""
@@ -588,7 +589,7 @@ msgstr ""
 msgid ""
 "Upon a request to any of the frontend pages made by a <strong>not logged in "
 "user</strong>, it will <strong>asynchronously</strong> fetch and update the "
-"critical CSS from <a href=\"https://criticalcss.com/\" target=\"_blank"
+"critical CSS from <a href=\"https://criticalcss.com/?aff=1\" target=\"_blank"
 "\">criticalcss.com</a> for conditional tags you have on your site (e.g. "
 "is_page, is_single, is_archive etc.)"
 msgstr ""
@@ -623,10 +624,10 @@ msgstr ""
 msgid ""
 "Nonetheless, if you create a <span class=\"badge manual\">MANUAL</span> for "
 "a path and leave its critical CSS content empty, the critical CSS for that "
-"path will be automatically fetched from <a href=\"https://criticalcss.com/\" "
-"target=\"_blank\">criticalcss.com</a> for you. You can later edit it as you "
-"wish, as it will <strong>NEVER be updated again</strong> while that <span "
-"class=\"badge manual\">MANUAL</span> exist."
+"path will be automatically fetched from <a href=\"https://criticalcss.com/?"
+"aff=1\" target=\"_blank\">criticalcss.com</a> for you. You can later edit it "
+"as you wish, as it will <strong>NEVER be updated again</strong> while that "
+"<span class=\"badge manual\">MANUAL</span> exist."
 msgstr ""
 
 #: inc/admin_settings_rules.php:159
@@ -635,8 +636,8 @@ msgid ""
 "manual'>MANUAL</span> rule with a <span class='badge review'>R</span> "
 "besides it (R is after REVIEW), it means that the fetched critical CSS for "
 "that rule is not 100% garanteed to work according to <a href='https://"
-"criticalcss.com/' target='_blank'>criticalcss.com</a> analysis. It's advised "
-"that you edit and review that rule to make any required adjustments."
+"criticalcss.com/?aff=1' target='_blank'>criticalcss.com</a> analysis. It's "
+"advised that you edit and review that rule to make any required adjustments."
 msgstr ""
 
 #: inc/admin_settings_rules.php:160
@@ -651,11 +652,11 @@ msgid "Add New Manual Rule"
 msgstr ""
 
 #: inc/admin_settings_rules.php:170
-msgid "Add/Edit Edit Default Critical CSS"
+msgid "Edit Default Rule CSS"
 msgstr ""
 
 #: inc/admin_settings_rules.php:171
-msgid "Add/Edit Additional Critical CSS"
+msgid "Add CSS To All Rules"
 msgstr ""
 
 #: inc/core.php:251 inc/core.php:273
@@ -669,13 +670,13 @@ msgstr ""
 #: inc/core.php:262 inc/core.php:282
 msgid ""
 "Your API key is invalid. Please enter a valid <a href=\"https://criticalcss."
-"com/\" target=\"_blank\">criticalcss.com</a> key."
+"com/?aff=1\" target=\"_blank\">criticalcss.com</a> key."
 msgstr ""
 
 #: inc/core.php:292
 msgid ""
-"Please enter a valid <a href=\"https://criticalcss.com/\" target=\"_blank"
-"\">criticalcss.com</a> API key to start."
+"Please enter a valid <a href=\"https://criticalcss.com/?aff=1\" target="
+"\"_blank\">criticalcss.com</a> API key to start."
 msgstr ""
 
 #: inc/cron.php:9
