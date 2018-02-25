@@ -88,15 +88,11 @@ function ao_ccss_admin_assets($hook) {
 
   // Stylesheets to add
   wp_enqueue_style('wp-jquery-ui-dialog');
-  wp_enqueue_style('unslider',          plugins_url('lib/css/unslider.css',         __FILE__));
-  wp_enqueue_style('unslider-dots',     plugins_url('lib/css/unslider-dots.css',    __FILE__));
   wp_enqueue_style('ao-tablesorter',    plugins_url('css/ao-tablesorter/style.css', __FILE__));
   wp_enqueue_style('ao-ccss-admin-css', plugins_url('css/admin_styles.css',         __FILE__));
 
   // Scripts to add
   wp_enqueue_script('jquery-ui-dialog',      array( 'jquery' ));
-  wp_enqueue_script('jqcookie',              plugins_url('lib/js/jquery.cookie.min.js',      __FILE__), array('jquery'), NULL, TRUE);
-  wp_enqueue_script('unslider',              plugins_url('lib/js/unslider-min.js',           __FILE__), array('jquery'), NULL, TRUE);
   wp_enqueue_script('md5',                   plugins_url('lib/js/md5.min.js',                __FILE__), NULL, NULL, TRUE);
   wp_enqueue_script('tablesorter',           plugins_url('lib/js/jquery.tablesorter.min.js', __FILE__), array('jquery'), NULL, TRUE);
   wp_enqueue_script('ao-ccss-admin-license', plugins_url('js/admin_settings.js',             __FILE__), array('jquery'), NULL, TRUE);
