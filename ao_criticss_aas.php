@@ -93,8 +93,8 @@ function ao_ccss_admin_assets($hook) {
 
   // Scripts to add
   wp_enqueue_script('jquery-ui-dialog',      array( 'jquery' ));
-  wp_enqueue_script('md5',                   plugins_url('lib/js/md5.min.js',                __FILE__), NULL, NULL, TRUE);
-  wp_enqueue_script('tablesorter',           plugins_url('lib/js/jquery.tablesorter.min.js', __FILE__), array('jquery'), NULL, TRUE);
+  wp_enqueue_script('md5',                   plugins_url('js/md5.min.js',                __FILE__), NULL, NULL, TRUE);
+  wp_enqueue_script('tablesorter',           plugins_url('js/jquery.tablesorter.min.js', __FILE__), array('jquery'), NULL, TRUE);
   wp_enqueue_script('ao-ccss-admin-license', plugins_url('js/admin_settings.js',             __FILE__), array('jquery'), NULL, TRUE);
 }
 add_action('admin_enqueue_scripts', 'ao_ccss_admin_assets');
