@@ -1,12 +1,12 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Autoptimize Power-Up: CriticalCSS 0.dev\n"
+"Project-Id-Version: Autoptimize Power-Up: CriticalCSS 0.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ao_critcss_aas\n"
-"POT-Creation-Date: 2018-01-30 06:54+0000\n"
+"POT-Creation-Date: 2018-02-15 14:54+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2018-01-30 07:00+0000\n"
+"PO-Revision-Date: 2018-02-15 15:19+0000\n"
 "Last-Translator: Deny Dias <https://mexapi.macpress.com.br/about>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "Language: pt-BR\n"
@@ -16,6 +16,20 @@ msgstr ""
 #: ao_criticss_aas.php:109
 msgid "CriticalCSS"
 msgstr ""
+
+#: inc/admin_settings_adv.php:31
+msgid ""
+"<a href=\"https://criticalcss.com/account/api-keys?aff=1\" target=\"_blank\">"
+"criticalcss.com</a> default viewport size is 1300x900 pixels (width x height)"
+". You can change this size by typing a desired width and height values above."
+" Allowed value ranges are from 800 to 4096 for width and from 600 to 2160 "
+"for height."
+msgstr ""
+"O tamanho padrão da área visível no <a href=\"https://criticalcss."
+"com/account/api-keys?aff=1\" target=\"_blank\">criticalcss.com</a> é "
+"1300x900 pixels. Você pode alterar este tamanho digitando acima a largura e "
+"altura desejada. Os valores permitidos são de 800 a 4096 para a largura e de "
+"600 a 2160 para a altura."
 
 #: inc/admin_settings_feeds.php:29
 msgid "Autoptimize"
@@ -27,25 +41,100 @@ msgstr ""
 
 #: inc/admin_settings_key.php:35
 msgid ""
-"Enter your <a href=\"https://criticalcss.com/account/api-keys\" "
+"Enter your <a href=\"https://criticalcss.com/account/api-keys?aff=1\" "
 "target=\"_blank\">criticalcss.com</a> API key above. The key is revalidated "
 "every time a new job is sent to it.<br />To obtain your API key, go to <a "
-"href=\"https://criticalcss.com/account/api-keys\" target=\"_blank\">"
+"href=\"https://criticalcss.com/account/api-keys?aff=1\" target=\"_blank\">"
 "criticalcss.com</a> > Account > API Keys.<br /><strong>Requests to generate "
 "a critical CSS via the API are priced at £5 per domain per month.</strong>"
 msgstr ""
 "Digite acima a sua chave de API do <a href=\"https://criticalcss."
-"com/account/api-keys\" target=\"_blank\">criticalcss.com</a>.  A chave é "
-"revalidada toda vez que um novo job é criado lá.<br />Para obter sua chave "
-"de API, vá em <a href=\"https://criticalcss.com/account/api-keys\" "
+"com/account/api-keys?aff=1\" target=\"_blank\">criticalcss.com</a>.  A chave "
+"é revalidada toda vez que um novo job é criado lá.<br />Para obter sua chave "
+"de API, vá em <a href=\"https://criticalcss.com/account/api-keys?aff=1\" "
 "target=\"_blank\">criticalcss.com</a> > Account > API Keys.<br /><strong>"
 "Requisições para gerar um CSS crítico via API tem preço de £5 (cinco libras "
 "esterlinas) por domínio, por mês.</strong>"
 
-#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:62 inc/admin_settings_queue.js.php:78
 #: inc/admin_settings_queue.js.php:88
 msgid "- Job ID: "
 msgstr ""
+
+#: inc/admin_settings_queue.php:41
+msgid ""
+"Autoptimize CriticalCSS Power-Up constantly query the queue for <span "
+"class='badge new'>N</span> jobs. When it finds one, gears spins and jobs "
+"becomes <span class='badge pending'>P</span> while they are running and <a "
+"href='https://criticalcss.com/?aff=1' target='_blank'>criticalcss.com</a> "
+"doesn't return a result."
+msgstr ""
+"O Autoptimize CriticalCSS Power-Up procura na fila os jobs com estado <span "
+"class='badge new'>N</span>. Quando os encontra, ela os executa e eles passam "
+"a ter o estado <span class='badge pending'>P</span> enquanto o <a "
+"href='https://criticalcss.com/api-keys?aff=1' target='_blank'>criticalcss."
+"com</a> não retorna um resultado."
+
+#: inc/admin_settings_queue.php:42
+msgid ""
+"As soon as <a href=\"https://criticalcss.com/?aff=1\" target=\"_blank\">"
+"criticalcss.com</a> returns a valid critical CSS file, the job is then <span "
+"class=\"badge done\">D</span>. You can delete done jobs as you wish."
+msgstr ""
+"Assim que o <a href=\"https://criticalcss.com/api-keys?aff=1\" "
+"target=\"_blank\">criticalcss.com</a> retorna um CSS crítico válido, o job "
+"torna-se <span class=\"badge done\">D</span>. Você pode apagar jobs prontos "
+"a vontade."
+
+#: inc/admin_settings_queue.php:43
+msgid ""
+"If <a href=\"https://criticalcss.com/?aff=1\" target=\"_blank\">criticalcss."
+"com</a> results are not perfect, then the job becomes <span class=\"badge "
+"review\">R</span> and you need to review the resulting critical CSS file "
+"fetched in the target rule pointed out by that job."
+msgstr ""
+"Se o resultado do <a href=\"https://criticalcss.com/api-keys?aff=1\" "
+"target=\"_blank\">criticalcss.com</a> não for perfeito, o job torna-se <span "
+"class=\"badge review\">R</span>. Você precisa revisar a regra criada por "
+"este job para conferir o CSS crítico obtido."
+
+#: inc/admin_settings_queue.php:44
+msgid ""
+"When things go wrong, a job is marked as <span class=\"badge error\">E</span>"
+". You can retry faulty jobs, delete them or get in touch with <a "
+"href=\"https://criticalcss.com/?aff=1\" target=\"_blank\">criticalcss.com</a>"
+" for assistance."
+msgstr ""
+"Quando as coisas dão errado, o job é marcado como <span class=\"badge "
+"error\">E</span>. Você pode reenviar jobs neste estado ou entrar em contado "
+"com o <a href=\"https://criticalcss.com/api-keys?aff=1\" target=\"_blank\">"
+"criticalcss.com</a> para obter ajuda."
+
+#: inc/admin_settings_queue.php:45
+msgid ""
+"Sometimes an unknown condition can happen. In this case, the job status "
+"becomes <span class=\"badge unknown\">U</span> and you may want to ask <a "
+"href=\"https://criticalcss.com/?aff=1\" target=\"_blank\">criticalcss.com</a>"
+" for help or just delete it."
+msgstr ""
+"As vezes uma condição desconhecida pode ocorrer. Neste caso o estado do job "
+"torna-se <span class=\"badge unknown\">U</span>  e você pode pedir ajuda ao "
+"a href=\"https://criticalcss.com/api-keys?aff=1\" target=\"_blank\">"
+"criticalcss.com</a> ou apenas apagar o job neste estado."
+
+#: inc/admin_settings_queue.php:46
+msgid ""
+"To get more information about jobs statuses, specially the ones with <span "
+"class=\"badge error\">E</span> and <span class=\"badge unknown\">U</span> "
+"status, hover your mouse in the status badge of that job. This information "
+"might be crucial when contacting <a href=\"https://criticalcss.com/?aff=1\" "
+"target=\"_blank\">criticalcss.com</a> for assistance."
+msgstr ""
+"Para obter mais informações sobre os estados dos jobs, especialmente aqueles "
+"cujo estado são <span class=\"badge error\">E</span> e <span class=\"badge "
+"unknown\">U</span>, deixe o mouse sobre o rótulo do estado. Esta informação "
+"pode ser crucial para pedir ajuda ao <a href=\"https://criticalcss.com/api-"
+"keys?aff=1\" target=\"_blank\">criticalcss.com</a>."
 
 #: inc/admin_settings_rules.js.php:49
 msgid "MANUAL"
@@ -54,6 +143,88 @@ msgstr ""
 #: inc/admin_settings_rules.js.php:52
 msgid "AUTO"
 msgstr ""
+
+#: inc/admin_settings_rules.php:153
+msgid ""
+"When a valid <a href=\"https://criticalcss.com/?aff=1\" target=\"_blank\">"
+"criticalcss.com</a> API key is in place, Autoptimize CriticalCSS Power-Up "
+"starts to operate <strong>automatically</strong>."
+msgstr ""
+"Quando uma chave de API do <a href=\"https://criticalcss.com/?aff=1\" "
+"target=\"_blank\">criticalcss.com</a>, o Autoptimize CriticalCSS Power-Up "
+"começa a funcionar <strong>automaticamente</strong>."
+
+#: inc/admin_settings_rules.php:154
+msgid ""
+"Upon a request to any of the frontend pages made by a <strong>not logged in "
+"user</strong>, it will <strong>asynchronously</strong> fetch and update the "
+"critical CSS from <a href=\"https://criticalcss.com/?aff=1\" "
+"target=\"_blank\">criticalcss.com</a> for conditional tags you have on your "
+"site (e.g. is_page, is_single, is_archive etc.)"
+msgstr ""
+"Quando um requisição é feita em qualquer uma das páginas do frontend por um "
+"<strong>usuário que não esta logado</strong>, ele irá obter e atualizar "
+"<strong>de modo assíncrono</strong>  o CSS crítico a partir do <a "
+"href=\"https://criticalcss.com/?aff=1\" target=\"_blank\">criticalcss.com</a>"
+" para as tags condicionais que você tiver em seu site (por exemplo: is_page, "
+"is_single, is_archive etc)."
+
+#: inc/admin_settings_rules.php:158
+msgid ""
+"Nonetheless, if you create a <span class=\"badge manual\">MANUAL</span> for "
+"a path and leave its critical CSS content empty, the critical CSS for that "
+"path will be automatically fetched from <a href=\"https://criticalcss.com/?"
+"aff=1\" target=\"_blank\">criticalcss.com</a> for you. You can later edit it "
+"as you wish, as it will <strong>NEVER be updated again</strong> while that "
+"<span class=\"badge manual\">MANUAL</span> exist."
+msgstr ""
+"Mesmo assim, se você criar uma regra <span class=\"badge manual\">"
+"MANUAL</span> deixando o CSS crítico em branco, o CSS crítico do caminho "
+"digitado será obtido automaticamente a partir do <a href=\"https:"
+"//criticalcss.com/?aff=1\" target=\"_blank\">criticalcss.com</a>. Você pode "
+"editá-lo mais tarde se quiser, já que ele <strong>NUNCA será atualizado "
+"novamente</strong> enquanto a regra <span class=\"badge manual\">"
+"MANUAL</span> existir."
+
+#: inc/admin_settings_rules.php:159
+msgid ""
+"If you see an <span class='badge auto'>AUTO</span> or <span class='badge "
+"manual'>MANUAL</span> rule with a <span class='badge review'>R</span> "
+"besides it (R is after REVIEW), it means that the fetched critical CSS for "
+"that rule is not 100% garanteed to work according to <a href='https:"
+"//criticalcss.com/?aff=1' target='_blank'>criticalcss.com</a> analysis. It's "
+"advised that you edit and review that rule to make any required adjustments."
+msgstr ""
+"Se você ver uma regra <span class='badge auto'>AUTO</span> ou <span "
+"class='badge manual'>MANUAL</span> com um <span class='badge review'>R</span>"
+" ao lado dela, significa que o CSS crítico obtido para ela não tem 100% de "
+"garantia que irá funcionar bem de acordo com a análise feita pelo <a "
+"href='https://criticalcss.com/?aff=1' target='_blank'>criticalcss.com</a>. "
+"Recomendamos que você edite e revise a regra e faça os ajustes necessários."
+
+#: inc/admin_settings_rules.php:170
+msgid "Edit Default Rule CSS"
+msgstr "Editar CSS da Regra Padrão"
+
+#: inc/admin_settings_rules.php:171
+msgid "Add CSS To All Rules"
+msgstr "Adicionar CSS a Todas as Regras"
+
+#: inc/core.php:262 inc/core.php:282
+msgid ""
+"Your API key is invalid. Please enter a valid <a href=\"https://criticalcss."
+"com/?aff=1\" target=\"_blank\">criticalcss.com</a> key."
+msgstr ""
+"Sua chave da API é inválida. Por favor, digite uma chave do <a href=\"https:"
+"//criticalcss.com//?aff=1\" target=\"_blank\">criticalcss.com</a> válida."
+
+#: inc/core.php:292
+msgid ""
+"Please enter a valid <a href=\"https://criticalcss.com/?aff=1\" "
+"target=\"_blank\">criticalcss.com</a> API key to start."
+msgstr ""
+"Por favor, digite uma chave do <a href=\"https://criticalcss.com//?aff=1\" "
+"target=\"_blank\">criticalcss.com</a> válida para começar."
 
 #. Plugin Name of the plugin/theme
 msgid "Autoptimize Power-Up: CriticalCSS"
@@ -126,20 +297,6 @@ msgstr "Largura"
 #: inc/admin_settings_adv.php:29
 msgid "Height"
 msgstr "Altura"
-
-#: inc/admin_settings_adv.php:31
-msgid ""
-"<a href=\"https://criticalcss.com/account/api-keys\" target=\"_blank\">"
-"criticalcss.com</a> default viewport size is 1300x900 pixels (width x height)"
-". You can change this size by typing a desired width and height values above."
-" Allowed value ranges are from 800 to 4096 for width and from 600 to 2160 "
-"for height."
-msgstr ""
-"O tamanho padrão da área visível no <a href=\"https://criticalcss."
-"com/account/api-keys\" target=\"_blank\">criticalcss.com</a> é 1300x900 "
-"píxeis. Você pode alterar este tamanho digitando acima a largura e altura "
-"desejada. Os valores permitidos são de 800 a 4096 para a largura e de 600 a "
-"2160 para a altura."
 
 #: inc/admin_settings_adv.php:37
 msgid "Debug Mode"
@@ -237,8 +394,28 @@ msgid "PENDING"
 msgstr "PENDENTE"
 
 #: inc/admin_settings_queue.js.php:62
-msgid "DONE"
-msgstr "PRONTO"
+msgid "REVIEW"
+msgstr "REVISAR"
+
+#: inc/admin_settings_queue.js.php:62 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:88
+msgid "Info from criticalcss.com:"
+msgstr "Informações do criticalcss.com:"
+
+#: inc/admin_settings_queue.js.php:62 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:88
+msgid "- Status: "
+msgstr "- Estado:"
+
+#: inc/admin_settings_queue.js.php:62 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:88
+msgid "- Result: "
+msgstr "- Resultado"
+
+#: inc/admin_settings_queue.js.php:62 inc/admin_settings_queue.js.php:78
+#: inc/admin_settings_queue.js.php:88
+msgid "- Validation: "
+msgstr "- Validação:"
 
 #: inc/admin_settings_queue.js.php:63 inc/admin_settings_queue.js.php:71
 #: inc/admin_settings_queue.js.php:79 inc/admin_settings_queue.js.php:89
@@ -247,28 +424,8 @@ msgid "Delete Job"
 msgstr "Apagar Job"
 
 #: inc/admin_settings_queue.js.php:70
-msgid "REVIEW"
-msgstr "REVISAR"
-
-#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
-#: inc/admin_settings_queue.js.php:88
-msgid "Info from criticalcss.com:"
-msgstr "Informações do criticalcss.com:"
-
-#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
-#: inc/admin_settings_queue.js.php:88
-msgid "- Status: "
-msgstr "- Estado:"
-
-#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
-#: inc/admin_settings_queue.js.php:88
-msgid "- Result: "
-msgstr "- Resultado"
-
-#: inc/admin_settings_queue.js.php:70 inc/admin_settings_queue.js.php:78
-#: inc/admin_settings_queue.js.php:88
-msgid "- Validation: "
-msgstr "- Validação:"
+msgid "DONE"
+msgstr "PRONTO"
 
 #: inc/admin_settings_queue.js.php:78
 msgid "ERROR"
@@ -365,80 +522,6 @@ msgstr ""
 "nenhuma regra <span class=\"badge manual\">MANUAL</span> que combine ou o "
 "CSS de uma regra <span class=\"badge auto\">AUTO</span> foi alterado), um "
 "job <span class=\"badge new\">N</span> é criado na fila."
-
-#: inc/admin_settings_queue.php:41
-msgid ""
-"Autoptimize CriticalCSS Power-Up constantly query the queue for <span "
-"class='badge new'>N</span> jobs. When it finds one, gears spins and jobs "
-"becomes <span class='badge pending'>P</span> while they are running and <a "
-"href='https://criticalcss.com/' target='_blank'>criticalcss.com</a> doesn't "
-"return a result."
-msgstr ""
-"O Autoptimize CriticalCSS Power-Up procura na fila os jobs com estado <span "
-"class='badge new'>N</span>. Quando os encontra, ela os executa e eles passam "
-"a ter o estado <span class='badge pending'>P</span> enquanto o <a "
-"href='https://criticalcss.com/' target='_blank'>criticalcss.com</a> não "
-"retorna um resultado."
-
-#: inc/admin_settings_queue.php:42
-msgid ""
-"As soon as <a href=\"https://criticalcss.com/\" target=\"_blank\">"
-"criticalcss.com</a> returns a valid critical CSS file, the job is then <span "
-"class=\"badge done\">D</span>. You can delete done jobs as you wish."
-msgstr ""
-"Assim que o <a href=\"https://criticalcss.com/\" target=\"_blank\">"
-"criticalcss.com</a> retorna um CSS crítico válido, o job torna-se <span "
-"class=\"badge done\">D</span>. Você pode apagar jobs prontos a vontade."
-
-#: inc/admin_settings_queue.php:43
-msgid ""
-"If <a href=\"https://criticalcss.com/\" target=\"_blank\">criticalcss.com</a>"
-" results are not perfect, then the job becomes <span class=\"badge review\">"
-"R</span> and you need to review the resulting critical CSS file fetched in "
-"the target rule pointed out by that job."
-msgstr ""
-"Se o resultado do <a href=\"https://criticalcss.com/\" target=\"_blank\">"
-"criticalcss.com</a> não for perfeito, o job torna-se <span class=\"badge "
-"review\">R</span>. Você precisa revisar a regra criada por este job para "
-"conferir o CSS crítico obtido."
-
-#: inc/admin_settings_queue.php:44
-msgid ""
-"When things go wrong, a job is marked as <span class=\"badge error\">E</span>"
-". You can retry faulty jobs, delete them or get in touch with <a "
-"href=\"https://criticalcss.com/\" target=\"_blank\">criticalcss.com</a> for "
-"assistance."
-msgstr ""
-"Quando as coisas dão errado, o job é marcado como <span class=\"badge "
-"error\">E</span>. Você pode reenviar jobs neste estado ou entrar em contado "
-"com o <a href=\"https://criticalcss.com/\" target=\"_blank\">criticalcss."
-"com</a> para obter ajuda."
-
-#: inc/admin_settings_queue.php:45
-msgid ""
-"Sometimes an unknown condition can happen. In this case, the job status "
-"becomes <span class=\"badge unknown\">U</span> and you may want to ask <a "
-"href=\"https://criticalcss.com/\" target=\"_blank\">criticalcss.com</a> for "
-"help or just delete it."
-msgstr ""
-"As vezes uma condição desconhecida pode ocorrer. Neste caso o estado do job "
-"torna-se <span class=\"badge unknown\">U</span>  e você pode pedir ajuda ao "
-"a href=\"https://criticalcss.com/\" target=\"_blank\">criticalcss.com</a> ou "
-"apenas apagar o job neste estado."
-
-#: inc/admin_settings_queue.php:46
-msgid ""
-"To get more information about jobs statuses, specially the ones with <span "
-"class=\"badge error\">E</span> and <span class=\"badge unknown\">U</span> "
-"status, hover your mouse in the status badge of that job. This information "
-"might be crucial when contacting <a href=\"https://criticalcss.com/\" "
-"target=\"_blank\">criticalcss.com</a> for assistance."
-msgstr ""
-"Para obter mais informações sobre os estados dos jobs, especialmente aqueles "
-"cujo estado são <span class=\"badge error\">E</span> e <span class=\"badge "
-"unknown\">U</span>, deixe o mouse sobre o rótulo do estado. Esta informação "
-"pode ser crucial para pedir ajuda ao <a href=\"https://criticalcss.com/\" "
-"target=\"_blank\">criticalcss.com</a>."
 
 #: inc/admin_settings_queue.php:47
 msgid ""
@@ -675,31 +758,6 @@ msgstr ""
 "são atualizados automaticamente</strong> enquanto os de uma regra <span "
 "class='badge manual'>MANUAL</span> <strong>não são.</strong>"
 
-#: inc/admin_settings_rules.php:153
-msgid ""
-"When a valid <a href=\"https://criticalcss.com/\" target=\"_blank\">"
-"criticalcss.com</a> API key is in place, Autoptimize CriticalCSS Power-Up "
-"starts to operate <strong>automatically</strong>."
-msgstr ""
-"Quando uma chave de API do <a href=\"https://criticalcss.com/\" "
-"target=\"_blank\">criticalcss.com</a>, o Autoptimize CriticalCSS Power-Up "
-"começa a funcionar <strong>automaticamente</strong>."
-
-#: inc/admin_settings_rules.php:154
-msgid ""
-"Upon a request to any of the frontend pages made by a <strong>not logged in "
-"user</strong>, it will <strong>asynchronously</strong> fetch and update the "
-"critical CSS from <a href=\"https://criticalcss.com/\" target=\"_blank\">"
-"criticalcss.com</a> for conditional tags you have on your site (e.g. is_page,"
-" is_single, is_archive etc.)"
-msgstr ""
-"Quando um requisição é feita em qualquer uma das páginas do frontend por um "
-"<strong>usuário que não esta logado</strong>, ele irá obter e atualizar "
-"<strong>de modo assíncrono</strong>  o CSS crítico a partir do <a "
-"href=\"https://criticalcss.com/\" target=\"_blank\">criticalcss.com</a> para "
-"as tags condicionais que você tiver em seu site (por exemplo: is_page, "
-"is_single, is_archive etc)."
-
 #: inc/admin_settings_rules.php:155
 msgid ""
 "These requests also creates an <span class=\"badge auto\">AUTO</span> rule "
@@ -740,39 +798,6 @@ msgstr ""
 "class=\"badge auto\">MANUAL</span> <strong>NUNCA são atualizados "
 "automaticamente.</strong>"
 
-#: inc/admin_settings_rules.php:158
-msgid ""
-"Nonetheless, if you create a <span class=\"badge manual\">MANUAL</span> for "
-"a path and leave its critical CSS content empty, the critical CSS for that "
-"path will be automatically fetched from <a href=\"https://criticalcss.com/\" "
-"target=\"_blank\">criticalcss.com</a> for you. You can later edit it as you "
-"wish, as it will <strong>NEVER be updated again</strong> while that <span "
-"class=\"badge manual\">MANUAL</span> exist."
-msgstr ""
-"Mesmo assim, se você criar uma regra <span class=\"badge manual\">"
-"MANUAL</span> deixando o CSS crítico em branco, o CSS crítico do caminho "
-"digitado será obtido automaticamente a partir do <a href=\"https:"
-"//criticalcss.com/\" target=\"_blank\">criticalcss.com</a>. Você pode editá-"
-"lo mais tarde se quiser, já que ele <strong>NUNCA será atualizado "
-"novamente</strong> enquanto a regra <span class=\"badge manual\">"
-"MANUAL</span> existir."
-
-#: inc/admin_settings_rules.php:159
-msgid ""
-"If you see an <span class='badge auto'>AUTO</span> or <span class='badge "
-"manual'>MANUAL</span> rule with a <span class='badge review'>R</span> "
-"besides it (R is after REVIEW), it means that the fetched critical CSS for "
-"that rule is not 100% garanteed to work according to <a href='https:"
-"//criticalcss.com/' target='_blank'>criticalcss.com</a> analysis. It's "
-"advised that you edit and review that rule to make any required adjustments."
-msgstr ""
-"Se você ver uma regra <span class='badge auto'>AUTO</span> ou <span "
-"class='badge manual'>MANUAL</span> com um <span class='badge review'>R</span>"
-" ao lado dela, significa que o CSS crítico obtido para ela não tem 100% de "
-"garantia que irá funcionar bem de acordo com a análise feita pelo <a "
-"href='https://criticalcss.com/' target='_blank'>criticalcss.com</a>. "
-"Recomendamos que você edite e revise a regra e faça os ajustes necessários."
-
 #: inc/admin_settings_rules.php:160
 msgid ""
 "At any time you can delete an <span class=\"badge auto\">AUTO</span> or "
@@ -787,14 +812,6 @@ msgstr ""
 msgid "Add New Manual Rule"
 msgstr "Adicionar Nova Regra Manual"
 
-#: inc/admin_settings_rules.php:170
-msgid "Add/Edit Edit Default Critical CSS"
-msgstr "Adicionar/Editar CSS Crítico Padrão"
-
-#: inc/admin_settings_rules.php:171
-msgid "Add/Edit Additional Critical CSS"
-msgstr "Adicionar/Editar CSS Crítico Adicional"
-
 #: inc/core.php:251 inc/core.php:273
 msgid "Valid"
 msgstr "Válida"
@@ -802,22 +819,6 @@ msgstr "Válida"
 #: inc/core.php:260 inc/core.php:280
 msgid "Invalid"
 msgstr "Inválida"
-
-#: inc/core.php:262 inc/core.php:282
-msgid ""
-"Your API key is invalid. Please enter a valid <a href=\"https://criticalcss."
-"com/\" target=\"_blank\">criticalcss.com</a> key."
-msgstr ""
-"Sua chave da API é inválida. Por favor, digite uma chave do <a href=\"https:"
-"//criticalcss.com/\" target=\"_blank\">criticalcss.com</a> válida."
-
-#: inc/core.php:292
-msgid ""
-"Please enter a valid <a href=\"https://criticalcss.com/\" target=\"_blank\">"
-"criticalcss.com</a> API key to start."
-msgstr ""
-"Por favor, digite uma chave do <a href=\"https://criticalcss.com/\" "
-"target=\"_blank\">criticalcss.com</a> válida para começar."
 
 #: inc/cron.php:9
 msgid "Every 10 Minutes"
