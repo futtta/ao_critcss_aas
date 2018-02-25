@@ -1,5 +1,6 @@
 # Ignoring all test/dev/etc stuff with "export-ignore".
 /.gitignore export-ignore
+/.gitattributes export-ignore
 /testurls.txt export-ignore
 /tunnel.sh export-ignore
 /stats.sh export-ignore
