@@ -46,30 +46,29 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 ## Project Stats
 
-*Stats updated at: 2018/01/30*
+*Stats updated at: 2018/02/27*
 
-**Project size:** 280 KB
+**Project size:** 284 KB
 
 ### Lines of Code
 
 **Language**|**Files**|**Blank Lines**|**Comments**|**Functional Code**
 :-------|-------:|-------:|-------:|-------:
-PHP|15|460|469|2152
-CSS|2|6|8|375
-JavaScript|2|13|2|112
-Bourne Shell|2|18|0|59
+PHP|15|461|470|2163
+CSS|2|1|3|286
+Bourne Shell|2|17|0|56
+JavaScript|3|2|3|12
 --------|--------|--------|--------|--------
-**SUM:**|**21**|**497**|**479**|**2698**
+**SUM:**|**22**|**481**|**476**|**2517**
 
 ### Media and Other
 
 **Type**|**Files**|**Size (B)**
 :-------|-------:|-------:
 GIF|3|172
-PNG|1|9585
-I18|2|50325
+I18|2|50582
 --------|--------|--------
-**SUM:**|**6**|**60082**
+**SUM:**|**5**|**50754**
 
 ### Spec Items
 
@@ -84,10 +83,10 @@ inc/core.php:50:  // NOTE: implements section 4, id 1.1 of the specs (for paths)
 inc/core.php:62:  // NOTE: implements section 4, id 1.1 of the specs (for types)
 inc/core.php:86:  // NOTE: implements section 4, id 1.2 of the specs
 inc/cron.php:3:// NOTE: implements section 4 of the specs
-inc/cron.php:90:      // NOTE: implements section 4, id 3.1 of the specs
-inc/cron.php:180:      // NOTE: implements section 4, id 3.2 of the specs
-inc/cron.php:323:      // NOTE: implements section 4, id 3.2.1 of the specs
-inc/cron.php:650:// NOTE: implements section 4, id 3.2.1 of the specs
+inc/cron.php:92:      // NOTE: implements section 4, id 3.1 of the specs
+inc/cron.php:182:      // NOTE: implements section 4, id 3.2 of the specs
+inc/cron.php:325:      // NOTE: implements section 4, id 3.2.1 of the specs
+inc/cron.php:655:// NOTE: implements section 4, id 3.2.1 of the specs
 ```
 
 ### Out of Scope Items
@@ -101,9 +100,9 @@ inc/core_ajax.php:208:// NOTE: out of scope import settings
 inc/core_enqueue.php:13:  // NOTE: out of scope check for allowed job enqueuing (inc. issue #2)
 inc/core_enqueue.php:277:// NOTE: out of scope check for criticalcss.com UA
 inc/cron.php:37:  // NOTE: out of scope queue debug
-inc/cron.php:315:      // NOTE: out of scope DONE job removal (issue #4)
-inc/cron.php:627:  // NOTE: out of scope critical CSS file removal (issue #5)
-inc/cron.php:709:// NOTE: out of scope plugin maintenanc
+inc/cron.php:317:      // NOTE: out of scope DONE job removal (issue #4)
+inc/cron.php:632:  // NOTE: out of scope critical CSS file removal (issue #5)
+inc/cron.php:714:// NOTE: out of scope plugin maintenanc
 ```
 
 #### Notes
@@ -111,8 +110,9 @@ inc/cron.php:709:// NOTE: out of scope plugin maintenanc
 1. Run the command bellow to generate or update [FILELIST.txt](https://github.com/futtta/ao_critcss_aas/blob/master/FILELIST.txt).
 
     ```
-    find . -type f ! -path "./.git/*" ! -path "./FILELIST.txt" ! -path "./README.md" \
-      ! -path "./languages/*.po~" ! -path "./lib/*" > FILELIST.txt
+    find . -type f ! -path "./.git/*" ! -path "./*.txt" ! -path "./README.md" \
+      ! -path "./languages/*.po~" ! -path "./lib/*" -printf '%h\0%d\0%p\n' | \
+      sort -t '\0' -n | awk -F'\0' '{print $3}' > FILELIST.txt
     ```
 
 2. To update the stats above, run the command bellow once you have FILELIST.txt in place. Then copy and paste its output overriding the content of the stats above.
@@ -127,7 +127,7 @@ inc/cron.php:709:// NOTE: out of scope plugin maintenanc
     curl -K testurls.txt
     ```
 
-4. If `define('DISABLE_WP_CRON', true);` is present in `wp-config.php`, WP-Cron should run manually. In this case, run:
+4. If `define('DISABLE_WP_CRON', true);` is present in `wp-config.php`, WP-Cron should be called manually. In this case, run:
 
     ```
     curl -o /dev/null -s -S -w "%{http_code}\n" http://aodev.ngrok.io/wp-cron.php?doing_wp_cron
