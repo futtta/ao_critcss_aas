@@ -353,8 +353,11 @@ function ao_ccss_queue_control() {
     }
 
     // Remove the lock file and log the queue end
-    unlink(AO_CCSS_LOCK);
-    ao_ccss_log('Queue control unlocked and finished', 3);
+    if (file_exists(AO_CCSS_LOCK)) {
+      unlink(AO_CCSS_LOCK);
+      ao_ccss_log('Queue control unlocked', 3);
+    }
+    ao_ccss_log('Queue control finished', 3);
 
   // Log that queue is locked
   } else {
