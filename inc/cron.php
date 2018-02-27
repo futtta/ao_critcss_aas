@@ -54,7 +54,7 @@ function ao_ccss_queue_control() {
 
   // Check for if queue is already running
   $queue_lock = FALSE;
-  if (file_exists(AO_CCSS_DEBUG)) {
+  if (file_exists(AO_CCSS_LOCK)) {
     $queue_lock = TRUE;
   }
 
