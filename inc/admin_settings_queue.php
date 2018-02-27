@@ -7,6 +7,13 @@ function ao_ccss_render_queue() {
   // Attach required arrays
   global $ao_ccss_queue;
 
+  // Prepare the queue object
+  if (empty($ao_ccss_queue)) {
+    $ao_ccss_queue = "";
+  } else {
+    $ao_ccss_queue = json_encode($ao_ccss_queue);
+  }
+
 ?>
   <ul id="queue-panel">
     <li class="itemDetail">
@@ -54,7 +61,7 @@ function ao_ccss_render_queue() {
         </thead>
         <tbody id="queue"></tbody>
       </table>
-      <input class="hidden" type="text" id="ao-ccss-queue" name="autoptimize_ccss_queue" value='<?php echo (json_encode($ao_ccss_queue)); ?>'>
+      <input class="hidden" type="text" id="ao-ccss-queue" name="autoptimize_ccss_queue" value='<?php echo ($ao_ccss_queue); ?>'>
       <!-- END Queue UI -->
 
     </li>

@@ -6,9 +6,15 @@ if (queueOriginEl) {
   // Get queue object and call table renderer
   jQuery(document).ready(function() {
 
-    // Instance queue object
-    aoCssQueue = JSON.parse(document.getElementById('ao-ccss-queue').value);
-    <?php if ($ao_ccss_debug) echo "console.log('Queue Object:', aoCssQueue);\n" ?>
+    // Instance and parse queue object
+    var aoCssQueueRaw = document.getElementById('ao-ccss-queue').value;
+    var aoCssQueue    = aoCssQueueRaw.indexOf('{"') === 0 ?
+                          JSON.parse(aoCssQueueRaw) :
+                          "";
+    var aoCssQueueLog = aoCssQueue === "" ?
+                          "empty" :
+                          aoCssQueue;
+    <?php if ($ao_ccss_debug) echo "console.log('Queue Object:', aoCssQueueLog);\n" ?>
 
     // Render queue table
     drawQueueTable(aoCssQueue);

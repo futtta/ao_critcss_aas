@@ -52,7 +52,7 @@ function ao_ccss_queue_control() {
     $qdobj['htcode'] = FALSE;
   }
 
-  // Check for if queue is already running
+  // Check if queue is already running
   $queue_lock = FALSE;
   if (file_exists(AO_CCSS_LOCK)) {
     $queue_lock = TRUE;
@@ -61,9 +61,11 @@ function ao_ccss_queue_control() {
   // Proceed with the queue if it's not already running
   if (!$queue_lock) {
 
-    // Create the lock file and log the queue start
-    touch(AO_CCSS_LOCK);
-    ao_ccss_log('Queue control locked and started', 3);
+    // Log queue start and create the lock file
+    ao_ccss_log('Queue control started', 3);
+    if (touch(AO_CCSS_LOCK)) {
+      ao_ccss_log('Queue control locked', 3);
+    }
 
     // Attach required arrays
     global $ao_ccss_queue;
