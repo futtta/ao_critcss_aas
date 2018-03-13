@@ -109,8 +109,10 @@ add_filter('autoptimize_filter_settingsscreen_tabs', 'ao_ccss_add_tab');
 // Perform plugin activation tasks
 function ao_ccss_activation() {
 
-  // Create the cache directory
-  mkdir(AO_CCSS_DIR, 0755);
+  // Create the cache directory if it doesn't exist already
+  if(!file_exists(AO_CCSS_DIR)) {
+    mkdir(AO_CCSS_DIR, 0755);
+  }
 
   // Create options with empty values
   add_option('autoptimize_ccss_key'     , '', '', 'no');
