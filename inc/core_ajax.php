@@ -56,13 +56,15 @@ function critcss_save_callback() {
   // Or check user permissios and filename
   } elseif (current_user_can('manage_options') && critcss_check_filename($_POST['critcssfile'])) {
 
+    // Set critical CSS content
+    $critcsscontents = stripslashes($_POST['critcsscontents']);
+
     // If there is content and it's valid, write the file
     if ($critcsscontents && ao_ccss_check_contents($critcsscontents)) {
 
-      // Set file path and content
-      $critcssfile     = AO_CCSS_DIR . strip_tags($_POST['critcssfile']);
-      $critcsscontents = stripslashes($_POST['critcsscontents']);
-      $status          = file_put_contents($critcssfile, $critcsscontents, LOCK_EX);
+      // Set file path and status
+      $critcssfile = AO_CCSS_DIR . strip_tags($_POST['critcssfile']);
+      $status      = file_put_contents($critcssfile, $critcsscontents, LOCK_EX);
 
     // Or set as error
     } else {
