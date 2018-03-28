@@ -711,7 +711,7 @@ function ao_ccss_rule_update($ljid, $srule, $file, $hash) {
 }
 
 // Perform plugin maintenance
-// NOTE: out of scope plugin maintenanc
+// NOTE: out of scope plugin maintenance
 function ao_ccss_cleaning() {
 
   // Truncate log file >= 1MB
