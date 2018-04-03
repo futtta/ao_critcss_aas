@@ -438,6 +438,28 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
   $key        = $ao_ccss_key;
   $key_status = $ao_ccss_keyst;
 
+  // Initialize request body
+  $body        = array();
+  $body['url'] = $src_url;
+  $body['aff'] = 1;
+
+  // Prepare and add viewport size to the body if available
+  $viewport = ao_ccss_viewport();
+  if (!empty($viewport['w']) && !empty($viewport['h'])) {
+    $body['width']  = $viewport['w'];
+    $body['height'] = $viewport['h'];
+  }
+
+  // Prepare and add forceInclude to the body if available
+  global $ao_ccss_finclude;
+  $finclude = ao_ccss_finclude($ao_ccss_finclude);
+  if (!empty($finclude)) {
+    $body['forceInclude'] = $finclude;
+  }
+
+  // Body must be json
+  $body = json_encode($body);
+
   // Prepare the request
   $url  = esc_url_raw(AO_CCSS_API . 'generate');
   $args = array(
@@ -447,23 +469,11 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
       'Authorization' => 'JWT ' . $key,
       'Connection'    => 'close'
     ),
-    // Body must be JSON
-    'body' => json_encode(
-      array(
-        'url' => $src_url,
-        'aff' => 1
-      )
-    )
+    'body' => $body
   );
 
-  // Prepare and add viewport size to the body if available
-  $viewport = ao_ccss_viewport();
-  if (!empty($viewport['w']) && !empty($viewport['h'])) {
-    $args['body']['width']  = $viewport['w'];
-    $args['body']['height'] = $viewport['h'];
-  }
-
   // Dispatch the request and store its response code
+  ao_ccss_log('criticalcss.com: POST generate request body is ' . $body, 3);
   $req  = wp_safe_remote_post($url, $args);
   $code = wp_remote_retrieve_response_code($req);
   $body = json_decode(wp_remote_retrieve_body($req), TRUE);
@@ -708,6 +718,49 @@ function ao_ccss_rule_update($ljid, $srule, $file, $hash) {
   } else {
     ao_ccss_log('No rule action required', 3);
   }
+}
+
+// Prepare forceInclude object
+function ao_ccss_finclude($finclude_raw) {
+
+  // If there are any content
+  if (!empty($finclude_raw)) {
+
+    // Convert raw string into arra and initialize the returning object
+    $fincludes = explode(',', $finclude_raw);
+    $finclude  = array();
+
+    // Interacts over every rule
+    $i = 0;
+    foreach ($fincludes as $include) {
+
+      // Regex rule
+      if (substr($include, 0, 2) === '//') {
+
+        // Format value as required
+        $include = str_replace('//', '/', $include);
+        $include = $include . '/i';
+
+        // Store regex object
+        $finclude[$i]['type'] = 'RegExp';
+        $finclude[$i]['value'] = $include;
+
+      // Simple value rule
+      } else {
+        $finclude[$i]['value'] = $include;
+      }
+
+      $i++;
+    }
+
+    // Return forceInclude object
+    return $finclude;
+
+  // Or just return false if empty
+  } else {
+    return FALSE;
+  }
+
 }
 
 // Perform plugin maintenance

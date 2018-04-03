@@ -60,24 +60,6 @@ if ($ao_options || $ao_trans) {
     <hr />
     <?php }
 
-    // Render transients
-    if ($ao_trans) { ?>
-     <h4><?php _e('Transients', 'autoptimize'); ?>:</h4>
-    <table class="form-table debug">
-      <?php foreach($ao_trans as $trans) { ?>
-      <tr>
-        <th scope="row">
-          <?php echo $trans['name']; ?>
-        </th>
-        <td>
-          <?php echo $trans['value']; ?>
-        </td>
-      </tr>
-      <?php } ?>
-    </table>
-    <hr />
-    <?php }
-
     // Render WP-Cron intervals and scheduled events ?>
     <h4><?php _e('WP-Cron Intervals', 'autoptimize'); ?>:</h4>
     <pre><?php print_r(wp_get_schedules()); ?></pre>
