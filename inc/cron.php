@@ -457,8 +457,9 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
     $body['forceInclude'] = $finclude;
   }
 
-  // Body must be json
+  // Body must be json and log it
   $body = json_encode($body);
+  ao_ccss_log('criticalcss.com: POST generate request body is ' . $body, 3);
 
   // Prepare the request
   $url  = esc_url_raw(AO_CCSS_API . 'generate');
@@ -473,7 +474,6 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
   );
 
   // Dispatch the request and store its response code
-  ao_ccss_log('criticalcss.com: POST generate request body is ' . $body, 3);
   $req  = wp_safe_remote_post($url, $args);
   $code = wp_remote_retrieve_response_code($req);
   $body = json_decode(wp_remote_retrieve_body($req), TRUE);
