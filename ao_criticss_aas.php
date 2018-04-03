@@ -16,8 +16,8 @@ $ao_ccss_rules_raw   = get_option('autoptimize_ccss_rules'      , FALSE);
 $ao_ccss_additional  = get_option('autoptimize_ccss_additional' );
 $ao_ccss_queue_raw   = get_option('autoptimize_ccss_queue'      , FALSE);
 $ao_ccss_viewport    = get_option('autoptimize_ccss_viewport'   , FALSE);
-$ao_ccss_debug       = get_option('autoptimize_ccss_debug'      , FALSE);
 $ao_ccss_finclude    = get_option('autoptimize_ccss_finclude'   , FALSE);
+$ao_ccss_debug       = get_option('autoptimize_ccss_debug'      , FALSE);
 $ao_ccss_key         = get_option('autoptimize_ccss_key'        );
 $ao_ccss_keyst       = get_option('autoptimize_ccss_keyst'      );
 
@@ -75,8 +75,8 @@ function ao_ccss_settings_init() {
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_additional');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_queue');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_viewport');
-  register_setting('ao_ccss_options_group', 'autoptimize_ccss_debug');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_finclude');
+  register_setting('ao_ccss_options_group', 'autoptimize_ccss_debug');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_key');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_keyst');
 }
