@@ -31,10 +31,10 @@ if (queueOriginEl) {
 }
 
 // Render the queue in a table
-function drawQueueTable(aoCssQueue) {
+function drawQueueTable(queue) {
   jQuery('#queue').empty();
   rowNumber=0;
-  jQuery.each(aoCssQueue, function(path, keys) {
+  jQuery.each(queue, function(path, keys) {
 
     // Prepare commom job values
     ljid      = keys.ljid;
@@ -109,10 +109,10 @@ function drawQueueTable(aoCssQueue) {
 
     // Attach button actions
     if (rbtn) {
-      jQuery('#' + ljid + '_retry').click(function(){retryJob(this.id, path);});
+      jQuery('#' + ljid + '_retry').click(function(){retryJob(queue, this.id, path);});
     }
     if (dbtn) {
-      jQuery('#' + ljid + '_remove').click(function(){delJob(this.id, path);});
+      jQuery('#' + ljid + '_remove').click(function(){delJob(queue, this.id, path);});
     }
     if (hbtn) {
       jQuery('#' + ljid + '_help').click(function(){jid=this.id.split('_');window.open('https://criticalcss.com/faq?aoid=' + jid[0], '_blank');});
@@ -121,7 +121,7 @@ function drawQueueTable(aoCssQueue) {
 }
 
 // Delete a job from the queue
-function delJob(jid, jpath) {
+function delJob(queue, jid, jpath) {
   jid = jid.split('_');
   jQuery('#queue-confirm-rm').dialog({
     resizable: false,
@@ -129,8 +129,8 @@ function delJob(jid, jpath) {
     modal: true,
     buttons: {
       <?php _e("Delete", "autoptimize") ?>: function() {
-        delete aoCssQueue[jpath];
-        updateQueue();
+        delete queue[jpath];
+        updateQueue(queue);
         jQuery(this).dialog('close');
       },
       <?php _e("Cancel", "autoptimize") ?>: function() {
@@ -141,7 +141,7 @@ function delJob(jid, jpath) {
 }
 
 // Retry jobs with error
-function retryJob(jid, jpath) {
+function retryJob(queue, jid, jpath) {
   jid = jid.split('_');
   jQuery('#queue-confirm-retry').dialog({
     resizable: false,
@@ -150,12 +150,12 @@ function retryJob(jid, jpath) {
     buttons: {
       <?php _e("Retry", "autoptimize") ?>: function() {
         <?php if ($ao_ccss_debug) echo "console.log('SHOULD retry job:', jid[0], jpath);\n" ?>
-        aoCssQueue[jpath].jid = null;
-        aoCssQueue[jpath].jqstat = 'NEW';
-        aoCssQueue[jpath].jrstat = null;
-        aoCssQueue[jpath].jvstat = null;
-        aoCssQueue[jpath].jctime = (new Date).getTime() / 1000;
-        aoCssQueue[jpath].jftime = null;
+        queue[jpath].jid = null;
+        queue[jpath].jqstat = 'NEW';
+        queue[jpath].jrstat = null;
+        queue[jpath].jvstat = null;
+        queue[jpath].jctime = (new Date).getTime() / 1000;
+        queue[jpath].jftime = null;
         updateQueue();
         jQuery(this).dialog('close');
       },
@@ -167,11 +167,11 @@ function retryJob(jid, jpath) {
 }
 
 // Refresh queue
-function updateQueue() {
-  document.getElementById('ao-ccss-queue').value=JSON.stringify(aoCssQueue);
-  drawQueueTable(aoCssQueue);
+function updateQueue(queue) {
+  document.getElementById('ao-ccss-queue').value=JSON.stringify(queue);
+  drawQueueTable(queue);
   jQuery('#unSavedWarning').show();
-  <?php if ($ao_ccss_debug) echo "console.log('Updated Queue Object:', aoCssQueue);\n" ?>
+  <?php if ($ao_ccss_debug) echo "console.log('Updated Queue Object:', queue);\n" ?>
 }
 
 // Convert epoch to date for job times
