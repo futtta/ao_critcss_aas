@@ -75,10 +75,10 @@ function ao_ccss_enqueue($hash) {
       }
     }
 
-    // If job qualifies but rule hash is false (MANUAL rule), job does not qualify despite what previous evaluations says
-    if ($job_qualify && $rule_properties['hash'] == FALSE) {
+    // If job qualifies but rule hash is false and file isn't false  (MANUAL rule), job does not qualify despite what previous evaluations says
+    if ($job_qualify && $rule_properties['hash'] == FALSE && $rule_properties['file'] != FALSE) {
       $job_qualify = FALSE;
-      ao_ccss_log('Job submission DISQUALIFIED by MANUAL rule <' . $target_rule . '> with hash <' . $rule_properties['hash'] . '>', 3);
+      ao_ccss_log('Job submission DISQUALIFIED by MANUAL rule <' . $target_rule . '> with hash <' . $rule_properties['hash'] . '> and file <' . $rule_properties['file'] . '>', 3);
 
     // But if job does not qualify and rule properties are set, job qualifies as there is no matching rule for it yet
     } elseif (!$job_qualify && empty($rule_properties)) {
@@ -90,7 +90,7 @@ function ao_ccss_enqueue($hash) {
 
     // Or just log a job qualified by a matching rule
     } else {
-      ao_ccss_log('Job submission QUALIFIED by AUTO rule <' . $target_rule . '> with hash <' . $rule_properties['hash'] . '>', 3);
+      ao_ccss_log('Job submission QUALIFIED by AUTO rule <' . $target_rule . '> with hash <' . $rule_properties['hash'] . '> and file <' . $rule_properties['file'] . '>', 3);
     }
 
     // Submit job

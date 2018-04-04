@@ -42,10 +42,11 @@ function drawTable(critCssArray) {
       nodeId=k + "_" + nodeNumber;
       hash=nv.hash;
       file=nv.file;
+      filest=nv.file;
       if (file == 0) {
         file='<?php _e("To be fetched from criticalcss.com in the next queue run...", "autoptimize") ?>';
       }
-      if (nv.hash === 0) {
+      if (nv.hash === 0 && filest != 0) {
         type='<?php _e("MANUAL", "autoptimize") ?>';
         typeClass = 'manual';
       } else {

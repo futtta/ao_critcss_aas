@@ -400,11 +400,16 @@ function ao_ccss_diff_hashes($ljid, $hash, $hashes, $rule) {
   $trule = explode('|', $rule);
   $srule = $ao_ccss_rules[$trule[0]][$trule[1]];
 
-  // Check if an AUTO rule exist
-  if (!empty($srule) && $srule['hash'] !== 0) {
+  // Check if a MANUAL rule exist and return false
+  if (!empty($srule) && ($srule['hash'] == 0 && $srule['file'] != 0)) {
+    ao_ccss_log('Job id <' . $ljid . '> matches the MANUAL rule <' . $trule[0] . '|' . $trule[1] . '>', 3);
+    return FALSE;
 
-    // Check if job hash matches rule and return false if yes
-    if ($hash == $srule['hash']) {
+  // Check if an AUTO rule exist
+  } elseif (!empty($srule)) {
+
+    // Check if job hash matches rule and return false
+    if ($hash === $srule['hash']) {
       ao_ccss_log('Job id <' . $ljid . '> with hash <' . $hash . '> MATCH the one in rule <' . $trule[0] . '|' . $trule[1] . '>', 3);
       return FALSE;
 
@@ -413,11 +418,6 @@ function ao_ccss_diff_hashes($ljid, $hash, $hashes, $rule) {
       ao_ccss_log('Job id <' . $ljid . '> with hash <' . $hash . '> DOES NOT MATCH the one in rule <' . $trule[0] . '|' . $trule[1] . '>', 3);
       return $hash;
     }
-
-  // Check if a MANUAL rule exist and return false
-  } elseif (!empty($srule) && $srule['hash'] === 0) {
-    ao_ccss_log('Job id <' . $ljid . '> matches the MANUAL rule <' . $trule[0] . '|' . $trule[1] . '>', 3);
-    return FALSE;
 
   // Or just return the hash if no rule exist yet
   } else {
@@ -661,7 +661,7 @@ function ao_ccss_save_file($ccss, $target, $review) {
   return $filename;
 }
 
-// Upate or create a rule
+// Update or create a rule
 // NOTE: implements section 4, id 3.2.1 of the specs
 function ao_ccss_rule_update($ljid, $srule, $file, $hash) {
 
@@ -674,18 +674,19 @@ function ao_ccss_rule_update($ljid, $srule, $file, $hash) {
   $action = FALSE;
   $rtype  = '';
 
-  // If this is an existing MANUAL rule with no file yet, update with the fetched filename
-  if ($rule['hash'] === 0 && $rule['file'] === 0) {
+  // If this is an user created AUTO rule with no hash and file yet, update its hash and filename
+  if ($rule['hash'] == 0 && $rule['file'] == 0) {
 
-    // Set rule file and action flag
+    // Set rule hash, file and action flag
+    $rule['hash'] = $hash;
     $rule['file'] = $file;
     $action       = 'UPDATED';
-    $rtype        = 'MANUAL';
+    $rtype        = 'AUTO';
 
-  // If this is an existing AUTO rule, update its hash and the fetched filename
+  // If this is an genuine AUTO rule, update its hash and filename
   } elseif ($rule['hash'] !== 0 && ctype_alnum($rule['hash'])) {
 
-    // Set rule hash and file and action flag
+    // Set rule hash, file and action flag
     $rule['hash'] = $hash;
     $rule['file'] = $file;
     $action       = 'UPDATED';

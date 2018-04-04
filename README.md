@@ -46,29 +46,29 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 ## Project Stats
 
-*Stats updated at: 2018/04/03*
+*Stats updated at: 2018/04/04*
 
-**Project size:** 288 KB
+**Project size:** 284 KB
 
 ### Lines of Code
 
 **Language**|**Files**|**Blank Lines**|**Comments**|**Functional Code**
 :-------|-------:|-------:|-------:|-------:
-PHP|15|476|482|2191
+PHP|15|476|482|2193
 CSS|2|1|3|286
 Bourne Shell|2|17|0|56
 JavaScript|3|2|3|12
 --------|--------|--------|--------|--------
-**SUM:**|**22**|**496**|**488**|**2545**
+**SUM:**|**22**|**496**|**488**|**2547**
 
 ### Media and Other
 
 **Type**|**Files**|**Size (B)**
 :-------|-------:|-------:
 GIF|3|172
-I18|2|52843
+I18|2|52321
 --------|--------|--------
-**SUM:**|**5**|**53015**
+**SUM:**|**5**|**52493**
 
 ### Spec Items
 
@@ -102,7 +102,7 @@ inc/core_enqueue.php:277:// NOTE: out of scope check for criticalcss.com UA
 inc/cron.php:37:  // NOTE: out of scope queue debug
 inc/cron.php:317:      // NOTE: out of scope DONE job removal (issue #4)
 inc/cron.php:642:  // NOTE: out of scope critical CSS file removal (issue #5)
-inc/cron.php:767:// NOTE: out of scope plugin maintenance
+inc/cron.php:768:// NOTE: out of scope plugin maintenance
 ```
 
 #### Notes
