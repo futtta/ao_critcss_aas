@@ -166,7 +166,7 @@ function ao_ccss_render_rules() {
       <table class="rules-list" cellspacing="0"><tbody id="rules-list"></tbody></table>
       <input class="hidden" type="text" id="critCssOrigin" name="autoptimize_ccss_rules" value='<?php echo (json_encode($ao_ccss_rules, JSON_FORCE_OBJECT)); ?>'>
       <p class="submit rules-btn">
-        <span id="addCritCssButton" class="button-secondary"><?php _e('Add New Manual Rule', 'autoptimize') ?></span>
+        <span id="addCritCssButton" class="button-secondary"><?php _e('Add New Rule', 'autoptimize') ?></span>
         <span id="editDefaultButton" class="button-secondary"><?php _e('Edit Default Rule CSS', 'autoptimize'); ?></span>
         <span id="editAdditionalButton" class="button-secondary"><?php _e('Add CSS To All Rules', 'autoptimize'); ?></span>
       </p>
