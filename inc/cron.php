@@ -2,13 +2,28 @@
 
 // NOTE: implements section 4 of the specs
 
-// Add a 5 seconds interval to WP-Cron
+// Set WP-Cron interval
 function ao_ccss_interval($schedules) {
-   $schedules['10min'] = array(
-      'interval' => 600,
-      'display' => __('Every 10 Minutes')
-   );
-   return $schedules;
+
+  // Let interval be configurable
+  if (!defined('AO_CCSS_DEBUG_INTERVAL')) {
+    $intsec = 600;
+  } else {
+    $intsec = AO_CCSS_DEBUG_INTERVAL;
+    if ($intsec >= 120) {
+      $inttxt = $intsec / 60 . ' minutes';
+    } else {
+      $inttxt = $intsec . ' second(s)';
+    }
+    ao_ccss_log('Using custom WP-Cron interval of ' . $inttxt, 3);
+  }
+
+  // Attach interval to schedule
+  $schedules['ao_ccss'] = array(
+    'interval' => $intsec,
+    'display' => __('Autoptimize Power-Up: CriticalCSS Queue')
+  );
+  return $schedules;
 }
 add_filter('cron_schedules', 'ao_ccss_interval');
 
@@ -734,6 +749,9 @@ function ao_ccss_finclude($finclude_raw) {
     // Interacts over every rule
     $i = 0;
     foreach ($fincludes as $include) {
+
+      // Trim leading and trailing whitespaces
+      $include = trim($include);
 
       // Regex rule
       if (substr($include, 0, 2) === '//') {
