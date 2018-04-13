@@ -690,7 +690,7 @@ function ao_ccss_rule_update($ljid, $srule, $file, $hash) {
   $rtype  = '';
 
   // If this is an user created AUTO rule with no hash and file yet, update its hash and filename
-  if ($rule['hash'] == 0 && $rule['file'] == 0) {
+  if ($rule['hash'] === 0 && $rule['file'] === 0) {
 
     // Set rule hash, file and action flag
     $rule['hash'] = $hash;
