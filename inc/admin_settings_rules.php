@@ -111,7 +111,7 @@ function ao_ccss_render_rules() {
               <?php _e('Custom Critical CSS', 'autoptimize') ?>
             </th>
             <td>
-              <textarea id="critcss_addedit_css" rows="15" cols="10" style="width:100%;" placeholder="<?php _e('Paste your specific critical CSS here and hit submit to save.', 'autoptimize'); ?>"></textarea>
+              <textarea id="critcss_addedit_css" rows="13" cols="10" style="width:100%;" placeholder="<?php _e('Paste your specific critical CSS here and hit submit to save.', 'autoptimize'); ?>"></textarea>
               <input type="hidden" id="critcss_addedit_file">
               <input type="hidden" id="critcss_addedit_id">
             </td>
@@ -124,12 +124,12 @@ function ao_ccss_render_rules() {
         <p><?php _e('This Critical CSS rule will be deleted immediately and cannot be recovered.<br /><br /><strong>Are you sure?</strong>', 'autoptimize'); ?></p>
       </div>
 
-      <!-- Edit default critical CSS dialog -->
+      <!-- Add/edit default critical CSS dialog -->
       <div id="default_critcss_wrapper" class="hidden">
         <textarea id="dummyDefault" rows="19" cols="10" style="width:100%;" placeholder="<?php _e('Paste your MINIFIED default critical CSS here and hit submit to save. This is the critical CSS to be used for every page NOT MATCHING any rule.', 'autoptimize'); ?>"></textarea>
       </div>
 
-      <!-- Edit additional critical CSS dialog -->
+      <!-- Add/edit additional critical CSS dialog -->
       <div id="additional_critcss_wrapper" class="hidden">
         <textarea id="dummyAdditional" rows="19" cols="10" style="width:100%;" placeholder="<?php _e('Paste your MINIFIED additional critical CSS here and hit submit to save. This is the CSS to be added AT THE END of every critical CSS provided by a matching rule, or the default one.', 'autoptimize'); ?>"></textarea>
       </div>

@@ -169,9 +169,11 @@ function addEditRow(idToEdit) {
       if(this.value==="types") {
         jQuery("#critcss_addedit_pagetype_wrapper").show();
         jQuery("#critcss_addedit_path_wrapper").hide();
+        jQuery("#critcss_addedit_css").attr("placeholder", "<?php _e('For type based rules, paste your specific and minified critical CSS here and hit submit to save.', 'autoptimize'); ?>");
       } else {
         jQuery("#critcss_addedit_path_wrapper").show();
         jQuery("#critcss_addedit_pagetype_wrapper").hide();
+        jQuery("#critcss_addedit_css").attr("placeholder", "<?php _e('For path based rules, paste your specific and minified critical CSS here or leave this empty to fetch it from criticalcss.com and hit submit to save.', 'autoptimize'); ?>");
       }
     });
   }
@@ -186,8 +188,12 @@ function addEditRow(idToEdit) {
       "<?php _e("Submit", "autoptimize") ?>": function() {
         rpath = jQuery("#critcss_addedit_path").val();
         rtype = jQuery("#critcss_addedit_pagetype option:selected").val();
+        rccss = jQuery("#critcss_addedit_css").val();
+        console.log('rpath: ' + rpath, 'rtype: ' + rtype, 'rccss: ' + rccss);
         if (rpath === '' && rtype === '') {
           alert('<?php _e("RULE VALIDATION ERROR!\\n\\nBased on your rule type, you SHOULD set a path or conditional tag.", "autoptimize") ?>');
+        } else if (rtype !== '' && rccss == '') {
+          alert('<?php _e("RULE VALIDATION ERROR!\\n\\nType based rules REQUIRES a minified critical CSS.", "autoptimize") ?>');
         } else {
           saveEditCritCss();
           jQuery(this).dialog('close');
@@ -301,7 +307,7 @@ function displayNotice(textIn) {
 }
 
 function resetForm() {
-  jQuery("#critcss_addedit_css").attr("placeholder", "Leave this empty to fetch from criticalcss.com or copy/paste a minified critical CSS here.");
+  jQuery("#critcss_addedit_css").attr("placeholder", "<?php _e('For path based rules, paste your specific and minified critical CSS here or leave this empty to fetch it from criticalcss.com and hit submit to save.', 'autoptimize'); ?>");
   jQuery("#critcss_addedit_type").attr("disabled",false);
   jQuery("#critcss_addedit_path_wrapper").show();
   jQuery("#critcss_addedit_id").val("");
