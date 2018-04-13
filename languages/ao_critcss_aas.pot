@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Autoptimize Power-Up: CriticalCSS 0.1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ao_critcss_aas\n"
-"POT-Creation-Date: 2018-04-04 05:09:01+00:00\n"
+"POT-Creation-Date: 2018-04-13 07:15:18+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -274,8 +274,8 @@ msgid "Delete"
 msgstr ""
 
 #: inc/admin_settings_queue.js.php:136 inc/admin_settings_queue.js.php:162
-#: inc/admin_settings_rules.js.php:82 inc/admin_settings_rules.js.php:196
-#: inc/admin_settings_rules.js.php:218 inc/admin_settings_rules.js.php:239
+#: inc/admin_settings_rules.js.php:82 inc/admin_settings_rules.js.php:202
+#: inc/admin_settings_rules.js.php:224 inc/admin_settings_rules.js.php:245
 msgid "Cancel"
 msgstr ""
 
@@ -469,22 +469,40 @@ msgstr ""
 msgid "Add Critical CSS Rule"
 msgstr ""
 
-#: inc/admin_settings_rules.js.php:186 inc/admin_settings_rules.js.php:213
-#: inc/admin_settings_rules.js.php:234
+#: inc/admin_settings_rules.js.php:172
+msgid ""
+"For type based rules, paste your specific and minified critical CSS here and "
+"hit submit to save."
+msgstr ""
+
+#: inc/admin_settings_rules.js.php:176 inc/admin_settings_rules.js.php:310
+msgid ""
+"For path based rules, paste your specific and minified critical CSS here or "
+"leave this empty to fetch it from criticalcss.com and hit submit to save."
+msgstr ""
+
+#: inc/admin_settings_rules.js.php:188 inc/admin_settings_rules.js.php:219
+#: inc/admin_settings_rules.js.php:240
 msgid "Submit"
 msgstr ""
 
-#: inc/admin_settings_rules.js.php:190
+#: inc/admin_settings_rules.js.php:194
 msgid ""
 "RULE VALIDATION ERROR!\\n\\nBased on your rule type, you SHOULD set a path "
 "or conditional tag."
 msgstr ""
 
-#: inc/admin_settings_rules.js.php:210
+#: inc/admin_settings_rules.js.php:196
+msgid ""
+"RULE VALIDATION ERROR!\\n\\nType based rules REQUIRES a minified critical "
+"CSS."
+msgstr ""
+
+#: inc/admin_settings_rules.js.php:216
 msgid "Default Critical CSS"
 msgstr ""
 
-#: inc/admin_settings_rules.js.php:231
+#: inc/admin_settings_rules.js.php:237
 msgid "Additional Critical CSS"
 msgstr ""
 
@@ -695,8 +713,8 @@ msgid ""
 "\"_blank\">criticalcss.com</a> API key to start."
 msgstr ""
 
-#: inc/cron.php:9
-msgid "Every 10 Minutes"
+#: inc/cron.php:24
+msgid "Autoptimize Power-Up: CriticalCSS Queue"
 msgstr ""
 
 #. Plugin Name of the plugin/theme

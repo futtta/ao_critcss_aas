@@ -2,11 +2,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Autoptimize Power-Up: CriticalCSS 0.1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ao_critcss_aas\n"
-"POT-Creation-Date: 2018-04-04 05:09:01+00:00\n"
+"POT-Creation-Date: 2018-04-13 07:15:18+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2018-04-04 05:10+0000\n"
+"PO-Revision-Date: 2018-04-13 07:19+0000\n"
 "Last-Translator: Deny Dias <https://mexapi.macpress.com.br/about>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "Language: pt_BR\n"
@@ -305,8 +305,8 @@ msgid "Delete"
 msgstr "Apagar"
 
 #: inc/admin_settings_queue.js.php:136 inc/admin_settings_queue.js.php:162
-#: inc/admin_settings_rules.js.php:82 inc/admin_settings_rules.js.php:196
-#: inc/admin_settings_rules.js.php:218 inc/admin_settings_rules.js.php:239
+#: inc/admin_settings_rules.js.php:82 inc/admin_settings_rules.js.php:202
+#: inc/admin_settings_rules.js.php:224 inc/admin_settings_rules.js.php:245
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -550,12 +550,29 @@ msgstr "Carregando CSS crítico"
 msgid "Add Critical CSS Rule"
 msgstr "Adicionar Regra"
 
-#: inc/admin_settings_rules.js.php:186 inc/admin_settings_rules.js.php:213
-#: inc/admin_settings_rules.js.php:234
+#: inc/admin_settings_rules.js.php:172
+msgid ""
+"For type based rules, paste your specific and minified critical CSS here and "
+"hit submit to save."
+msgstr ""
+"Para regras baseadas em tipos, cole o CSS crítico específico e já minificado "
+"aqui e clique em enviar."
+
+#: inc/admin_settings_rules.js.php:176 inc/admin_settings_rules.js.php:310
+msgid ""
+"For path based rules, paste your specific and minified critical CSS here or "
+"leave this empty to fetch it from criticalcss.com and hit submit to save."
+msgstr ""
+"Para regras baseadas em caminhos, cole o CSS crítico específico e já "
+"minificado aqui ou deixe este campo vazio para obtê-lo do criticalcss.com e "
+"clique em enviar."
+
+#: inc/admin_settings_rules.js.php:188 inc/admin_settings_rules.js.php:219
+#: inc/admin_settings_rules.js.php:240
 msgid "Submit"
 msgstr "Enviar"
 
-#: inc/admin_settings_rules.js.php:190
+#: inc/admin_settings_rules.js.php:194
 msgid ""
 "RULE VALIDATION ERROR!\\n\\nBased on your rule type, you SHOULD set a path "
 "or conditional tag."
@@ -563,11 +580,19 @@ msgstr ""
 "ERRO DE VALIDAÇÃO DA REGRA!\\n\\nBaseado no tipo da regra, você DEVE "
 "escolher um caminho ou uma tag condicional."
 
-#: inc/admin_settings_rules.js.php:210
+#: inc/admin_settings_rules.js.php:196
+msgid ""
+"RULE VALIDATION ERROR!\\n\\nType based rules REQUIRES a minified critical "
+"CSS."
+msgstr ""
+"ERRO DE VALIDAÇÃO DA REGRA!\\n\\nrRegras baseadas em tipos REQUEREM um CSS "
+"crítico minificado."
+
+#: inc/admin_settings_rules.js.php:216
 msgid "Default Critical CSS"
 msgstr "CSS Crítico Padrão"
 
-#: inc/admin_settings_rules.js.php:231
+#: inc/admin_settings_rules.js.php:237
 msgid "Additional Critical CSS"
 msgstr "CSS Crítico Adicional"
 
@@ -831,9 +856,9 @@ msgstr ""
 "Por favor, digite uma chave do <a href=\"https://criticalcss.com//?aff=1\" "
 "target=\"_blank\">criticalcss.com</a> válida para começar."
 
-#: inc/cron.php:9
-msgid "Every 10 Minutes"
-msgstr "A Cada 10 Minutos"
+#: inc/cron.php:24
+msgid "Autoptimize Power-Up: CriticalCSS Queue"
+msgstr ""
 
 #. Plugin Name of the plugin/theme
 msgid "Autoptimize Power-Up: CriticalCSS"
