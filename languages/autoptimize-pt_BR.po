@@ -2,11 +2,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Autoptimize Power-Up: CriticalCSS 0.1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ao_critcss_aas\n"
-"POT-Creation-Date: 2018-04-13 07:15:18+00:00\n"
+"POT-Creation-Date: 2018-04-16 23:39:56+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2018-04-13 07:19+0000\n"
+"PO-Revision-Date: 2018-04-16 23:44+0000\n"
 "Last-Translator: Deny Dias <https://mexapi.macpress.com.br/about>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "Language: pt_BR\n"
@@ -338,17 +338,14 @@ msgstr "Clique na seta ao lado para mostrar/esconder as instruções"
 msgid ""
 "TL;DR:<br /><strong>Queue runs every 10 minutes.</strong> Job statuses are "
 "<span class=\"badge new\">N</span> for NEW, <span class=\"badge pending\">"
-"P</span> for PENDING, <span class=\"badge done\">D</span> for DONE, <span "
-"class=\"badge review\">R</span> for REVIEW, <span class=\"badge error\">"
-"E</span> for ERROR and <span class=\"badge unknown\">U</span> for UNKOWN."
+"P</span> for PENDING, <span class=\"badge error\">E</span> for ERROR and "
+"<span class=\"badge unknown\">U</span> for UNKOWN."
 msgstr ""
 "TL;DR:<br /><strong>A fila roda a cada 10 minutos</strong> Os status dos "
 "jobs (trabalhos) são <span class=\"badge new\">N</span> para NOVO (New), "
 "<span class=\"badge pending\">P</span> para PENDENTE (Pending), <span "
-"class=\"badge done\">D</span> para PRONTO (Done), <span class=\"badge "
-"review\">R</span> para REVISAR (Review), <span class=\"badge error\">E</span>"
-" para ERRO (Error) e <span class=\"badge unknown\">U</span> for DESCONHECIDO "
-"(Unknown)."
+"class=\"badge error\">E</span> para ERRO (Error) e <span class=\"badge "
+"unknown\">U</span> for DESCONHECIDO (Unknown)."
 
 #: inc/admin_settings_queue.php:46
 msgid ""
@@ -389,27 +386,14 @@ msgstr ""
 #: inc/admin_settings_queue.php:49
 msgid ""
 "As soon as <a href=\"https://criticalcss.com/?aff=1\" target=\"_blank\">"
-"criticalcss.com</a> returns a valid critical CSS file, the job is then <span "
-"class=\"badge done\">D</span>. You can delete done jobs as you wish."
+"criticalcss.com</a> returns a valid critical CSS file, the job is then "
+"finished and removed from the queue."
 msgstr ""
 "Assim que o <a href=\"https://criticalcss.com/api-keys?aff=1\" "
-"target=\"_blank\">criticalcss.com</a> retorna um CSS crítico válido, o job "
-"torna-se <span class=\"badge done\">D</span>. Você pode apagar jobs prontos "
-"a vontade."
+"target=\"_blank\">criticalcss.com</a> retorna um CSS crítico válido, o job é "
+"finalizado e removido da fila."
 
 #: inc/admin_settings_queue.php:50
-msgid ""
-"If <a href=\"https://criticalcss.com/?aff=1\" target=\"_blank\">criticalcss."
-"com</a> results are not perfect, then the job becomes <span class=\"badge "
-"review\">R</span> and you need to review the resulting critical CSS file "
-"fetched in the target rule pointed out by that job."
-msgstr ""
-"Se o resultado do <a href=\"https://criticalcss.com/api-keys?aff=1\" "
-"target=\"_blank\">criticalcss.com</a> não for perfeito, o job torna-se <span "
-"class=\"badge review\">R</span>. Você precisa revisar a regra criada por "
-"este job para conferir o CSS crítico obtido."
-
-#: inc/admin_settings_queue.php:51
 msgid ""
 "When things go wrong, a job is marked as <span class=\"badge error\">E</span>"
 ". You can retry faulty jobs, delete them or get in touch with <a "
@@ -421,7 +405,7 @@ msgstr ""
 "com o <a href=\"https://criticalcss.com/api-keys?aff=1\" target=\"_blank\">"
 "criticalcss.com</a> para obter ajuda."
 
-#: inc/admin_settings_queue.php:52
+#: inc/admin_settings_queue.php:51
 msgid ""
 "Sometimes an unknown condition can happen. In this case, the job status "
 "becomes <span class=\"badge unknown\">U</span> and you may want to ask <a "
@@ -433,7 +417,7 @@ msgstr ""
 "a href=\"https://criticalcss.com/api-keys?aff=1\" target=\"_blank\">"
 "criticalcss.com</a> ou apenas apagar o job neste estado."
 
-#: inc/admin_settings_queue.php:53
+#: inc/admin_settings_queue.php:52
 msgid ""
 "To get more information about jobs statuses, specially the ones with <span "
 "class=\"badge error\">E</span> and <span class=\"badge unknown\">U</span> "
@@ -447,7 +431,7 @@ msgstr ""
 "pode ser crucial para pedir ajuda ao <a href=\"https://criticalcss.com/api-"
 "keys?aff=1\" target=\"_blank\">criticalcss.com</a>."
 
-#: inc/admin_settings_queue.php:54
+#: inc/admin_settings_queue.php:53
 msgid ""
 "<strong>A WORD ABOUT WORDPRESS CRON:</strong> Autoptimize CriticalCSS Power-"
 "Up watch the queue by using WordPress Cron (or WP-Cron for short.) It <a "
@@ -469,31 +453,31 @@ msgstr ""
 "task-scheduler/\" target=\"_blank\">desligar o WP-Cron e usar o agendador de "
 "eventos do seu sistema</a> para rodar executá-lo."
 
-#: inc/admin_settings_queue.php:60
+#: inc/admin_settings_queue.php:59
 msgid "Status"
 msgstr "Estado"
 
-#: inc/admin_settings_queue.php:60
+#: inc/admin_settings_queue.php:59
 msgid "Target Rule"
 msgstr "Regra"
 
-#: inc/admin_settings_queue.php:60
+#: inc/admin_settings_queue.php:59
 msgid "Page Path"
 msgstr "Caminho da Página"
 
-#: inc/admin_settings_queue.php:60
+#: inc/admin_settings_queue.php:59
 msgid "Page Type"
 msgstr "Tipo da Página"
 
-#: inc/admin_settings_queue.php:60
+#: inc/admin_settings_queue.php:59
 msgid "Creation Date"
 msgstr "Criado Em"
 
-#: inc/admin_settings_queue.php:60
+#: inc/admin_settings_queue.php:59
 msgid "Finish Date"
 msgstr "Finalizado Em"
 
-#: inc/admin_settings_queue.php:60 inc/admin_settings_rules.js.php:37
+#: inc/admin_settings_queue.php:59 inc/admin_settings_rules.js.php:37
 msgid "Actions"
 msgstr "Ações"
 

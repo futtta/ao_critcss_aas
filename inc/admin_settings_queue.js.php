@@ -47,39 +47,39 @@ function drawQueueTable(queue) {
     hbtn      = false;
 
     // Prepare job statuses
-    // Status: NEW (N, sort priority 6)
+    // Status: NEW (N, sort order 1)
     if (keys.jqstat === 'NEW') {
-      status      = '<span class="hidden">6</span>N';
+      status      = '<span class="hidden">1</span>N';
       statusClass = 'new';
       title       = '<?php _e("NEW", "autoptimize"); ?> (' + ljid + ')';
       buttons     = '<?php _e("None", "autoptimize"); ?>';
 
-    // Status: PENDING (P, sort priority 5)
+    // Status: PENDING (P, sort order 2)
     } else if (keys.jqstat === 'JOB_QUEUED' || keys.jqstat === 'JOB_ONGOING') {
-      status      = '<span class="hidden">5</span>P';
+      status      = '<span class="hidden">2</span>P';
       statusClass = 'pending';
       title       = '<?php _e("PENDING", "autoptimize"); ?> (' + ljid + ')';
       buttons     = '<?php _e("None", "autoptimize"); ?>';
 
-    // Status: REVIEW (R, sort priority 3)
+    // Status: REVIEW (R, sort order 5)
     } else if (keys.jqstat === 'JOB_DONE' && keys.jrstat === 'GOOD' && (keys.jvstat === 'WARN' || keys.jvstat === 'BAD')) {
-      status      = '<span class="hidden">3</span>R';
+      status      = '<span class="hidden">5</span>R';
       statusClass = 'review';
       title       = "<?php _e('REVIEW', 'autoptimize'); ?> (" + ljid + ")\n<?php _e('Info from criticalcss.com:', 'autoptimize'); ?>\n<?php _e('- Job ID: ', 'autoptimize'); ?>" + keys.jid + "\n<?php _e('- Status: ', 'autoptimize'); ?>" + keys.jqstat + "\n<?php _e('- Result: ', 'autoptimize'); ?>" + keys.jrstat + "\n<?php _e('- Validation: ', 'autoptimize'); ?>" + keys.jvstat;
       buttons     = '<span class="button-secondary" id="' + ljid + '_remove" title="<?php _e("Delete Job", "autoptimize"); ?>"><span class="dashicons dashicons-trash"></span></span>';
       dbtn        = true;
 
-    // Status: DONE (D, sort priority 4)
+    // Status: DONE (D, sort order 6)
     } else if (keys.jqstat === 'JOB_DONE') {
-      status      = '<span class="hidden">4</span>D';
+      status      = '<span class="hidden">6</span>D';
       statusClass = 'done';
       title       = '<?php _e("DONE", "autoptimize"); ?> (' + ljid + ')';
       buttons     = '<span class="button-secondary" id="' + ljid + '_remove" title="<?php _e("Delete Job", "autoptimize"); ?>"><span class="dashicons dashicons-trash"></span></span>';
       dbtn        = true;
 
-    // Status: ERROR (E, sort priority 1)
+    // Status: ERROR (E, sort order 4)
     } else if (keys.jqstat === 'JOB_FAILED' || keys.jqstat === 'STATUS_JOB_BAD' || keys.jqstat === 'INVALID_JWT_TOKEN' || keys.jqstat === 'NO_CSS' || keys.jqstat === 'NO_RESPONSE') {
-      status      = '<span class="hidden">1</span>E';
+      status      = '<span class="hidden">4</span>E';
       statusClass = 'error';
       title       = "<?php _e('ERROR', 'autoptimize'); ?> (" + ljid + ")\n<?php _e('Info from criticalcss.com:', 'autoptimize'); ?>\n<?php _e('- Job ID: ', 'autoptimize'); ?>" + keys.jid + "\n<?php _e('- Status: ', 'autoptimize'); ?>" + keys.jqstat + "\n<?php _e('- Result: ', 'autoptimize'); ?>" + keys.jrstat + "\n<?php _e('- Validation: ', 'autoptimize'); ?>" + keys.jvstat;
       buttons     = '<span class="button-secondary" id="' + ljid + '_retry" title="<?php _e("Retry Job", "autoptimize"); ?>"><span class="dashicons dashicons-update"></span></span><span class="button-secondary to-right" id="' + ljid + '_remove" title="<?php _e("Delete Job", "autoptimize"); ?>"><span class="dashicons dashicons-trash"></span></span><span class="button-secondary to-right" id="' + ljid + '_help" title="<?php _e("Get Help", "autoptimize"); ?>"><span class="dashicons dashicons-sos"></span></span>';
@@ -87,9 +87,9 @@ function drawQueueTable(queue) {
       dbtn        = true;
       hbtn        = true;
 
-    // Status: UNKNOWN (U, sort priority 2)
+    // Status: UNKNOWN (U, sort order 5)
     } else {
-      status      = '<span class="hidden">2</span>U';
+      status      = '<span class="hidden">5</span>U';
       statusClass = 'unknown';
       title       = "<?php _e('UNKNOWN', 'autoptimize'); ?> (" + ljid + ")\n<?php _e('Info from criticalcss.com:', 'autoptimize'); ?>\n<?php _e('- Job ID: ', 'autoptimize'); ?>" + keys.jid + "\n<?php _e('- Status: ', 'autoptimize'); ?>" + keys.jqstat + "\n<?php _e('- Result: ', 'autoptimize'); ?>" + keys.jrstat + "\n<?php _e('- Validation: ', 'autoptimize'); ?>" + keys.jvstat;
       buttons     = '<span class="button-secondary" id="' + ljid + '_remove" title="<?php _e("Delete Job", "autoptimize"); ?>"><span class="dashicons dashicons-trash"></span></span><span class="button-secondary to-right" id="' + ljid + '_help" title="<?php _e("Get Help", "autoptimize"); ?>"><span class="dashicons dashicons-sos"></span></span>';
