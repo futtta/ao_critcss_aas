@@ -46,20 +46,20 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 ## Project Stats
 
-*Stats updated at: 2018/04/16*
+*Stats updated at: 2018/04/25*
 
-**Project size:** 292 KB
+**Project size:** 296 KB
 
 ### Lines of Code
 
 **Language**|**Files**|**Blank Lines**|**Comments**|**Functional Code**
 :-------|-------:|-------:|-------:|-------:
-PHP|15|480|485|2211
+PHP|15|483|488|2222
 CSS|2|1|3|286
 Bourne Shell|2|17|0|56
 JavaScript|3|2|3|12
 --------|--------|--------|--------|--------
-**SUM:**|**22**|**500**|**491**|**2565**
+**SUM:**|**22**|**503**|**494**|**2576**
 
 ### Media and Other
 
@@ -73,7 +73,6 @@ I18|2|52417
 ### Spec Items
 
 ```
-Arquivo binário .README.md.kate-swp coincide com o padrão
 inc/admin_settings_key.php:3:// NOTE: implements section 4, id 4.1 of the specs
 inc/admin_settings.php:3:// NOTE: implements section 4, id 4 of the specs
 inc/admin_settings_queue.php:4:// NOTE: implements section 4, id 4.2 and 4.3 of the specs
@@ -93,7 +92,6 @@ inc/cron.php:682:// NOTE: implements section 4, id 3.2.1 of the specs
 ### Out of Scope Items
 
 ```
-Arquivo binário .README.md.kate-swp coincide com o padrão
 inc/admin_settings_adv.php:3:// NOTE: out of scope advanced panel
 inc/admin_settings_debug.php:3:// NOTE: out of scope debug panel
 inc/admin_settings_feeds.php:1:<?php // NOTE: out of scope feeds panel ?>
