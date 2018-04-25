@@ -7,8 +7,11 @@ function ao_ccss_settings() {
 
   // Attach required globals
   global $ao_css_defer;
-  global $ao_ccss_key;
+  global $ao_ccss_rules_raw;
+  global $ao_ccss_queue_raw;
+  global $ao_ccss_finclude;
   global $ao_ccss_debug;
+  global $ao_ccss_key;
 
   ?>
   <div class="wrap">
@@ -69,6 +72,20 @@ function ao_ccss_settings() {
 
           // Render advanced panel
           ao_ccss_render_adv();
+
+        // But if key is other than valid, add hidden fields to persist settings upon form save
+        } else {
+
+          // Get viewport size
+          $viewport = ao_ccss_viewport();
+
+          // Add hidden fields
+          echo "<input class='hidden' name='autoptimize_ccss_rules' value='" . $ao_ccss_rules_raw . "'>";
+          echo "<input class='hidden' name='autoptimize_ccss_queue' value='" . $ao_ccss_queue_raw . "'>";
+          echo '<input class="hidden" name="autoptimize_ccss_viewport[w]" value=' . $viewport['w'] . '>';
+          echo '<input class="hidden" name="autoptimize_ccss_viewport[h]" value=' . $viewport['h'] . '>';
+          echo '<input class="hidden" name="autoptimize_ccss_finclude" value=' . $ao_ccss_finclude . '>';
+          echo '<input class="hidden" name="autoptimize_ccss_debug" value=' . $ao_ccss_debug . '>';
         }
 
         // Render key panel inconditionally
