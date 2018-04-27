@@ -46,7 +46,7 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 ## Project Stats
 
-*Stats updated at: 2018/04/25*
+*Stats updated at: 2018/04/26*
 
 **Project size:** 296 KB
 

@@ -73,7 +73,7 @@ function ao_ccss_settings() {
           // Render advanced panel
           ao_ccss_render_adv();
 
-        // But if key is other than valid, add hidden fields to persist settings upon form save
+        // But if key is other than valid, add hidden fields to persist settings when submitting form
         } else {
 
           // Get viewport size
@@ -88,7 +88,7 @@ function ao_ccss_settings() {
           echo '<input class="hidden" name="autoptimize_ccss_debug" value=' . $ao_ccss_debug . '>';
         }
 
-        // Render key panel inconditionally
+        // Render key panel unconditionally
         ao_ccss_render_key($ao_ccss_key, $key['status'], $key['stmsg'], $key['msg'], $key['color']);
         ?>
 
