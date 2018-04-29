@@ -79,6 +79,9 @@ function ao_ccss_settings_init() {
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_debug');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_key');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_keyst');
+  if (!is_plugin_active('autoptimize/autoptimize.php')) {
+    add_action('admin_notices','ao_ccss_notice_needao');
+  }
 }
 add_action('admin_menu','ao_ccss_settings_init');
 
@@ -110,7 +113,6 @@ add_filter('autoptimize_filter_settingsscreen_tabs', 'ao_ccss_add_tab');
 
 // Perform plugin activation tasks
 function ao_ccss_activation() {
-
   // Create the cache directory if it doesn't exist already
   if(!file_exists(AO_CCSS_DIR)) {
     mkdir(AO_CCSS_DIR, 0755);
@@ -157,4 +159,9 @@ function ao_ccss_deactivation() {
 }
 register_deactivation_hook(__FILE__, 'ao_ccss_deactivation');
 
+function ao_ccss_notice_needao() {
+  echo '<div class="error"><p>';
+  _e( 'This Crirical CSS power-up requires Autoptimize to be installed and active.', 'autoptimize' );
+  echo '</p></div>';
+}
 ?>
