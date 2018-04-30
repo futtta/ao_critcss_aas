@@ -46,7 +46,7 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 ## Project Stats
 
-*Stats updated at: 2018/04/26*
+*Stats updated at: 2018/04/29*
 
 **Project size:** 296 KB
 
@@ -54,21 +54,21 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 **Language**|**Files**|**Blank Lines**|**Comments**|**Functional Code**
 :-------|-------:|-------:|-------:|-------:
-PHP|15|483|488|2222
+PHP|15|486|493|2230
 CSS|2|1|3|286
 Bourne Shell|2|17|0|56
 JavaScript|3|2|3|12
 --------|--------|--------|--------|--------
-**SUM:**|**22**|**503**|**494**|**2576**
+**SUM:**|**22**|**506**|**499**|**2584**
 
 ### Media and Other
 
 **Type**|**Files**|**Size (B)**
 :-------|-------:|-------:
 GIF|3|172
-I18|2|52417
+I18|2|53032
 --------|--------|--------
-**SUM:**|**5**|**52589**
+**SUM:**|**5**|**53204**
 
 ### Spec Items
 

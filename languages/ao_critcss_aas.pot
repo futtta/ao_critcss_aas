@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Autoptimize Power-Up: CriticalCSS package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Autoptimize Power-Up: CriticalCSS 0.1.1\n"
+"Project-Id-Version: Autoptimize Power-Up: CriticalCSS 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ao_critcss_aas\n"
-"POT-Creation-Date: 2018-04-16 23:39:56+00:00\n"
+"POT-Creation-Date: 2018-04-30 01:37:11+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,45 +12,52 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: ao_criticss_aas.php:106
+#: ao_criticss_aas.php:117
 msgid "CriticalCSS"
 msgstr ""
 
-#: inc/admin_settings.php:17
+#: ao_criticss_aas.php:173
+msgid ""
+"Autoptimize Power-Up: CriticalCSS requires <a href=\"https://br.wordpress."
+"org/plugins/autoptimize/\" target=\"_blank\">Autoptimize</a> to be installed "
+"and active."
+msgstr ""
+
+#: inc/admin_settings.php:20
 msgid "Autoptimize Settings: CriticalCSS Power-Up"
 msgstr ""
 
-#: inc/admin_settings.php:30
+#: inc/admin_settings.php:33
 msgid ""
 "Could not create the required directory. Make sure the webserver can write "
 "to the wp-content directory."
 msgstr ""
 
-#: inc/admin_settings.php:38
+#: inc/admin_settings.php:41
 msgid "Oops! Please install and activate Autoptimize first."
 msgstr ""
 
-#: inc/admin_settings.php:43
+#: inc/admin_settings.php:46
 msgid ""
 "Oops! Please <strong>activate the \"Inline and Defer CSS\" option</strong> "
 "on Autoptimize's main settings page to use this power-up."
 msgstr ""
 
-#: inc/admin_settings.php:48
+#: inc/admin_settings.php:51
 msgid ""
 "Oops! It looks you need to upgrade to Autoptimize 2.2.0 or higher to use "
 "this CriticCSS Power-Up."
 msgstr ""
 
-#: inc/admin_settings.php:79
+#: inc/admin_settings.php:96
 msgid "Save Changes"
 msgstr ""
 
-#: inc/admin_settings.php:84
+#: inc/admin_settings.php:101
 msgid "Export Settings"
 msgstr ""
 
-#: inc/admin_settings.php:85
+#: inc/admin_settings.php:102
 msgid "Import Settings"
 msgstr ""
 
