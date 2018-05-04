@@ -66,9 +66,13 @@ define('AO_CCSS_DEBUG', AO_CCSS_DIR . 'queue.json');
 define('AO_CCSS_URL', 'https://criticalcss.com');
 define('AO_CCSS_API', AO_CCSS_URL . '/api/premium/');
 
-// Add hidden submenu and register allowed settings
+// Initalize plugin
 function ao_ccss_settings_init() {
+
+  // Add plugin page
   $hook = add_submenu_page(NULL, 'Autoptimize CriticalCSS Power-Up', 'Autoptimize CriticalCSS Power-Up', 'manage_options', 'ao_ccss_settings', 'ao_ccss_settings');
+
+  // Register settings
   register_setting('ao_ccss_options_group', 'autoptimize_css_defer_inline');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_rules');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_additional');
@@ -78,6 +82,8 @@ function ao_ccss_settings_init() {
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_debug');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_key');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_keyst');
+
+  // Check if Autoptimize is installed
   if (!is_plugin_active('autoptimize/autoptimize.php')) {
     add_action('admin_notices','ao_ccss_notice_needao');
   }
@@ -86,6 +92,8 @@ add_action('admin_menu','ao_ccss_settings_init');
 
 // Add admin styles and scripts
 function ao_ccss_admin_assets($hook) {
+
+  // Return if plugin is not hooked
   if($hook != 'settings_page_ao_ccss_settings') {
     return;
   }
@@ -158,9 +166,10 @@ function ao_ccss_deactivation() {
 }
 register_deactivation_hook(__FILE__, 'ao_ccss_deactivation');
 
+// Warn users that Autoptimize is required
 function ao_ccss_notice_needao() {
   echo '<div class="error"><p>';
-  _e( 'This Crirical CSS power-up requires Autoptimize to be installed and active.', 'autoptimize' );
+  _e('Autoptimize Power-Up: CriticalCSS requires <a href="https://br.wordpress.org/plugins/autoptimize/" target="_blank">Autoptimize</a> to be installed and active.', 'autoptimize');
   echo '</p></div>';
 }
 ?>
