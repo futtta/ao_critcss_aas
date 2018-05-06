@@ -9,7 +9,7 @@ Autoptimize criticalcss.com power-up adds automated critical css creation to Aut
 
 == Description ==
 
-This "power-up" adds automated critical css functionality to Autoptimize using the premium __criticalcss.com__ service.
+This "power-up" adds automated critical css functionality to [Autoptimize](https://wordpress.org/plugins/autoptimize/) using the premium __criticalcss.com__ service.
 
 Make sure to install and configure Autoptimize first and foremost.
 
