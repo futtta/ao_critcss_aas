@@ -13,14 +13,14 @@ This "power-up" adds automated critical css functionality to Autoptimize using t
 
 Make sure to install and configure Autoptimize first and foremost.
 
-To use this "power-up" you will need a paying subscription at https://criticalcss.com.
+To use this "power-up" you will need a paying subscription at [https://criticalcss.com](https://criticalcss.com/?aff=1).
 
 == Installation ==
 
 1. Install from your WordPress "Plugins > Add New" screen (search for Autoptimize)
 1. Activate the plugin.
 1. You will see a "Critical CSS"-tab in Autoptimize.
-1. Enter the API key from your criticalcss.com account.
+1. Enter the API key from your [https://criticalcss.com](https://criticalcss.com/account/api-keys/?aff=1) 
 1. (optional): create a default rule which can be used if no automated rule applies.
 1. (optional): create manual Path-based rules for specific pages to override automated rules. If you leave the critical CSS field of path-based rules empty, the plugin will automatically extract it.
 
@@ -28,7 +28,7 @@ To use this "power-up" you will need a paying subscription at https://criticalcs
 
 = Where do I get an API key from? =
 
-Please sign up at CriticalCSS.com then go to CriticalCSS.com API Keys. This is a premium service, so be sure to read the additional pricing information!
+Please sign up at [https://criticalcss.com](https://criticalcss.com/?aff=1) then go to [CriticalCSS.com API Keys](https://criticalcss.com/account/api-keys/?aff=1). This is a premium service, so be sure to read the additional pricing information!
 
 At the time of writing (4 May 2018) the price for using CriticalCSS.com is:
 
@@ -42,7 +42,7 @@ No; CriticalCSS.com needs the pages for which it has to generate critical css to
 
 = What are the Terms of Service for CriticalCSS.com usage = 
 
-See https://criticalcss.com/general/terms-of-service/
+See [https://criticalcss.com/general/terms-of-service/](https://criticalcss.com/general/terms-of-service/?aff=1).
 
 = Why isn't the critical CSS visible immediately =
 
