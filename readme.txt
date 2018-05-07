@@ -9,11 +9,9 @@ Autoptimize criticalcss.com power-up adds automated critical css creation to Aut
 
 == Description ==
 
-This "power-up" adds automated critical css functionality to [Autoptimize](https://wordpress.org/plugins/autoptimize/) using the premium __criticalcss.com__ service.
+This "power-up" can make your pages start rendering sooner, improving user experience. This is done by automated critical css extraction and inlining based on [Autoptimize's](https://wordpress.org/plugins/autoptimize/) "inline and defer" option and integrating with the premium __criticalcss.com__ service.
 
-Make sure to install and configure Autoptimize first and foremost.
-
-To use this "power-up" you will need a paying subscription at [https://criticalcss.com](https://criticalcss.com/?aff=1).
+To use this "power-up" you should have Autoptimize installed and configured and you need a paying subscription at [https://criticalcss.com](https://criticalcss.com/?aff=1).
 
 == Installation ==
 
@@ -44,7 +42,7 @@ No; CriticalCSS.com needs the pages for which it has to generate critical css to
 
 See [https://criticalcss.com/general/terms-of-service/](https://criticalcss.com/general/terms-of-service/?aff=1).
 
-= Why isn't the critical CSS visible immediately =
+= Why isn't the critical CSS visible immediately? =
 
 First and foremost you (should) have a page cache, so requests don't end up in WordPress, Autopitmize and the power-up until a page is not in cache. At that point the power-up will add the page to a queue for critical CSS extraction and return the page with default critical CSS (if available). After the job has been executed by criticalcss.com the critical CSS is turned into a rule and it will be used for the next matching request (again for a page not in page cache).
 
