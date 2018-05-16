@@ -44,6 +44,7 @@ require_once('inc/admin_settings_rules.php');
 require_once('inc/admin_settings_queue.php');
 require_once('inc/admin_settings_key.php');
 require_once('inc/admin_settings_adv.php');
+require_once('inc/admin_settings_explain.php');
 require_once('inc/cron.php');
 
 // Define plugin version

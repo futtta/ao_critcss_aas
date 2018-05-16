@@ -75,6 +75,8 @@ function ao_ccss_settings() {
 
         // But if key is other than valid, add hidden fields to persist settings when submitting form
         } else {
+          // And show explanation of why and how to get a API ke
+          ao_ccss_render_explain();
 
           // Get viewport size
           $viewport = ao_ccss_viewport();
