@@ -3,7 +3,7 @@ Contributors: futtta, denydias
 Tags: autoptimize, critical css, above-the-fold, render-blocking css
 Requires at least: 4.9
 Tested up to: 4.9
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 
 Autoptimize criticalcss.com power-up adds automated critical css creation to Autoptimize integrating with the premium https://criticalcss.com service.
 
@@ -18,15 +18,16 @@ To use this "power-up" you should have Autoptimize installed and configured and 
 1. Install from your WordPress "Plugins > Add New" screen (search for Autoptimize)
 1. Activate the plugin.
 1. You will see a "Critical CSS"-tab in Autoptimize.
-1. Enter the API key from your [https://criticalcss.com](https://criticalcss.com/account/api-keys/?aff=1) 
+1. Enter the API key from your [https://criticalcss.com](https://criticalcss.com/account/api-keys?aff=1) 
 1. (optional): create a default rule which can be used if no automated rule applies.
 1. (optional): create manual Path-based rules for specific pages to override automated rules. If you leave the critical CSS field of path-based rules empty, the plugin will automatically extract it.
+1. To get critical CSS going, make sure there are requests coming in that are not served by a page cache
 
 == Frequently Asked Questions ==
 
 = Where do I get an API key from? =
 
-Please sign up at [https://criticalcss.com](https://criticalcss.com/?aff=1) then go to [CriticalCSS.com API Keys](https://criticalcss.com/account/api-keys/?aff=1). This is a premium service, so be sure to read the additional pricing information!
+Please sign up at [https://criticalcss.com](https://criticalcss.com/?aff=1) then go to [CriticalCSS.com API Keys](https://criticalcss.com/account/api-keys?aff=1). This is a premium service, so be sure to read the additional pricing information!
 
 At the time of writing (4 May 2018) the price for using CriticalCSS.com is:
 
@@ -44,9 +45,15 @@ See [https://criticalcss.com/general/terms-of-service/](https://criticalcss.com/
 
 = Why isn't the critical CSS visible immediately? =
 
-First and foremost you (should) have a page cache, so requests don't end up in WordPress, Autopitmize and the power-up until a page is not in cache. At that point the power-up will add the page to a queue for critical CSS extraction and return the page with default critical CSS (if available). After the job has been executed by criticalcss.com the critical CSS is turned into a rule and it will be used for the next matching request (again for a page not in page cache).
+Critical CSS generation is based on a job-queue. For jobs to be added to the queue, your site should have requests and those requests should not be served by a page cache (because in that case WordPress and Autoptimize are not triggered). If you want to speed things up, you can temporarily disable your page cache and click around on your website yourself. 
+
+Once a job is in the queue it can be executed and sent to criticalcss.com and at one of the next queue runs the critical CSS is retrieved and turned into a rule and it will be used for the next matching request (again for a page not in page cache).
 
 == Changelog ==
+
+= 1.0.1 =
+
+* Extra info on the API key entry page
 
 = 1.0.0 =
 
