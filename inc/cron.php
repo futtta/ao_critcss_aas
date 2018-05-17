@@ -90,6 +90,9 @@ function ao_ccss_queue_control() {
     $jr = 1;
     $jt = count($ao_ccss_queue);
 
+    // Sort queue by ascending job status (e.g. ERROR, JOB_ONGOING, JOB_QUEUED, NEW...)
+    array_multisort(array_column($ao_ccss_queue, 'jqstat'), $ao_ccss_queue);
+
     // Iterates over the entire queue
     foreach ($ao_ccss_queue as $path => $jprops) {
 
