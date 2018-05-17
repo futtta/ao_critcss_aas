@@ -1,11 +1,10 @@
 <?php
 /*
-Plugin Name: Autoptimize Power-Up: CriticalCSS
-Plugin URI: http://optimizingmatters/autoptimize/criticalcss/
+Plugin Name: Autoptimize CriticalCSS.com Power-Up
+Plugin URI: http://optimizingmatters.com/
 Description: Let Autoptimize and CriticalCSS unleash your site performance and make it appear better than anyone in search results.
-Author: Deny Dias on behalf of Optimizing Matters
-Version: 1.0.0
-Author URI: http://optimizingmatters.com/
+Author: Deny Dias & Optimizing Matters
+Version: 1.0.1
 Text Domain: autoptimize
 */
 
@@ -45,6 +44,7 @@ require_once('inc/admin_settings_rules.php');
 require_once('inc/admin_settings_queue.php');
 require_once('inc/admin_settings_key.php');
 require_once('inc/admin_settings_adv.php');
+require_once('inc/admin_settings_explain.php');
 require_once('inc/cron.php');
 
 // Define plugin version
