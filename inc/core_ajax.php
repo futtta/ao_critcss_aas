@@ -156,6 +156,7 @@ function ao_ccss_export_callback() {
   $settings['additional'] = get_option('autoptimize_ccss_additional');
   $settings['viewport']   = get_option('autoptimize_ccss_viewport');
   $settings['finclude']   = get_option('autoptimize_ccss_finclude');
+  $settings['rlimit']     = get_option('autoptimize_ccss_rlimit');
   $settings['debug']      = get_option('autoptimize_ccss_debug');
   $settings['key']        = get_option('autoptimize_ccss_key');
 
@@ -248,6 +249,7 @@ function ao_ccss_import_callback() {
         update_option('autoptimize_ccss_additional', $settings['additional']);
         update_option('autoptimize_ccss_viewport',   $settings['viewport']);
         update_option('autoptimize_ccss_finclude',   $settings['finclude']);
+        update_option('autoptimize_ccss_rlimit',     $settings['rlimit']);
         update_option('autoptimize_ccss_debug',      $settings['debug']);
         update_option('autoptimize_ccss_key',        $settings['key']);
 

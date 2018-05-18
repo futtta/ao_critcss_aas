@@ -2,22 +2,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Autoptimize Power-Up: CriticalCSS 0.1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ao_critcss_aas\n"
-"POT-Creation-Date: 2018-04-30 01:37:11+00:00\n"
+"POT-Creation-Date: 2018-05-18 02:54:00+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2018-04-30 01:38+0000\n"
+"PO-Revision-Date: 2018-05-18 02:55+0000\n"
 "Last-Translator: Deny Dias <https://mexapi.macpress.com.br/about>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Loco https://localise.biz/"
 
-#: ao_criticss_aas.php:117
+#: ao_criticss_aas.php:119
 msgid "CriticalCSS"
 msgstr ""
 
-#: ao_criticss_aas.php:173
+#: ao_criticss_aas.php:181
 msgid ""
 "Autoptimize Power-Up: CriticalCSS requires <a href=\"https://br.wordpress."
 "org/plugins/autoptimize/\" target=\"_blank\">Autoptimize</a> to be installed "
@@ -27,11 +27,11 @@ msgstr ""
 "wordpress.org/plugins/autoptimize/\" target=\"_blank\">Autoptimize</a> "
 "esteja instalado e ativo."
 
-#: inc/admin_settings.php:20
+#: inc/admin_settings.php:21
 msgid "Autoptimize Settings: CriticalCSS Power-Up"
 msgstr "Configurações do Autoptimize: CriticalCSS Power-Up"
 
-#: inc/admin_settings.php:33
+#: inc/admin_settings.php:34
 msgid ""
 "Could not create the required directory. Make sure the webserver can write "
 "to the wp-content directory."
@@ -39,11 +39,11 @@ msgstr ""
 "Não foi possível criar o diretório. Certifique-se de que o servidor web pode "
 "escrever no diretório wp-content."
 
-#: inc/admin_settings.php:41
+#: inc/admin_settings.php:42
 msgid "Oops! Please install and activate Autoptimize first."
 msgstr "Opa! Primeiro instale e ative o Autoptimize."
 
-#: inc/admin_settings.php:46
+#: inc/admin_settings.php:47
 msgid ""
 "Oops! Please <strong>activate the \"Inline and Defer CSS\" option</strong> "
 "on Autoptimize's main settings page to use this power-up."
@@ -51,7 +51,7 @@ msgstr ""
 "Opa! <strong>Ative a opção \"Inline and Defer CSS\"</strong> na página de "
 "configurações principais do Autoptimize para usar esta extensão."
 
-#: inc/admin_settings.php:51
+#: inc/admin_settings.php:52
 msgid ""
 "Oops! It looks you need to upgrade to Autoptimize 2.2.0 or higher to use "
 "this CriticCSS Power-Up."
@@ -59,35 +59,35 @@ msgstr ""
 "Opa! Parece que você precisa atualizar o Autoptimize para a versão 2.2.0 ou "
 "superior para usar esta extensão."
 
-#: inc/admin_settings.php:96
+#: inc/admin_settings.php:101
 msgid "Save Changes"
 msgstr "Salvar Mudanças"
 
-#: inc/admin_settings.php:101
+#: inc/admin_settings.php:106
 msgid "Export Settings"
 msgstr "Exportar Configurações"
 
-#: inc/admin_settings.php:102
+#: inc/admin_settings.php:107
 msgid "Import Settings"
 msgstr "Importar Configurações"
 
-#: inc/admin_settings_adv.php:18
+#: inc/admin_settings_adv.php:19
 msgid "Advanced Settings"
 msgstr "Avançado"
 
-#: inc/admin_settings_adv.php:26
+#: inc/admin_settings_adv.php:27
 msgid "Viewport Size"
 msgstr "Tamanho da Área Visível"
 
-#: inc/admin_settings_adv.php:29
+#: inc/admin_settings_adv.php:30
 msgid "Width"
 msgstr "Largura"
 
-#: inc/admin_settings_adv.php:30
+#: inc/admin_settings_adv.php:31
 msgid "Height"
 msgstr "Altura"
 
-#: inc/admin_settings_adv.php:32
+#: inc/admin_settings_adv.php:33
 msgid ""
 "<a href=\"https://criticalcss.com/account/api-keys?aff=1\" target=\"_blank\">"
 "criticalcss.com</a> default viewport size is 1300x900 pixels (width x height)"
@@ -101,15 +101,15 @@ msgstr ""
 "altura desejada. Os valores permitidos são de 800 a 4096 para a largura e de "
 "600 a 2160 para a altura."
 
-#: inc/admin_settings_adv.php:38
+#: inc/admin_settings_adv.php:39
 msgid "Force Include"
 msgstr "Forçar Inclusão"
 
-#: inc/admin_settings_adv.php:41
+#: inc/admin_settings_adv.php:42
 msgid ".button-special,//#footer"
 msgstr ""
 
-#: inc/admin_settings_adv.php:43
+#: inc/admin_settings_adv.php:44
 msgid ""
 "Force include can be used to style dynamic content that is not part of the "
 "HTML that is seen during the Critical CSS generation. To use this feature, "
@@ -131,11 +131,46 @@ msgstr ""
 "//#footer</code> incluirá os seletores <code>#footer</code>, <code>#footer-"
 "address</code> e <code>#footer-phone</code>, caso eles existam."
 
-#: inc/admin_settings_adv.php:49
+#: inc/admin_settings_adv.php:50
+msgid "Request Limit"
+msgstr "Limite de Requisições"
+
+#: inc/admin_settings_adv.php:55
+msgid ""
+"Certain hosting services imposes hard limitations to background processes on "
+"either execution time, requests made from your server to any third party "
+"services, or both. This could lead to a faulty operation of the queue "
+"background process triggered by WP-Cron. If automated rules are not being "
+"created, you may be facing this limitation of your hosting provider. In that "
+"case, set the request limit to a reasonable number between 1 and 240. The "
+"queue fire a request to <a href=\"https://criticalcss.com/account/api-keys?"
+"aff=1\" target=\"_blank\">criticalcss.com</a> on every 15 seconds (due to "
+"service limitations). If your hosting provider allows a 60 seconds time span "
+"to background processes runtime, set this value to 3 or 4 so the queue can "
+"operate within the boundaries. The maximum value of 240 allows enough "
+"requests for one hour long. To disable this limit and to let requests be "
+"made at will, just delete any values in this setting (a grey 0 will show)."
+msgstr ""
+"Certos provedores impõem limitações ao tempo de execução ou número de "
+"requisições feitas a partir de seus servidores, ou ambas. Isto pode levar a "
+"problemas na operação da fila disparada pelo WP-Cron. Se suas regras "
+"automáticas não estão sendo criadas, você pode estar enfrentando estas "
+"limitações por parte do seu provedor. Neste caso, defina o limite de "
+"requisições para um número razoável entre 1 e 240. A fila dispara uma "
+"requisição para o <a href=\"https://criticalcss.com/account/api-keys?aff=1\" "
+"target=\"_blank\">criticalcss.com</a> a cada 15 segundos (por causa de "
+"limitações do serviço). Se o seu provedor permite que processos de fundo "
+"rodem por 60 segundos, defina este valor para 3 ou 4 para que a fila opere "
+"dentro dos limites. O valor máximo de 240 disponibiliza requisições para até "
+"uma hora. Para desativar este limite e permitir que as requisições sejam "
+"feitas a vontade, apenas apague qualquer valor nesta configuração (um 0 "
+"cinza será mostrado)."
+
+#: inc/admin_settings_adv.php:61
 msgid "Debug Mode"
 msgstr "Modo de Depuração"
 
-#: inc/admin_settings_adv.php:54
+#: inc/admin_settings_adv.php:66
 msgid ""
 "<strong>CAUTION! DO NOT use debug mode on production/live environments."
 "</strong><br />Check the box above to enable Autoptimize CriticalCSS Power-"
@@ -162,6 +197,62 @@ msgstr "Intervalos do WP-Cron"
 #: inc/admin_settings_debug.php:67
 msgid "WP-Cron Scheduled Events"
 msgstr "Eventos Agendados do WP-Cron"
+
+#: inc/admin_settings_explain.php:6
+msgid "Congratulations!"
+msgstr "Parabéns!"
+
+#: inc/admin_settings_explain.php:7
+msgid ""
+"You have downloaded, installed and activated the Autoptimize Criticalcss.com "
+"Power-Up succesfully!"
+msgstr ""
+"Você baixou, instalou e ativou o Autoptimize CriticalCSS.com Power-Up com "
+"sucesso!"
+
+#: inc/admin_settings_explain.php:8
+msgid "You're"
+msgstr "Você está"
+
+#: inc/admin_settings_explain.php:8
+msgid "almost ready"
+msgstr "quase pronto"
+
+#: inc/admin_settings_explain.php:8
+msgid "to have your critical CSS generated automatically and"
+msgstr "para ter seus CSS críticos gerados automaticamente e"
+
+#: inc/admin_settings_explain.php:8
+msgid "improve customer experience significantly."
+msgstr "melhorar a experiência dos seus clientes significativamente."
+
+#: inc/admin_settings_explain.php:9
+msgid "The next step is to sign up at "
+msgstr "O próximo passo é assinar o"
+
+#: inc/admin_settings_explain.php:9
+msgid " and get the API key, which you can copy from "
+msgstr "para obter a chave de API que você poderá copiar da"
+
+#: inc/admin_settings_explain.php:9
+msgid "the API-keys page"
+msgstr "página API-keys"
+
+#: inc/admin_settings_explain.php:9
+msgid "and paste below."
+msgstr "para colar abaixo."
+
+#: inc/admin_settings_explain.php:10
+msgid "If you have any questions or need support, head on over to"
+msgstr "Se você tiver dúvidas ou precisar de suporte, acesse"
+
+#: inc/admin_settings_explain.php:10
+msgid "our support forum"
+msgstr "nosso fórum"
+
+#: inc/admin_settings_explain.php:10
+msgid "and we'll help you get up and running in no time! "
+msgstr "e nós vamos ajudá-lo bem rápido."
 
 #: inc/admin_settings_feeds.php:21
 msgid ""
@@ -851,15 +942,15 @@ msgstr ""
 "target=\"_blank\">criticalcss.com</a> válida para começar."
 
 #: inc/cron.php:24
-msgid "Autoptimize Power-Up: CriticalCSS Queue"
-msgstr ""
+msgid "Autoptimize CriticalCSS.com Power-Up Queue"
+msgstr "Fila do Autoptimize CriticalCSS.com Power-Up"
 
 #. Plugin Name of the plugin/theme
-msgid "Autoptimize Power-Up: CriticalCSS"
+msgid "Autoptimize CriticalCSS.com Power-Up"
 msgstr ""
 
-#. Plugin URI of the plugin/theme
-msgid "http://optimizingmatters/autoptimize/criticalcss/"
+#. Author URI of the plugin/theme
+msgid "http://optimizingmatters.com/"
 msgstr ""
 
 #. Description of the plugin/theme
@@ -871,9 +962,5 @@ msgstr ""
 "para fazê-lo aparecer melhor que qualquer um nos resultados de pesquisas."
 
 #. Author of the plugin/theme
-msgid "Deny Dias on behalf of Optimizing Matters"
-msgstr "Deny Dias para Optimizing Matters"
-
-#. Author URI of the plugin/theme
-msgid "http://optimizingmatters.com/"
+msgid "Deny Dias & Optimizing Matters"
 msgstr ""

@@ -46,29 +46,29 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 ## Project Stats
 
-*Stats updated at: 2018/04/29*
+*Stats updated at: 2018/05/17*
 
-**Project size:** 296 KB
+**Project size:** 308 KB
 
 ### Lines of Code
 
 **Language**|**Files**|**Blank Lines**|**Comments**|**Functional Code**
 :-------|-------:|-------:|-------:|-------:
-PHP|15|486|493|2230
-CSS|2|1|3|286
+PHP|15|489|495|2260
+CSS|2|1|3|289
 Bourne Shell|2|17|0|56
 JavaScript|3|2|3|12
 --------|--------|--------|--------|--------
-**SUM:**|**22**|**506**|**499**|**2584**
+**SUM:**|**22**|**509**|**501**|**2617**
 
 ### Media and Other
 
 **Type**|**Files**|**Size (B)**
 :-------|-------:|-------:
 GIF|3|172
-I18|2|53032
+I18|2|58994
 --------|--------|--------
-**SUM:**|**5**|**53204**
+**SUM:**|**5**|**59166**
 
 ### Spec Items
 
@@ -83,10 +83,10 @@ inc/core.php:50:  // NOTE: implements section 4, id 1.1 of the specs (for paths)
 inc/core.php:62:  // NOTE: implements section 4, id 1.1 of the specs (for types)
 inc/core.php:86:  // NOTE: implements section 4, id 1.2 of the specs
 inc/cron.php:3:// NOTE: implements section 4 of the specs
-inc/cron.php:107:      // NOTE: implements section 4, id 3.1 of the specs
-inc/cron.php:197:      // NOTE: implements section 4, id 3.2 of the specs
-inc/cron.php:341:      // NOTE: implements section 4, id 3.2.1 of the specs
-inc/cron.php:682:// NOTE: implements section 4, id 3.2.1 of the specs
+inc/cron.php:111:      // NOTE: implements section 4, id 3.1 of the specs
+inc/cron.php:201:      // NOTE: implements section 4, id 3.2 of the specs
+inc/cron.php:345:      // NOTE: implements section 4, id 3.2.1 of the specs
+inc/cron.php:692:// NOTE: implements section 4, id 3.2.1 of the specs
 ```
 
 ### Out of Scope Items
@@ -100,9 +100,9 @@ inc/core_ajax.php:211:// NOTE: out of scope import settings
 inc/core_enqueue.php:13:  // NOTE: out of scope check for allowed job enqueuing (inc. issue #2)
 inc/core_enqueue.php:277:// NOTE: out of scope check for criticalcss.com UA
 inc/cron.php:52:  // NOTE: out of scope queue debug
-inc/cron.php:334:      // NOTE: out of scope DONE job removal (issues #4 and #18)
-inc/cron.php:659:  // NOTE: out of scope critical CSS file removal (issue #5)
-inc/cron.php:788:// NOTE: out of scope plugin maintenance
+inc/cron.php:338:      // NOTE: out of scope DONE job removal (issues #4 and #18)
+inc/cron.php:669:  // NOTE: out of scope critical CSS file removal (issue #5)
+inc/cron.php:798:// NOTE: out of scope plugin maintenance
 ```
 
 #### Notes

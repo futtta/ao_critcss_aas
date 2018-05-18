@@ -4,7 +4,7 @@ Plugin Name: Autoptimize CriticalCSS.com Power-Up
 Plugin URI: http://optimizingmatters.com/
 Description: Let Autoptimize and CriticalCSS unleash your site performance and make it appear better than anyone in search results.
 Author: Deny Dias & Optimizing Matters
-Version: 1.0.1
+Version: 1.1.0
 Text Domain: autoptimize
 */
 
@@ -16,6 +16,7 @@ $ao_ccss_additional  = get_option('autoptimize_ccss_additional' );
 $ao_ccss_queue_raw   = get_option('autoptimize_ccss_queue'      , FALSE);
 $ao_ccss_viewport    = get_option('autoptimize_ccss_viewport'   , FALSE);
 $ao_ccss_finclude    = get_option('autoptimize_ccss_finclude'   , FALSE);
+$ao_ccss_rlimit      = get_option('autoptimize_ccss_rlimit  '   , FALSE);
 $ao_ccss_debug       = get_option('autoptimize_ccss_debug'      , FALSE);
 $ao_ccss_key         = get_option('autoptimize_ccss_key'        );
 $ao_ccss_keyst       = get_option('autoptimize_ccss_keyst'      );
@@ -48,7 +49,7 @@ require_once('inc/admin_settings_explain.php');
 require_once('inc/cron.php');
 
 // Define plugin version
-define('AO_CCSS_VER', '1.0.0');
+define('AO_CCSS_VER', '1.1.0');
 
 // Define a constant with the directory to store critical CSS in
 if (is_multisite()) {
@@ -80,6 +81,7 @@ function ao_ccss_settings_init() {
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_queue');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_viewport');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_finclude');
+  register_setting('ao_ccss_options_group', 'autoptimize_ccss_rlimit');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_debug');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_key');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_keyst');
@@ -127,12 +129,15 @@ function ao_ccss_activation() {
   }
 
   // Create options with empty values
-  add_option('autoptimize_ccss_key'     , '', '', 'no');
-  add_option('autoptimize_ccss_keyst'   , '', '', 'no');
-  add_option('autoptimize_ccss_rules'   , '', '', 'no');
-  add_option('autoptimize_ccss_queue'   , '', '', 'no');
-  add_option('autoptimize_ccss_viewport', '', '', 'no');
-  add_option('autoptimize_ccss_debug'   , '', '', 'no');
+  add_option('autoptimize_ccss_rules'      , '', '', 'no');
+  add_option('autoptimize_ccss_additional' , '', '', 'no');
+  add_option('autoptimize_ccss_queue'      , '', '', 'no');
+  add_option('autoptimize_ccss_viewport'   , '', '', 'no');
+  add_option('autoptimize_ccss_finclude'   , '', '', 'no');
+  add_option('autoptimize_ccss_rlimit'     , '', '', 'no');
+  add_option('autoptimize_ccss_debug'      , '', '', 'no');
+  add_option('autoptimize_ccss_key'        , '', '', 'no');
+  add_option('autoptimize_ccss_keyst'      , '', '', 'no');
 
   // Create a scheduled event for the queue
   if (!wp_next_scheduled('ao_ccss_queue')) {
@@ -150,12 +155,15 @@ register_activation_hook(__FILE__, 'ao_ccss_activation');
 function ao_ccss_deactivation() {
 
   // Delete options
-  delete_option('autoptimize_ccss_key');
-  delete_option('autoptimize_ccss_keyst');
   delete_option('autoptimize_ccss_rules');
+  delete_option('autoptimize_ccss_additional');
   delete_option('autoptimize_ccss_queue');
   delete_option('autoptimize_ccss_viewport');
+  delete_option('autoptimize_ccss_finclude');
+  delete_option('autoptimize_ccss_rlimit');
   delete_option('autoptimize_ccss_debug');
+  delete_option('autoptimize_ccss_key');
+  delete_option('autoptimize_ccss_keyst');
 
   // Remove scheduled events
   wp_clear_scheduled_hook('ao_ccss_queue');

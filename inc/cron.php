@@ -21,7 +21,7 @@ function ao_ccss_interval($schedules) {
   // Attach interval to schedule
   $schedules['ao_ccss'] = array(
     'interval' => $intsec,
-    'display' => __('Autoptimize Power-Up: CriticalCSS Queue')
+    'display' => __('Autoptimize CriticalCSS.com Power-Up Queue')
   );
   return $schedules;
 }
@@ -82,8 +82,9 @@ function ao_ccss_queue_control() {
       ao_ccss_log('Queue control locked', 3);
     }
 
-    // Attach required arrays
+    // Attach required variables
     global $ao_ccss_queue;
+    global $ao_ccss_rlimit;
 
     // Initialize job counters
     $jc = 1;
@@ -368,6 +369,12 @@ function ao_ccss_queue_control() {
       // Or log no queue action
       } else {
         ao_ccss_log('Nothing to do on this job', 3);
+      }
+
+      // Break the loop if request limit is set and was reached
+      if ($ao_ccss_rlimit && $ao_ccss_rlimit == $jc) {
+        ao_ccss_log('The limit of ' . $ao_ccss_rlimit . ' request(s) to criticalcss.com was reached, queue control must finish now', 3);
+        break;
       }
 
       // Increment job counter
