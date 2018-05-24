@@ -87,7 +87,7 @@ function ao_ccss_settings_init() {
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_keyst');
 
   // Check if Autoptimize is installed
-  if (!is_plugin_active('autoptimize/autoptimize.php')) {
+  if (!is_plugin_active('autoptimize/autoptimize.php') && !is_plugin_active('autoptimize-beta/autoptimize.php')) {
     add_action('admin_notices','ao_ccss_notice_needao');
   }
 }
@@ -178,7 +178,7 @@ register_deactivation_hook(__FILE__, 'ao_ccss_deactivation');
 // Warn users that Autoptimize is required
 function ao_ccss_notice_needao() {
   echo '<div class="error"><p>';
-  _e('Autoptimize Power-Up: CriticalCSS requires <a href="https://br.wordpress.org/plugins/autoptimize/" target="_blank">Autoptimize</a> to be installed and active.', 'autoptimize');
+  _e('Autoptimize Power-Up: CriticalCSS requires <a href="https://wordpress.org/plugins/autoptimize/" target="_blank">Autoptimize</a> to be installed and active.', 'autoptimize');
   echo '</p></div>';
 }
 ?>
