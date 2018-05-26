@@ -462,12 +462,17 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
   // Get key and key status
   global $ao_ccss_key;
   global $ao_ccss_keyst;
+  global $ao_ccss_noptimize;
+
   $key        = $ao_ccss_key;
   $key_status = $ao_ccss_keyst;
 
   // Initialize request body
   $body        = array();
   $body['url'] = $src_url;
+  if ('1' == $ao_ccss_noptimize) {
+    $body['url'] .= '?ao_noptimize=1';
+  }
   $body['aff'] = 1;
 
   // Prepare and add viewport size to the body if available

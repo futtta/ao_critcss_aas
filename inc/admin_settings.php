@@ -13,7 +13,7 @@ function ao_ccss_settings() {
   global $ao_ccss_rlimit;
   global $ao_ccss_debug;
   global $ao_ccss_key;
-
+  global $ao_ccss_noptimize;
   ?>
   <div class="wrap">
     <div id="autoptimize_main">
@@ -91,6 +91,7 @@ function ao_ccss_settings() {
           echo '<input class="hidden" name="autoptimize_ccss_finclude" value=' . $ao_ccss_finclude . '>';
           echo '<input class="hidden" name="autoptimize_ccss_rlimit" value=' . $ao_ccss_rlimit . '>';
           echo '<input class="hidden" name="autoptimize_ccss_debug" value=' . $ao_ccss_debug . '>';
+          echo '<input class="hidden" name="autoptimize_ccss_noptimize" value=' . $ao_ccss_noptimize . '>';
         }
 
         // Render key panel unconditionally

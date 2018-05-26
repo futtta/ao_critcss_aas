@@ -20,6 +20,7 @@ $ao_ccss_rlimit      = get_option('autoptimize_ccss_rlimit  '   , FALSE);
 $ao_ccss_debug       = get_option('autoptimize_ccss_debug'      , FALSE);
 $ao_ccss_key         = get_option('autoptimize_ccss_key'        );
 $ao_ccss_keyst       = get_option('autoptimize_ccss_keyst'      );
+$ao_ccss_noptimize   = get_option('autoptimize_ccss_noptimize'  , FALSE);
 
 // Setup the rules array
 if (empty($ao_ccss_rules_raw)) {
@@ -85,6 +86,7 @@ function ao_ccss_settings_init() {
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_debug');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_key');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_keyst');
+  register_setting('ao_ccss_options_group', 'autoptimize_ccss_noptimize');
 
   // Check if Autoptimize is installed
   if (!is_plugin_active('autoptimize/autoptimize.php') && !is_plugin_active('autoptimize-beta/autoptimize.php')) {
@@ -136,6 +138,7 @@ function ao_ccss_activation() {
   add_option('autoptimize_ccss_finclude'   , '', '', 'no');
   add_option('autoptimize_ccss_rlimit'     , '', '', 'no');
   add_option('autoptimize_ccss_debug'      , '', '', 'no');
+  add_option('autoptimize_ccss_noptimize'  , '', '', 'no');
   add_option('autoptimize_ccss_key'        , '', '', 'no');
   add_option('autoptimize_ccss_keyst'      , '', '', 'no');
 
@@ -164,6 +167,7 @@ function ao_ccss_deactivation() {
   delete_option('autoptimize_ccss_debug');
   delete_option('autoptimize_ccss_key');
   delete_option('autoptimize_ccss_keyst');
+  delete_option('autoptimize_ccss_noptimize');
 
   // Remove scheduled events
   wp_clear_scheduled_hook('ao_ccss_queue');

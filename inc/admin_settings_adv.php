@@ -9,6 +9,7 @@ function ao_ccss_render_adv() {
   global $ao_ccss_debug;
   global $ao_ccss_finclude;
   global $ao_ccss_rlimit;
+  global $ao_ccss_noptimize;
 
   // Get viewport size
   $viewport = ao_ccss_viewport();
@@ -53,6 +54,17 @@ function ao_ccss_render_adv() {
               <input type="number" id="autoptimize_ccss_rlimit" name="autoptimize_ccss_rlimit" min="1" max="240" placeholder="0" value="<?php echo $ao_ccss_rlimit; ?>" />
               <p class="notes">
                 <?php _e('Certain hosting services imposes hard limitations to background processes on either execution time, requests made from your server to any third party services, or both. This could lead to a faulty operation of the queue background process triggered by WP-Cron. If automated rules are not being created, you may be facing this limitation from your hosting provider. In that case, set the request limit to a reasonable number between 1 and 240. The queue fire a request to <a href="https://criticalcss.com/account/api-keys?aff=1" target="_blank">criticalcss.com</a> on every 15 seconds (due to service limitations). If your hosting provider allows a 60 seconds time span to background processes runtime, set this value to 3 or 4 so the queue can operate within the boundaries. The maximum value of 240 allows enough requests for one hour long. To disable this limit and to let requests be made at will, just delete any values in this setting (a grey 0 will show).', 'autoptimize'); ?>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <?php _e('Fetch original CSS', 'autoptimize'); ?>
+            </th>
+            <td>
+              <input type="checkbox" id="autoptimize_ccss_noptimize" name="autoptimize_ccss_noptimize" value="1" <?php checked(1 == $ao_ccss_noptimize); ?>>
+              <p class="notes">
+                <?php _e('In some (rare) cases the extraction of critical CSS works better with the original CSS instead of the Autoptimized one, this option enables that behavior.', 'autoptimize'); ?>
               </p>
             </td>
           </tr>
