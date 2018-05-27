@@ -159,6 +159,7 @@ function ao_ccss_export_callback() {
   $settings['rlimit']     = get_option('autoptimize_ccss_rlimit');
   $settings['debug']      = get_option('autoptimize_ccss_debug');
   $settings['key']        = get_option('autoptimize_ccss_key');
+  $settings['noptimize']  = get_option('autoptimize_ccss_noptimize');
 
   // Initialize error flag
   $error = TRUE;
@@ -252,6 +253,7 @@ function ao_ccss_import_callback() {
         update_option('autoptimize_ccss_rlimit',     $settings['rlimit']);
         update_option('autoptimize_ccss_debug',      $settings['debug']);
         update_option('autoptimize_ccss_key',        $settings['key']);
+        update_option('autoptimize_ccss_noptimize',  $settings['noptimize']);
 
       // Settings file doesn't exist, update error flag
       } else {
