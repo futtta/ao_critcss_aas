@@ -5,7 +5,7 @@
 // Render the advanced panel
 function ao_ccss_render_adv() {
 
-  // Attach required options
+  // Attach required globals
   global $ao_ccss_debug;
   global $ao_ccss_finclude;
   global $ao_ccss_rlimit;
@@ -59,7 +59,7 @@ function ao_ccss_render_adv() {
           </tr>
           <tr>
             <th scope="row">
-              <?php _e('Fetch original CSS', 'autoptimize'); ?>
+              <?php _e('Fetch Original CSS', 'autoptimize'); ?>
             </th>
             <td>
               <input type="checkbox" id="autoptimize_ccss_noptimize" name="autoptimize_ccss_noptimize" value="1" <?php checked(1 == $ao_ccss_noptimize); ?>>

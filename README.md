@@ -46,7 +46,7 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 ## Project Stats
 
-*Stats updated at: 2018/05/18*
+*Stats updated at: 2018/05/27*
 
 **Project size:** 308 KB
 
@@ -54,21 +54,21 @@ If everything went fine, you'll see criticalcss.com requesting your WordPress's 
 
 **Language**|**Files**|**Blank Lines**|**Comments**|**Functional Code**
 :-------|-------:|-------:|-------:|-------:
-PHP|15|489|495|2262
+PHP|15|489|496|2286
 CSS|2|1|3|289
 Bourne Shell|2|17|0|56
 JavaScript|3|2|3|12
 --------|--------|--------|--------|--------
-**SUM:**|**22**|**509**|**501**|**2619**
+**SUM:**|**22**|**509**|**502**|**2643**
 
 ### Media and Other
 
 **Type**|**Files**|**Size (B)**
 :-------|-------:|-------:
 GIF|3|172
-I18|2|59000
+I18|2|59749
 --------|--------|--------
-**SUM:**|**5**|**59172**
+**SUM:**|**5**|**59921**
 
 ### Spec Items
 
@@ -86,7 +86,7 @@ inc/cron.php:3:// NOTE: implements section 4 of the specs
 inc/cron.php:111:      // NOTE: implements section 4, id 3.1 of the specs
 inc/cron.php:201:      // NOTE: implements section 4, id 3.2 of the specs
 inc/cron.php:345:      // NOTE: implements section 4, id 3.2.1 of the specs
-inc/cron.php:692:// NOTE: implements section 4, id 3.2.1 of the specs
+inc/cron.php:697:// NOTE: implements section 4, id 3.2.1 of the specs
 ```
 
 ### Out of Scope Items
@@ -96,29 +96,13 @@ inc/admin_settings_adv.php:3:// NOTE: out of scope advanced panel
 inc/admin_settings_debug.php:3:// NOTE: out of scope debug panel
 inc/admin_settings_feeds.php:1:<?php // NOTE: out of scope feeds panel ?>
 inc/core_ajax.php:147:// NOTE: out of scope export settings
-inc/core_ajax.php:212:// NOTE: out of scope import settings
+inc/core_ajax.php:213:// NOTE: out of scope import settings
 inc/core_enqueue.php:13:  // NOTE: out of scope check for allowed job enqueuing (inc. issue #2)
 inc/core_enqueue.php:277:// NOTE: out of scope check for criticalcss.com UA
 inc/cron.php:52:  // NOTE: out of scope queue debug
 inc/cron.php:338:      // NOTE: out of scope DONE job removal (issues #4 and #18)
-inc/cron.php:669:  // NOTE: out of scope critical CSS file removal (issue #5)
-inc/cron.php:798:// NOTE: out of scope plugin maintenance
-```
-
-### Out of Scope Items
-
-```
-inc/admin_settings_adv.php:3:// NOTE: out of scope advanced panel
-inc/admin_settings_debug.php:3:// NOTE: out of scope debug panel
-inc/admin_settings_feeds.php:1:<?php // NOTE: out of scope feeds panel ?>
-inc/core_ajax.php:147:// NOTE: out of scope export settings
-inc/core_ajax.php:211:// NOTE: out of scope import settings
-inc/core_enqueue.php:13:  // NOTE: out of scope check for allowed job enqueuing (inc. issue #2)
-inc/core_enqueue.php:277:// NOTE: out of scope check for criticalcss.com UA
-inc/cron.php:52:  // NOTE: out of scope queue debug
-inc/cron.php:338:      // NOTE: out of scope DONE job removal (issues #4 and #18)
-inc/cron.php:669:  // NOTE: out of scope critical CSS file removal (issue #5)
-inc/cron.php:798:// NOTE: out of scope plugin maintenance
+inc/cron.php:674:  // NOTE: out of scope critical CSS file removal (issue #5)
+inc/cron.php:803:// NOTE: out of scope plugin maintenance
 ```
 
 #### Notes

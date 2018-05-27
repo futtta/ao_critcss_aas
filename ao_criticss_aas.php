@@ -4,7 +4,7 @@ Plugin Name: Autoptimize CriticalCSS.com Power-Up
 Plugin URI: http://optimizingmatters.com/
 Description: Let Autoptimize and CriticalCSS unleash your site performance and make it appear better than anyone in search results.
 Author: Deny Dias & Optimizing Matters
-Version: 1.1.0
+Version: 1.2.0
 Text Domain: autoptimize
 */
 
@@ -17,10 +17,10 @@ $ao_ccss_queue_raw   = get_option('autoptimize_ccss_queue'      , FALSE);
 $ao_ccss_viewport    = get_option('autoptimize_ccss_viewport'   , FALSE);
 $ao_ccss_finclude    = get_option('autoptimize_ccss_finclude'   , FALSE);
 $ao_ccss_rlimit      = get_option('autoptimize_ccss_rlimit  '   , FALSE);
+$ao_ccss_noptimize   = get_option('autoptimize_ccss_noptimize'  , FALSE);
 $ao_ccss_debug       = get_option('autoptimize_ccss_debug'      , FALSE);
 $ao_ccss_key         = get_option('autoptimize_ccss_key'        );
 $ao_ccss_keyst       = get_option('autoptimize_ccss_keyst'      );
-$ao_ccss_noptimize   = get_option('autoptimize_ccss_noptimize'  , FALSE);
 
 // Setup the rules array
 if (empty($ao_ccss_rules_raw)) {
@@ -50,7 +50,7 @@ require_once('inc/admin_settings_explain.php');
 require_once('inc/cron.php');
 
 // Define plugin version
-define('AO_CCSS_VER', '1.1.0');
+define('AO_CCSS_VER', '1.2.0');
 
 // Define a constant with the directory to store critical CSS in
 if (is_multisite()) {
@@ -83,10 +83,10 @@ function ao_ccss_settings_init() {
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_viewport');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_finclude');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_rlimit');
+  register_setting('ao_ccss_options_group', 'autoptimize_ccss_noptimize');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_debug');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_key');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_keyst');
-  register_setting('ao_ccss_options_group', 'autoptimize_ccss_noptimize');
 
   // Check if Autoptimize is installed
   if (!is_plugin_active('autoptimize/autoptimize.php') && !is_plugin_active('autoptimize-beta/autoptimize.php')) {
@@ -137,8 +137,8 @@ function ao_ccss_activation() {
   add_option('autoptimize_ccss_viewport'   , '', '', 'no');
   add_option('autoptimize_ccss_finclude'   , '', '', 'no');
   add_option('autoptimize_ccss_rlimit'     , '', '', 'no');
-  add_option('autoptimize_ccss_debug'      , '', '', 'no');
   add_option('autoptimize_ccss_noptimize'  , '', '', 'no');
+  add_option('autoptimize_ccss_debug'      , '', '', 'no');
   add_option('autoptimize_ccss_key'        , '', '', 'no');
   add_option('autoptimize_ccss_keyst'      , '', '', 'no');
 
@@ -164,10 +164,10 @@ function ao_ccss_deactivation() {
   delete_option('autoptimize_ccss_viewport');
   delete_option('autoptimize_ccss_finclude');
   delete_option('autoptimize_ccss_rlimit');
+  delete_option('autoptimize_ccss_noptimize');
   delete_option('autoptimize_ccss_debug');
   delete_option('autoptimize_ccss_key');
   delete_option('autoptimize_ccss_keyst');
-  delete_option('autoptimize_ccss_noptimize');
 
   // Remove scheduled events
   wp_clear_scheduled_hook('ao_ccss_queue');
