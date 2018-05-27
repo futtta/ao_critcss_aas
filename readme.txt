@@ -3,7 +3,7 @@ Contributors: futtta, denydias
 Tags: autoptimize, critical css, above-the-fold, render-blocking css
 Requires at least: 4.9
 Tested up to: 4.9
-Stable tag: 1.0.1
+Stable tag: 1.2.0
 
 Autoptimize criticalcss.com power-up adds automated critical css creation to Autoptimize integrating with the premium https://criticalcss.com service.
 
@@ -35,6 +35,8 @@ At the time of writing (4 May 2018) the price for using CriticalCSS.com is:
 
 This means the total cost will be £7/month if you use this plugin for one site.
 
+If you're not sure yet; with the [30 day free trial](https://criticalcss.com/faq/#refunds), you have nothing to lose!
+
 = Will this work for inside paywalls or membershp sites? =
 
 No; CriticalCSS.com needs the pages for which it has to generate critical css to be publicaly visible to work.
@@ -49,7 +51,20 @@ Critical CSS generation is based on a job-queue. For jobs to be added to the que
 
 Once a job is in the queue it can be executed and sent to criticalcss.com and at one of the next queue runs the critical CSS is retrieved and turned into a rule and it will be used for the next matching request (again for a page not in page cache).
 
+= What if my hosts limits the time PHP processes can run? =
+
+Autoptimize CriticalCss.com power-up uses scheduled jobs to go over a queue with URL's for which to fetch critical CSS. If there are many items in the queue, the process can take a couple of minutes to finish. If your hosts limits the time scheduled PHP processes can run, you can set the number of requests sent to criticalcss.com (the "request limit") under the Advanced Options.
+
 == Changelog ==
+
+= 1.2.0 =
+
+* New advanced option: "Fetch Original CSS"
+* Minor copy changes in Key settings panel and FAQ.
+
+= 1.1.0 =
+
+* Changes to queue processing to cater for hosts with hard limits on PHP processes duration
 
 = 1.0.1 =
 
