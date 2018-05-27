@@ -11,9 +11,10 @@ function ao_ccss_settings() {
   global $ao_ccss_queue_raw;
   global $ao_ccss_finclude;
   global $ao_ccss_rlimit;
+  global $ao_ccss_noptimize;
   global $ao_ccss_debug;
   global $ao_ccss_key;
-  global $ao_ccss_noptimize;
+
   ?>
   <div class="wrap">
     <div id="autoptimize_main">

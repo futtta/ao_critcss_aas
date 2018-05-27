@@ -456,23 +456,23 @@ function ao_ccss_diff_hashes($ljid, $hash, $hashes, $rule) {
 // POST jobs to criticalcss.com and return responses
 function ao_ccss_api_generate($path, $debug, $dcode) {
 
-  // Prepare full URL for request
-  $src_url = get_site_url() . $path;
-
   // Get key and key status
   global $ao_ccss_key;
   global $ao_ccss_keyst;
-  global $ao_ccss_noptimize;
-
   $key        = $ao_ccss_key;
   $key_status = $ao_ccss_keyst;
+
+  // Prepare full URL for request
+  global $ao_ccss_noptimize;
+  $src_url = get_site_url() . $path;
+  // Avoid AO optimizations if required
+  if (!empty($ao_ccss_noptimize)) {
+    $src_url .= '?ao_noptimize=1';
+  }
 
   // Initialize request body
   $body        = array();
   $body['url'] = $src_url;
-  if ('1' == $ao_ccss_noptimize) {
-    $body['url'] .= '?ao_noptimize=1';
-  }
   $body['aff'] = 1;
 
   // Prepare and add viewport size to the body if available
