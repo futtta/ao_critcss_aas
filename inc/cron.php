@@ -462,7 +462,7 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
   $key        = $ao_ccss_key;
   $key_status = $ao_ccss_keyst;
 
-  // Prepare full URL for request
+  // Prepare full URL to request
   global $ao_ccss_noptimize;
   $src_url = get_site_url() . $path;
   // Avoid AO optimizations if required
