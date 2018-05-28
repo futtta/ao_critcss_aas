@@ -35,7 +35,7 @@ At the time of writing (4 May 2018) the price for using CriticalCSS.com is:
 
 This means the total cost will be £7/month if you use this plugin for one site.
 
-If you're not sure yet; with the [30 day free trial](https://criticalcss.com/faq/#refunds), you have nothing to lose!
+If you're not sure yet; with the [30 day free trial](https://criticalcss.com/faq/#trial), you have nothing to lose!
 
 = Will this work for inside paywalls or membershp sites? =
 
