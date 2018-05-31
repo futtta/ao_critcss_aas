@@ -46,13 +46,17 @@ function ao_ccss_settings() {
       } else if (!$ao_css_defer) {
         ?><div class="notice-error notice"><p><?php
         _e("Oops! Please <strong>activate the \"Inline and Defer CSS\" option</strong> on Autoptimize's main settings page to use this power-up.", 'autoptimize');
-        return;
+        // make sure advanced options are visible so users can find "inline & defer"
+        if (get_option('autoptimize_show_adv', '0' ) != '1') {
+          update_option('autoptimize_show_adv','1');
+        }
         ?></p></div><?php
+        return;
       } else if (version_compare(get_option("autoptimize_version"), "2.2.0") === -1) {
         ?><div class="notice-error notice"><p><?php
         _e('Oops! It looks you need to upgrade to Autoptimize 2.2.0 or higher to use this CriticCSS Power-Up.', 'autoptimize');
-        return;
         ?></p></div><?php
+        return;
       }
 
       // Settings Form
