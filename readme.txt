@@ -5,13 +5,13 @@ Requires at least: 4.9
 Tested up to: 4.9
 Stable tag: 1.2.0
 
-Autoptimize criticalcss.com power-up adds automated critical css creation to Autoptimize integrating with the premium https://criticalcss.com service.
+Autoptimize criticalcss.com power-up adds automated critical css creation to Autoptimize integrating with the https://criticalcss.com service.
 
 == Description ==
 
-This "power-up" can make your pages start rendering sooner, improving user experience. This is done by automated critical css extraction and inlining based on [Autoptimize's](https://wordpress.org/plugins/autoptimize/) "inline and defer" option and integrating with the premium __criticalcss.com__ service.
+This plugin extends Autoptimize to automatically create critical CSS rules. These rules inject the correct critical CSS in different types of pages to ensure these pages can be rendered even before the full CSS is loaded, improving the "start to render time" and user experience. For this purpose the plugin integrates with __criticalcss.com__, a 3rd party service, to have it generate the critical CSS. 
 
-To use this "power-up" you should have Autoptimize installed and configured and you need a paying subscription at [https://criticalcss.com](https://criticalcss.com/?aff=1).
+Simply install and activate the plugin (you will need to have Autoptimize up and running), enter your [https://criticalcss.com](https://criticalcss.com/?aff=1) API key and the plugin will automatically start work to create rules. If you want to change settings or review the rules, you can find these by clicking the “critical css” tab on the Autoptimize plugin settings screen. There are "installation instructions" and more info in [the FAQ](https://wordpress.org/plugins/autoptimize-criticalcss/#faq).
 
 == Installation ==
 
