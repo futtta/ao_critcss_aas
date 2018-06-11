@@ -66,7 +66,7 @@ function ao_ccss_frontend($inlined) {
 
   // Check for a valid CriticalCSS based on conditional tags to return its contents
   // NOTE: implements section 4, id 1.1 of the specs (for types)
-  if (!empty($ao_ccss_rules['types'])) {
+  if (!empty($ao_ccss_rules['types']) && $no_ccss !== "none") {
     foreach ($ao_ccss_rules['types'] as $type => $rule) {
       if (in_array($type, $ao_ccss_types) && file_exists(AO_CCSS_DIR . $rule['file'])) {
         $_ccss_contents = file_get_contents(AO_CCSS_DIR . $rule['file']);
