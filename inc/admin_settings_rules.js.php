@@ -169,11 +169,11 @@ function addEditRow(idToEdit) {
       if(this.value==="types") {
         jQuery("#critcss_addedit_pagetype_wrapper").show();
         jQuery("#critcss_addedit_path_wrapper").hide();
-        jQuery("#critcss_addedit_css").attr("placeholder", "<?php _e('For type based rules, paste your specific and minified critical CSS here and hit submit to save.', 'autoptimize'); ?>");
+        jQuery("#critcss_addedit_css").attr("placeholder", "<?php _e('For type based rules, paste your specific and minified critical CSS here and hit submit to save. If you want to create a rule to exclude from critical CSS injection, enter \"none\".', 'autoptimize'); ?>");
       } else {
         jQuery("#critcss_addedit_path_wrapper").show();
         jQuery("#critcss_addedit_pagetype_wrapper").hide();
-        jQuery("#critcss_addedit_css").attr("placeholder", "<?php _e('For path based rules, paste your specific and minified critical CSS here or leave this empty to fetch it from criticalcss.com and hit submit to save.', 'autoptimize'); ?>");
+        jQuery("#critcss_addedit_css").attr("placeholder", "<?php _e('For path based rules, paste your specific and minified critical CSS here or leave this empty to fetch it from criticalcss.com and hit submit to save. If you want to create a rule to exclude from critical CSS injection, enter \"none\"', 'autoptimize'); ?>");
       }
     });
   }
@@ -307,7 +307,7 @@ function displayNotice(textIn) {
 }
 
 function resetForm() {
-  jQuery("#critcss_addedit_css").attr("placeholder", "<?php _e('For path based rules, paste your specific and minified critical CSS here or leave this empty to fetch it from criticalcss.com and hit submit to save.', 'autoptimize'); ?>");
+  jQuery("#critcss_addedit_css").attr("placeholder", "<?php _e('For path based rules, paste your specific and minified critical CSS here or leave this empty to fetch it from criticalcss.com and hit submit to save. If you want to create a rule to exclude from critical CSS injection, enter \"none\"', 'autoptimize'); ?>");
   jQuery("#critcss_addedit_type").attr("disabled",false);
   jQuery("#critcss_addedit_path_wrapper").show();
   jQuery("#critcss_addedit_id").val("");
