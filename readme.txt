@@ -9,9 +9,11 @@ Autoptimize criticalcss.com power-up adds automated critical css creation to Aut
 
 == Description ==
 
-This plugin extends Autoptimize to automatically create critical CSS rules. These rules inject the correct critical CSS in different types of pages to ensure these pages can be rendered even before the full CSS is loaded, improving the "start to render time" and user experience. For this purpose the plugin integrates with __criticalcss.com__, a 3rd party service, to have it generate the critical CSS. 
+This plugin extends Autoptimize to automatically create critical CSS rules. These rules inject the correct critical CSS in different types of pages to ensure these pages are rendered even before the full CSS is loaded, improving the "start to render time" and user experience. For this purpose the plugin integrates with __criticalcss.com__, a 3rd party service, to have it generate the critical CSS.
 
-Simply install and activate the plugin (you will need to have Autoptimize up and running), enter your [https://criticalcss.com](https://criticalcss.com/?aff=1) API key and the plugin will automatically start work to create rules. If you want to change settings or review the rules, you can find these by clicking the “critical css” tab on the Autoptimize plugin settings screen. There are "installation instructions" and more info in [the FAQ](https://wordpress.org/plugins/autoptimize-criticalcss/#faq).
+Simply install and activate the plugin (you will need to have Autoptimize up and running), enter your [https://criticalcss.com](https://criticalcss.com/?aff=1) API key and the plugin will automatically start work to create rules.
+
+If you want to change settings or review the rules, you can find these by clicking the “critical css” tab on the Autoptimize plugin settings screen. There are "installation instructions" and more info in [the FAQ](https://wordpress.org/plugins/autoptimize-criticalcss/#faq).
 
 == Installation ==
 
@@ -55,7 +57,17 @@ Once a job is in the queue it can be executed and sent to criticalcss.com and at
 
 Autoptimize CriticalCss.com power-up uses scheduled jobs to go over a queue with URL's for which to fetch critical CSS. If there are many items in the queue, the process can take a couple of minutes to finish. If your hosts limits the time scheduled PHP processes can run, you can set the number of requests sent to criticalcss.com (the "request limit") under the Advanced Options.
 
+= Can I stop critical CSS being applied on some pages? =
+
+Yes; create a manual rule (can be both path- and conditional-tag based) and enter `none` for critical CSS. If the rule matches, no critical CSS will be added and the full CSS will be inlined instead.
+
 == Changelog ==
+
+= 1.3.0 =
+
+* New: you can now create manual rules to make sure no Critical CSS is injected by entering `none` as critical CSS.
+* Improvement: make sure "advanced options" are visible when "activate inline & defer" warning is shown
+* Further copy changes in description (thanks for the great feedback Paul!)
 
 = 1.2.0 =
 
