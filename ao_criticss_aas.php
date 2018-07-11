@@ -52,12 +52,23 @@ require_once('inc/cron.php');
 // Define plugin version
 define('AO_CCSS_VER', '1.3.0');
 
+// check for upgrade-logic
+$db_version = get_option('autoptimize_ccss_version','');
+if ($db_version !== AO_CCSS_VER) {
+  // upgrade stuff
+  if ($db_version === "") {
+    rename(WP_CONTENT_DIR.'/cache/ao_ccss', WP_CONTENT_DIR.'/uploads/ao_ccss');
+  }
+  // and update db_version
+  update_option('autoptimize_ccss_version',AO_CCSS_VER);
+}
+
 // Define a constant with the directory to store critical CSS in
 if (is_multisite()) {
   $blog_id = get_current_blog_id();
-  define('AO_CCSS_DIR', WP_CONTENT_DIR . '/cache/ao_ccss/' . $blog_id . '/');
+  define('AO_CCSS_DIR', WP_CONTENT_DIR . '/uploads/ao_ccss/' . $blog_id . '/');
 } else {
-  define('AO_CCSS_DIR', WP_CONTENT_DIR . '/cache/ao_ccss/');
+  define('AO_CCSS_DIR', WP_CONTENT_DIR . '/uploads/ao_ccss/');
 }
 
 // Define support files locations
@@ -168,6 +179,7 @@ function ao_ccss_deactivation() {
   delete_option('autoptimize_ccss_debug');
   delete_option('autoptimize_ccss_key');
   delete_option('autoptimize_ccss_keyst');
+  delete_option('autoptimize_ccss_version');
 
   // Remove scheduled events
   wp_clear_scheduled_hook('ao_ccss_queue');
