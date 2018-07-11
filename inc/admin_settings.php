@@ -58,6 +58,13 @@ function ao_ccss_settings() {
         ?></p></div><?php
         return;
       }
+      
+      // check if wordpress cron is disabled and warn if so
+      if (defined('DISABLE_WP_CRON') && DISABLE_WP_CRON) {
+        ?><div class="notice-warning notice"><p><?php
+        _e('WordPress cron (for task scheduling) seems to be disabled. Have a look at the info in the Job Queue instructions if all jobs remain in "N" status and no rules are created.', 'autoptimize');
+        ?></p></div><?php        
+      }
 
       // Settings Form
       ?>
