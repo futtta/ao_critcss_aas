@@ -164,7 +164,7 @@ p.rules-btn {
 }
 .queue .badge {
   border-radius: 3px;
-  cursor: pointer;
+  cursor: default;
 }
 .badge.new {
   background-color: #666;
