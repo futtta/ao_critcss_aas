@@ -3,7 +3,7 @@ Contributors: futtta, denydias
 Tags: autoptimize, critical css, above-the-fold, render-blocking css
 Requires at least: 4.9
 Tested up to: 4.9
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 
 Autoptimize criticalcss.com power-up adds automated critical css creation to Autoptimize integrating with the https://criticalcss.com service.
 
@@ -62,6 +62,12 @@ Autoptimize CriticalCss.com power-up uses scheduled jobs to go over a queue with
 Yes; create a manual rule (can be both path- and conditional-tag based) and enter `none` for critical CSS. If the rule matches, no critical CSS will be added and the full CSS will be inlined instead.
 
 == Changelog ==
+
+= 1.4.0 =
+
+* move cache to wp-content/uploads/ao_ccss/ (to prevent files from being deleted by a sometimes overzealous WP Super Cache purge)
+* warn if DISABLE_WP_CRON is true
+* update default viewport size in advanced settings
 
 = 1.3.0 =
 
