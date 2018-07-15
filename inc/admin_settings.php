@@ -7,6 +7,7 @@ function ao_ccss_settings() {
 
   // Attach required globals
   global $ao_css_defer;
+  global $ao_css_defer_inline;
   global $ao_ccss_rules_raw;
   global $ao_ccss_queue_raw;
   global $ao_ccss_finclude;
@@ -98,12 +99,13 @@ function ao_ccss_settings() {
           // Add hidden fields
           echo "<input class='hidden' name='autoptimize_ccss_rules' value='" . $ao_ccss_rules_raw . "'>";
           echo "<input class='hidden' name='autoptimize_ccss_queue' value='" . $ao_ccss_queue_raw . "'>";
-          echo '<input class="hidden" name="autoptimize_ccss_viewport[w]" value=' . $viewport['w'] . '>';
-          echo '<input class="hidden" name="autoptimize_ccss_viewport[h]" value=' . $viewport['h'] . '>';
-          echo '<input class="hidden" name="autoptimize_ccss_finclude" value=' . $ao_ccss_finclude . '>';
-          echo '<input class="hidden" name="autoptimize_ccss_rlimit" value=' . $ao_ccss_rlimit . '>';
-          echo '<input class="hidden" name="autoptimize_ccss_debug" value=' . $ao_ccss_debug . '>';
-          echo '<input class="hidden" name="autoptimize_ccss_noptimize" value=' . $ao_ccss_noptimize . '>';
+          echo '<input class="hidden" name="autoptimize_ccss_viewport[w]" value="' . $viewport['w'] . '">';
+          echo '<input class="hidden" name="autoptimize_ccss_viewport[h]" value="' . $viewport['h'] . '">';
+          echo '<input class="hidden" name="autoptimize_ccss_finclude" value="' . $ao_ccss_finclude . '">';
+          echo '<input class="hidden" name="autoptimize_ccss_rlimit" value="' . $ao_ccss_rlimit . '">';
+          echo '<input class="hidden" name="autoptimize_ccss_debug" value="' . $ao_ccss_debug . '">';
+          echo '<input class="hidden" name="autoptimize_ccss_noptimize" value="' . $ao_ccss_noptimize . '">';
+          echo '<input class="hidden" name="autoptimize_css_defer_inline" value="' . $ao_css_defer_inline . '">';
         }
 
         // Render key panel unconditionally
