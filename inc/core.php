@@ -89,20 +89,17 @@ function ao_ccss_frontend($inlined) {
               $no_ccss = "none";
             }
           }
-        } elseif (strpos($type, 'woo_') === 0) {
-          if (is_page_template(substr($type, 4))) {
+        } else {
+          // all "normal" conditional tags, core + woo + buddypress + edd + bbpress
+          // but we have to remove the prefix for the non-core ones for them to function.
+          $type = str_replace(array('woo_','bp_','bbp_','edd_'),'',$type);
+          if (function_exists($type) && call_user_func($type)) {
             if ($_ccss_contents != "none") {
               return apply_filters('ao_ccss_filter', $_ccss_contents . $ao_ccss_additional);
             } else {
               $no_ccss = "none";
             }
           }
-        } elseif (function_exists($type) && call_user_func($type)) {
-            if ($_ccss_contents != "none") {
-              return apply_filters('ao_ccss_filter', $_ccss_contents . $ao_ccss_additional);
-            } else {
-              $no_ccss = "none";
-            }
         }
       }
     }
