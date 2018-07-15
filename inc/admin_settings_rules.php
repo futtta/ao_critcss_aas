@@ -86,18 +86,18 @@ function ao_ccss_render_rules() {
 
                       // Remove prefix from custom post types, templates and some specific conditional tags
                       if (substr($type, 0, 12) === 'custom_post_') {
-                        $type = str_replace('custom_post_', '', $type);
+                        $_type = str_replace('custom_post_', '', $type);
                       } elseif (substr($type, 0, 9) === 'template_') {
-                        $type = str_replace('template_', '', $type);
+                        $_type = str_replace('template_', '', $type);
                       } elseif ($type == 'bbp_is_bbpress') {
-                        $type = str_replace('bbp_', '', $type);
+                        $_type = str_replace('bbp_', '', $type);
                       } elseif ($type == 'bp_is_buddypress') {
-                        $type = str_replace('bp_', '', $type);
+                        $_type = str_replace('bp_', '', $type);
                       } elseif (substr($type, 0, 4) === 'woo_') {
-                        $type = str_replace('woo_', '', $type);
+                        $_type = str_replace('woo_', '', $type);
                       }
 
-                      echo '<option value="' . $type . '">' . $type . '</option>';
+                      echo '<option value="' . $type . '">' . $_type . '</option>';
                       $prevgrp = $optgrp;
                     }
                   }
