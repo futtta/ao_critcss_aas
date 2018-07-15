@@ -57,7 +57,9 @@ $db_version = get_option('autoptimize_ccss_version','');
 if ($db_version !== AO_CCSS_VER) {
   // upgrade stuff
   if ($db_version === '') {
-    rename(WP_CONTENT_DIR.'/cache/ao_ccss', WP_CONTENT_DIR.'/uploads/ao_ccss');
+    if (file_exists(WP_CONTENT_DIR.'/cache/ao_ccss')) {
+      rename(WP_CONTENT_DIR.'/cache/ao_ccss', WP_CONTENT_DIR.'/uploads/ao_ccss');
+    }
   }
   // and update db_version
   update_option('autoptimize_ccss_version',AO_CCSS_VER);
