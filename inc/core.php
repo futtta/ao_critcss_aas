@@ -132,18 +132,18 @@ function ao_ccss_extend_types() {
     'and'
   );
   foreach ($cpts as $cpt) {
-    $ao_ccss_types[] = "custom_post_" . $cpt;
+    array_unshift ( $ao_ccss_types, 'custom_post_' . $cpt );
   }
 
   // Templates
   $templates = wp_get_theme()->get_page_templates();
   foreach ($templates as $tplfile => $tplname) {
-    $ao_ccss_types[] = 'template_' . $tplfile;
+    array_unshift ( $ao_ccss_types, 'template_' . $tplfile );
   }
 
   // bbPress tags
   if (function_exists('is_bbpress')) {
-    $ao_ccss_types = array_merge($ao_ccss_types, array(
+    $ao_ccss_types = array_merge(array(
       'bbp_is_bbpress',
       'bbp_is_favorites',
       'bbp_is_forum_archive',
@@ -168,12 +168,12 @@ function ao_ccss_extend_types() {
       'bbp_is_topics_created',
       'bbp_is_user_home',
       'bbp_is_user_home_edit'
-    ));
+    ), $ao_ccss_types );
   }
 
   // BuddyPress tags
   if (function_exists('is_buddypress')) {
-    $ao_ccss_types=array_merge($ao_ccss_types, array(
+    $ao_ccss_types=array_merge( array(
       'bp_is_activation_page',
       'bp_is_activity',
       'bp_is_blogs',
@@ -208,22 +208,22 @@ function ao_ccss_extend_types() {
       'bp_is_user',
       'bp_is_user_profile',
       'bp_is_wire'
-    ));
+    ), $ao_ccss_types );
   }
 
   // Easy Digital Downloads (EDD) tags
   if (function_exists('edd_is_checkout')) {
-    $ao_ccss_types=array_merge($ao_ccss_types, array(
+    $ao_ccss_types=array_merge( array(
       'edd_is_checkout',
       'edd_is_failed_transaction_page',
       'edd_is_purchase_history_page',
       'edd_is_success_page'
-    ));
+    ), $ao_ccss_types );
   }
 
   // WooCommerce tags
   if (class_exists('WooCommerce')) {
-    $ao_ccss_types = array_merge($ao_ccss_types, array(
+    $ao_ccss_types = array_merge( array(
       'woo_is_account_page',
       'woo_is_cart',
       'woo_is_checkout',
@@ -233,11 +233,11 @@ function ao_ccss_extend_types() {
       'woo_is_shop',
       'woo_is_wc_endpoint_url',
       'woo_is_woocommerce'
-    ));
+    ), $ao_ccss_types );
   }
 
-  // Sort values
-  sort($ao_ccss_types);
+  // don't sort values, order is used to order rules
+  // sort($ao_ccss_types);
 }
 
 // Add is_blog_page conditional tag as per
