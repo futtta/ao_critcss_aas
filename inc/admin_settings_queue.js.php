@@ -105,7 +105,7 @@ function drawQueueTable(queue) {
     }
 
     // Append job entry
-    jQuery("#queue").append("<tr id='" + ljid + "' class='job " + statusClass + "'><td class='status'><span class='badge " + statusClass + "' title='<?php _e("Job status is ", "autoptimize"); ?>" + title + "'>" + status + "</span></td><td>" + target + "</td><td>" + path + "</td><td>" + type + "</td><td>" + ctime + "</td><td>" + ftime + "</td><td class='btn'>" + buttons + "</td></tr>");
+    jQuery("#queue").append("<tr id='" + ljid + "' class='job " + statusClass + "'><td class='status'><span class='badge " + statusClass + "' title='<?php _e("Job status is ", "autoptimize"); ?>" + title + "'>" + status + "</span></td><td>" + target.replace(/(woo_|template_|custom_post_|edd_|bp_|bbp_)/,'') + "</td><td>" + path + "</td><td>" + type.replace(/(woo_|template_|custom_post_|edd_|bp_|bbp_)/,'') + "</td><td>" + ctime + "</td><td>" + ftime + "</td><td class='btn'>" + buttons + "</td></tr>");
 
     // Attach button actions
     if (rbtn) {
