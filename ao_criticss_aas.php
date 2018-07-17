@@ -188,7 +188,7 @@ function ao_ccss_deactivation() {
   wp_clear_scheduled_hook('ao_ccss_maintenance');
 
   // Remove cached files and directory
-  array_map('unlink', glob(AO_CCSS_DIR . '*.{css,html,json,log,zip}', GLOB_BRACE));
+  array_map('unlink', glob(AO_CCSS_DIR . '*.{css,html,json,log,zip,lock}', GLOB_BRACE));
   rmdir(AO_CCSS_DIR);
 }
 register_deactivation_hook(__FILE__, 'ao_ccss_deactivation');
