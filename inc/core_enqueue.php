@@ -188,12 +188,12 @@ function ao_ccss_get_type() {
         $page_type = $type;
         break;
       }
-    // Match templates
+    // If templates; don't break, templates become manual-only rules 
     } elseif (strpos($type, 'template_') !== FALSE) {
-      if (is_page_template(substr($type, 9))) {
+      /* if (is_page_template(substr($type, 9))) {
         $page_type = $type;
-        break;
-      }
+        break; 
+      } */
     // Match all other existing types
     } else {
       // but remove prefix to be able to check if the function exists & returns true
