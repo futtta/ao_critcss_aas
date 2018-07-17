@@ -182,47 +182,26 @@ function ao_ccss_get_type() {
 
   // Iterates over the array to match a type
   foreach ($ao_ccss_types as $type) {
-
     // Match custom post types
     if (strpos($type,'custom_post_') !== FALSE) {
-
-      // Replace prefix and break the loop
       if (get_post_type(get_the_ID()) === substr($type, 12)) {
-        $page_type = str_replace('custom_post_', '', $type);
+        $page_type = $type;
         break;
       }
-
     // Match templates
     } elseif (strpos($type, 'template_') !== FALSE) {
-
-      // Replace prefix and break the loop
       if (is_page_template(substr($type, 9))) {
-        $page_type = str_replace('template_', '', $type);
+        $page_type = $type;
         break;
       }
-
     // Match all other existing types
-    } elseif (function_exists($type) && call_user_func($type)) {
-
-      // Replace BBPress prefix
-      if ($type == 'bbp_is_bbpress') {
-        $page_type = str_replace('bbp_', '', $type);
-
-      // Replace BudyPress prefix
-      } elseif ($type == 'bp_is_buddypress') {
-         $page_type = str_replace('bp_', '', $type);
-
-      // Replace WooCommerce prefix
-      } elseif (strpos($type, 'woo_') !== FALSE) {
-         $page_type = str_replace('woo_', '', $type);
-
-      // Assign all other types
-      } else {
+    } else {
+      // but remove prefix to be able to check if the function exists & returns true
+      $_type = str_replace(array('woo_','bp_','bbp_','edd_'),'',$type);
+      if (function_exists($_type) && call_user_func($_type)) {
         $page_type = $type;
+        break;
       }
-
-      // Break the loop
-      break;
     }
   }
 
