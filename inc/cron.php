@@ -434,15 +434,14 @@ function ao_ccss_diff_hashes($ljid, $hash, $hashes, $rule) {
 
   // Check if an AUTO rule exist
   } elseif (!empty($srule)) {
-
-    // Check if job hash matches rule and return false
-    if ($hash === $srule['hash']) {
+    // Check if job hash matches rule, if the CCSS file exists said file is not empty and return FALSE is so
+    if ( $hash === $srule['hash'] && is_file( AO_CCSS_DIR.$srule['file'] ) && 0 != filesize( AO_CCSS_DIR.$srule['file'] ) ) {
       ao_ccss_log('Job id <' . $ljid . '> with hash <' . $hash . '> MATCH the one in rule <' . $trule[0] . '|' . $trule[1] . '>', 3);
       return FALSE;
 
     // Or return the new hash if they differ
     } else {
-      ao_ccss_log('Job id <' . $ljid . '> with hash <' . $hash . '> DOES NOT MATCH the one in rule <' . $trule[0] . '|' . $trule[1] . '>', 3);
+      ao_ccss_log('Job id <' . $ljid . '> with hash <' . $hash . '> DOES NOT MATCH the one in rule <' . $trule[0] . '|' . $trule[1] . '> or rule\'s CCSS file was invalid.', 3);
       return $hash;
     }
 
