@@ -10,6 +10,8 @@ function ao_ccss_settings() {
   global $ao_css_defer_inline;
   global $ao_ccss_rules_raw;
   global $ao_ccss_queue_raw;
+  global $ao_ccss_rules;
+  global $ao_ccss_queue;
   global $ao_ccss_finclude;
   global $ao_ccss_rlimit;
   global $ao_ccss_noptimize;
@@ -64,9 +66,70 @@ function ao_ccss_settings() {
       if (defined('DISABLE_WP_CRON') && DISABLE_WP_CRON) {
         ?><div class="notice-warning notice"><p><?php
         _e('WordPress cron (for task scheduling) seems to be disabled. Have a look at the info in the Job Queue instructions if all jobs remain in "N" status and no rules are created.', 'autoptimize');
-        ?></p></div><?php        
+        ?></p></div><?php
       }
 
+      // warn if it looks as though the queue processing job looks isn't running
+      // but store result in transient as to not to have to go through 2 arrays each and every time 
+      $_warn_cron = get_transient( 'ao_ccss_cronwarning' );
+      if ( $_warn_cron === false ) {
+        $_jobs_all_new = true;
+        $_oldest_job_timestamp = microtime(true); // now
+        $_no_auto_rules = true;
+        $_jobs_too_old = true;
+
+        // go over queue array 
+        if ( empty( $ao_ccss_queue ) ) {
+          // no jobs, then no warning
+          $_jobs_all_new = false;
+        } else {
+          foreach ($ao_ccss_queue as $job) {
+            if ($job['jctime'] < $_oldest_job_timestamp ) {
+              // we need to catch th oldest job's timestamp
+              $_oldest_job_timestamp = $job['jctime'];
+            }
+              
+            if ($job['jqstat'] !== "NEW") {
+              // we have a non-"NEW" job, break the loop
+              $_jobs_all_new = false;
+              break; 
+            }
+          }
+        }
+
+        // is the oldest job too old?
+        if ( $_oldest_job_timestamp > microtime(true) - 60 * 60 * 4 ) {
+          $_jobs_too_old = false;
+        }
+
+        // go through rules array
+        if ( ! empty ($ao_ccss_rules ) ) {
+          foreach ($ao_ccss_rules['types'] as $rule) {
+            if ( ! empty( $rule['hash'] ) ) {
+              // we have at least one AUTO job, so all is fine
+              $_no_auto_rules = false;
+              break;
+            }
+          }
+        }
+        
+        if ( $_jobs_all_new && $_no_auto_rules && $_jobs_too_old ) {
+          $_warn_cron = "on";
+          $_transient_multiplier = 1; // store for 1 hour
+        } else {
+          $_warn_cron = "off";
+          $_transient_multiplier = 4; // store for 4 hours
+        }
+        // and set transient
+        set_transient( 'ao_ccss_cronwarning', $_warn_cron, $_transient_multiplier * HOUR_IN_SECONDS );
+      }
+
+      if ( $_warn_cron == "on" ) {
+        ?><div class="notice-warning notice"><p><?php
+        _e('It looks like there might be a problem with WordPress cron (task scheduling). Have a look at the info in the Job Queue instructions if all jobs remain in "N" status and no rules are created.', 'autoptimize');
+        ?></p></div><?php
+      }
+            
       // Settings Form
       ?>
       <form id="settings" method="post" action="options.php">
