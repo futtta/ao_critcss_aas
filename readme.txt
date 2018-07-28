@@ -61,6 +61,14 @@ Autoptimize CriticalCss.com power-up uses scheduled jobs to go over a queue with
 
 Yes; create a manual rule (can be both path- and conditional-tag based) and enter `none` for critical CSS. If the rule matches, no critical CSS will be added and the full CSS will be inlined instead.
 
+= I only see "N" jobs and no rules and I'm getting "WordPress cron"-warnings, what should I do? =
+
+If all jobs remain in "N" then wordpress "cron job" that does the queue processing is not getting triggered. To verify you can install the ["wp crontrol"-plugin](https://wordpress.org/plugins/wp-crontrol/) and then under Tools -> Cron Events look for "ao_ccss_queue" and check the "next run" time/ date.
+
+If the "ao_ccss_queue" job is not there, you'll have to de- and re-activate the "autoptimize critical css" plugin to have it re-register the queue-processing task.
+
+If the "ao_ccss_queue" job is there, but has a "next run" date in the past, there is an issue with your site/ hosters WordPress cron and you will have to contact your hoster. Some hosters' info on the topic: [WP Engine](https://wpengine.com/support/wp-cron-wordpress-scheduling/), [BlueHost](https://my.bluehost.com/hosting/help/411), [HostGator](https://support.hostgator.com/articles/how-to-replace-wordpress-cron-with-a-real-cron-job) and [SiteGround](https://www.siteground.com/tutorials/wordpress/real-cron-job/).
+
 == Changelog ==
 
 = 1.5.0 =
