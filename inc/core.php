@@ -45,59 +45,63 @@ function ao_ccss_frontend($inlined) {
   global $ao_ccss_types;
   global $ao_ccss_rules;
   global $ao_ccss_additional;
+  global $ao_ccss_loggedin;
   $no_ccss = "";
 
-  // Check for a valid CriticalCSS based on path to return its contents
-  // NOTE: implements section 4, id 1.1 of the specs (for paths)
-  if (!empty($ao_ccss_rules['paths'])) {
-    foreach ($ao_ccss_rules['paths'] as $path => $rule) {
-      if (strpos($_SERVER['REQUEST_URI'], str_replace(site_url(), '', $path)) !== FALSE) {
-        if (file_exists(AO_CCSS_DIR . $rule['file'])) {
+  // Only if user is not logged in or if option to add CCSS for logged on users is on.
+  if ( $ao_ccss_loggedin || ! is_user_logged_in() ) {
+    // Check for a valid CriticalCSS based on path to return its contents
+    // NOTE: implements section 4, id 1.1 of the specs (for paths)
+    if (!empty($ao_ccss_rules['paths'])) {
+      foreach ($ao_ccss_rules['paths'] as $path => $rule) {
+        if (strpos($_SERVER['REQUEST_URI'], str_replace(site_url(), '', $path)) !== FALSE) {
+          if (file_exists(AO_CCSS_DIR . $rule['file'])) {
+            $_ccss_contents = file_get_contents(AO_CCSS_DIR . $rule['file']);
+            if ($_ccss_contents != "none") {
+              return apply_filters('ao_ccss_filter', $_ccss_contents . $ao_ccss_additional);
+            } else {
+              $no_ccss = "none";
+            }
+          }
+        }
+      }
+    }
+
+    // Check for a valid CriticalCSS based on conditional tags to return its contents
+    // NOTE: implements section 4, id 1.1 of the specs (for types)
+    if (!empty($ao_ccss_rules['types']) && $no_ccss !== "none") {
+      // order types-rules by the order of the original $ao_ccss_types array so as not to depend on the order in which rules were added.
+      $ao_ccss_rules['types'] = array_replace(array_intersect_key( array_flip($ao_ccss_types), $ao_ccss_rules['types'] ),$ao_ccss_rules['types']);
+
+      foreach ($ao_ccss_rules['types'] as $type => $rule) {
+        if (in_array($type, $ao_ccss_types) && file_exists(AO_CCSS_DIR . $rule['file'])) {
           $_ccss_contents = file_get_contents(AO_CCSS_DIR . $rule['file']);
-          if ($_ccss_contents != "none") {
-            return apply_filters('ao_ccss_filter', $_ccss_contents . $ao_ccss_additional);
+          if (strpos($type, 'custom_post_') === 0) {
+            if (get_post_type(get_the_ID()) === substr($type, 12)) {
+              if ($_ccss_contents != "none") {
+                return apply_filters('ao_ccss_filter', $_ccss_contents . $ao_ccss_additional);
+              } else {
+                $no_ccss = "none";
+              }
+            }
+          } elseif (strpos($type, 'template_') === 0) {
+            if (is_page_template(substr($type, 9))) {
+              if ($_ccss_contents != "none") {
+                return apply_filters('ao_ccss_filter', $_ccss_contents . $ao_ccss_additional);
+              } else {
+                $no_ccss = "none";
+              }
+            }
           } else {
-            $no_ccss = "none";
-          }
-        }
-      }
-    }
-  }
-
-  // Check for a valid CriticalCSS based on conditional tags to return its contents
-  // NOTE: implements section 4, id 1.1 of the specs (for types)
-  if (!empty($ao_ccss_rules['types']) && $no_ccss !== "none") {
-    // order types-rules by the order of the original $ao_ccss_types array so as not to depend on the order in which rules were added.
-    $ao_ccss_rules['types'] = array_replace(array_intersect_key( array_flip($ao_ccss_types), $ao_ccss_rules['types'] ),$ao_ccss_rules['types']);
-
-    foreach ($ao_ccss_rules['types'] as $type => $rule) {
-      if (in_array($type, $ao_ccss_types) && file_exists(AO_CCSS_DIR . $rule['file'])) {
-        $_ccss_contents = file_get_contents(AO_CCSS_DIR . $rule['file']);
-        if (strpos($type, 'custom_post_') === 0) {
-          if (get_post_type(get_the_ID()) === substr($type, 12)) {
-            if ($_ccss_contents != "none") {
-              return apply_filters('ao_ccss_filter', $_ccss_contents . $ao_ccss_additional);
-            } else {
-              $no_ccss = "none";
-            }
-          }
-        } elseif (strpos($type, 'template_') === 0) {
-          if (is_page_template(substr($type, 9))) {
-            if ($_ccss_contents != "none") {
-              return apply_filters('ao_ccss_filter', $_ccss_contents . $ao_ccss_additional);
-            } else {
-              $no_ccss = "none";
-            }
-          }
-        } else {
-          // all "normal" conditional tags, core + woo + buddypress + edd + bbpress
-          // but we have to remove the prefix for the non-core ones for them to function.
-          $type = str_replace(array('woo_','bp_','bbp_','edd_'),'',$type);
-          if (function_exists($type) && call_user_func($type)) {
-            if ($_ccss_contents != "none") {
-              return apply_filters('ao_ccss_filter', $_ccss_contents . $ao_ccss_additional);
-            } else {
-              $no_ccss = "none";
+            // all "normal" conditional tags, core + woo + buddypress + edd + bbpress
+            // but we have to remove the prefix for the non-core ones for them to function.
+            $type = str_replace(array('woo_','bp_','bbp_','edd_'),'',$type);
+            if (function_exists($type) && call_user_func($type)) {
+              if ($_ccss_contents != "none") {
+                return apply_filters('ao_ccss_filter', $_ccss_contents . $ao_ccss_additional);
+              } else {
+                $no_ccss = "none";
+              }
             }
           }
         }
@@ -105,7 +109,8 @@ function ao_ccss_frontend($inlined) {
     }
   }
 
-  // Finally, inline the CriticalCSS or, in case it's missing, the entire CSS for the page
+  // Finally, inline the default CriticalCSS if any or else the entire CSS for the page
+  // This also applies to logged in users if the option to add CCSS for logged in users has been disabled.
   // NOTE: implements section 4, id 1.2 of the specs
   if (!empty($inlined) && $no_ccss !== "none") {
     return apply_filters('ao_ccss_filter', $inlined . $ao_ccss_additional);

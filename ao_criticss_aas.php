@@ -21,6 +21,7 @@ $ao_ccss_noptimize   = get_option('autoptimize_ccss_noptimize'  , FALSE);
 $ao_ccss_debug       = get_option('autoptimize_ccss_debug'      , FALSE);
 $ao_ccss_key         = get_option('autoptimize_ccss_key'        );
 $ao_ccss_keyst       = get_option('autoptimize_ccss_keyst'      );
+$ao_ccss_loggedin    = get_option('autoptimize_ccss_loggedin'   , TRUE );
 
 // Setup the rules array
 if (empty($ao_ccss_rules_raw)) {
@@ -100,6 +101,7 @@ function ao_ccss_settings_init() {
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_debug');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_key');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_keyst');
+  register_setting('ao_ccss_options_group', 'autoptimize_ccss_loggedin');
 
   // Check if Autoptimize is installed
   if (!is_plugin_active('autoptimize/autoptimize.php') && !is_plugin_active('autoptimize-beta/autoptimize.php')) {

@@ -17,6 +17,7 @@ function ao_ccss_settings() {
   global $ao_ccss_noptimize;
   global $ao_ccss_debug;
   global $ao_ccss_key;
+  global $ao_ccss_loggedin;
 
   ?>
   <div class="wrap">
@@ -169,6 +170,7 @@ function ao_ccss_settings() {
           echo '<input class="hidden" name="autoptimize_ccss_debug" value="' . $ao_ccss_debug . '">';
           echo '<input class="hidden" name="autoptimize_ccss_noptimize" value="' . $ao_ccss_noptimize . '">';
           echo '<input class="hidden" name="autoptimize_css_defer_inline" value="' . $ao_css_defer_inline . '">';
+          echo '<input class="hidden" name="autoptimize_ccss_loggedin" value="' . $ao_ccss_loggedin . '">';
         }
 
         // Render key panel unconditionally

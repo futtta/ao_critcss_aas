@@ -10,6 +10,7 @@ function ao_ccss_render_adv() {
   global $ao_ccss_finclude;
   global $ao_ccss_rlimit;
   global $ao_ccss_noptimize;
+  global $ao_ccss_loggedin;
 
   // Get viewport size
   $viewport = ao_ccss_viewport();
@@ -68,6 +69,18 @@ function ao_ccss_render_adv() {
               </p>
             </td>
           </tr>
+          <tr>
+            <th scope="row">
+              <?php _e('Add CCSS for logged in users?', 'autoptimize'); ?>
+            </th>
+            <td>
+              <input type="checkbox" id="autoptimize_ccss_loggedin" name="autoptimize_ccss_loggedin" value="1" <?php checked(1 == $ao_ccss_loggedin); ?>>
+              <p class="notes">
+                <?php _e('Critical CSS is extracted from your pages as seen be "anonymous visitor", disable this option if you don\'t want the "visitor" critical CSS to be used for logged on users.', 'autoptimize'); ?>
+              </p>
+            </td>
+          </tr>
+
           <tr>
             <th scope="row">
               <?php _e('Debug Mode', 'autoptimize'); ?>
