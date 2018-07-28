@@ -3,7 +3,7 @@ Contributors: futtta, denydias
 Tags: autoptimize, critical css, above-the-fold, render-blocking css
 Requires at least: 4.9
 Tested up to: 4.9
-Stable tag: 1.5.0
+Stable tag: 1.6.0
 
 Autoptimize criticalcss.com power-up adds automated critical css creation to Autoptimize integrating with the https://criticalcss.com service.
 
@@ -70,6 +70,13 @@ If the "ao_ccss_queue" job is not there, you'll have to de- and re-activate the 
 If the "ao_ccss_queue" job is there, but has a "next run" date in the past, there is an issue with your site/ hosters WordPress cron and you will have to contact your hoster. Some hosters' info on the topic: [WP Engine](https://wpengine.com/support/wp-cron-wordpress-scheduling/), [BlueHost](https://my.bluehost.com/hosting/help/411), [HostGator](https://support.hostgator.com/articles/how-to-replace-wordpress-cron-with-a-real-cron-job) and [SiteGround](https://www.siteground.com/tutorials/wordpress/real-cron-job/).
 
 == Changelog ==
+
+= 1.6.0 =
+
+* new: (advanced) option to disable CCSS injection for logged on users (as the CCSS is always extracted from an anonymous visitor context, the CCSS might not apply for logged in users).
+* improvement: warn when the job queue processing task is not getting triggered (due to WordPress cron issues).
+* improvement: also submit a request to criticalcss.com if a rule exists but the file containing the CCSS does not exist or is empty.
+* added info about cron issues to the FAQ.
 
 = 1.5.0 =
 
