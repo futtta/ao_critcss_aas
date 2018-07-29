@@ -23,7 +23,7 @@ function ao_ccss_settings() {
   <div class="wrap">
     <div id="autoptimize_main">
       <div id="ao_title_and_button">
-        <h1><?php _e('Autoptimize Settings: CriticalCSS Power-Up', 'autoptimize'); ?></h1>
+        <h1><?php _e('Autoptimize Settings', 'autoptimize'); ?></h1>
       </div>
 
       <?php
