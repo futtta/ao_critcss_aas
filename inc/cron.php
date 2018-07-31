@@ -468,6 +468,7 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
   if (!empty($ao_ccss_noptimize)) {
     $src_url .= '?ao_noptimize=1';
   }
+  $src_url = apply_filters( 'autoptimize_filter_ccss_cron_srcurl', $src_url );
 
   // Initialize request body
   $body        = array();
