@@ -58,7 +58,7 @@ function ao_ccss_frontend($inlined) {
           if (file_exists(AO_CCSS_DIR . $rule['file'])) {
             $_ccss_contents = file_get_contents(AO_CCSS_DIR . $rule['file']);
             if ($_ccss_contents != "none") {
-              return apply_filters('ao_ccss_filter', $_ccss_contents . $ao_ccss_additional);
+              return apply_filters('autoptimize_filter_ccss_core_ccss', $_ccss_contents . $ao_ccss_additional);
             } else {
               $no_ccss = "none";
             }
@@ -79,7 +79,7 @@ function ao_ccss_frontend($inlined) {
           if (strpos($type, 'custom_post_') === 0) {
             if (get_post_type(get_the_ID()) === substr($type, 12)) {
               if ($_ccss_contents != "none") {
-                return apply_filters('ao_ccss_filter', $_ccss_contents . $ao_ccss_additional);
+                return apply_filters('autoptimize_filter_ccss_core_ccss', $_ccss_contents . $ao_ccss_additional);
               } else {
                 $no_ccss = "none";
               }
@@ -87,7 +87,7 @@ function ao_ccss_frontend($inlined) {
           } elseif (strpos($type, 'template_') === 0) {
             if (is_page_template(substr($type, 9))) {
               if ($_ccss_contents != "none") {
-                return apply_filters('ao_ccss_filter', $_ccss_contents . $ao_ccss_additional);
+                return apply_filters('autoptimize_filter_ccss_core_ccss', $_ccss_contents . $ao_ccss_additional);
               } else {
                 $no_ccss = "none";
               }
@@ -98,7 +98,7 @@ function ao_ccss_frontend($inlined) {
             $type = str_replace(array('woo_','bp_','bbp_','edd_'),'',$type);
             if (function_exists($type) && call_user_func($type)) {
               if ($_ccss_contents != "none") {
-                return apply_filters('ao_ccss_filter', $_ccss_contents . $ao_ccss_additional);
+                return apply_filters('autoptimize_filter_ccss_core_ccss', $_ccss_contents . $ao_ccss_additional);
               } else {
                 $no_ccss = "none";
               }
@@ -113,7 +113,7 @@ function ao_ccss_frontend($inlined) {
   // This also applies to logged in users if the option to add CCSS for logged in users has been disabled.
   // NOTE: implements section 4, id 1.2 of the specs
   if (!empty($inlined) && $no_ccss !== "none") {
-    return apply_filters('ao_ccss_filter', $inlined . $ao_ccss_additional);
+    return apply_filters('autoptimize_filter_ccss_core_ccss', $inlined . $ao_ccss_additional);
   } else {
     add_filter('autoptimize_filter_css_inline', '__return_true');
     return;
