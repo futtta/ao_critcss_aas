@@ -54,7 +54,7 @@ function ao_ccss_frontend($inlined) {
     // NOTE: implements section 4, id 1.1 of the specs (for paths)
     if (!empty($ao_ccss_rules['paths'])) {
       foreach ($ao_ccss_rules['paths'] as $path => $rule) {
-        if (strpos($_SERVER['REQUEST_URI'], str_replace(site_url(), '', $path)) !== FALSE) {
+        if ( strpos( urldecode( $_SERVER['REQUEST_URI'] ), str_replace( site_url(), '', $path) ) !== FALSE ) {
           if (file_exists(AO_CCSS_DIR . $rule['file'])) {
             $_ccss_contents = file_get_contents(AO_CCSS_DIR . $rule['file']);
             if ($_ccss_contents != "none") {
