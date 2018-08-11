@@ -727,8 +727,8 @@ function ao_ccss_rule_update($ljid, $srule, $file, $hash) {
   // If rule doesn't exist, create an AUTO rule
   } else {
 
-    // AUTO rules are only for types
-    if ($trule[0] == 'types') {
+    // AUTO rules were only for types, but will now also work for paths
+    if ($trule[0] == 'types' || $trule[0] == 'paths') {
 
       // Set rule hash and file and action flag
       $rule['hash'] = $hash;
@@ -738,7 +738,7 @@ function ao_ccss_rule_update($ljid, $srule, $file, $hash) {
 
     // Log that no rule was created
     } else {
-      ao_ccss_log('AUTO rules are only for page types, no rule created', 3);
+      ao_ccss_log('Exception, no AUTO rule created', 3);
     }
   }
 
