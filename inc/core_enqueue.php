@@ -19,10 +19,11 @@ function ao_ccss_enqueue($hash) {
   // Continue if queue is available
   if ($enqueue) {
 
-    // Attach required arrays
+    // Attach required arrays/ vars
     global $ao_ccss_rules;
     global $ao_ccss_queue_raw;
     global $ao_ccss_queue;
+    global $ao_ccss_forcepath;
 
     // Get request path and page type, and initialize the queue update flag
     $req_path          = strtok($_SERVER['REQUEST_URI'],'?');
@@ -53,8 +54,8 @@ function ao_ccss_enqueue($hash) {
       }
     }
 
-    // Match for types in rules if no path rule matches
-    if (!$job_qualify) {
+    // Match for types in rules if no path rule matches and if we're not enforcing paths
+    if (!$job_qualify && ( !$ao_ccss_forcepath || !in_array($req_type,apply_filters('autoptimize_filter_ccss_coreenqueue_forcepathfortype', array('is_page','woo_is_product','woo_is_product_category'))))) {
       foreach ($ao_ccss_rules['types'] as $type => $props) {
 
         // Prepare rule target and log
@@ -85,7 +86,20 @@ function ao_ccss_enqueue($hash) {
 
       // Fill-in the new target rule
       $job_qualify = TRUE;
-      $target_rule = 'types|' . $req_type;
+      
+      // Should we switch to path-base AUTO-rules? Conditions:
+      // 1. forcepath option has to be enabled (off by default)
+      // 2. request type should be (by default, but filterable) one off is_page, woo_is_product or woo_is_product_category
+      if ($ao_ccss_forcepath && in_array($req_type,apply_filters('autoptimize_filter_ccss_coreenqueue_forcepathfortype',array('is_page','woo_is_product','woo_is_product_category')))) {
+        if ($req_path !== "/") {
+          $target_rule = 'paths|' . $req_path;
+        } else {
+          // Exception; we don't want a path-based rule for "/" as that messes things up, hard-switch this to a type-based is_front_page rule
+          $target_rule = 'types|' . 'is_front_page';
+        }
+      } else {
+        $target_rule = 'types|' . $req_type;
+      }
       ao_ccss_log('Job submission QUALIFIED by MISSING rule for page type <' . $req_type . '> on path <' . $req_path . '>, new rule target is <' . $target_rule . '>', 3);
 
     // Or just log a job qualified by a matching rule

@@ -22,6 +22,7 @@ $ao_ccss_debug       = get_option('autoptimize_ccss_debug'      , FALSE);
 $ao_ccss_key         = get_option('autoptimize_ccss_key'        );
 $ao_ccss_keyst       = get_option('autoptimize_ccss_keyst'      );
 $ao_ccss_loggedin    = get_option('autoptimize_ccss_loggedin'   , TRUE );
+$ao_ccss_forcepath   = get_option('autoptimize_ccss_forcepath'  , FALSE );
 
 // Setup the rules array
 if (empty($ao_ccss_rules_raw)) {
@@ -102,6 +103,7 @@ function ao_ccss_settings_init() {
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_key');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_keyst');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_loggedin');
+  register_setting('ao_ccss_options_group', 'autoptimize_ccss_forcepath');
 
   // Check if Autoptimize is installed
   if (!is_plugin_active('autoptimize/autoptimize.php') && !is_plugin_active('autoptimize-beta/autoptimize.php')) {
@@ -156,6 +158,8 @@ function ao_ccss_activation() {
   add_option('autoptimize_ccss_debug'      , '', '', 'no');
   add_option('autoptimize_ccss_key'        , '', '', 'no');
   add_option('autoptimize_ccss_keyst'      , '', '', 'no');
+  add_option('autoptimize_ccss_loggedin'   , '', '', 'no');
+  add_option('autoptimize_ccss_forcepath'  , '', '', 'no');
 
   // Create a scheduled event for the queue
   if (!wp_next_scheduled('ao_ccss_queue')) {
@@ -184,6 +188,8 @@ function ao_ccss_deactivation() {
   delete_option('autoptimize_ccss_key');
   delete_option('autoptimize_ccss_keyst');
   delete_option('autoptimize_ccss_version');
+  delete_option('autoptimize_ccss_loggedin');
+  delete_option('autoptimize_ccss_forcepath');
 
   // Remove scheduled events
   wp_clear_scheduled_hook('ao_ccss_queue');
