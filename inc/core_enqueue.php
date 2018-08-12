@@ -55,7 +55,7 @@ function ao_ccss_enqueue($hash) {
     }
 
     // Match for types in rules if no path rule matches and if we're not enforcing paths
-    if (!$job_qualify && !$ao_ccss_forcepath) {
+    if (!$job_qualify && ( !$ao_ccss_forcepath || !in_array($req_type,apply_filters('autoptimize_filter_ccss_coreenqueue_forcepathfortype', array('is_page','woo_is_product','woo_is_product_category'))))) {
       foreach ($ao_ccss_rules['types'] as $type => $props) {
 
         // Prepare rule target and log
