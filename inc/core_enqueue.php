@@ -27,11 +27,7 @@ function ao_ccss_enqueue($hash) {
 
     // Get request path and page type, and initialize the queue update flag
     $req_path          = strtok($_SERVER['REQUEST_URI'],'?');
-    if ($ao_ccss_forcepath) {
-      $req_type        = "";
-    } else {
-      $req_type        = ao_ccss_get_type();
-    }
+    $req_type          = ao_ccss_get_type();
     $job_qualify       = FALSE;
     $target_rule       = FALSE;
     $rule_properties   = FALSE;
@@ -90,7 +86,11 @@ function ao_ccss_enqueue($hash) {
 
       // Fill-in the new target rule
       $job_qualify = TRUE;
-      if ($ao_ccss_forcepath) {
+      
+      // Should we switch to path-base AUTO-rules? Conditions:
+      // 1. forcepath option has to be enabled (off by default)
+      // 2. request type should be (by default, but filterable) one off is_page, woo_is_product or woo_is_product_category
+      if ($ao_ccss_forcepath && in_array($req_type,apply_filters('autoptimize_filter_ccss_coreenqueue_forcepathfortype',array('is_page','woo_is_product','woo_is_product_category')))) {
         if ($req_path !== "/") {
           $target_rule = 'paths|' . $req_path;
         } else {
