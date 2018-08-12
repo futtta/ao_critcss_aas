@@ -91,7 +91,12 @@ function ao_ccss_enqueue($hash) {
       // Fill-in the new target rule
       $job_qualify = TRUE;
       if ($ao_ccss_forcepath) {
-        $target_rule = 'paths|' . $req_path;
+        if ($req_path !== "/") {
+          $target_rule = 'paths|' . $req_path;
+        } else {
+          // Exception; we don't want a path-based rule for "/" as that messes things up, hard-switch this to a type-based is_front_page rule
+          $target_rule = 'types|' . 'is_front_page';
+        }
       } else {
         $target_rule = 'types|' . $req_type;
       }
