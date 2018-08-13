@@ -471,9 +471,10 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
   $src_url = apply_filters( 'autoptimize_filter_ccss_cron_srcurl', $src_url );
 
   // Initialize request body
-  $body        = array();
-  $body['url'] = $src_url;
-  $body['aff'] = 1;
+  $body           = array();
+  $body['url']    = $src_url;
+  $body['aff']    = 1;
+  $body['aocssv'] = AO_CCSS_VER;
 
   // Prepare and add viewport size to the body if available
   $viewport = ao_ccss_viewport();

@@ -354,8 +354,9 @@ function ao_ccss_key_validation($key) {
     // Body must be JSON
     'body' => json_encode(
       array(
-        'url' => $src_url,
-        'aff' => 1
+        'url'    => $src_url,
+        'aff'    => 1,
+        'aocssv' => AO_CCSS_VER
       )
     )
   );
