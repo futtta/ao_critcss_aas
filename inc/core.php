@@ -53,9 +53,11 @@ function ao_ccss_frontend($inlined) {
   if ( $ao_ccss_loggedin || ! is_user_logged_in() ) {
     // Check for a valid CriticalCSS based on path to return its contents
     // NOTE: implements section 4, id 1.1 of the specs (for paths)
+    $req_path = strtok(urldecode($_SERVER['REQUEST_URI']),'?');
     if (!empty($ao_ccss_rules['paths'])) {
       foreach ($ao_ccss_rules['paths'] as $path => $rule) {
-        if ( strpos( urldecode( $_SERVER['REQUEST_URI'] ), str_replace( site_url(), '', $path) ) !== FALSE ) {
+        // explicit match OR partial match if MANUAL rule
+        if ( $req_path == $path || ( $rule['hash'] == FALSE && $rule['file'] != FALSE && strpos( $req_path, str_replace( site_url(), '', $path) ) !== FALSE ) ) {
           if (file_exists(AO_CCSS_DIR . $rule['file'])) {
             $_ccss_contents = file_get_contents(AO_CCSS_DIR . $rule['file']);
             if ($_ccss_contents != "none") {
