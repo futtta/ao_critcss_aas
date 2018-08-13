@@ -42,7 +42,9 @@ function ao_ccss_enqueue($hash) {
       ao_ccss_log('Qualifying path <' . $req_path . '> for job submission by rule <' . $target_rule . '>', 3);
 
       // Path match
-      if (preg_match('|' . $path . '|', $req_path)) {
+      // -> exact match needed for AUTO rules
+      // -> partial match OK for MANUAL rules (which have empty hash and a file with CCSS)
+      if ( $path === $req_path || ( $props['hash'] == FALSE && $props['file'] != FALSE && preg_match('|' . $path . '|', $req_path) ) ) {
 
         // There's a path match in the rule, so job QUALIFIES with a path rule match
         $job_qualify     = TRUE;
