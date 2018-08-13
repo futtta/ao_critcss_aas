@@ -213,8 +213,11 @@ function ao_ccss_get_type() {
       // but remove prefix to be able to check if the function exists & returns true
       $_type = str_replace(array('woo_','bp_','bbp_','edd_'),'',$type);
       if (function_exists($_type) && call_user_func($_type)) {
-        $page_type = $type;
-        break;
+        // Make sure we only return is_front_page for one page, not for the "paged frontpage" (/page/2 ..)
+        if ( $_type !== 'is_front_page' || !is_paged() ) {
+          $page_type = $type;
+          break;
+        }
       }
     }
   }
