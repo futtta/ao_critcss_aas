@@ -57,7 +57,7 @@ function ao_ccss_enqueue($hash) {
     }
 
     // Match for types in rules if no path rule matches and if we're not enforcing paths
-    if (!$job_qualify && ( !$ao_ccss_forcepath || !in_array($req_type,apply_filters('autoptimize_filter_ccss_coreenqueue_forcepathfortype', array('is_page','woo_is_product','woo_is_product_category'))))) {
+    if (!$job_qualify && ( !$ao_ccss_forcepath || !in_array($req_type,apply_filters('autoptimize_filter_ccss_coreenqueue_forcepathfortype', array('is_page'))))) {
       foreach ($ao_ccss_rules['types'] as $type => $props) {
 
         // Prepare rule target and log
@@ -91,8 +91,8 @@ function ao_ccss_enqueue($hash) {
       
       // Should we switch to path-base AUTO-rules? Conditions:
       // 1. forcepath option has to be enabled (off by default)
-      // 2. request type should be (by default, but filterable) one off is_page, woo_is_product or woo_is_product_category
-      if ($ao_ccss_forcepath && in_array($req_type,apply_filters('autoptimize_filter_ccss_coreenqueue_forcepathfortype',array('is_page','woo_is_product','woo_is_product_category')))) {
+      // 2. request type should be (by default, but filterable) one of is_page (removed for now: woo_is_product or woo_is_product_category)
+      if ($ao_ccss_forcepath && in_array($req_type,apply_filters('autoptimize_filter_ccss_coreenqueue_forcepathfortype',array('is_page')))) {
         if ($req_path !== "/") {
           $target_rule = 'paths|' . $req_path;
         } else {
