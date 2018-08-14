@@ -3,7 +3,7 @@ Contributors: futtta, denydias
 Tags: autoptimize, critical css, above-the-fold, render-blocking css
 Requires at least: 4.9
 Tested up to: 4.9
-Stable tag: 1.6.0
+Stable tag: 1.7.0
 
 Autoptimize criticalcss.com power-up adds automated critical css creation to Autoptimize integrating with the https://criticalcss.com service.
 
@@ -57,6 +57,10 @@ Once a job is in the queue it can be executed and sent to criticalcss.com and at
 
 Autoptimize CriticalCss.com power-up uses scheduled jobs to go over a queue with URL's for which to fetch critical CSS. If there are many items in the queue, the process can take a couple of minutes to finish. If your hosts limits the time scheduled PHP processes can run, you can set the number of requests sent to criticalcss.com (the "request limit") under the Advanced Options.
 
+= I use a pagebuilder, so my pages are very different yet the same CCSS is applied? =
+
+As from AO CCSS 1.7 there is an (advanced) option you can activate to enforce PATH-based rules creation for pages so each page will end up with its own critical CSS.
+
 = Can I stop critical CSS being applied on some pages? =
 
 Yes; create a manual rule (can be both path- and conditional-tag based) and enter `none` for critical CSS. If the rule matches, no critical CSS will be added and the full CSS will be inlined instead.
@@ -70,6 +74,11 @@ If the "ao_ccss_queue" job is not there, you'll have to de- and re-activate the 
 If the "ao_ccss_queue" job is there, but has a "next run" date in the past, there is an issue with your site/ hosters WordPress cron and you will have to contact your hoster. Some hosters' info on the topic: [WP Engine](https://wpengine.com/support/wp-cron-wordpress-scheduling/), [BlueHost](https://my.bluehost.com/hosting/help/411), [HostGator](https://support.hostgator.com/articles/how-to-replace-wordpress-cron-with-a-real-cron-job) and [SiteGround](https://www.siteground.com/tutorials/wordpress/real-cron-job/).
 
 == Changelog ==
+
+= 1.7.0 =
+* new: (advanced) option to allow PATH-based rules to be auto-created for pages (incl. WooCommerce product pages) allowing different CCSS for each page.
+* improvement: workaround a quirk in WordPress core's is_front_page which also returns true for e.g. /page/12
+* improvement: ensure path-based rules with non-ascii characters can match the path
 
 = 1.6.0 =
 
