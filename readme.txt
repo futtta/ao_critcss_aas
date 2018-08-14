@@ -76,7 +76,7 @@ If the "ao_ccss_queue" job is there, but has a "next run" date in the past, ther
 == Changelog ==
 
 = 1.7.0 =
-* new: (advanced) option to allow PATH-based rules to be auto-created for pages (incl. WooCommerce product pages) allowing different CCSS for each page.
+* new: (advanced) option to allow PATH-based rules to be auto-created for pages allowing different CCSS for each page.
 * improvement: workaround a quirk in WordPress core's is_front_page which also returns true for e.g. /page/12
 * improvement: ensure path-based rules with non-ascii characters can match the path
 
