@@ -240,6 +240,11 @@ function ao_ccss_queue_control() {
         // Process a DONE job
         } elseif ($apireq['status'] == 'JOB_DONE') {
 
+          // New resultStatus from ccss.com "HTML_404", consider as "GOOD" for now
+          if ($apireq['resultStatus'] == 'HTML_404') {
+            $apireq['resultStatus'] = 'GOOD';
+          }
+
           // SUCCESS: GOOD job with GOOD validation
           if ($apireq['resultStatus'] == 'GOOD' && $apireq['validationStatus'] == 'GOOD') {
 
