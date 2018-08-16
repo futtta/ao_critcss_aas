@@ -47,6 +47,7 @@ function ao_ccss_frontend($inlined) {
   global $ao_ccss_rules;
   global $ao_ccss_additional;
   global $ao_ccss_loggedin;
+  global $ao_ccss_debug;
   $no_ccss = "";
 
   // Only if user is not logged in or if option to add CCSS for logged on users is on.
@@ -61,6 +62,9 @@ function ao_ccss_frontend($inlined) {
           if (file_exists(AO_CCSS_DIR . $rule['file'])) {
             $_ccss_contents = file_get_contents(AO_CCSS_DIR . $rule['file']);
             if ($_ccss_contents != "none") {
+              if ($ao_ccss_debug) {
+                $_ccss_contents = '/* PATH: '.$path.' file: '.$rule['file'].' */ ' . $_ccss_contents;
+              }
               return apply_filters('autoptimize_filter_ccss_core_ccss', $_ccss_contents . $ao_ccss_additional);
             } else {
               $no_ccss = "none";
@@ -82,6 +86,9 @@ function ao_ccss_frontend($inlined) {
           if (strpos($type, 'custom_post_') === 0) {
             if (get_post_type(get_the_ID()) === substr($type, 12)) {
               if ($_ccss_contents != "none") {
+                if ($ao_ccss_debug) {
+                  $_ccss_contents = '/* TYPES: '.$type.' file: '.$rule['file'].' */ ' . $_ccss_contents;
+                }
                 return apply_filters('autoptimize_filter_ccss_core_ccss', $_ccss_contents . $ao_ccss_additional);
               } else {
                 $no_ccss = "none";
@@ -90,6 +97,9 @@ function ao_ccss_frontend($inlined) {
           } elseif (strpos($type, 'template_') === 0) {
             if (is_page_template(substr($type, 9))) {
               if ($_ccss_contents != "none") {
+                if ($ao_ccss_debug) {
+                  $_ccss_contents = '/* TYPES: '.$type.' file: '.$rule['file'].' */ ' . $_ccss_contents;
+                }
                 return apply_filters('autoptimize_filter_ccss_core_ccss', $_ccss_contents . $ao_ccss_additional);
               } else {
                 $no_ccss = "none";
@@ -101,6 +111,9 @@ function ao_ccss_frontend($inlined) {
             $type = str_replace(array('woo_','bp_','bbp_','edd_'),'',$type);
             if (function_exists($type) && call_user_func($type)) {
               if ($_ccss_contents != "none") {
+                if ($ao_ccss_debug) {
+                  $_ccss_contents = '/* TYPES: '.$type.' file: '.$rule['file'].' */ ' . $_ccss_contents;
+                }
                 return apply_filters('autoptimize_filter_ccss_core_ccss', $_ccss_contents . $ao_ccss_additional);
               } else {
                 $no_ccss = "none";
