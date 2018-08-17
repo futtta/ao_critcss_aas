@@ -88,7 +88,7 @@ function ao_ccss_render_adv() {
             <td>
               <input type="checkbox" id="autoptimize_ccss_forcepath" name="autoptimize_ccss_forcepath" value="1" <?php checked(1 == $ao_ccss_forcepath); ?>>
               <p class="notes">
-                <?php _e('By default one rule is created per type of page, which keeps the number of rules lean ensuring great performance. You can forcefully switch this to path-based rule generation for pages (including WooCommerce product pages) here, but do take into account this might generate a lot of rules which might impact the "time to first byte" for uncached pages.', 'autoptimize'); ?>
+                <?php _e('By default one rule is created per type of page, which keeps the number of rules lean ensuring great performance. You can forcefully switch this to path-based rule generation for pages here, but do take into account this might generate a lot of rules which might impact the "time to first byte" for uncached pages.', 'autoptimize'); ?>
               </p>
             </td>
           </tr>
