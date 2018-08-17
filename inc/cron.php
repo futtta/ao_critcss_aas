@@ -424,7 +424,18 @@ function ao_ccss_diff_hashes($ljid, $hash, $hashes, $rule) {
     ao_ccss_log('Job id <' . $ljid . '> updated with a COMPOSITE hash <' . $hash . '>', 3);
   }
 
-  // STEP 2: compare job and existing rule (if any) hashes
+  // STEP 2: compare job to existing jobs to prevent double submission for same type+hash
+  global $ao_ccss_queue;
+    
+  foreach ($ao_ccss_queue as $queue_item) {
+    ao_ccss_log('Comparing <' . $rule.$hash . '> with <' . $queue_item['rtarget'].$queue_item['hash'] . '>', 3);
+    if ( $queue_item['hash'] == $hash && $queue_item['rtarget'] == $rule && in_array( $queue_item['jqstat'], array( 'JOB_QUEUED', 'JOB_ONGOING', 'JOB_DONE' ) ) ) {
+      ao_ccss_log('Job id <' . $ljid . '> matches the already pending job <' . $queue_item['ljid'] . '>', 3);
+      return FALSE;
+    }
+  }
+
+  // STEP 3: compare job and existing rule (if any) hashes
   // Attach required arrays
   global $ao_ccss_rules;
 
