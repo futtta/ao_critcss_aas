@@ -34,7 +34,7 @@ function drawTable(critCssArray) {
     }
     if (!(jQuery.isEmptyObject(v))) {
       jQuery("#rules-list").append("<tr><td colspan='5'><h4>" + kstring + "</h4></td></tr>");
-      jQuery("#rules-list").append("<tr class='header'><th><?php _e('Type', 'autoptimize') ?></th><th><?php _e('Target', 'autoptimize') ?></th><th><?php _e('Critical CSS File', 'autoptimize') ?></th><th colspan='2'><?php _e('Actions', 'autoptimize') ?></th></tr>");
+      jQuery("#rules-list").append("<tr class='header "+k+"Rule'><th><?php _e('Type', 'autoptimize') ?></th><th><?php _e('Target', 'autoptimize') ?></th><th><?php _e('Critical CSS File', 'autoptimize') ?></th><th colspan='2'><?php _e('Actions', 'autoptimize') ?></th></tr>");
     }
     nodeNumber=0;
     jQuery.each(v,function(i,nv){
@@ -61,7 +61,7 @@ function drawTable(critCssArray) {
           rmark = '';
         }
       }
-      jQuery("#rules-list").append("<tr class='rule'><td class='type'><span class='badge " + typeClass + "'>" + type + "</span>" + rmark + "</td><td class='target'>" + i.replace(/(woo_|template_|custom_post_|edd_|bp_|bbp_)/,'') + "</td><td class='file'>" + file + "</td><td class='btn edit'><span class=\"button-secondary\" id=\"" + nodeId + "_edit\"><?php _e("Edit", "autoptimize"); ?></span></td><td class='btn delete'><span class=\"button-secondary\" id=\"" + nodeId + "_remove\"><?php _e("Remove", "autoptimize"); ?></span></td></tr>");
+      jQuery("#rules-list").append("<tr class='rule "+k+"Rule'><td class='type'><span class='badge " + typeClass + "'>" + type + "</span>" + rmark + "</td><td class='target'>" + i.replace(/(woo_|template_|custom_post_|edd_|bp_|bbp_)/,'') + "</td><td class='file'>" + file + "</td><td class='btn edit'><span class=\"button-secondary\" id=\"" + nodeId + "_edit\"><?php _e("Edit", "autoptimize"); ?></span></td><td class='btn delete'><span class=\"button-secondary\" id=\"" + nodeId + "_remove\"><?php _e("Remove", "autoptimize"); ?></span></td></tr>");
       jQuery("#" + nodeId + "_edit").click(function(){addEditRow(this.id);});
       jQuery("#" + nodeId + "_remove").click(function(){confirmRemove(this.id);});
     })
