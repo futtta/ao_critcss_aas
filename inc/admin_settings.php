@@ -103,18 +103,7 @@ function ao_ccss_settings() {
           $_jobs_too_old = false;
         }
 
-        // go through rules array
-        if ( ! empty ($ao_ccss_rules ) ) {
-          foreach ($ao_ccss_rules['types'] as $rule) {
-            if ( ! empty( $rule['hash'] ) ) {
-              // we have at least one AUTO job, so all is fine
-              $_no_auto_rules = false;
-              break;
-            }
-          }
-        }
-        
-        if ( $_jobs_all_new && $_no_auto_rules && $_jobs_too_old ) {
+        if ( $_jobs_all_new && !ao_ccss_has_autorules() && $_jobs_too_old ) {
           $_warn_cron = "on";
           $_transient_multiplier = 1; // store for 1 hour
         } else {
@@ -208,4 +197,28 @@ function ao_ccss_settings() {
   echo '</script>';
 }
 
+function ao_ccss_has_autorules() {
+  static $_has_auto_rules = null;
+
+  if ( null === $_has_auto_rules ) {
+    global $ao_ccss_rules;
+    $_has_auto_rules = false;
+    if ( ! empty ($ao_ccss_rules ) ) {
+      foreach (array('types','paths') as $_typat) {
+        foreach ($ao_ccss_rules[$_typat] as $rule) {
+          if ( ! empty( $rule['hash'] ) ) {
+            // we have at least one AUTO job, so all is fine
+            $_has_auto_rules = true;
+            break;
+          }
+        }
+        if ($_has_auto_rules) {
+          break;
+        }
+      }
+    }
+  }
+
+  return $_has_auto_rules;
+}
 ?>
