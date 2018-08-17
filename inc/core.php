@@ -63,7 +63,7 @@ function ao_ccss_frontend($inlined) {
             $_ccss_contents = file_get_contents(AO_CCSS_DIR . $rule['file']);
             if ($_ccss_contents != "none") {
               if ($ao_ccss_debug) {
-                $_ccss_contents = '/* PATH: '.$path.' file: '.$rule['file'].' */ ' . $_ccss_contents;
+                $_ccss_contents = '/* PATH: '.$path.' hash: '.$rule['hash'].' file: '.$rule['file'].' */ ' . $_ccss_contents;
               }
               return apply_filters('autoptimize_filter_ccss_core_ccss', $_ccss_contents . $ao_ccss_additional);
             } else {
@@ -87,7 +87,7 @@ function ao_ccss_frontend($inlined) {
             if (get_post_type(get_the_ID()) === substr($type, 12)) {
               if ($_ccss_contents != "none") {
                 if ($ao_ccss_debug) {
-                  $_ccss_contents = '/* TYPES: '.$type.' file: '.$rule['file'].' */ ' . $_ccss_contents;
+                  $_ccss_contents = '/* TYPES: '.$type.' hash: '.$rule['hash'].' file: '.$rule['file'].' */ ' . $_ccss_contents;
                 }
                 return apply_filters('autoptimize_filter_ccss_core_ccss', $_ccss_contents . $ao_ccss_additional);
               } else {
@@ -98,7 +98,7 @@ function ao_ccss_frontend($inlined) {
             if (is_page_template(substr($type, 9))) {
               if ($_ccss_contents != "none") {
                 if ($ao_ccss_debug) {
-                  $_ccss_contents = '/* TYPES: '.$type.' file: '.$rule['file'].' */ ' . $_ccss_contents;
+                  $_ccss_contents = '/* TYPES: '.$type.' hash: '.$rule['hash'].' file: '.$rule['file'].' */ ' . $_ccss_contents;
                 }
                 return apply_filters('autoptimize_filter_ccss_core_ccss', $_ccss_contents . $ao_ccss_additional);
               } else {
@@ -112,7 +112,7 @@ function ao_ccss_frontend($inlined) {
             if (function_exists($type) && call_user_func($type)) {
               if ($_ccss_contents != "none") {
                 if ($ao_ccss_debug) {
-                  $_ccss_contents = '/* TYPES: '.$type.' file: '.$rule['file'].' */ ' . $_ccss_contents;
+                  $_ccss_contents = '/* TYPES: '.$type.' hash: '.$rule['hash'].' file: '.$rule['file'].' */ ' . $_ccss_contents;
                 }
                 return apply_filters('autoptimize_filter_ccss_core_ccss', $_ccss_contents . $ao_ccss_additional);
               } else {
