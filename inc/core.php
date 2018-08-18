@@ -31,7 +31,8 @@ if ($ao_css_defer) {
     'is_search',
     'is_single',
     'is_sticky',
-    'is_paged'
+    'is_paged',
+    'is_attachment'
   );
 
   // Extend conditional tags on pugin initalization
