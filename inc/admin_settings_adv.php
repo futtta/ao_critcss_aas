@@ -99,7 +99,7 @@ function ao_ccss_render_adv() {
             <td>
               <input type="checkbox" id="autoptimize_ccss_debug" name="autoptimize_ccss_debug" value="1" <?php checked(1 == $ao_ccss_debug); ?>>
               <p class="notes"> <?php
-                _e('<strong>CAUTION! DO NOT use debug mode on production/live environments.</strong><br />Check the box above to enable Autoptimize CriticalCSS Power-Up debug mode. It provides debug facilities in this screen, to the browser console and to this file: ', 'autoptimize');
+                _e('<strong>CAUTION! Only use debug mode on production/live environments for ad-hoc troubleshooting and remember to turn it back off after.</strong> as this generates a lot of log-data.<br />Check the box above to enable Autoptimize CriticalCSS Power-Up debug mode. It provides debug facilities in this screen, to the browser console and to this file: ', 'autoptimize');
                 echo '<code>' . AO_CCSS_LOG . '</code>';
               ?></p>
             </td>

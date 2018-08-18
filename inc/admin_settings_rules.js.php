@@ -1,6 +1,6 @@
 <?php
 if ($ao_ccss_debug) echo "console.log('[WARN] Autoptimize CriticalCSS Power-Up is in DEBUG MODE!');\n";
-if ($ao_ccss_debug) echo "console.log('[WARN] DO NOT use debug mode on production/live environments!');\n";
+if ($ao_ccss_debug) echo "console.log('[WARN] Avoid using debug mode on production/live environments unless for ad-hoc troubleshooting purposes and make sure to disable it after!');\n";
 ?>
 
 var rulesOriginEl = document.getElementById("critCssOrigin");
