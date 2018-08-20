@@ -3,7 +3,7 @@ Contributors: futtta, denydias
 Tags: autoptimize, critical css, above-the-fold, render-blocking css
 Requires at least: 4.9
 Tested up to: 4.9
-Stable tag: 1.7.0
+Stable tag: 1.8.0
 
 Autoptimize criticalcss.com power-up adds automated critical css creation to Autoptimize integrating with the https://criticalcss.com service.
 
@@ -75,7 +75,16 @@ If the "ao_ccss_queue" job is there, but has a "next run" date in the past, ther
 
 == Changelog ==
 
+= 1.8.0 =
+
+* improvement (efficiency): don't submit request to criticalcss.com if the same one (same type and same hash) has been submitted already in the current queue processing run
+* improvement (UI): job queue panel is collapsable and only shown if no AUTO rule is available yet
+* improvement (debugging): add rule info in comment in Critical CSS if "debug" is on
+* improvement (conditional rules): added is_attachement as additional core conditional tag
+* new: handle (future) resultStatus (HTML_404) from criticalcss.com
+
 = 1.7.0 =
+
 * new: (advanced) option to allow PATH-based rules to be auto-created for pages allowing different CCSS for each page.
 * improvement: workaround a quirk in WordPress core's is_front_page which also returns true for e.g. /page/12
 * improvement: ensure path-based rules with non-ascii characters can match the path
