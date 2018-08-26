@@ -39,7 +39,7 @@ This means the total cost will be £7/month if you use this plugin for one site.
 
 If you're not sure yet; with the [30 day free trial](https://criticalcss.com/faq/#trial), you have nothing to lose!
 
-= Will this work for inside paywalls or membershp sites? =
+= Will this work for inside paywalls or membership sites? =
 
 No; CriticalCSS.com needs the pages for which it has to generate critical css to be publicaly visible to work.
 
@@ -47,11 +47,17 @@ No; CriticalCSS.com needs the pages for which it has to generate critical css to
 
 See [https://criticalcss.com/general/terms-of-service/](https://criticalcss.com/general/terms-of-service/?aff=1).
 
-= Why isn't the critical CSS visible immediately? =
+= Why did nothing happen after I installed the plugin/ Why isn't the critical CSS visible immediately? =
 
 Critical CSS generation is based on a job-queue. For jobs to be added to the queue, your site should have requests and those requests should not be served by a page cache (because in that case WordPress and Autoptimize are not triggered). If you want to speed things up, you can temporarily disable your page cache and click around on your website yourself. 
 
 Once a job is in the queue it can be executed and sent to criticalcss.com and at one of the next queue runs the critical CSS is retrieved and turned into a rule and it will be used for the next matching request (again for a page not in page cache).
+
+= My hoster claims the plugin is time consuming, is this normal? =
+
+When just installed the plugin will be more active, generating new jobs and for most of those jobs making calls to criticalcss.com. As rules are automatically generated that way, the number of jobs and the number of requests to criticalcss.com will go down significantly.
+
+Most importantly; as the bulk of the work is done asynchronously (by the cronned queue processing job), there is no negative impact on the performance of your site, so your visitors will not notice any slowdown.
 
 = What if my hosts limits the time PHP processes can run? =
 
