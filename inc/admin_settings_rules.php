@@ -95,6 +95,10 @@ function ao_ccss_render_rules() {
                         $_type = str_replace('bp_', '', $type);
                       } elseif (substr($type, 0, 4) === 'woo_') {
                         $_type = str_replace('woo_', '', $type);
+                      } elseif (substr($type, 0, 4) === 'edd_') {
+                        $_type = str_replace('edd_', '', $type);
+                      }else {
+                        $_type = $type;
                       }
 
                       echo '<option value="' . $type . '">' . $_type . '</option>';
