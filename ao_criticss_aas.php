@@ -4,25 +4,26 @@ Plugin Name: Autoptimize CriticalCSS.com Power-Up
 Plugin URI: http://optimizingmatters.com/
 Description: Let Autoptimize and CriticalCSS unleash your site performance and make it appear better than anyone in search results.
 Author: Deny Dias & Optimizing Matters
-Version: 1.8.0
+Version: 1.9.0
 Text Domain: autoptimize
 */
 
 // Get options
-$ao_css_defer        = get_option('autoptimize_css_defer'       , FALSE);
-$ao_css_defer_inline = get_option('autoptimize_css_defer_inline');
-$ao_ccss_rules_raw   = get_option('autoptimize_ccss_rules'      , FALSE);
-$ao_ccss_additional  = get_option('autoptimize_ccss_additional' );
-$ao_ccss_queue_raw   = get_option('autoptimize_ccss_queue'      , FALSE);
-$ao_ccss_viewport    = get_option('autoptimize_ccss_viewport'   , FALSE);
-$ao_ccss_finclude    = get_option('autoptimize_ccss_finclude'   , FALSE);
-$ao_ccss_rlimit      = get_option('autoptimize_ccss_rlimit  '   , FALSE);
-$ao_ccss_noptimize   = get_option('autoptimize_ccss_noptimize'  , FALSE);
-$ao_ccss_debug       = get_option('autoptimize_ccss_debug'      , FALSE);
-$ao_ccss_key         = get_option('autoptimize_ccss_key'        );
-$ao_ccss_keyst       = get_option('autoptimize_ccss_keyst'      );
-$ao_ccss_loggedin    = get_option('autoptimize_ccss_loggedin'   , TRUE );
-$ao_ccss_forcepath   = get_option('autoptimize_ccss_forcepath'  , FALSE );
+$ao_css_defer          = get_option('autoptimize_css_defer'         , FALSE);
+$ao_css_defer_inline   = get_option('autoptimize_css_defer_inline'  );
+$ao_ccss_rules_raw     = get_option('autoptimize_ccss_rules'        , FALSE);
+$ao_ccss_additional    = get_option('autoptimize_ccss_additional'   );
+$ao_ccss_queue_raw     = get_option('autoptimize_ccss_queue'        , FALSE);
+$ao_ccss_viewport      = get_option('autoptimize_ccss_viewport'     , FALSE);
+$ao_ccss_finclude      = get_option('autoptimize_ccss_finclude'     , FALSE);
+$ao_ccss_rlimit        = get_option('autoptimize_ccss_rlimit  '     , FALSE);
+$ao_ccss_noptimize     = get_option('autoptimize_ccss_noptimize'    , FALSE);
+$ao_ccss_debug         = get_option('autoptimize_ccss_debug'        , FALSE);
+$ao_ccss_key           = get_option('autoptimize_ccss_key'          );
+$ao_ccss_keyst         = get_option('autoptimize_ccss_keyst'        );
+$ao_ccss_loggedin      = get_option('autoptimize_ccss_loggedin'     , TRUE );
+$ao_ccss_forcepath     = get_option('autoptimize_ccss_forcepath'    , FALSE );
+$ao_ccss_servicestatus = get_option('autoptimize_ccss_servicestatus');
 
 // Setup the rules array
 if (empty($ao_ccss_rules_raw)) {
@@ -52,7 +53,7 @@ require_once('inc/admin_settings_explain.php');
 require_once('inc/cron.php');
 
 // Define plugin version
-define('AO_CCSS_VER', '1.8.0');
+define('AO_CCSS_VER', '1.9.0');
 
 // check for upgrade-logic
 $db_version = get_option('autoptimize_ccss_version','');
@@ -61,6 +62,11 @@ if ($db_version !== AO_CCSS_VER) {
   if ($db_version === '') {
     if (file_exists(WP_CONTENT_DIR.'/cache/ao_ccss')) {
       rename(WP_CONTENT_DIR.'/cache/ao_ccss', WP_CONTENT_DIR.'/uploads/ao_ccss');
+    }
+  } else if ( $db_version === '1.8.0' ) {
+    // Schedule service status for upgrading plugins (as upgrades don't trigger activation hook).
+    if (!wp_next_scheduled('ao_ccss_servicestatus')) {
+      wp_schedule_event(time(), 'daily', 'ao_ccss_servicestatus');
     }
   }
   // and update db_version
@@ -170,6 +176,11 @@ function ao_ccss_activation() {
   if (!wp_next_scheduled('ao_ccss_maintenance')) {
     wp_schedule_event(time(), 'twicedaily', 'ao_ccss_maintenance');
   }
+
+  // Scheduled event to fetch service status.
+  if (!wp_next_scheduled('ao_ccss_servicestatus')) {
+    wp_schedule_event(time(), 'daily', 'ao_ccss_servicestatus');
+  }
 }
 register_activation_hook(__FILE__, 'ao_ccss_activation');
 
@@ -190,10 +201,12 @@ function ao_ccss_deactivation() {
   delete_option('autoptimize_ccss_version');
   delete_option('autoptimize_ccss_loggedin');
   delete_option('autoptimize_ccss_forcepath');
+  delete_option('autoptimize_ccss_servicestatus');
 
   // Remove scheduled events
   wp_clear_scheduled_hook('ao_ccss_queue');
   wp_clear_scheduled_hook('ao_ccss_maintenance');
+  wp_clear_scheduled_hook('ao_ccss_servicestatus');
 
   // Remove cached files and directory
   array_map('unlink', glob(AO_CCSS_DIR . '*.{css,html,json,log,zip,lock}', GLOB_BRACE));

@@ -18,6 +18,7 @@ function ao_ccss_settings() {
   global $ao_ccss_debug;
   global $ao_ccss_key;
   global $ao_ccss_loggedin;
+  global $ao_ccss_servicestatus;
 
   ?>
   <div class="wrap">
@@ -119,7 +120,14 @@ function ao_ccss_settings() {
         _e('It looks like there might be a problem with WordPress cron (task scheduling). Have a look at <a href="https://wordpress.org/plugins/autoptimize-criticalcss/faq/" target="_blank">the FAQ</a> or the info in the Job Queue instructions if all jobs remain in "N" status and no rules are created.', 'autoptimize');
         ?></p></div><?php
       }
-            
+
+      // warn if service is down
+      if ( ! empty( $ao_ccss_servicestatus ) && is_array( $ao_ccss_servicestatus ) && $ao_ccss_servicestatus['critcss']['status'] === 'down' ) {
+        ?><div class="notice-warning notice"><p><?php
+        _e('The critical CSS service has been reported to be down. Although no new rules will be created for now, this does not prevent existing rules from being applied.', 'autoptimize');
+        ?></p></div><?php
+      }
+
       // Settings Form
       ?>
       <form id="settings" method="post" action="options.php">

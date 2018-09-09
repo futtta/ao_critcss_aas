@@ -836,4 +836,18 @@ function ao_ccss_cleaning() {
 
 // Add truncate log to a registered event
 add_action('ao_ccss_maintenance', 'ao_ccss_cleaning');
+
+// get autoptimize service status file
+function ao_ccss_getservicestatus() {
+  $service_availability_resp = wp_remote_get( 'https://misc.optimizingmatters.com/api/autoptimize_service_availablity.json?from=aoccss' );
+  if ( ! is_wp_error( $service_availability_resp ) ) {
+      if ( '200' == wp_remote_retrieve_response_code( $service_availability_resp ) ) {
+          $availabilities = json_decode( wp_remote_retrieve_body( $service_availability_resp ), true );
+          update_option( 'autoptimize_ccss_servicestatus', $availabilities);
+      }
+  }
+}
+
+// action triggered as scheduled event
+add_action('ao_ccss_servicestatus', 'ao_ccss_getservicestatus');
 ?>
