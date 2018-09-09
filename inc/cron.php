@@ -837,14 +837,27 @@ function ao_ccss_cleaning() {
 // Add truncate log to a registered event
 add_action('ao_ccss_maintenance', 'ao_ccss_cleaning');
 
-// get autoptimize service status file
+// get autoptimize service status file if there is a valid key
 function ao_ccss_getservicestatus() {
-  $service_availability_resp = wp_remote_get( 'https://misc.optimizingmatters.com/api/autoptimize_service_availablity.json?from=aoccss' );
+  global $ao_ccss_keyst;
+  global $ao_ccss_rules;
+
+  $nbrt = $nbrp = 0;
+  if ( array_key_exists( 'paths', $ao_ccss_rules ) ) {
+    $nbrp = count( $ao_ccss_rules['paths'] );
+  }
+  if ( array_key_exists( 'types', $ao_ccss_rules ) ) {
+    $nbrt = count( $ao_ccss_rules['types'] );
+  }
+
+  $ver = str_replace( '.', '', AO_CCSS_VER ) . '_ks' . $ao_ccss_keyst . '_pr' . $nbrp . '_tr' . $nbrt;
+
+  $service_availability_resp = wp_remote_get( 'https://misc.optimizingmatters.com/api/autoptimize_service_availablity.json?from=aoccss&ver=' . $ver );
   if ( ! is_wp_error( $service_availability_resp ) ) {
-      if ( '200' == wp_remote_retrieve_response_code( $service_availability_resp ) ) {
-          $availabilities = json_decode( wp_remote_retrieve_body( $service_availability_resp ), true );
-          update_option( 'autoptimize_ccss_servicestatus', $availabilities);
-      }
+    if ( '200' == wp_remote_retrieve_response_code( $service_availability_resp ) ) {
+      $availabilities = json_decode( wp_remote_retrieve_body( $service_availability_resp ), true );
+      update_option( 'autoptimize_ccss_servicestatus', $availabilities);
+    }
   }
 }
 
