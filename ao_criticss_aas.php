@@ -53,6 +53,7 @@ if ( is_admin() ) {
   require_once('inc/admin_settings_key.php');
   require_once('inc/admin_settings_adv.php');
   require_once('inc/admin_settings_explain.php');
+  require_once('inc/external/persist-admin-notices-dismissal/persist-admin-notices-dismissal.php');
 }
 
 // Define plugin version
