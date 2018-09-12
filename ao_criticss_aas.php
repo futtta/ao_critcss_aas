@@ -44,13 +44,16 @@ if (empty($ao_ccss_queue_raw)) {
 require_once('inc/core.php');
 require_once('inc/core_ajax.php');
 require_once('inc/core_enqueue.php');
-require_once('inc/admin_settings.php');
-require_once('inc/admin_settings_rules.php');
-require_once('inc/admin_settings_queue.php');
-require_once('inc/admin_settings_key.php');
-require_once('inc/admin_settings_adv.php');
-require_once('inc/admin_settings_explain.php');
 require_once('inc/cron.php');
+
+if ( is_admin() ) {
+  require_once('inc/admin_settings.php');
+  require_once('inc/admin_settings_rules.php');
+  require_once('inc/admin_settings_queue.php');
+  require_once('inc/admin_settings_key.php');
+  require_once('inc/admin_settings_adv.php');
+  require_once('inc/admin_settings_explain.php');
+}
 
 // Define plugin version
 define('AO_CCSS_VER', '1.9.0');
