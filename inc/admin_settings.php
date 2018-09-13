@@ -118,7 +118,7 @@ function ao_ccss_settings() {
         set_transient( 'ao_ccss_cronwarning', $_warn_cron, $_transient_multiplier * HOUR_IN_SECONDS );
       }
 
-      if ( $_warn_cron != "on" && PAnD::is_admin_notice_active( 'i-know-about-cron-1' ) ) {
+      if ( $_warn_cron == "on" && PAnD::is_admin_notice_active( 'i-know-about-cron-1' ) ) {
         ?><div data-dismissible="i-know-about-cron-1" class="notice-warning notice is-dismissible"><p><?php
         _e('It looks like there might be a problem with WordPress cron (task scheduling). Have a look at <a href="https://wordpress.org/plugins/autoptimize-criticalcss/faq/" target="_blank">the FAQ</a> or the info in the Job Queue instructions if all jobs remain in "N" status and no rules are created.', 'autoptimize');
         ?></p></div><?php
