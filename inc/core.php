@@ -324,7 +324,11 @@ function ao_ccss_key_status($render) {
       $status     = 'invalid';
       $status_msg = __('Invalid');
       $color      = '#dc3232'; // Red
-      $message    = __('Your API key is invalid. Please enter a valid <a href="https://criticalcss.com/?aff=1" target="_blank">criticalcss.com</a> key.', 'autoptimize');
+      if ( get_option( 'autoptimize_ccss_keyst' ) == 1 ) {
+        $message = __( 'Your API key is invalid. Please enter a valid <a href="https://criticalcss.com/?aff=1" target="_blank">criticalcss.com</a> key.', 'autoptimize' );
+      } else {
+        $message = __( 'Something went wrong when checking your API key, make sure you server can communicate with https://criticalcss.com and/ or try again later.', 'autoptimize' );
+      }
     }
 
   // No key nor status
