@@ -479,7 +479,16 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
 
   // Prepare full URL to request
   global $ao_ccss_noptimize;
-  $src_url = get_site_url() . $path;
+  
+  $site_host = get_site_url();
+  $site_path = parse_url( $site_host, PHP_URL_PATH );
+  
+  if ( ! empty( $site_path )) {
+    $site_host = str_replace( $site_path, '', $site_host );
+  }
+  
+  $src_url = $site_host . $path;
+
   // Avoid AO optimizations if required
   if (!empty($ao_ccss_noptimize)) {
     $src_url .= '?ao_noptimize=1';
