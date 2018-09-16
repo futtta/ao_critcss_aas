@@ -18,22 +18,7 @@ if ($ao_css_defer) {
 
   // Add an array with default WordPress's conditional tags
   // NOTE: these tags are sorted
-  $ao_ccss_types = array(
-    'is_404',
-    'is_archive',
-    'is_author',
-    'is_blog_page',
-    'is_category',
-    'is_front_page',
-    'is_home',
-    'is_page',
-    'is_post',
-    'is_search',
-    'is_attachment',
-    'is_single',
-    'is_sticky',
-    'is_paged'
-  );
+  $ao_ccss_types = get_ao_ccss_core_types();
 
   // Extend conditional tags on pugin initalization
   add_action('init', 'ao_ccss_extend_types');
@@ -143,6 +128,12 @@ function ao_ccss_extend_types() {
 
   // Attach the conditional tags array
   global $ao_ccss_types;
+
+  // in some cases $ao_ccss_types is empty and/or not an array, this should work around that problem.
+  if ( empty( $ao_ccss_types ) || ! is_array( $ao_ccss_types ) ) {
+    $ao_ccss_types = get_ao_ccss_core_types();
+    ao_ccss_log('Empty types array in extend, refetching array with core conditionals.', 3);
+  }
 
   // Custom Post Types
   $cpts = get_post_types(
@@ -260,6 +251,25 @@ function ao_ccss_extend_types() {
 
   // don't sort values, order is used to order rules
   // sort($ao_ccss_types);
+}
+
+function get_ao_ccss_core_types() {
+  return array(
+    'is_404',
+    'is_archive',
+    'is_author',
+    'is_blog_page',
+    'is_category',
+    'is_front_page',
+    'is_home',
+    'is_page',
+    'is_post',
+    'is_search',
+    'is_attachment',
+    'is_single',
+    'is_sticky',
+    'is_paged'
+  );
 }
 
 // Add is_blog_page conditional tag as per
