@@ -841,6 +841,27 @@ function ao_ccss_cleaning() {
   if (file_exists(AO_CCSS_LOCK)) {
     unlink(AO_CCSS_LOCK);
   }
+  
+  // Emergency queue cleaning.
+  global $ao_ccss_queue;
+  $queue_purge_threshold = 100;
+  $queue_purge_age       = 24 * 60 * 60;
+  $queue_length          = count( $ao_ccss_queue );
+
+  if ( $queue_length > $queue_purge_threshold ) {
+    // remove all N jobs that are older then 24h.
+    $timestamp_yesterday = microtime(true) - $queue_purge_age;
+    foreach ($ao_ccss_queue as $path => $job) {
+      if ( $job['jqstat'] == 'NEW' && $job['jctime'] < $timestamp_yesterday ) {
+        unset( $ao_ccss_queue[$path] );
+      }
+    }
+    
+    // save queue to options!
+    $ao_ccss_queue_raw = json_encode($ao_ccss_queue);
+    update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw);
+    ao_ccss_log('Queue emergency cleaning done.', 3);
+  }
 }
 
 // Add truncate log to a registered event
