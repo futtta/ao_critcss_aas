@@ -849,6 +849,7 @@ function ao_ccss_cleaning() {
   $queue_length          = count( $ao_ccss_queue );
   $timestamp_yesterday   = microtime(true) - $queue_purge_age;
   $remove_old_new        = false;
+  $queue_altered         = false;
 
   if ( $queue_length > $queue_purge_threshold ) {
     $remove_old_new = true;
@@ -857,13 +858,16 @@ function ao_ccss_cleaning() {
   foreach ($ao_ccss_queue as $path => $job) {
     if ( ( $remove_old_new && $job['jqstat'] == 'NEW' && $job['jctime'] < $timestamp_yesterday ) || in_array( $job['jqstat'], array( 'JOB_FAILED', 'STATUS_JOB_BAD', 'NO_CSS', 'NO_RESPONSE' ) ) ) {
       unset( $ao_ccss_queue[$path] );
+      $queue_altered = true;
     }
   }
 
   // save queue to options!
-  $ao_ccss_queue_raw = json_encode($ao_ccss_queue);
-  update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw);
-  ao_ccss_log('Queue cleaning done.', 3);
+  if ( $queue_altered ) {
+    $ao_ccss_queue_raw = json_encode($ao_ccss_queue);
+    update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw);
+    ao_ccss_log('Queue cleaning done.', 3);
+  }
 }
 
 // Add cleaning job to a registered event
