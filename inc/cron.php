@@ -842,29 +842,31 @@ function ao_ccss_cleaning() {
     unlink(AO_CCSS_LOCK);
   }
   
-  // Emergency queue cleaning.
+  // Queue cleaning.
   global $ao_ccss_queue;
   $queue_purge_threshold = 100;
   $queue_purge_age       = 24 * 60 * 60;
   $queue_length          = count( $ao_ccss_queue );
+  $timestamp_yesterday   = microtime(true) - $queue_purge_age;
+  $remove_old_new        = false;
 
   if ( $queue_length > $queue_purge_threshold ) {
-    // remove all N jobs that are older then 24h.
-    $timestamp_yesterday = microtime(true) - $queue_purge_age;
-    foreach ($ao_ccss_queue as $path => $job) {
-      if ( $job['jqstat'] == 'NEW' && $job['jctime'] < $timestamp_yesterday ) {
-        unset( $ao_ccss_queue[$path] );
-      }
-    }
-    
-    // save queue to options!
-    $ao_ccss_queue_raw = json_encode($ao_ccss_queue);
-    update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw);
-    ao_ccss_log('Queue emergency cleaning done.', 3);
+    $remove_old_new = true;
   }
+
+  foreach ($ao_ccss_queue as $path => $job) {
+    if ( ( $remove_old_new && $job['jqstat'] == 'NEW' && $job['jctime'] < $timestamp_yesterday ) || in_array( $job['jqstat'], array( 'JOB_FAILED', 'STATUS_JOB_BAD', 'NO_CSS', 'NO_RESPONSE' ) ) ) {
+      unset( $ao_ccss_queue[$path] );
+    }
+  }
+
+  // save queue to options!
+  $ao_ccss_queue_raw = json_encode($ao_ccss_queue);
+  update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw);
+  ao_ccss_log('Queue cleaning done.', 3);
 }
 
-// Add truncate log to a registered event
+// Add cleaning job to a registered event
 add_action('ao_ccss_maintenance', 'ao_ccss_cleaning');
 
 // get autoptimize service status file if there is a valid key
