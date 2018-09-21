@@ -3,7 +3,7 @@ Contributors: futtta, denydias
 Tags: autoptimize, critical css, above-the-fold, render-blocking css
 Requires at least: 4.9
 Tested up to: 4.9
-Stable tag: 1.8.0
+Stable tag: 1.9.0
 
 Autoptimize criticalcss.com power-up adds automated critical css creation to Autoptimize integrating with the https://criticalcss.com service.
 
@@ -80,6 +80,16 @@ If the "ao_ccss_queue" job is not there, you'll have to de- and re-activate the 
 If the "ao_ccss_queue" job is there, but has a "next run" date in the past, there is an issue with your site/ hosters WordPress cron and you will have to contact your hoster. Some hosters' info on the topic: [WP Engine](https://wpengine.com/support/wp-cron-wordpress-scheduling/), [BlueHost](https://my.bluehost.com/hosting/help/411), [HostGator](https://support.hostgator.com/articles/how-to-replace-wordpress-cron-with-a-real-cron-job) and [SiteGround](https://www.siteground.com/tutorials/wordpress/real-cron-job/).
 
 == Changelog ==
+
+= 1.9.0 =
+
+* improvement: make some notices dismissable
+* improvement: job queue cleanup logic improved
+* improvement: there now is a different error-message for "bad API key" vs "could not check your API key"
+* improvement: logic added to be able to warn if criticalcss.com would be down
+* bugfix for subfolder installations of WordPress resulting in wrong URL's to be sent to criticalcss.com
+* bugfix: some EDD conditionals were empty in the dropdown
+* bugfix for notice "Argument #2 is not an array /wp-content/plugins/autoptimize-criticalcss/inc/core.php: 243"
 
 = 1.8.0 =
 
