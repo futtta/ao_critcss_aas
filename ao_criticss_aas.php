@@ -22,7 +22,7 @@ $ao_ccss_debug         = get_option('autoptimize_ccss_debug'        , FALSE);
 $ao_ccss_key           = get_option('autoptimize_ccss_key'          );
 $ao_ccss_keyst         = get_option('autoptimize_ccss_keyst'        );
 $ao_ccss_loggedin      = get_option('autoptimize_ccss_loggedin'     , TRUE );
-$ao_ccss_forcepath     = get_option('autoptimize_ccss_forcepath'    , FALSE );
+$ao_ccss_forcepath     = get_option('autoptimize_ccss_forcepath'    , TRUE );
 $ao_ccss_servicestatus = get_option('autoptimize_ccss_servicestatus');
 
 // Setup the rules array
