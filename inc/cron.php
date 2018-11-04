@@ -551,7 +551,7 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
       ao_ccss_log('criticalcss.com: POST generate request for path <' . $src_url . '> replied successfully', 3);
 
       // This code also means the key is valid, so cache key status for 24h if not already cached
-      if (!$key_status && $key) {
+      if ( ( !$key_status || $key_status != 2 ) && $key) {
         update_option('autoptimize_ccss_keyst', 2);
         ao_ccss_log('criticalcss.com: API key is valid, updating key status', 3);
       }
@@ -867,6 +867,12 @@ function ao_ccss_cleaning() {
     $ao_ccss_queue_raw = json_encode($ao_ccss_queue);
     update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw);
     ao_ccss_log('Queue cleaning done.', 3);
+  }
+
+  // re-check key if invalid
+  global $ao_ccss_keyst;
+  if ( $ao_ccss_keyst == 1 ) {
+    ao_ccss_api_generate('','','');
   }
 }
 
