@@ -679,7 +679,7 @@ function ao_ccss_save_file($ccss, $target, $review) {
 
   // Prepare target rule, filename and content
   $filename = FALSE;
-  $content  = stripslashes($ccss);
+  $content  = $ccss;
 
   // Sanitize content, set filename and try to save file
   if (ao_ccss_check_contents($content)) {
