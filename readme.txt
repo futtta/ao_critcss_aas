@@ -83,8 +83,10 @@ If the "ao_ccss_queue" job is there, but has a "next run" date in the past, ther
 
 = 1.10.0 =
 
-* create path-based rules for pages by default
-* recheck invalid API key during the daily maintenance to avoid it getting stuck
+* improvement: create path-based rules for pages by default
+* bugfix: recheck invalid API key during the daily maintenance to avoid it getting stuck
+* bugfix: don't strip slashes in generated CCSS
+* update to latest version of the "persist admin notice dismissal" framework library
 
 = 1.9.0 =
 
