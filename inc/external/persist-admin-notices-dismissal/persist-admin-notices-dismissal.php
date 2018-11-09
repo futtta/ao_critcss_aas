@@ -100,7 +100,6 @@ if ( ! class_exists( 'PAnD' ) ) {
 		 * @return bool
 		 */
 		public static function is_admin_notice_active( $arg ) {
-                        error_log(debug_backtrace(2,1)[0]['file']);
 			$array       = explode( '-', $arg );
 			$length      = array_pop( $array );
 			$option_name = implode( '-', $array );
