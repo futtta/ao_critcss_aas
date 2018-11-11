@@ -4,7 +4,7 @@ Plugin Name: Autoptimize CriticalCSS.com Power-Up
 Plugin URI: http://optimizingmatters.com/
 Description: Let Autoptimize and CriticalCSS unleash your site performance and make it appear better than anyone in search results.
 Author: Deny Dias & Optimizing Matters
-Version: 1.10.0
+Version: 1.10.1
 Text Domain: autoptimize
 */
 
