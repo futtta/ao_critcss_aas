@@ -418,6 +418,9 @@ function ao_ccss_key_validation($key) {
     if (!empty($body)) {
       ao_ccss_log(print_r($body, TRUE), 2);
     }
+    if ( is_wp_error($req) ) {
+      ao_ccss_log( $req->get_error_message(), 2);
+    }
     return FALSE;
   }
 }
