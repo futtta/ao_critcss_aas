@@ -192,20 +192,25 @@ register_activation_hook(__FILE__, 'ao_ccss_activation');
 // Perform plugin deactivation tasks
 function ao_ccss_deactivation() {
 
-  // Delete options
+  /* Delete options
+   *
+   * Only delete "transient" options, to allow users to deactivate
+   * and re-activate the plugin and not loose important settings
+   */
+
   delete_option('autoptimize_ccss_rules');
-  delete_option('autoptimize_ccss_additional');
+  // delete_option('autoptimize_ccss_additional');
   delete_option('autoptimize_ccss_queue');
   delete_option('autoptimize_ccss_viewport');
-  delete_option('autoptimize_ccss_finclude');
-  delete_option('autoptimize_ccss_rlimit');
-  delete_option('autoptimize_ccss_noptimize');
+  // delete_option('autoptimize_ccss_finclude');
+  // delete_option('autoptimize_ccss_rlimit');
+  // delete_option('autoptimize_ccss_noptimize');
   delete_option('autoptimize_ccss_debug');
-  delete_option('autoptimize_ccss_key');
+  // delete_option('autoptimize_ccss_key');
   delete_option('autoptimize_ccss_keyst');
   delete_option('autoptimize_ccss_version');
-  delete_option('autoptimize_ccss_loggedin');
-  delete_option('autoptimize_ccss_forcepath');
+  // delete_option('autoptimize_ccss_loggedin');
+  // delete_option('autoptimize_ccss_forcepath');
   delete_option('autoptimize_ccss_servicestatus');
 
   // Remove scheduled events
