@@ -2,8 +2,8 @@
 Contributors: futtta, denydias
 Tags: autoptimize, critical css, above-the-fold, render-blocking css
 Requires at least: 4.9
-Tested up to: 4.9
-Stable tag: 1.10.1
+Tested up to: 5.0
+Stable tag: 1.11.0
 
 Autoptimize criticalcss.com power-up adds automated critical css creation to Autoptimize integrating with the https://criticalcss.com service.
 
@@ -80,6 +80,12 @@ If the "ao_ccss_queue" job is not there, you'll have to de- and re-activate the 
 If the "ao_ccss_queue" job is there, but has a "next run" date in the past, there is an issue with your site/ hosters WordPress cron and you will have to contact your hoster. Some hosters' info on the topic: [WP Engine](https://wpengine.com/support/wp-cron-wordpress-scheduling/), [BlueHost](https://my.bluehost.com/hosting/help/411), [HostGator](https://support.hostgator.com/articles/how-to-replace-wordpress-cron-with-a-real-cron-job) and [SiteGround](https://www.siteground.com/tutorials/wordpress/real-cron-job/).
 
 == Changelog ==
+
+= 1.11.0 =
+
+* keep API key and some other key (non-transient) settings when plugin is deactivated
+* improve "force include" copy + set max-size on that input field
+* add extra info (wp_error) to debug log if key check does not succeed
 
 = 1.10.1 =
 
