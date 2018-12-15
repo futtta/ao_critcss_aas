@@ -10,6 +10,11 @@ if ($ao_css_defer) {
   // Add the filter to enqueue jobs for CriticalCSS cron
   add_filter('autoptimize_action_css_hash', 'ao_ccss_enqueue', 10, 2);
 
+  // conditionally add the filter to defer jquery and others.
+  if ( $ao_ccss_deferjquery && get_option('autoptimize_js_include_inline') != 'on' ) {
+    add_filter( 'autoptimize_html_after_minify', 'ao_ccss_defer_jquery', 11, 1 );
+  }
+
   // Order paths by length, as longest ones have greater priority in the rules
   if (!empty($ao_ccss_rules['paths'])) {
     $keys = array_map('strlen', array_keys($ao_ccss_rules['paths']));
@@ -120,6 +125,24 @@ function ao_ccss_frontend($inlined) {
     add_filter('autoptimize_filter_css_inline', '__return_true');
     return;
   }
+}
+
+// try to defer all JS (main goal being jquery.js as AO by default does not aggregate that)
+function ao_ccss_defer_jquery( $in ) {
+	if ( preg_match_all( '#<script.*>(.*)</script>#Usmi', $in, $matches, PREG_SET_ORDER ) ) {
+    foreach( $matches as $match ) {
+      if ( $match[1] !== '' && ( strpos( $match[1], 'jQuery' ) !== false || strpos( $match[1], '$' ) !== false ) ) {
+        // inline js that requires jquery, wrap deferring JS around it to defer it.
+        $new_match = 'var aoDeferInlineJQuery=function(){'.$match[1].'}; if (document.readyState === "loading") {document.addEventListener("DOMContentLoaded", aoDeferInlineJQuery);} else {aoDeferInlineJQuery();}';
+        $in = str_replace( $match[1], $new_match, $in );
+      } else if ( $match[1] === '' && strpos( $match[0], 'src=' ) !== false && strpos( $match[0], 'defer' ) === false ) {
+        // linked non-aggregated JS, defer it.
+        $new_match = str_replace( '<script ', '<script defer ', $match[0] );
+        $in = str_replace( $match[0], $new_match, $in );
+      }
+		}
+	}
+  return $in;
 }
 
 // Extend contidional tags

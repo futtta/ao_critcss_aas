@@ -12,6 +12,7 @@ function ao_ccss_render_adv() {
   global $ao_ccss_noptimize;
   global $ao_ccss_loggedin;
   global $ao_ccss_forcepath;
+  global $ao_ccss_deferjquery;
 
   // Get viewport size
   $viewport = ao_ccss_viewport();
@@ -89,6 +90,17 @@ function ao_ccss_render_adv() {
               <input type="checkbox" id="autoptimize_ccss_forcepath" name="autoptimize_ccss_forcepath" value="1" <?php checked(1 == $ao_ccss_forcepath); ?>>
               <p class="notes">
                 <?php _e('By default one rule is created per type of page, which keeps the number of rules lean ensuring great performance. You can forcefully switch this to path-based rule generation for pages here, but do take into account this might generate a lot of rules which might impact the "time to first byte" for uncached pages.', 'autoptimize'); ?>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <?php _e('Defer jQuery and other non-aggregated JS-files?', 'autoptimize'); ?>
+            </th>
+            <td>
+              <input type="checkbox" id="autoptimize_ccss_deferjquery" name="autoptimize_ccss_deferjquery" value="1" <?php checked(1 == $ao_ccss_deferjquery); ?>>
+              <p class="notes">
+                <?php _e('Defer all non-aggregated JS, including jQuery and inline JS to fix remaining render-blocking issues. Make sure to test your site thoroughly when activating this option!', 'autoptimize'); ?>
               </p>
             </td>
           </tr>
