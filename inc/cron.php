@@ -586,6 +586,10 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
     // Log failed request with no response and return false
     } else {
       ao_ccss_log('criticalcss.com: POST generate request for path <' . $src_url . '> has no response, this could be a service timeout', 2);
+      if ( is_wp_error($req) ) {
+        ao_ccss_log( $req->get_error_message(), 2);
+      }
+
       return FALSE;
     }
   }
