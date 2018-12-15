@@ -841,6 +841,11 @@ function ao_ccss_cleaning() {
   if (file_exists(AO_CCSS_LOCK)) {
     unlink(AO_CCSS_LOCK);
   }
+
+  // Make sure queue processing is scheduled, recreate if not.
+  if ( !wp_next_scheduled( 'ao_ccss_queue' ) ) {
+    wp_schedule_event( time(), 'ao_ccss', 'ao_ccss_queue' );
+  }
   
   // Queue cleaning.
   global $ao_ccss_queue;
