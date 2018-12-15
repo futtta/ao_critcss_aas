@@ -844,7 +844,7 @@ function ao_ccss_cleaning() {
 
   // Make sure queue processing is scheduled, recreate if not.
   if ( !wp_next_scheduled( 'ao_ccss_queue' ) ) {
-    wp_schedule_event( time(), 'ao_ccss', 'ao_ccss_queue' );
+    wp_schedule_event( time(), apply_filters( 'ao_ccss_queue_schedule', 'ao_ccss'), 'ao_ccss_queue' );
   }
   
   // Queue cleaning.

@@ -177,7 +177,7 @@ function ao_ccss_activation() {
 
   // Create a scheduled event for the queue
   if (!wp_next_scheduled('ao_ccss_queue')) {
-    wp_schedule_event(time(), 'ao_ccss', 'ao_ccss_queue');
+    wp_schedule_event(time(), apply_filters( 'ao_ccss_queue_schedule', 'ao_ccss'), 'ao_ccss_queue' );
   }
 
   // Create a scheduled event for log maintenance
