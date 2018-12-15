@@ -88,7 +88,8 @@ Try enabling the advanced "Defer jQuery and other non-aggregated JS-files?"-opti
 = 1.12.0 =
 
 * new: advanced option (default off) to defer non-autoptimized JS (linked and inline).
-* improvement: in maintenance job check if 'ao_ccss_queue' is scheduled and schedule if not.
+* improvement: in maintenance job check if `ao_ccss_queue` is scheduled and schedule if not.
+* improvement: added filter (`ao_ccss_queue_schedule`) to allow (power-)users to change the scheduling of the queue processing job.
 
 = 1.11.0 =
 
