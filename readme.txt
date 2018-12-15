@@ -3,7 +3,7 @@ Contributors: futtta, denydias
 Tags: autoptimize, critical css, above-the-fold, render-blocking css
 Requires at least: 4.9
 Tested up to: 5.0
-Stable tag: 1.11.0
+Stable tag: 1.12.0
 
 Autoptimize criticalcss.com power-up adds automated critical css creation to Autoptimize integrating with the https://criticalcss.com service.
 
@@ -79,7 +79,16 @@ If the "ao_ccss_queue" job is not there, you'll have to de- and re-activate the 
 
 If the "ao_ccss_queue" job is there, but has a "next run" date in the past, there is an issue with your site/ hosters WordPress cron and you will have to contact your hoster. Some hosters' info on the topic: [WP Engine](https://wpengine.com/support/wp-cron-wordpress-scheduling/), [BlueHost](https://my.bluehost.com/hosting/help/411), [HostGator](https://support.hostgator.com/articles/how-to-replace-wordpress-cron-with-a-real-cron-job) and [SiteGround](https://www.siteground.com/tutorials/wordpress/real-cron-job/).
 
+= jquery.js is still singled out as render blocking, what can I do? =
+
+Try enabling the advanced "Defer jQuery and other non-aggregated JS-files?"-option (introduced in AO CCSS 1.12.0). This will also wrap inline JS that depends on jQuery in a function for it to be executed late as well. Test your site thoroughly after enabling this option and disable it if anything breaks!
+
 == Changelog ==
+
+= 1.12.0 =
+
+* new: advanced option (default off) to defer non-autoptimized JS (linked and inline).
+* improvement: in maintenance job check if 'ao_ccss_queue' is scheduled and schedule if not.
 
 = 1.11.0 =
 
