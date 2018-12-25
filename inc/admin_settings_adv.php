@@ -84,12 +84,12 @@ function ao_ccss_render_adv() {
           </tr>
           <tr>
             <th scope="row">
-              <?php _e('Force path-based rules to be generated?', 'autoptimize'); ?>
+              <?php _e('Force path-based rules to be generated for pages?', 'autoptimize'); ?>
             </th>
             <td>
               <input type="checkbox" id="autoptimize_ccss_forcepath" name="autoptimize_ccss_forcepath" value="1" <?php checked(1 == $ao_ccss_forcepath); ?>>
               <p class="notes">
-                <?php _e('By default one rule is created per type of page, which keeps the number of rules lean ensuring great performance. You can forcefully switch this to path-based rule generation for pages here, but do take into account this might generate a lot of rules which might impact the "time to first byte" for uncached pages.', 'autoptimize'); ?>
+                <?php _e('By default for each page a separate rule is generated. If your pages have (semi-)identical above the fold look and feel and you want to keep the rules lean, you can disable that so one rule is created to all pages.', 'autoptimize'); ?>
               </p>
             </td>
           </tr>
