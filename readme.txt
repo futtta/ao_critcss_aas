@@ -3,7 +3,7 @@ Contributors: futtta, denydias
 Tags: autoptimize, critical css, above-the-fold, render-blocking css
 Requires at least: 4.9
 Tested up to: 5.0
-Stable tag: 1.12.0
+Stable tag: 1.13.0
 
 Autoptimize criticalcss.com power-up adds automated critical css creation to Autoptimize integrating with the https://criticalcss.com service.
 
@@ -83,7 +83,18 @@ If the "ao_ccss_queue" job is there, but has a "next run" date in the past, ther
 
 Try enabling the advanced "Defer jQuery and other non-aggregated JS-files?"-option (introduced in AO CCSS 1.12.0). This will also wrap inline JS that depends on jQuery in a function for it to be executed late as well. Test your site thoroughly after enabling this option and disable it if anything breaks!
 
+= When I clone my site to a new environment or on a domain mapped multi-site environment the queue does not get processed any more? =
+
+As of AO CCSS 1.13.0 the plugin binds itself to a domain to avoid unexpected requests from cloned sites. You can either deactivate and reactivate the plugin to reset the "bound domain" or you can pass `false` to the `autoptimize_filter_ccss_bind_domain` filter to disable the domain binding.
+
 == Changelog ==
+
+= 1.13.0 =
+
+* improvement: make sure the front-page only gets critical CSS from the is_front_page and not e.g. is_page
+* improvement: automatically bind plugin activity to a domain to avoid site clones start making requests
+* bugfix: if the default CCSS contained double quotes it broke both the CCSS when injected and the settings page, thanks to Baris for identifying the problem!
+* copy improvement for path-based rules.
 
 = 1.12.0 =
 
