@@ -70,11 +70,21 @@ function ao_ccss_frontend($inlined) {
     if (!empty($ao_ccss_rules['types']) && $no_ccss !== "none") {
       // order types-rules by the order of the original $ao_ccss_types array so as not to depend on the order in which rules were added.
       $ao_ccss_rules['types'] = array_replace(array_intersect_key( array_flip($ao_ccss_types), $ao_ccss_rules['types'] ),$ao_ccss_rules['types']);
+      $is_front_page = is_front_page();
 
       foreach ($ao_ccss_rules['types'] as $type => $rule) {
         if (in_array($type, $ao_ccss_types) && file_exists(AO_CCSS_DIR . $rule['file'])) {
           $_ccss_contents = file_get_contents(AO_CCSS_DIR . $rule['file']);
-          if (strpos($type, 'custom_post_') === 0) {
+          if ( $is_front_page && $type == 'is_front_page' ) {
+            if ($_ccss_contents != "none") {
+              if ($ao_ccss_debug) {
+                $_ccss_contents = '/* TYPES: '.$type.' hash: '.$rule['hash'].' file: '.$rule['file'].' */ ' . $_ccss_contents;
+              }
+              return apply_filters('autoptimize_filter_ccss_core_ccss', $_ccss_contents . $ao_ccss_additional);
+            } else {
+              $no_ccss = "none";
+            }
+          } else if (strpos($type, 'custom_post_') === 0 && ! $is_front_page ) {
             if (get_post_type(get_the_ID()) === substr($type, 12)) {
               if ($_ccss_contents != "none") {
                 if ($ao_ccss_debug) {
@@ -85,7 +95,7 @@ function ao_ccss_frontend($inlined) {
                 $no_ccss = "none";
               }
             }
-          } elseif (strpos($type, 'template_') === 0) {
+          } elseif (strpos($type, 'template_') === 0 && ! $is_front_page ) {
             if (is_page_template(substr($type, 9))) {
               if ($_ccss_contents != "none") {
                 if ($ao_ccss_debug) {
@@ -96,7 +106,7 @@ function ao_ccss_frontend($inlined) {
                 $no_ccss = "none";
               }
             }
-          } else {
+          } else if ( ! $is_front_page ) {
             // all "normal" conditional tags, core + woo + buddypress + edd + bbpress
             // but we have to remove the prefix for the non-core ones for them to function.
             $type = str_replace(array('woo_','bp_','bbp_','edd_'),'',$type);
