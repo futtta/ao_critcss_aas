@@ -25,6 +25,7 @@ $ao_ccss_loggedin      = get_option('autoptimize_ccss_loggedin'     , TRUE );
 $ao_ccss_forcepath     = get_option('autoptimize_ccss_forcepath'    , TRUE );
 $ao_ccss_servicestatus = get_option('autoptimize_ccss_servicestatus');
 $ao_ccss_deferjquery   = get_option('autoptimize_ccss_deferjquery'  , FALSE);
+$ao_ccss_domain        = get_option('autoptimize_ccss_domain'       );
 
 // Setup the rules array
 if (empty($ao_ccss_rules_raw)) {
@@ -174,7 +175,8 @@ function ao_ccss_activation() {
   add_option('autoptimize_ccss_loggedin'   , '', '', 'no');
   add_option('autoptimize_ccss_forcepath'  , '', '', 'no');
   add_option('autoptimize_ccss_deferjquery', '', '', 'no');
-
+  add_option('autoptimize_ccss_domain'     , '', '', 'no');
+  
   // Create a scheduled event for the queue
   if (!wp_next_scheduled('ao_ccss_queue')) {
     wp_schedule_event(time(), apply_filters( 'ao_ccss_queue_schedule', 'ao_ccss'), 'ao_ccss_queue' );
@@ -216,6 +218,7 @@ function ao_ccss_deactivation() {
   // delete_option('autoptimize_ccss_forcepath');
   delete_option('autoptimize_ccss_servicestatus');
   // delete_option('autoptimize_ccss_deferjquery');
+  delete_option('autoptimize_ccss_domain');
 
   // Remove scheduled events
   wp_clear_scheduled_hook('ao_ccss_queue');
