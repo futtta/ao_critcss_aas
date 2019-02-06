@@ -492,6 +492,7 @@ function ao_ccss_check_contents($ccss) {
     $blacklist = array("#!", "function(", "<script", "<?php");
     foreach ($blacklist as $blacklisted) {
       if (strpos($ccss, $blacklisted) !== FALSE) {
+        ao_ccss_log('Critical CSS received contained blacklisted content.', 2);
         return FALSE;
       }
     }
@@ -500,6 +501,7 @@ function ao_ccss_check_contents($ccss) {
     $pinklist = array("{", "}", ":");
     foreach ($pinklist as $needed) {
       if (strpos($ccss, $needed) === FALSE && $ccss !== "none") {
+        ao_ccss_log('Critical CSS received did not seem to contain real CSS.', 2);
         return FALSE;
       }
     }
