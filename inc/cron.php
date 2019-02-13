@@ -494,7 +494,7 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
   if ( empty( $ao_ccss_domain ) ) {
     // first request being done, update option to allow future requests are only allowed if from same domain.
     update_option( 'autoptimize_ccss_domain', $site_host );
-  } else if ( $site_host !== $ao_ccss_domain && apply_filters( 'autoptimize_filter_ccss_bind_domain', true ) ) {
+  } else if ( parse_url( $site_host, PHP_URL_HOST ) !== parse_url( $ao_ccss_domain, PHP_URL_HOST ) && apply_filters( 'autoptimize_filter_ccss_bind_domain', true ) ) {
     // not the same domain, log as error and return without posting to criticalcss.com.
     ao_ccss_log( 'Request for domain '.$site_host.' does not match bound domain '.$ao_ccss_domain.' so not proceeding.', 2 );
     return FALSE;
@@ -710,7 +710,11 @@ function ao_ccss_save_file($ccss, $target, $review) {
     if (!$status) {
       ao_ccss_log('Critical CSS file <' . $filename . '> could not be not saved', 2);
       $filename = FALSE;
+      return $filename;
     }
+  } else {
+    ao_ccss_log('Critical CSS received did not pass content check', 2);
+    return $filename;
   }
 
   // Remove old critical CSS if a previous one existed in the rule and if that file exists in filesystem
