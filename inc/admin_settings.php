@@ -171,6 +171,7 @@ function ao_ccss_settings() {
           echo '<input class="hidden" name="autoptimize_ccss_noptimize" value="' . $ao_ccss_noptimize . '">';
           echo '<input class="hidden" name="autoptimize_css_defer_inline" value="' . esc_attr( $ao_css_defer_inline ) . '">';
           echo '<input class="hidden" name="autoptimize_ccss_loggedin" value="' . $ao_ccss_loggedin . '">';
+          echo '<input class="hidden" name="autoptimize_ccss_forcepath" value="' . $ao_ccss_forcepath . '">';
         }
 
         // Render key panel unconditionally
