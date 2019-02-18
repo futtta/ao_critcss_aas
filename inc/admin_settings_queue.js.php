@@ -156,7 +156,7 @@ function retryJob(queue, jid, jpath) {
         queue[jpath].jvstat = null;
         queue[jpath].jctime = (new Date).getTime() / 1000;
         queue[jpath].jftime = null;
-        updateQueue();
+        updateQueue(queue);
         jQuery(this).dialog('close');
       },
       <?php _e("Cancel", "autoptimize") ?>: function() {
