@@ -22,6 +22,7 @@ function ao_ccss_settings() {
   global $ao_ccss_key;
   global $ao_ccss_loggedin;
   global $ao_ccss_servicestatus;
+  global $ao_ccss_forcepath;
 
   ?>
   <div class="wrap">
