@@ -125,8 +125,7 @@ function ao_ccss_settings() {
         ?></p></div><?php
       } else if ( $_warn_cron != "on" && !ao_ccss_has_autorules() ) {
         ?><div class="notice-success notice"><p><?php
-        // fixme: have good copy here to confirm all is well.
-        _e('Thanks, all is peachy!', 'autoptimize');
+        _e('Great, Autoptimize will now automatically start creating new critical CSS rules, you should see those appearing below in the next couple of hours.', 'autoptimize');
         ?></p></div><?php
       }
 
