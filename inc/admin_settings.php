@@ -20,6 +20,7 @@ function ao_ccss_settings() {
   global $ao_ccss_noptimize;
   global $ao_ccss_debug;
   global $ao_ccss_key;
+  global $ao_ccss_keyst;
   global $ao_ccss_loggedin;
   global $ao_ccss_servicestatus;
   global $ao_ccss_forcepath;
@@ -123,7 +124,7 @@ function ao_ccss_settings() {
         ?><div data-dismissible="i-know-about-cron-1" class="notice-warning notice is-dismissible"><p><?php
         _e('It looks like there might be a problem with WordPress cron (task scheduling). Have a look at <a href="https://wordpress.org/plugins/autoptimize-criticalcss/faq/" target="_blank">the FAQ</a> or the info in the Job Queue instructions if all jobs remain in "N" status and no rules are created.', 'autoptimize');
         ?></p></div><?php
-      } else if ( $_warn_cron != "on" && !ao_ccss_has_autorules() ) {
+      } else if ( $ao_ccss_keyst == 2 && $_warn_cron != "on" && !ao_ccss_has_autorules() ) {
         ?><div class="notice-success notice"><p><?php
         _e('Great, Autoptimize will now automatically start creating new critical CSS rules, you should see those appearing below in the next couple of hours.', 'autoptimize');
         ?></p></div><?php
