@@ -439,7 +439,7 @@ function ao_ccss_key_validation($key) {
     global $ao_ccss_queue;
     global $ao_ccss_rules;
 
-    if ( count( $ao_ccss_queue ) == 0 && count( $ao_ccss_rules ) == 0 ) {
+    if ( count( $ao_ccss_queue ) == 0 && count( $ao_ccss_rules['types'] ) == 0 && count( $ao_ccss_rules['paths'] ) == 0 ) {
       if ($body['job']['status'] == 'JOB_QUEUED' || $body['job']['status'] == 'JOB_ONGOING') {
         $jprops['ljid']     = 'firstrun';
         $jprops['rtarget']  = 'types|is_front_page';
@@ -456,7 +456,7 @@ function ao_ccss_key_validation($key) {
         $ao_ccss_queue['/'] = $jprops;
         $ao_ccss_queue_raw = json_encode($ao_ccss_queue);
         update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw);
-        ao_ccss_log('Created P job for is_front_page based on API key check response.', 2);
+        ao_ccss_log('Created P job for is_front_page based on API key check response.', 3);
       }
     }
 
