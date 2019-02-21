@@ -377,7 +377,7 @@ function ao_ccss_queue_control() {
       }
 
       // Break the loop if request limit is set and was reached
-      if ($ao_ccss_rlimit && $ao_ccss_rlimit == $jc) {
+      if ($ao_ccss_rlimit && $ao_ccss_rlimit == $jr) {
         ao_ccss_log('The limit of ' . $ao_ccss_rlimit . ' request(s) to criticalcss.com was reached, queue control must finish now', 3);
         break;
       }
