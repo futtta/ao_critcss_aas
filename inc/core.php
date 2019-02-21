@@ -433,6 +433,33 @@ function ao_ccss_key_validation($key) {
     // Set key status as valid and log key check
     update_option('autoptimize_ccss_keyst', 2);
     ao_ccss_log('criticalcss.com: API key is valid, updating key status', 3);
+
+    // extract job-id from $body and put it in the queue as a P job
+    // but only if no jobs and no rules!
+    global $ao_ccss_queue;
+    global $ao_ccss_rules;
+
+    if ( count( $ao_ccss_queue ) == 0 && count( $ao_ccss_rules ) == 0 ) {
+      if ($body['job']['status'] == 'JOB_QUEUED' || $body['job']['status'] == 'JOB_ONGOING') {
+        $jprops['ljid']     = 'firstrun';
+        $jprops['rtarget']  = 'types|is_front_page';
+        $jprops['ptype']    = 'is_front_page';
+        $jprops['hashes'][] = 'dummyhash';
+        $jprops['hash']     = 'dummyhash';
+        $jprops['file']     = null;
+        $jprops['jid']      = $body['job']['id'];
+        $jprops['jqstat']   = $body['job']['status'];
+        $jprops['jrstat']   = null;
+        $jprops['jvstat']   = null;
+        $jprops['jctime']   = microtime(TRUE);
+        $jprops['jftime']   = null;
+        $ao_ccss_queue['/'] = $jprops;
+        $ao_ccss_queue_raw = json_encode($ao_ccss_queue);
+        update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw);
+        ao_ccss_log('Created P job for is_front_page based on API key check response.', 2);
+      }
+    }
+
     return TRUE;
 
   // Response is unauthorized
