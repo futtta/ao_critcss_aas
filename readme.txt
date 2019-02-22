@@ -2,7 +2,7 @@
 Contributors: futtta, denydias
 Tags: autoptimize, critical css, above-the-fold, render-blocking css
 Requires at least: 4.9
-Tested up to: 5.0
+Tested up to: 5.1
 Stable tag: 1.14.0
 
 Autoptimize criticalcss.com power-up adds automated critical css creation to Autoptimize integrating with the https://criticalcss.com service.
