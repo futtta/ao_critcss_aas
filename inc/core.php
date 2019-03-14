@@ -516,7 +516,7 @@ function ao_ccss_check_contents($ccss) {
 
   if (!empty($ccss)) {
     // Try to avoid code injection
-    $blacklist = array("#!", "function(", "<script", "<?php");
+    $blacklist = array("#!/", "function(", "<script", "<?php");
     foreach ($blacklist as $blacklisted) {
       if (strpos($ccss, $blacklisted) !== FALSE) {
         ao_ccss_log('Critical CSS received contained blacklisted content.', 2);
