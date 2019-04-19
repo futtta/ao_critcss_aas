@@ -89,7 +89,7 @@ if (is_multisite()) {
 
 // Define support files locations
 define('AO_CCSS_LOCK',  AO_CCSS_DIR . 'queue.lock');
-define('AO_CCSS_LOG',   AO_CCSS_DIR . 'queue.log');
+define('AO_CCSS_LOG',   AO_CCSS_DIR . 'queuelog.html');
 define('AO_CCSS_DEBUG', AO_CCSS_DIR . 'queue.json');
 
 // Define constants for criticalcss.com base path and API endpoints
