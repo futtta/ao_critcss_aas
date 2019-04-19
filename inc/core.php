@@ -570,7 +570,7 @@ function ao_ccss_log($msg, $lvl) {
   if ($level) {
 
     // Prepare message
-    $message = date('c') . ' - [' . $level . '] ' . $msg . "\n";
+    $message = date('c') . ' - [' . $level . '] ' . $msg . "<br>";
 
     //Write message to log file
     error_log($message, 3,  AO_CCSS_LOG);
