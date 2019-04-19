@@ -502,9 +502,9 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
 
   $src_url = $site_host . $path;
 
-  // Avoid AO optimizations if required
-  if (!empty($ao_ccss_noptimize)) {
-    $src_url .= '?ao_noptimize=1';
+  // Avoid AO optimizations if required by config or if lazyload is active in AO
+  if (!empty($ao_ccss_noptimize) || ( class_exists('autoptimizeImages') && autoptimizeImages::should_lazyload_wrapper() ) ) {
+    $src_url .= '?ao_noptirocket=1';
   }
   $src_url = apply_filters( 'autoptimize_filter_ccss_cron_srcurl', $src_url );
 
