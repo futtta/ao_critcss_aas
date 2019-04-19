@@ -39,10 +39,11 @@ function ao_ccss_frontend($inlined) {
   global $ao_ccss_additional;
   global $ao_ccss_loggedin;
   global $ao_ccss_debug;
+  global $ao_ccss_keyst;
   $no_ccss = "";
 
-  // Only if user is not logged in or if option to add CCSS for logged on users is on.
-  if ( $ao_ccss_loggedin || ! is_user_logged_in() ) {
+  // Only if keystatus is OK and option to add CCSS for logged on users is on or user is not logged in
+  if ( ( $ao_ccss_keyst && $ao_ccss_keyst == 2 ) && ( $ao_ccss_loggedin || ! is_user_logged_in() ) ) {
     // Check for a valid CriticalCSS based on path to return its contents
     // NOTE: implements section 4, id 1.1 of the specs (for paths)
     $req_path = strtok(urldecode($_SERVER['REQUEST_URI']),'?');
