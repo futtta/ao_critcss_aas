@@ -9,7 +9,7 @@ Autoptimize criticalcss.com power-up adds automated critical css creation to Aut
 
 == Description ==
 
-This plugin extends Autoptimize to automatically create critical CSS rules. These rules inject the correct critical CSS in different types of pages to ensure these pages are rendered even before the full CSS is loaded, improving the "start to render time" and user experience. For this purpose the plugin integrates with __criticalcss.com__, a 3rd party service, to have it generate the critical CSS (see [FAQ for info on pricing](https://wordpress.org/plugins/autoptimize-criticalcss/#where%20do%20i%20get%20an%20api%20key%20from%3F)).
+This plugin extends Autoptimize to automatically create critical CSS rules. These rules inject the correct critical CSS in different types of pages to ensure these pages are rendered even before the full CSS is loaded, improving the "start to render time" and user experience. For this purpose the plugin integrates with __criticalcss.com__, a 3rd party service, to have it generate the critical CSS (see [FAQ for info on pricing](https://wordpress.org/plugins/autoptimize-criticalcss/#faq)).
 
 Simply install and activate the plugin (you will need to have Autoptimize up and running), enter your [https://criticalcss.com](https://criticalcss.com/?aff=1) API key and the plugin will automatically start work to create rules.
 
@@ -27,7 +27,7 @@ If you want to change settings or review the rules, you can find these by clicki
 
 == Frequently Asked Questions ==
 
-= Where do I get an API key from? =
+= Where do I get an API key from/ how is this priced? =
 
 Please sign up at [https://criticalcss.com](https://criticalcss.com/?aff=1) then go to [CriticalCSS.com API Keys](https://criticalcss.com/account/api-keys?aff=1). This is a premium service, so be sure to read the additional pricing information!
 
