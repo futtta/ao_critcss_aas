@@ -571,7 +571,7 @@ function ao_ccss_log($msg, $lvl) {
   if ($level) {
 
     // Prepare message
-    $message = date('c') . ' - [' . $level . '] ' . $msg . "<br>";
+    $message = date('c') . ' - [' . $level . '] ' . htmlentities($msg) . "<br>";
 
     //Write message to log file
     error_log($message, 3,  AO_CCSS_LOG);
