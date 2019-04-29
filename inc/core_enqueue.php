@@ -126,7 +126,6 @@ function ao_ccss_enqueue($hash) {
                                       NULL,
                                       NULL,
                                       NULL,
-                                      NULL,
                                       TRUE
                                     );
 
@@ -153,7 +152,7 @@ function ao_ccss_enqueue($hash) {
           }
 
         // Allow requeuing jobs that are not NEW, JOB_QUEUED or JOB_ONGOING
-        } elseif ($ao_ccss_queue[$req_path]['jqstat'] != 'NEW' || $ao_ccss_queue[$req_path]['jqstat'] != 'JOB_QUEUED' || $ao_ccss_queue[$req_path]['jqstat'] != 'JOB_ONGOING') {
+        } elseif ($ao_ccss_queue[$req_path]['jqstat'] != 'NEW' && $ao_ccss_queue[$req_path]['jqstat'] != 'JOB_QUEUED' && $ao_ccss_queue[$req_path]['jqstat'] != 'JOB_ONGOING') {
 
           // Merge new job keeping some previous job values
           $ao_ccss_queue[$req_path] = ao_ccss_define_job(
@@ -165,7 +164,6 @@ function ao_ccss_enqueue($hash) {
                                         $ao_ccss_queue[$req_path]['jid'],
                                         $ao_ccss_queue[$req_path]['jrstat'],
                                         $ao_ccss_queue[$req_path]['jvstat'],
-                                        $ao_ccss_queue[$req_path]['jqstat'],
                                         FALSE
                                       );
 
@@ -231,7 +229,7 @@ function ao_ccss_get_type() {
 }
 
 // Define a job entry to be created or updated
-function ao_ccss_define_job($path, $target, $type, $hash, $file, $jid, $jrstat, $jvstat, $jqstat = 'NEW', $create) {
+function ao_ccss_define_job($path, $target, $type, $hash, $file, $jid, $jrstat, $jvstat, $create) {
 
     // Define commom job properties
     $path            = array();
@@ -242,7 +240,7 @@ function ao_ccss_define_job($path, $target, $type, $hash, $file, $jid, $jrstat, 
     $path['hash']    = $hash;
     $path['file']    = $file;
     $path['jid']     = $jid;
-    $path['jqstat']  = $jqstat;
+    $path['jqstat']  = 'NEW';
     $path['jrstat']  = $jrstat;
     $path['jvstat']  = $jvstat;
     $path['jctime']  = microtime(TRUE);
