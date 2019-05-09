@@ -142,7 +142,7 @@ function ao_ccss_frontend($inlined) {
 function ao_ccss_defer_jquery( $in ) {
 	if ( preg_match_all( '#<script.*>(.*)</script>#Usmi', $in, $matches, PREG_SET_ORDER ) ) {
     foreach( $matches as $match ) {
-      if ( $match[1] !== '' && ( strpos( $match[1], 'jQuery' ) !== false || strpos( $match[1], '$' ) !== false ) ) {
+      if ( ( ! preg_match('/<script.* type\s?=.*>/', $match[0]) || preg_match( '/type\s*=\s*[\'"]?(?:text|application)\/(?:javascript|ecmascript)[\'"]?/i', $match[0] ) ) && $match[1] !== '' && ( strpos( $match[1], 'jQuery' ) !== false || strpos( $match[1], '$' ) !== false ) ) {
         // inline js that requires jquery, wrap deferring JS around it to defer it.
         $new_match = 'var aoDeferInlineJQuery=function(){'.$match[1].'}; if (document.readyState === "loading") {document.addEventListener("DOMContentLoaded", aoDeferInlineJQuery);} else {aoDeferInlineJQuery();}';
         $in = str_replace( $match[1], $new_match, $in );
