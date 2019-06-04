@@ -28,6 +28,7 @@ $ao_ccss_deferjquery   = get_option('autoptimize_ccss_deferjquery'  , FALSE);
 $ao_ccss_domain        = get_option('autoptimize_ccss_domain'       );
 
 // Setup the rules array
+global $ao_ccss_rules;
 if (empty($ao_ccss_rules_raw)) {
   $ao_ccss_rules['paths'] = [];
   $ao_ccss_rules['types'] = [];
@@ -36,6 +37,7 @@ if (empty($ao_ccss_rules_raw)) {
 }
 
 // Setup the queue array
+global $ao_ccss_queue;
 if (empty($ao_ccss_queue_raw)) {
   $ao_ccss_queue = [];
 } else {
