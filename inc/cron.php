@@ -639,14 +639,14 @@ function ao_ccss_api_results($jobid, $debug, $dcode) {
   if ($code == 200) {
 
     // Workaround criticalcss.com non-RESTful reponses
-    if ($body['status'] == 'JOB_QUEUED' || $body['status'] == 'JOB_ONGOING' || $body['status'] == 'JOB_DONE' || $body['status'] == 'JOB_FAILED' || $body['status'] == 'JOB_UNKNOWN' || $body['job']['status'] == 'STATUS_JOB_BAD') {
+    if ( is_array( $body ) && ( array_key_exists( 'status', $body ) || array_key_exists( 'job', $body ) ) && ( $body['status'] == 'JOB_QUEUED' || $body['status'] == 'JOB_ONGOING' || $body['status'] == 'JOB_DONE' || $body['status'] == 'JOB_FAILED' || $body['status'] == 'JOB_UNKNOWN' || $body['job']['status'] == 'STATUS_JOB_BAD') ) {
 
       // Log successful and return encoded request body
       ao_ccss_log('criticalcss.com: GET results request for remote job id <' . $jobid . '> replied successfully', 3);
       return $body;
 
     // Handle no CSS reply
-    } elseif ($body['error'] = 'This css no longer exists. Please re-generate it.'){
+    } elseif ( is_array( $body ) && ( array_key_exists( 'error', $body ) && $body['error'] = 'This css no longer exists. Please re-generate it.') ) {
 
       // Log no CSS error and return encoded request body
       ao_ccss_log('criticalcss.com: GET results request for remote job id <' . $jobid . '> replied successfully but the CSS for it does not exist anymore', 3);
