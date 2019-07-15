@@ -726,7 +726,7 @@ function ao_ccss_save_file($ccss, $target, $review) {
   $srule   = $ao_ccss_rules[$target[0]][$target[1]];
   $oldfile = $srule['file'];
 
-  if ($oldfile) {
+  if ($oldfile && $oldfile !== $filename) {
     $delfile = AO_CCSS_DIR . $oldfile;
     if (file_exists($delfile)) {
       $unlinkst = unlink($delfile);
