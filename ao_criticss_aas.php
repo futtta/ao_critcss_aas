@@ -163,8 +163,8 @@ function ao_ccss_activation() {
     mkdir(AO_CCSS_DIR, 0755);
   }
 
-  // Create options with empty values
-  add_option('autoptimize_ccss_rules'      , '', '', 'no');
+  // Don't create options with empty values, default values set by get_options at the very beginning.
+  /* add_option('autoptimize_ccss_rules'      , '', '', 'no');
   add_option('autoptimize_ccss_additional' , '', '', 'no');
   add_option('autoptimize_ccss_queue'      , '', '', 'no');
   add_option('autoptimize_ccss_viewport'   , '', '', 'no');
@@ -177,7 +177,7 @@ function ao_ccss_activation() {
   add_option('autoptimize_ccss_loggedin'   , '', '', 'no');
   add_option('autoptimize_ccss_forcepath'  , '', '', 'no');
   add_option('autoptimize_ccss_deferjquery', '', '', 'no');
-  add_option('autoptimize_ccss_domain'     , '', '', 'no');
+  add_option('autoptimize_ccss_domain'     , '', '', 'no'); */
   
   // Create a scheduled event for the queue
   if (!wp_next_scheduled('ao_ccss_queue')) {
