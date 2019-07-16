@@ -61,7 +61,7 @@ if ( is_admin() ) {
 }
 
 // Define plugin version
-define('AO_CCSS_VER', '1.15.2');
+define('AO_CCSS_VER', '1.16.0');
 
 // check for upgrade-logic
 $db_version = get_option('autoptimize_ccss_version','');

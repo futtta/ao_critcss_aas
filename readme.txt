@@ -3,7 +3,7 @@ Contributors: futtta, denydias
 Tags: autoptimize, critical css, above-the-fold, render-blocking css
 Requires at least: 4.9
 Tested up to: 5.1
-Stable tag: 1.15.2
+Stable tag: 1.16.0
 
 Autoptimize criticalcss.com power-up adds automated critical css creation to Autoptimize integrating with the https://criticalcss.com service.
 
@@ -96,11 +96,21 @@ As of AO CCSS 1.13.0 the plugin binds itself to a domain to avoid unexpected req
 
 == Changelog ==
 
+= 1.16.0 =
+
+* new: allow "bound domain" to be changed (advanced option)
+* improvement: improved default settings logic
+* improvement: checks to prevent some PHP notices
+* bugfix: prevent files with CCSS being removed even when still referenced in a rule
+* bugfix: make sure rules and queue objects are global variables, thanks for the fix Marius!
+* bugfix: fix defer-wrapping of non-javascript script tags (ld/json for example), thanks for reporting Kyla!
+
 = 1.15.2 =
 
 * bugfix to stop P (pending) jobs from being overwritten by N (new) ones, leading to rules being generated later or (in rare cases) not at all.
 
 = 1.15.1 =
+
 * tell class_exists not to autoload classes to avoid queue processing breaking down (thanks to Markus for reporting and helping identify the issue)
 
 = 1.15.0 =
