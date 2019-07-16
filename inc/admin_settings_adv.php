@@ -15,6 +15,11 @@ function ao_ccss_render_adv() {
   global $ao_ccss_deferjquery;
   global $ao_ccss_domain;
 
+  // In case domain is not set yet (done in cron.php).
+  if ( empty( $ao_ccss_domain ) ) {
+    $ao_ccss_domain = get_site_url();
+  }
+  
   // Get viewport size
   $viewport = ao_ccss_viewport();
 
