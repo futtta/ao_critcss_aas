@@ -13,6 +13,7 @@ function ao_ccss_render_adv() {
   global $ao_ccss_loggedin;
   global $ao_ccss_forcepath;
   global $ao_ccss_deferjquery;
+  global $ao_ccss_domain;
 
   // Get viewport size
   $viewport = ao_ccss_viewport();
@@ -104,6 +105,18 @@ function ao_ccss_render_adv() {
               </p>
             </td>
           </tr>
+          <tr>
+            <th scope="row">
+              <?php _e('Bound domain', 'autoptimize'); ?>
+            </th>
+            <td>
+              <input type="text" id="autoptimize_ccss_domain" name="autoptimize_ccss_domain" style="width:100%;" placeholder="<?php _e('Don\'t leave this empty, put e.g. https://example.net/ or simply \'none\' to disable domain binding.', 'autoptimize'); ?>" value="<?php echo trim($ao_ccss_domain); ?>">
+              <p class="notes">
+                <?php _e('Only requests from this domain will be sent for Critical CSS extraction (pricing is per domain/ month).', 'autoptimize'); ?>
+              </p>
+            </td>
+          </tr>
+          <tr>
           <tr>
             <th scope="row">
               <?php _e('Debug Mode', 'autoptimize'); ?>

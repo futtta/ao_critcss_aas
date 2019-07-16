@@ -120,6 +120,7 @@ function ao_ccss_settings_init() {
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_loggedin');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_forcepath');
   register_setting('ao_ccss_options_group', 'autoptimize_ccss_deferjquery');
+  register_setting('ao_ccss_options_group', 'autoptimize_ccss_domain');  
 
   // Check if Autoptimize is installed
   if (!is_plugin_active('autoptimize/autoptimize.php') && !is_plugin_active('autoptimize-beta/autoptimize.php')) {
