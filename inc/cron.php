@@ -183,6 +183,7 @@ function ao_ccss_queue_control() {
             $jprops['jvstat'] = 'NONE';
             $jprops['jftime'] = microtime(TRUE);
             ao_ccss_log('Job id <' . $jprops['ljid'] . '> generate request has an UNKNOWN condition, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
+            ao_ccss_log( 'Job response was: ' . json_encode( $apireq ), 2 );
           }
 
         // SUCCESS: Job hash is equal to a previous one, so it's done
@@ -288,6 +289,8 @@ function ao_ccss_queue_control() {
             $jprops['jvstat'] = $apireq['validationStatus'];
             $jprops['jftime'] = microtime(TRUE);
             ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful but job is UNKNOWN, status now is <' . $jprops['jqstat'] . '>', 2);
+            $apireq['css'] = '/* critical css removed for DEBUG logging purposes */';
+            ao_ccss_log( 'Job response was: ' . json_encode( $apireq ), 2 );
           }
 
         // ERROR: failed job
