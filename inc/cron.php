@@ -183,7 +183,7 @@ function ao_ccss_queue_control() {
             $jprops['jvstat'] = 'NONE';
             $jprops['jftime'] = microtime(TRUE);
             ao_ccss_log('Job id <' . $jprops['ljid'] . '> generate request has an UNKNOWN condition, status now is <' . $jprops['jqstat'] . '>, check log messages above for more information', 2);
-            ao_ccss_log( 'Job response was: ' . json_encode( $apireq ), 2 );
+            ao_ccss_log( 'Job response was: ' . json_encode( $apireq ), 3 );
           }
 
         // SUCCESS: Job hash is equal to a previous one, so it's done
@@ -259,7 +259,7 @@ function ao_ccss_queue_control() {
             ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful, remote id <' . $jprops['jid'] . '>, status <' . $jprops['jqstat'] . '>, file saved <' . $jprops['file'] . '>', 3);
 
           // SUCCESS: GOOD job with WARN or BAD validation
-          } elseif ($apireq['resultStatus'] == 'GOOD' && ($apireq['validationStatus'] == 'WARN' || $apireq['validationStatus'] == 'BAD')) {
+          } elseif ($apireq['resultStatus'] == 'GOOD' && ($apireq['validationStatus'] == 'WARN' || $apireq['validationStatus'] == 'BAD' || $apireq['validationStatus'] == 'SCREENSHOT_WARN_BLANK' )) {
 
             // Update job properties
             $jprops['file']   = ao_ccss_save_file($apireq['css'], $trule, TRUE);
@@ -271,7 +271,7 @@ function ao_ccss_queue_control() {
             ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful, remote id <' . $jprops['jid'] . '>, status <' . $jprops['jqstat'] . ', file saved <' . $jprops['file'] . '> but requires REVIEW', 3);
 
           // ERROR: no GOOD, WARN or BAD results
-          } elseif ($apireq['resultStatus'] != 'GOOD' && ($apireq['validationStatus'] != 'GOOD' || $apireq['validationStatus'] != 'WARN' || $apireq['validationStatus'] != 'BAD')) {
+          } elseif ($apireq['resultStatus'] != 'GOOD' && ($apireq['validationStatus'] != 'GOOD' || $apireq['validationStatus'] != 'WARN' || $apireq['validationStatus'] != 'BAD' || $apireq['validationStatus'] != 'SCREENSHOT_WARN_BLANK')) {
 
             // Update job properties
             $jprops['jqstat'] = $apireq['status'];
@@ -279,6 +279,8 @@ function ao_ccss_queue_control() {
             $jprops['jvstat'] = $apireq['validationStatus'];
             $jprops['jftime'] = microtime(TRUE);
             ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful but job FAILED, status now is <' . $jprops['jqstat'] . '>', 3);
+            $apireq['css'] = '/* critical css removed for DEBUG logging purposes */';
+            ao_ccss_log( 'Job response was: ' . json_encode( $apireq ), 3 );
 
           // UNKNOWN: unhandled JOB_DONE exception
           } else {
@@ -290,7 +292,7 @@ function ao_ccss_queue_control() {
             $jprops['jftime'] = microtime(TRUE);
             ao_ccss_log('Job id <' . $jprops['ljid'] . '> result request successful but job is UNKNOWN, status now is <' . $jprops['jqstat'] . '>', 2);
             $apireq['css'] = '/* critical css removed for DEBUG logging purposes */';
-            ao_ccss_log( 'Job response was: ' . json_encode( $apireq ), 2 );
+            ao_ccss_log( 'Job response was: ' . json_encode( $apireq ), 3 );
           }
 
         // ERROR: failed job
