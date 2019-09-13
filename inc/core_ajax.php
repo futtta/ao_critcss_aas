@@ -151,7 +151,6 @@ function ao_ccss_export_callback() {
   check_ajax_referer('ao_ccss_export_nonce', 'ao_ccss_export_nonce');
 
   if (!class_exists('ZipArchive')) {
-      error_log('no ziparchive present');
       $response['code'] = '500';
       $response['msg'] = 'PHP ZipArchive not present, cannot create zipfile';
       echo json_encode($response);
