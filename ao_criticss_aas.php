@@ -8,6 +8,27 @@ Version: 1.16.0
 Text Domain: autoptimize
 */
 
+// force vars to global.
+global $ao_css_defer;
+global $ao_css_defer_inline;
+global $ao_ccss_rules_raw;
+global $ao_ccss_additional;
+global $ao_ccss_queue_raw;
+global $ao_ccss_viewport;
+global $ao_ccss_finclude;
+global $ao_ccss_rlimit;
+global $ao_ccss_noptimize;
+global $ao_ccss_debug;
+global $ao_ccss_key;
+global $ao_ccss_keyst;
+global $ao_ccss_loggedin;
+global $ao_ccss_forcepath;
+global $ao_ccss_servicestatus;
+global $ao_ccss_deferjquery;
+global $ao_ccss_domain;
+global $ao_ccss_rules;
+global $ao_ccss_queue;
+
 // Get options
 $ao_css_defer          = get_option('autoptimize_css_defer'         , FALSE);
 $ao_css_defer_inline   = get_option('autoptimize_css_defer_inline'  );
@@ -28,7 +49,6 @@ $ao_ccss_deferjquery   = get_option('autoptimize_ccss_deferjquery'  , FALSE);
 $ao_ccss_domain        = get_option('autoptimize_ccss_domain'       );
 
 // Setup the rules array
-global $ao_ccss_rules;
 if (empty($ao_ccss_rules_raw)) {
   $ao_ccss_rules['paths'] = [];
   $ao_ccss_rules['types'] = [];
@@ -37,7 +57,6 @@ if (empty($ao_ccss_rules_raw)) {
 }
 
 // Setup the queue array
-global $ao_ccss_queue;
 if (empty($ao_ccss_queue_raw)) {
   $ao_ccss_queue = [];
 } else {
