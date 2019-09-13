@@ -22,7 +22,7 @@ If you want to change settings or review the rules, you can find these by clicki
 1. You will see a "Critical CSS"-tab in Autoptimize.
 1. Enter the API key from your [https://criticalcss.com](https://criticalcss.com/account/api-keys?aff=1) 
 1. (optional): create a default rule which can be used if no automated rule applies.
-1. (optional): create manual Path-based rules for specific pages to override automated rules. If you leave the critical CSS field of path-based rules empty, the plugin will automatically extract it.
+1. (optional): create manual Path-based rules for specific pages to override automated rules. If you leave the critical CSS field of path-based rules empty, the plugin will automatically generate it.
 1. To get critical CSS going, make sure there are requests coming in that are not served by a page cache
 
 == Frequently Asked Questions ==
@@ -184,7 +184,7 @@ As of AO CCSS 1.13.0 the plugin binds itself to a domain to avoid unexpected req
 
 = 1.6.0 =
 
-* new: (advanced) option to disable CCSS injection for logged on users (as the CCSS is always extracted from an anonymous visitor context, the CCSS might not apply for logged in users).
+* new: (advanced) option to disable CCSS injection for logged on users (as the CCSS is always geneated from an anonymous visitor context, the CCSS might not apply for logged in users).
 * improvement: warn when the job queue processing task is not getting triggered (due to WordPress cron issues).
 * improvement: also submit a request to criticalcss.com if a rule exists but the file containing the CCSS does not exist or is empty.
 * added info about cron issues to the FAQ.
