@@ -194,6 +194,7 @@ function ao_ccss_settings() {
         <input class="button-secondary" id="importSettings" type="button" value="<?php _e('Import Settings', 'autoptimize') ?>" onclick="upload();return false;" />
         <input class="button-secondary" id="settingsfile" name="settingsfile" type="file" />
       </form>
+      <div id="importdialog"></div>
     </div><!-- /#autoptimize_main -->
   </div><!-- /#wrap -->
 

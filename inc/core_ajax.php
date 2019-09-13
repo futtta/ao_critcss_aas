@@ -175,10 +175,10 @@ function ao_ccss_export_callback() {
   }
 
   // Prepare archive
-  $zipfile = AO_CCSS_DIR . date('Ymd') . '_ao_ccss_settings.zip';
+  $zipfile = AO_CCSS_DIR . date('Ymd-H\hi') . '_ao_ccss_settings.zip';
   $file    = pathinfo($zipfile, PATHINFO_BASENAME);
   $zip     = new ZipArchive();
-  $ret     = $zip->open($zipfile, ZipArchive::OVERWRITE);
+  $ret     = $zip->open($zipfile, ZipArchive::CREATE);
   if ($ret !== TRUE) {
     $error = TRUE;
   } else {

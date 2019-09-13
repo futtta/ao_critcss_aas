@@ -9,7 +9,27 @@ function exportSettings(idToEdit) {
   jQuery.post(ajaxurl, data, function(response) {
     response_array=JSON.parse(response);
     if (response_array['code'] == 200) {
-      window.location.href = '<?php echo content_url(); ?>/cache/ao_ccss/' + response_array['file'];
+      <?php
+        if (is_multisite()) {
+          $blog_id = '/' . get_current_blog_id() .'/';
+        } else {
+          $blog_id = '/';
+        }
+      ?>
+      export_url = '<?php echo content_url(); ?>/uploads/ao_ccss' + <?php echo $blog_id; ?> + response_array['file'];
+      jQuery("#importdialog").html("Download export-file from: <a href=\"" + export_url + "\" target=\"_blank\">"+ export_url + "</a>");
+      jQuery("#importdialog").dialog({
+        autoOpen: true,
+        height: 150,
+        width: 700,
+        title: "<?php _e("Export succesfull", "autoptimize"); ?>",
+        modal: true,
+        buttons: {
+          OK: function() {
+            jQuery( this ).dialog( "close" );
+          }
+        }
+        });
     }
   });
 }
