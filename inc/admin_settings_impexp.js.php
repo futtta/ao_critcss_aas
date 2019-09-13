@@ -16,21 +16,24 @@ function exportSettings(idToEdit) {
           $blog_id = '/';
         }
       ?>
-      export_url = '<?php echo content_url(); ?>/uploads/ao_ccss' + <?php echo $blog_id; ?> + response_array['file'];
-      jQuery("#importdialog").html("Download export-file from: <a href=\"" + export_url + "\" target=\"_blank\">"+ export_url + "</a>");
-      jQuery("#importdialog").dialog({
-        autoOpen: true,
-        height: 150,
-        width: 700,
-        title: "<?php _e("Export succesfull", "autoptimize"); ?>",
-        modal: true,
-        buttons: {
-          OK: function() {
-            jQuery( this ).dialog( "close" );
-          }
-        }
-        });
+      export_url = '<?php echo content_url(); ?>/uploads/ao_ccss' + '<?php echo $blog_id; ?>' + response_array['file'];
+      msg = "Download export-file from: <a href=\"" + export_url + "\" target=\"_blank\">"+ export_url + "</a>";
+    } else {
+      msg = response_array['msg'];
     }
+    jQuery("#importdialog").html(msg);
+    jQuery("#importdialog").dialog({
+      autoOpen: true,
+      height: 150,
+      width: 700,
+      title: "<?php _e("Export settings result", "autoptimize"); ?>",
+      modal: true,
+      buttons: {
+        OK: function() {
+          jQuery( this ).dialog( "close" );
+        }
+      }
+      });
   });
 }
 

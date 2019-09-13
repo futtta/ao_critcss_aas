@@ -150,6 +150,14 @@ function ao_ccss_export_callback() {
   // Check referer
   check_ajax_referer('ao_ccss_export_nonce', 'ao_ccss_export_nonce');
 
+  if (!class_exists('ZipArchive')) {
+      error_log('no ziparchive present');
+      $response['code'] = '500';
+      $response['msg'] = 'PHP ZipArchive not present, cannot create zipfile';
+      echo json_encode($response);
+      wp_die();
+  }
+
   // Init array, get options and prepare the raw object
   $settings               = array();
   $settings['rules']      = get_option('autoptimize_ccss_rules');
