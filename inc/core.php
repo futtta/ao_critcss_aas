@@ -11,7 +11,7 @@ if ($ao_css_defer) {
   add_filter('autoptimize_action_css_hash', 'ao_ccss_enqueue', 10, 2);
 
   // conditionally add the filter to defer jquery and others.
-  if ( $ao_ccss_deferjquery ) {
+  if ( $ao_ccss_deferjquery && ( ! is_user_logged_in() || $ao_ccss_loggedin ) ) {
     add_filter( 'autoptimize_html_after_minify', 'ao_ccss_defer_jquery', 11, 1 );
   }
 
