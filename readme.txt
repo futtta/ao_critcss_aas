@@ -2,8 +2,8 @@
 Contributors: futtta, denydias
 Tags: autoptimize, critical css, above-the-fold, render-blocking css
 Requires at least: 4.9
-Tested up to: 5.1
-Stable tag: 1.16.0
+Tested up to: 5.2
+Stable tag: 1.17.0
 
 Autoptimize criticalcss.com power-up adds automated critical css creation to Autoptimize integrating with the https://criticalcss.com service.
 
@@ -95,6 +95,15 @@ Some tips:
 As of AO CCSS 1.13.0 the plugin binds itself to a domain to avoid unexpected requests from cloned sites. You can either deactivate and reactivate the plugin to reset the "bound domain" or you can pass `false` to the `autoptimize_filter_ccss_bind_domain` filter to disable the domain binding.
 
 == Changelog ==
+
+= 1.17.0 =
+
+* Probably the last version before the merge into Autoptimize proper!
+* improvement: also save CCSS if validation was not succesfull due to blank screenshot (SCREENSHOT_WARN_BLANK)
+* improvement: jQuery deferring should also happen when "aggregate inlne JS" is on but should not happen for logged on users when AO CCSS is not returne for logged on users either.
+* bugfix: export didn't work + usability improvements (requires ZipArchive class to be available in PHP)
+* bugfix: creation of AO CCSS cache directory failed in multisite context
+* misc. smaller improveent
 
 = 1.16.0 =
 
