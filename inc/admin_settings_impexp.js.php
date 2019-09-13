@@ -24,7 +24,7 @@ function exportSettings(idToEdit) {
     jQuery("#importdialog").html(msg);
     jQuery("#importdialog").dialog({
       autoOpen: true,
-      height: 150,
+      height: 210,
       width: 700,
       title: "<?php _e("Export settings result", "autoptimize"); ?>",
       modal: true,
