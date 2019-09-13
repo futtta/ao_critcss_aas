@@ -180,7 +180,7 @@ add_filter('autoptimize_filter_settingsscreen_tabs', 'ao_ccss_add_tab');
 function ao_ccss_activation() {
   // Create the cache directory if it doesn't exist already
   if(!file_exists(AO_CCSS_DIR)) {
-    mkdir(AO_CCSS_DIR, 0755);
+    mkdir(AO_CCSS_DIR, 0755, true);
   }
 
   // Don't create options with empty values, default values set by get_options at the very beginning.
