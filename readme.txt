@@ -3,7 +3,7 @@ Contributors: futtta, denydias
 Tags: autoptimize, critical css, above-the-fold, render-blocking css
 Requires at least: 4.9
 Tested up to: 5.2
-Stable tag: 1.17.0
+Stable tag: 1.17.1
 
 Autoptimize criticalcss.com power-up adds automated critical css creation to Autoptimize integrating with the https://criticalcss.com service.
 
@@ -95,6 +95,10 @@ Some tips:
 As of AO CCSS 1.13.0 the plugin binds itself to a domain to avoid unexpected requests from cloned sites. You can either deactivate and reactivate the plugin to reset the "bound domain" or you can pass `false` to the `autoptimize_filter_ccss_bind_domain` filter to disable the domain binding.
 
 == Changelog ==
+
+= 1.17.1 =
+
+* Urgent fix for `Uncaught Error: Call to undefined function is_user_logged_in() ` as reported by Matthew Rode.
 
 = 1.17.0 =
 
