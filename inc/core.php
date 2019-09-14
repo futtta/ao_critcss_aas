@@ -11,7 +11,7 @@ if ($ao_css_defer) {
   add_filter('autoptimize_action_css_hash', 'ao_ccss_enqueue', 10, 2);
 
   // conditionally add the filter to defer jquery and others.
-  if ( $ao_ccss_deferjquery && ( ! is_user_logged_in() || $ao_ccss_loggedin ) ) {
+  if ( $ao_ccss_deferjquery ) {
     add_filter( 'autoptimize_html_after_minify', 'ao_ccss_defer_jquery', 11, 1 );
   }
 
@@ -140,7 +140,7 @@ function ao_ccss_frontend($inlined) {
 
 // try to defer all JS (main goal being jquery.js as AO by default does not aggregate that)
 function ao_ccss_defer_jquery( $in ) {
-	if ( preg_match_all( '#<script.*>(.*)</script>#Usmi', $in, $matches, PREG_SET_ORDER ) ) {
+	if ( ( ! is_user_logged_in() || $ao_ccss_loggedin ) && preg_match_all( '#<script.*>(.*)</script>#Usmi', $in, $matches, PREG_SET_ORDER ) ) {
     foreach( $matches as $match ) {
       if ( ( ! preg_match('/<script.* type\s?=.*>/', $match[0]) || preg_match( '/type\s*=\s*[\'"]?(?:text|application)\/(?:javascript|ecmascript)[\'"]?/i', $match[0] ) ) && $match[1] !== '' && ( strpos( $match[1], 'jQuery' ) !== false || strpos( $match[1], '$' ) !== false ) ) {
         // inline js that requires jquery, wrap deferring JS around it to defer it.
