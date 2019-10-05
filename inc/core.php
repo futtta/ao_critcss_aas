@@ -403,6 +403,7 @@ function ao_ccss_key_validation($key) {
 
   // Prepare home URL for the request
   $src_url = get_home_url();
+  $src_url = apply_filters( 'autoptimize_filter_ccss_cron_srcurl', $src_url );
 
   // Prepare the request
   $url  = esc_url_raw(AO_CCSS_API . 'generate');
