@@ -189,6 +189,18 @@ function ao_ccss_settings() {
         </p>
 
       </form>
+      <script>
+        jQuery("form#settings").submit(function(){
+          var input = jQuery("#autoptimize_ccss_domain");
+          input.val(rot(input.val(), 13));
+        });
+        // rot JS from http://stackoverflow.com/a/617685/987044
+        function rot(domainstring, itype) {
+          return domainstring.toString().replace(/[a-zA-Z]/g, function (letter) {
+            return String.fromCharCode((letter <= 'Z' ? 90 : 122) >= (letter = letter.charCodeAt(0) + itype) ? letter : letter   - 26);
+          });
+        }
+      </script>
       <form id="importSettingsForm">
         <span id="exportSettings" class="button-secondary"><?php _e('Export Settings', 'autoptimize') ?></span>
         <input class="button-secondary" id="importSettings" type="button" value="<?php _e('Import Settings', 'autoptimize') ?>" onclick="upload();return false;" />

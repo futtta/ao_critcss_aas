@@ -498,7 +498,7 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
   global $ao_ccss_domain;
   if ( empty( $ao_ccss_domain ) ) {
     // first request being done, update option to allow future requests are only allowed if from same domain.
-    update_option( 'autoptimize_ccss_domain', $site_host );
+    update_option( 'autoptimize_ccss_domain', str_rot13($site_host) );
   } else if ( trim( $ao_ccss_domain, '\'"') !== 'none' && parse_url( $site_host, PHP_URL_HOST ) !== parse_url( $ao_ccss_domain, PHP_URL_HOST ) && apply_filters( 'autoptimize_filter_ccss_bind_domain', true ) ) {
     // not the same domain, log as error and return without posting to criticalcss.com.
     ao_ccss_log( 'Request for domain '.$site_host.' does not match bound domain '.$ao_ccss_domain.' so not proceeding.', 2 );
