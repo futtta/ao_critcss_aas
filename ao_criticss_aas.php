@@ -64,7 +64,11 @@ $ao_ccss_loggedin      = get_option('autoptimize_ccss_loggedin'     , '1' );
 $ao_ccss_forcepath     = get_option('autoptimize_ccss_forcepath'    , '1' );
 $ao_ccss_servicestatus = get_option('autoptimize_ccss_servicestatus');
 $ao_ccss_deferjquery   = get_option('autoptimize_ccss_deferjquery'  , FALSE);
-$ao_ccss_domain        = str_rot13(get_option('autoptimize_ccss_domain'));
+$ao_ccss_domain        = get_option('autoptimize_ccss_domain'       );
+
+if ( strpos($ao_ccss_domain, 'http') === false && strpos($ao_ccss_domain, 'uggc') === 0 ) {
+  $ao_ccss_domain = str_rot13( $ao_ccss_domain );
+}
 
 // Setup the rules array
 if (empty($ao_ccss_rules_raw)) {
