@@ -8,6 +8,24 @@ Version: 1.17.1
 Text Domain: autoptimize
 */
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+
+class autoptimizeCriticalCSS {
+    public function __construct()
+    {
+        $this->run();
+    }
+
+    public function run()
+    {
+    }
+
+
+}
+  
 // force vars to global.
 global $ao_css_defer;
 global $ao_css_defer_inline;
@@ -64,19 +82,19 @@ if (empty($ao_ccss_queue_raw)) {
 }
 
 // Required libs
-require_once('inc/core.php');
-require_once('inc/core_ajax.php');
-require_once('inc/core_enqueue.php');
-require_once('inc/cron.php');
+require_once('critcss-inc/core.php');
+require_once('critcss-inc/core_ajax.php');
+require_once('critcss-inc/core_enqueue.php');
+require_once('critcss-inc/cron.php');
 
 if ( is_admin() ) {
-  require_once('inc/admin_settings.php');
-  require_once('inc/admin_settings_rules.php');
-  require_once('inc/admin_settings_queue.php');
-  require_once('inc/admin_settings_key.php');
-  require_once('inc/admin_settings_adv.php');
-  require_once('inc/admin_settings_explain.php');
-  require_once('inc/external/persist-admin-notices-dismissal/persist-admin-notices-dismissal.php');
+  require_once('critcss-inc/admin_settings.php');
+  require_once('critcss-inc/admin_settings_rules.php');
+  require_once('critcss-inc/admin_settings_queue.php');
+  require_once('critcss-inc/admin_settings_key.php');
+  require_once('critcss-inc/admin_settings_adv.php');
+  require_once('critcss-inc/admin_settings_explain.php');
+  require_once('critcss-inc/external/persist-admin-notices-dismissal/persist-admin-notices-dismissal.php');
 }
 
 // Define plugin version
@@ -158,14 +176,14 @@ function ao_ccss_admin_assets($hook) {
 
   // Stylesheets to add
   wp_enqueue_style('wp-jquery-ui-dialog');
-  wp_enqueue_style('ao-tablesorter',    plugins_url('css/ao-tablesorter/style.css', __FILE__));
-  wp_enqueue_style('ao-ccss-admin-css', plugins_url('css/admin_styles.css',         __FILE__));
+  wp_enqueue_style('ao-tablesorter',    plugins_url('critcss-inc/css/ao-tablesorter/style.css', __FILE__));
+  wp_enqueue_style('ao-ccss-admin-css', plugins_url('critcss-inc/css/admin_styles.css',         __FILE__));
 
   // Scripts to add
   wp_enqueue_script('jquery-ui-dialog',      array( 'jquery' ));
-  wp_enqueue_script('md5',                   plugins_url('js/md5.min.js',                __FILE__), NULL, NULL, TRUE);
-  wp_enqueue_script('tablesorter',           plugins_url('js/jquery.tablesorter.min.js', __FILE__), array('jquery'), NULL, TRUE);
-  wp_enqueue_script('ao-ccss-admin-license', plugins_url('js/admin_settings.js',             __FILE__), array('jquery'), NULL, TRUE);
+  wp_enqueue_script('md5',                   plugins_url('critcss-inc/js/md5.min.js',                __FILE__), NULL, NULL, TRUE);
+  wp_enqueue_script('tablesorter',           plugins_url('critcss-inc/js/jquery.tablesorter.min.js', __FILE__), array('jquery'), NULL, TRUE);
+  wp_enqueue_script('ao-ccss-admin-license', plugins_url('critcss-inc/js/admin_settings.js',             __FILE__), array('jquery'), NULL, TRUE);
 }
 add_action('admin_enqueue_scripts', 'ao_ccss_admin_assets');
 
