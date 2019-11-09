@@ -1,4 +1,14 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+// fetch all options at once and populate them individually explicitely as globals.
+$all_options = autoptimizeCriticalCSS::fetch_options();
+foreach ( $all_options as $_option => $_value ) {
+    global ${$_option};
+    ${$_option} = $_value;
+}
 
 // Check if CriticalCSS is desired
 if ($ao_css_defer) {
@@ -333,7 +343,7 @@ function ao_ccss_key_status($render) {
   $status     = FALSE;
 
   // Key exists and its status is valid
-  if ($key && $key_status == 2) {
+  if ( $key && $key_status == 2 ) {
 
     // Set valid key status
     $status     = 'valid';
