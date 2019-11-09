@@ -467,7 +467,7 @@ function ao_ccss_key_validation($key) {
         $jprops['jftime']   = null;
         $ao_ccss_queue['/'] = $jprops;
         $ao_ccss_queue_raw = json_encode($ao_ccss_queue);
-        update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw);
+        update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw, false);
         ao_ccss_log('Created P job for is_front_page based on API key check response.', 3);
       }
     }
