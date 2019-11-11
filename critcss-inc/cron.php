@@ -2,31 +2,6 @@
 
 // NOTE: implements section 4 of the specs
 
-// Set WP-Cron interval
-function ao_ccss_interval($schedules) {
-
-  // Let interval be configurable
-  if (!defined('AO_CCSS_DEBUG_INTERVAL')) {
-    $intsec = 600;
-  } else {
-    $intsec = AO_CCSS_DEBUG_INTERVAL;
-    if ($intsec >= 120) {
-      $inttxt = $intsec / 60 . ' minutes';
-    } else {
-      $inttxt = $intsec . ' second(s)';
-    }
-    ao_ccss_log('Using custom WP-Cron interval of ' . $inttxt, 3);
-  }
-
-  // Attach interval to schedule
-  $schedules['ao_ccss'] = array(
-    'interval' => $intsec,
-    'display' => __('Autoptimize CriticalCSS.com Power-Up Queue')
-  );
-  return $schedules;
-}
-add_filter('cron_schedules', 'ao_ccss_interval');
-
 // Add queue control to a registered event
 add_action('ao_ccss_queue', 'ao_ccss_queue_control');
 

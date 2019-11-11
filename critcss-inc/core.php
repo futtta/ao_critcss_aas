@@ -33,6 +33,7 @@ if ($ao_css_defer) {
 
   // Add an array with default WordPress's conditional tags
   // NOTE: these tags are sorted
+  global $ao_ccss_types;
   $ao_ccss_types = get_ao_ccss_core_types();
 
   // Extend conditional tags on pugin initalization

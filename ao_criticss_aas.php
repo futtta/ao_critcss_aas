@@ -48,14 +48,19 @@ class autoptimizeCriticalCSS {
             ${$option} = $value;
         }
 
+        // make sure the 10 minutes cron schedule is added.
+        add_filter( 'cron_schedules', array( $this, 'ao_ccss_interval' ) );
+
         // add admin hooks if need be.
         if ( is_admin() ) {
             $this->hooks_for_admin();
         }
-        
-        register_activation_hook( __FILE__, array( $this, 'on_activation' ) );
-        
+
+        // check if we need to upgrade.
         $this->check_upgrade();
+
+        // and register the activation hook.
+        register_activation_hook( __FILE__, array( $this, 'on_activation' ) );
     }
     
     public function load_requires() {
@@ -77,7 +82,7 @@ class autoptimizeCriticalCSS {
             require_once( 'critcss-inc/core_ajax.php' );
             require_once( 'critcss-inc/external/persist-admin-notices-dismissal/persist-admin-notices-dismissal.php' );
         } else {
-            // enqueuing explictly only done when not admin.
+            // enqueuing only done when not wp-admin.
             require_once( 'critcss-inc/core_enqueue.php' );
         }
     }
@@ -103,7 +108,10 @@ class autoptimizeCriticalCSS {
         $autoptimize_ccss_options['ao_ccss_domain']        = get_option( 'autoptimize_ccss_domain'       );
 
         if ( strpos( $autoptimize_ccss_options['ao_ccss_domain'], 'http') === false && strpos( $autoptimize_ccss_options['ao_ccss_domain'], 'uggc') === 0 ) {
-          $autoptimize_ccss_options['ao_ccss_domain'] = str_rot13( $autoptimize_ccss_options['ao_ccss_domain'] );
+            $autoptimize_ccss_options['ao_ccss_domain'] = str_rot13( $autoptimize_ccss_options['ao_ccss_domain'] );
+        } else if ( strpos( $autoptimize_ccss_options['ao_ccss_domain'], 'http') !== false ) {
+            // not rot13'ed yet, do so now (goal; avoid migration plugins change the bound domain).
+            update_option( 'autoptimize_ccss_domain', str_rot13( $autoptimize_ccss_options['ao_ccss_domain'] ) );
         }
 
         // Setup the rules array
@@ -260,6 +268,28 @@ class autoptimizeCriticalCSS {
             // and update db_version
             update_option( 'autoptimize_ccss_version',AO_CCSS_VER);
         }
+    }
+
+    public function ao_ccss_interval($schedules) {
+        // Let interval be configurable
+        if (!defined('AO_CCSS_DEBUG_INTERVAL')) {
+            $intsec = 600;
+        } else {
+            $intsec = AO_CCSS_DEBUG_INTERVAL;
+            if ($intsec >= 120) {
+              $inttxt = $intsec / 60 . ' minutes';
+            } else {
+              $inttxt = $intsec . ' second(s)';
+            }
+            ao_ccss_log('Using custom WP-Cron interval of ' . $inttxt, 3);
+        }
+
+        // Attach interval to schedule
+        $schedules['ao_ccss'] = array(
+            'interval' => $intsec,
+            'display' => __('Autoptimize CriticalCSS.com Power-Up Queue')
+        );
+        return $schedules;
     }
 }
 
