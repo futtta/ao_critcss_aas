@@ -17,8 +17,8 @@ if ($ao_css_defer) {
   add_filter('autoptimize_filter_css_critcss_minify', '__return_false');
   add_filter('autoptimize_filter_css_defer_inline', 'ao_ccss_frontend', 10, 1);
 
-  // Add the filter to enqueue jobs for CriticalCSS cron
-  add_filter('autoptimize_action_css_hash', 'ao_ccss_enqueue', 10, 2);
+  // Add the action to enqueue jobs for CriticalCSS cron
+  add_action('autoptimize_action_css_hash', 'ao_ccss_enqueue', 10, 1);
 
   // conditionally add the filter to defer jquery and others.
   if ( $ao_ccss_deferjquery ) {

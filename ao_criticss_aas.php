@@ -13,6 +13,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class autoptimizeCriticalCSS {
+    /**
+     * Main plugin filepath.
+     * Used for activation/deactivation/uninstall hooks.
+     *
+     * @var string
+     */
+    protected $filepath = null;
+
     public function __construct()
     {
         // Define plugin version
@@ -35,6 +43,8 @@ class autoptimizeCriticalCSS {
         // fixme: AO_CCSS_URL should be read from the autoptimize availability json stored as option.
         define( 'AO_CCSS_URL', 'https://criticalcss.com' );
         define( 'AO_CCSS_API', AO_CCSS_URL . '/api/premium/' );
+
+        $this->filepath = __FILE__;
 
         $this->setup();
         $this->load_requires();
