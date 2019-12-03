@@ -77,7 +77,7 @@ class autoptimizeCriticalCSS {
         // Required libs, core is always needed.
         require_once( 'critcss-inc/core.php' );
         
-        if ( defined( 'DOING_CRON' ) ) {
+        if ( defined( 'DOING_CRON' ) || is_admin() ) {
             // fix me: also include if overridden somehow to force queue processing to be executed.
             require_once( 'critcss-inc/cron.php' );
         }
