@@ -1,4 +1,14 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+// fetch all options at once and populate them individually explicitely as globals.
+$all_options = autoptimizeCriticalCSS::fetch_options();
+foreach ( $all_options as $_option => $_value ) {
+    global ${$_option};
+    ${$_option} = $_value;
+}
 
 // Check if CriticalCSS is desired
 if ($ao_css_defer) {
@@ -7,8 +17,8 @@ if ($ao_css_defer) {
   add_filter('autoptimize_filter_css_critcss_minify', '__return_false');
   add_filter('autoptimize_filter_css_defer_inline', 'ao_ccss_frontend', 10, 1);
 
-  // Add the filter to enqueue jobs for CriticalCSS cron
-  add_filter('autoptimize_action_css_hash', 'ao_ccss_enqueue', 10, 2);
+  // Add the action to enqueue jobs for CriticalCSS cron
+  add_action('autoptimize_action_css_hash', 'ao_ccss_enqueue', 10, 1);
 
   // conditionally add the filter to defer jquery and others.
   if ( $ao_ccss_deferjquery ) {
@@ -23,6 +33,7 @@ if ($ao_css_defer) {
 
   // Add an array with default WordPress's conditional tags
   // NOTE: these tags are sorted
+  global $ao_ccss_types;
   $ao_ccss_types = get_ao_ccss_core_types();
 
   // Extend conditional tags on pugin initalization
@@ -333,7 +344,7 @@ function ao_ccss_key_status($render) {
   $status     = FALSE;
 
   // Key exists and its status is valid
-  if ($key && $key_status == 2) {
+  if ( $key && $key_status == 2 ) {
 
     // Set valid key status
     $status     = 'valid';
@@ -457,7 +468,7 @@ function ao_ccss_key_validation($key) {
         $jprops['jftime']   = null;
         $ao_ccss_queue['/'] = $jprops;
         $ao_ccss_queue_raw = json_encode($ao_ccss_queue);
-        update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw);
+        update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw, false);
         ao_ccss_log('Created P job for is_front_page based on API key check response.', 3);
       }
     }

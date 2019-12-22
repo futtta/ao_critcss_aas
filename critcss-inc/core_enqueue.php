@@ -175,7 +175,7 @@ function ao_ccss_enqueue($hash) {
       // Persist the job to the queue and return
       if ($queue_update) {
         $ao_ccss_queue_raw = json_encode($ao_ccss_queue);
-        update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw);
+        update_option('autoptimize_ccss_queue', $ao_ccss_queue_raw, false);
         return TRUE;
 
       // Or just return false if no job was added
