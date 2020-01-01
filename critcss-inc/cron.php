@@ -483,7 +483,7 @@ function ao_ccss_api_generate($path, $debug, $dcode) {
   $src_url = $site_host . $path;
 
   // Avoid AO optimizations if required by config or avoid lazyload if lazyload is active in AO
-  if ( !empty( $ao_ccss_noptimize ) ) 
+  if ( !empty( $ao_ccss_noptimize ) ) {
     $src_url .= '?ao_noptirocket=1';
   } elseif ( class_exists( 'autoptimizeImages', false ) && autoptimizeImages::should_lazyload_wrapper() ) {
     $src_url .= '?ao_nolazy=1';
