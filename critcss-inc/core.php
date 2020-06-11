@@ -194,7 +194,11 @@ function ao_ccss_extend_types() {
   }
 
   // Templates
-  $templates = wp_get_theme()->get_page_templates();
+  $templates = get_transient('ao_ccss_page_tpls');
+  if(!$templates) {
+    $templates = wp_get_theme()->get_page_templates();
+    set_transient('ao_ccss_page_tpls', $templates, HOUR_IN_SECONDS);
+  }
   foreach ($templates as $tplfile => $tplname) {
     array_unshift ( $ao_ccss_types, 'template_' . $tplfile );
   }
@@ -589,5 +593,11 @@ function ao_ccss_log($msg, $lvl) {
     error_log($message, 3,  AO_CCSS_LOG);
   }
 }
+
+// Clear transient cache for page templates
+function ao_ccss_clear_page_tpl_cache() {
+  delete_transient('ao_ccss_page_tpls');
+}
+add_action('autoptimize_action_cachepurged', 'ao_ccss_clear_page_tpl_cache', 10, 0);
 
 ?>
