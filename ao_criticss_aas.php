@@ -4,7 +4,7 @@ Plugin Name: Autoptimize CriticalCSS.com Power-Up
 Plugin URI: http://optimizingmatters.com/
 Description: Let Autoptimize and CriticalCSS unleash your site performance and make it appear better than anyone in search results.
 Author: Deny Dias & Optimizing Matters
-Version: 1.18.0
+Version: 1.19.0
 Text Domain: autoptimize
 */
 
@@ -23,8 +23,15 @@ class autoptimizeCriticalCSS {
 
     public function __construct()
     {
+        // time to say goodbye except if on (very) old version of AO.
+        add_action( 'admin_init', function() {
+            if ( version_compare( AUTOPTIMIZE_PLUGIN_VERSION, '2.7', '>=' ) ) {
+                deactivate_plugins( 'autoptimize-criticalcss/ao_criticss_aas.php', true );
+            }
+        } );
+        
         // Define plugin version
-        define( 'AO_CCSS_VER', '1.18.0' );
+        define( 'AO_CCSS_VER', '1.19.0' );
 
         // Define a constant with the directory to store critical CSS in
         if (is_multisite()) {
